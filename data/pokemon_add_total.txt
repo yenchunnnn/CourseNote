@@ -1,0 +1,51 @@
+"","Total","HitPoints","Attack","Defense","Speed"
+"Stunfisk",471,109,66,84,32
+"Mewtwo",680,106,110,90,130
+"Charmander",309,39,52,43,65
+"Grimer",325,80,80,50,25
+"Roggenrola",280,55,75,85,15
+"Larvesta",360,55,85,55,60
+"Metagross",600,80,135,130,70
+"Delcatty",380,70,65,65,70
+"Avalugg",514,95,117,184,28
+"Marowak",425,60,80,110,45
+"Staravia",340,55,75,50,80
+"Trubbish",329,50,50,62,65
+"Chandelure",520,60,55,90,80
+"Jigglypuff",270,115,45,20,20
+"Fennekin",307,40,45,40,60
+"Rapidash",500,65,100,70,105
+"Tyrogue",210,35,35,35,35
+"Joltik",319,50,47,50,65
+"Zekrom",680,100,150,120,90
+"Muk",500,105,105,75,50
+"Paras",285,35,70,55,25
+"Buizel",330,55,65,35,85
+"Sigilyph",490,72,58,80,97
+"Arbok",438,60,85,69,80
+"SceptileMega Sceptile",630,70,110,75,145
+"Corphish",308,43,80,65,35
+"Beartic",485,95,110,80,50
+"Porygon",395,65,60,70,40
+"Treecko",310,40,45,35,70
+"Skorupi",330,40,50,90,65
+"Hydreigon",600,92,105,90,98
+"Snorlax",540,160,110,65,30
+"Leafeon",525,65,110,130,95
+"SableyeMega Sableye",480,50,85,125,20
+"WormadamTrash Cloak",424,60,69,95,36
+"Grovyle",405,50,65,45,95
+"Serperior",528,75,75,95,113
+"Cherrim",450,70,60,70,85
+"Amaura",362,77,59,50,46
+"Hippopotas",330,68,72,78,32
+"Klink",300,40,55,70,30
+"Bidoof",250,59,45,40,31
+"AerodactylMega Aerodactyl",615,80,135,85,150
+"Flabébé",303,44,38,39,42
+"Throh",465,120,100,85,45
+"Electrike",295,40,45,40,65
+"Sawsbuck",475,80,100,70,95
+"Mantine",465,65,40,70,70
+"Sceptile",530,70,85,65,120
+"Bergmite",304,55,69,85,28

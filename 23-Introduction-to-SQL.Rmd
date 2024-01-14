@@ -1,0 +1,187 @@
+# Introduction to SQL
+
+## Relational Databases
+
+### Databases
+
+**Relational databases**
+
+-   Define relationships between tables of data inside the database
+
+**Database advantages**
+
+-   More storage than spreadsheet applications
+
+-   Storage is more secure
+
+**SQL**
+
+-   Short for Structured Query Language
+
+-   The most widely used programming language for databases
+
+### Tables
+
+**Tables**
+
+-   Table rows and columns are referred to as *records* and *fields*
+
+-   Fields are set at database creation; there is no limit to the number of records
+
+-   Table names:
+
+    -   lowercase
+
+    -   no spaces --- use underscores instead
+
+    -   refer to a collective group or be plural
+
+**Table: fields**
+
+-   A field is a column that holds one piece of information about all records
+
+-   Field names:
+
+    -   lowercase
+
+    -   no spaces --- use underscores instead
+
+    -   singular
+
+    -   different from other field names
+
+    -   different from the table name
+
+**key**
+
+-   *Unique identifiers* are used to identify records in a table
+
+-   They are unique and often numbers
+
+### Data
+
+**SQL data types**
+
+-   Strings: `VARCHAR`
+
+-   Integers: `INT`
+
+-   Floats: `NUMERIC`
+
+**Schemas**
+
+-   Shows a database's design, such as what tables are included in the database and any relationships between its tables.
+
+-   Shows data types
+
+## Querying
+
+### Introducing
+
+#### Querying table
+
+Practice selecting fields from `books` table.
+
+![](https://assets.datacamp.com/production/repositories/6051/datasets/e29a42b38f1f06c8dc59b448acee9cbd9419f337/books_schema_zoom.png){width="192"}
+
+``` sql
+-- Return all titles from the books table
+SELECT title
+FROM books;
+
+-- Select title and author from the books table
+SELECT title, author
+FROM books;
+
+-- Select all fields from the books table
+SELECT *
+FROM books;
+```
+
+### Writing queries
+
+#### DISTINCT
+
+`DISTINCT` keyword can be used to return unique values in a field.
+
+There are 350 books in the `books` table, representing all of the books that our local library has available for checkout. But how many different authors are represented in these 350 books? The answer is surely less than 350. For example, J.K. Rowling wrote all seven Harry Potter books, so if our library has all Harry Potter books, seven books will be written by J.K Rowling.
+
+``` sql
+-- Select unique authors from the books table
+SELECT DISTINCT author
+FROM books 
+
+-- Select unique authors and genre combinations from the books table
+SELECT DISTINCT author, genre
+FROM books;
+```
+
+You found 247 unique authors in the books table overall but 249 unique combinations of authors and genres. This means there are one or two authors who have written books in multiple genres!
+
+#### AS
+
+Use *aliasing* to rename columns.
+
+``` sql
+-- Alias author so that it becomes unique_author
+SELECT DISTINCT author AS unique_author
+FROM books;
+```
+
+#### VIEW
+
+-   A view is a virtual table that is the result of a saved SQL `SELECT` statement
+
+-   The query code is stored for later use.
+
+``` sql
+-- Save the results of this query as a view called library_authors
+CREATE VIEW library_authors AS
+SELECT DISTINCT author AS unique_author
+FROM books;
+
+-- Select all columns from library_authors
+SELECT *
+FROM library_authors
+```
+
+As your SQL queries become long and complex, you'll want to be able to save your queries for referencing later. Views can also be useful when the information contained in a database table isn't quite what you need. You can create your own custom view with exactly the information you are looking for, without needing to edit the database itself
+
+### SQL flavors
+
+**Two popular SQL flavors**
+
+-   PostgreSQL
+
+    -   Free and open-source relational database system
+
+    -   "PostgreSQL" refers to both the PostgreSQL database system and its associated SQL flavor
+
+-   SQL Server
+
+    -   Has free and paid versions
+
+    -   Created by Microsoft
+
+    -   T-SQL is Microsoft's SQL flavor, used with SQL Server databases
+
+-   Comparing PostgreSQL and SQL Server
+
+    -   PostgreSQL: `LIMIT 2`
+
+    -   SQL Server: `TOP(2)`
+
+#### LIMIT
+
+Queries are often written with a `LIMIT` of just a few records to test out code before selecting thousands of results from the database.
+
+```sql
+-- Select the first 10 genres from books using PostgreSQL
+SELECT genre 
+FROM books
+LIMIT 10;
+```
+
+
+
+

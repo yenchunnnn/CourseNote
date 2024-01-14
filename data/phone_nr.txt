@@ -1,0 +1,7 @@
+"country","country_code","national_number"
+"USA","+1","2025550117"
+"United Kingdom","+44","1632960924"
+"Brazil","+55","95552452220"
+"Australia","+61","1900654321"
+"China","+86","13555953217"
+"India","+91","8555843898"

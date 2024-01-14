@@ -1,0 +1,26 @@
+---
+title: "Data Scientist with R"
+author: "Yen Chun Chen"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a notebook about the data science courses took from the datacamp.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# About {-}
+
+This is a notebook about the data science courses I took from the [Datacamp](https://www.datacamp.com/tracks/data-scientist-professional-with-r). If you think it's helpful, please do not hesitate to give me a star. ⭐
+
+Cheers! 😉
+
+
+```{r eval=FALSE, include=FALSE}
+bookdown::serve_book()
+```
+

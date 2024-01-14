@@ -1,0 +1,1245 @@
+# Sampling in R
+
+## Introduction to Sampling
+
+### Sampling & point estimates
+
+**Population vs. sample**
+
+-   The *population* is the complete dataset.
+
+    -   It doesn't have to refer to people.
+
+    -   You typically don't know what the whole population is.
+
+-   The *sample* is the subset of data you calculate on.
+
+**Base-R sampling**
+
+-   `slice_sample(df, n = num of sampling)` : for data frames
+
+-   `sample(vec, size = num of sampling)` : for vectors
+
+**Population parameters vs. point estimates**
+
+-   A *population parameter* is a calculation made on the population dataset.
+
+-   A *point estimate* or *sample statistic* is a calculation made on the sample dataset.
+
+#### Simple sampling with dplyr
+
+you'll be exploring song data from Spotify. Each row of the dataset represents a song. Columns include the name of the song, the artists who performed it, the release year, and attributes of the song like its duration, tempo, and danceability.
+
+```{r message=FALSE}
+library(tidyverse)
+library(fst)
+
+spotify_population <- read_fst("data/spotify_2000_2020.fst")
+
+# View the whole population dataset
+glimpse(spotify_population)
+```
+
+Here, sample the song dataset and compare a calculation on the whole population and on a sample.
+
+```{r}
+# Sample 1000 rows from spotify_population
+spotify_sample <- slice_sample(spotify_population, n = 1000)
+
+# See the result
+glimpse(spotify_sample)
+```
+
+Notice that the mean duration of songs in the sample is similar, but not identical to the mean duration of songs in the whole population.
+
+```{r}
+# Calculate the mean duration in mins from spotify_population
+mean_dur_pop <- spotify_population %>% 
+    summarise(mean_dur_pop = mean(duration_minutes))
+
+
+# Calculate the mean duration in mins from spotify_sample
+mean_dur_samp <- spotify_sample %>% 
+    summarise(mean_dur_samp = mean(duration_minutes))
+
+
+# See the results
+cbind(mean_dur_pop, mean_dur_samp)
+```
+
+#### Simple sampling with base-R
+
+Let's look at the loudness property of each song.
+
+```{r}
+# Get the loudness column of spotify_population
+loudness_pop <- spotify_population$loudness
+
+# Sample 100 values of loudness_pop
+loudness_samp <- sample(loudness_pop, size = 100)
+
+# See the results
+loudness_samp
+```
+
+Again, notice that the calculated value (the standard deviation) is close but not identical in each case.
+
+```{r}
+# Calculate the standard deviation of loudness_pop
+sd_loudness_pop <- sd(loudness_pop)
+
+# Calculate the standard deviation of loudness_samp
+sd_loudness_samp <- sd(loudness_samp)
+
+# See the results
+c(sd_loudness_pop, sd_loudness_samp)
+```
+
+### Convenience sampling
+
+-   Sample not representative of population, causing *sample bias*.
+
+-   Collecting data by the easiest method is called *convenience sampling*.
+
+-   Visualizing selection bias with histogram.
+
+#### Generalizable
+
+Visualizing the distributions of the population and the sample can help determine whether or not the sample is representative of the population.
+
+The Spotify dataset contains a column named `acousticness`, which is a confidence measure from zero to one of whether the track is acoustic, that is, it was made with instruments that aren't plugged in.
+
+```{r}
+# Visualize the distribution of acousticness as a histogram with a binwidth of 0.01
+ggplot(spotify_population, aes(x = acousticness)) +
+    geom_histogram(binwidth = 0.01)
+```
+
+```{r}
+# sampling
+spotify_mysterious_sample <- slice_max(spotify_population, order_by = acousticness, n = 1107)
+
+# Update the histogram to use spotify_mysterious_sample with x-axis limits from 0 to 1
+ggplot(spotify_mysterious_sample, aes(acousticness)) +
+  geom_histogram(binwidth = 0.01) +
+  xlim(0, 1)
+```
+
+The `acousticness` values in the sample are all greater than `0.95`, whereas they range from `0` to `1` in the whole population.
+
+Let's look at another sample to see if it is representative of the population. This time, you'll look at the `duration_minutes` column of the Spotify datasets.
+
+```{r}
+# Visualize the distribution of duration_minutes as a histogram with a binwidth of 0.5
+ggplot(spotify_population, aes(duration_minutes)) +
+    geom_histogram(binwidth = 0.5) +
+    xlim(0, 15)
+```
+
+```{r}
+spotify_mysterious_sample2 <- slice_sample(spotify_population, n = 50)
+
+# Update the histogram to use spotify_mysterious_sample2 with x-axis limits from 0 to 15
+ggplot(spotify_mysterious_sample2, aes(duration_minutes)) +
+  geom_histogram(binwidth = 0.01) +
+  xlim(0, 15)
+```
+
+The duration values in the sample show a similar distribution to those in the whole population, so the results are generalizable.
+
+### Pseudo-random number generation
+
+-   Next "random" number calculated from previous "random" number.
+
+-   The first "random" number calculated from a *seed*.
+
+-   If you start from the same seed value, all future random numbers will be the same.
+
+**Random number generating functions**
+
+![](image/Random%20number%20generating%20functions.png){width="563"}
+
+#### Generating random numbers
+
+A related task is to generate random numbers that follow a statistical distribution, like the uniform distribution or the normal distribution.
+
+Each random number generation function has a name beginning with "`r`". It's first argument is the number of numbers to generate, but other arguments are distribution-specific.
+
+```{r}
+n_numbers <- 5000
+
+# see what arguments you need to pass to those functions
+args(runif)
+args(rnorm)
+```
+
+Complete the data frame of random numbers.
+
+```{r}
+# Generate random numbers from ...
+randoms <- data.frame(
+  # a uniform distribution from -3 to 3
+  uniform = runif(n_numbers, min = -3, max = 3),
+  # a normal distribution with mean 5 and sd 2
+  normal = rnorm(n_numbers, 5, 2)
+)
+```
+
+```{r}
+# Plot a histogram of uniform values, binwidth 0.25
+ggplot(randoms, aes(x = uniform)) +
+  geom_histogram(binwidth = 0.25)
+```
+
+```{r}
+# Plot a histogram of normal values, binwidth 0.5
+ggplot(randoms, aes(x = normal)) +
+  geom_histogram(binwidth = 0.5)
+```
+
+#### Random seeds
+
+Setting the seed to R's random number generator helps avoid different output every time by making the random number generation reproducible.
+
+```{r}
+# different value
+set.seed(123)
+list(r1 = rnorm(5), r2 = rnorm(5))
+```
+
+```{r}
+# same value
+set.seed(123)
+r1 <- rnorm(5)
+set.seed(123)
+r2 <- rnorm(5)
+
+list(r1 = r1, r2 = r2)
+```
+
+```{r}
+# different value
+set.seed(123)
+r1 <- rnorm(5)
+set.seed(456)
+r2 <- rnorm(5)
+
+list(r1 = r1, r2 = r2)
+```
+
+```{r}
+# same value
+set.seed(123)
+r1 <- c(rnorm(5), rnorm(5))
+set.seed(123)
+r2 <- rnorm(10)
+
+list(r1 = r1, r2 = r2)
+```
+
+Setting the seed to a particular value means that subsequent random code that generates random numbers will have the same answer each time you run it.
+
+## Sampling Methods
+
+### Simple random & systematic sampling
+
+#### Simple random sampling
+
+*Simple random sampling* (sometimes abbreviated to "SRS"), involves picking rows at random, one at a time, where each row has the same chance of being picked as any other.
+
+To make it easier to see which rows end up in the sample, it's helpful to include a *row ID column* (`rowid_to_column()`) in the dataset before you take the sample.
+
+We'll look at a synthetic (fictional) employee attrition dataset from IBM, where "attrition" means leaving the company.
+
+```{r}
+attrition_pop <- read_fst("data/attrition.fst")
+glimpse(attrition_pop)
+```
+
+Add a row ID column to the dataset, then use simple random sampling to get 200 rows.
+
+```{r}
+# Set the seed
+set.seed(5643)
+
+attrition_samp <- attrition_pop %>% 
+  # Add a row ID column
+  rowid_to_column() %>% 
+  # Get 200 rows using simple random sampling
+  slice_sample(n = 200)
+
+# View the attrition_samp dataset
+glimpse(attrition_samp)
+```
+
+Notice how the row IDs in the sampled dataset aren't always increasing order. They are just random.
+
+#### Systematic sampling
+
+Systematic sampling avoids randomness. Here, you pick rows from the population at *regular intervals*.
+
+For example, if the population dataset had `1000` rows and you wanted a sample size of `5`, you'd pick rows `200`, `400`, `600`, `800`, and `1000`. (1000 / 5 = 200 = interval)
+
+```{r}
+# Set the sample size to 200
+sample_size <- 200
+
+# Get the population size from attrition_pop
+pop_size <- nrow(attrition_pop)
+
+# Calculate the interval between rows to be sampled
+interval <- pop_size %/% sample_size; interval
+```
+
+Get the row indexes for the sample as a numeric sequence of `interval`.
+
+```{r}
+# Get row indexes for the sample
+row_indexes <- seq_len(sample_size) * interval
+str(row_indexes)
+
+# Systematically sample attrition_pop
+attrition_sys_samp <- attrition_pop %>% 
+  # Add a row ID column
+  rowid_to_column() %>% 
+  # Get 200 rows using systematic sampling
+  # Get the rows of the population corresponding to row_indexes
+  dplyr::slice(row_indexes)
+
+# See the result
+glimpse(attrition_sys_samp)
+```
+
+Systematic sampling avoids randomness by picking rows at regular intervals.
+
+**The trouble with systematic sampling**
+
+Systematic sampling has problems when the data are sorted or contain a pattern, then the resulting sample may not be representative of the whole population.
+
+The problem can be solved by shuffling the rows, but then systematic sampling is equivalent to simple random sampling.
+
+```{r}
+# Add a row ID column to attrition_pop
+attrition_pop_id <- attrition_pop %>% 
+  rowid_to_column()
+
+# Using attrition_pop_id, plot YearsAtCompany vs. rowid
+ggplot(attrition_pop_id, aes(rowid, YearsAtCompany)) +
+  # Make it a scatter plot
+  geom_point() +
+  # Add a smooth trend line
+  geom_smooth(se = F)
+```
+
+Shuffle the rows of `attrition_pop`, by `slice_sample(prop = 1)`
+
+```{r}
+# Shuffle the rows of attrition_pop then add row IDs
+attrition_shuffled <- attrition_pop %>% 
+    slice_sample(prop = 1) %>%
+    rowid_to_column()
+
+# Using attrition_shuffled, plot YearsAtCompany vs. rowid
+# Add points and a smooth trend line
+ggplot(attrition_shuffled, aes(rowid, YearsAtCompany)) +
+    geom_point() +
+    geom_smooth(se = F)
+```
+
+Shu+ing rows + systematic sampling is the same as simple random sampling.
+
+### Stratified & weighted random sampling
+
+Stratified sampling is useful if you care about *subgroups*. Otherwise, simple random sampling is more appropriate.
+
+#### Proportional stratified sampling
+
+If you are interested in subgroups within the population, then you may need to carefully control the counts of each subgroup within the population.
+
+Proportional stratified sampling results in subgroup sizes within the sample that are representative of the subgroup sizes within the population.
+
+```{r}
+education_counts_pop <- attrition_pop %>% 
+  # Count the employees by Education level, sorting by n
+  count(Education, sort = T) %>% 
+  # Add a percent column
+  mutate(percent = (n / sum(n)) * 100)
+
+# See the results
+education_counts_pop
+```
+
+```{r}
+# Use proportional stratified sampling to get 40% of each Education group
+attrition_strat <- attrition_pop %>%
+  group_by(Education) %>%
+  slice_sample(prop = 0.4) %>%
+  # Make sure to Ungroup the stratified sample
+  ungroup()
+
+# See the result
+glimpse(attrition_strat)
+```
+
+```{r}
+# Get the counts and percents from attrition_strat
+education_counts_strat <- attrition_strat %>%
+  count(Education, sort = T) %>%
+  mutate(percent = n / sum(n) * 100)
+
+# See the results
+education_counts_strat
+```
+
+By grouping then sampling, the size of each group in the sample is representative of the size of the sample in the population.
+
+#### Equal counts stratified sampling
+
+If one subgroup is larger than another subgroup in the population, but you don't want to reflect that difference in your analysis, then you can use equal counts stratified sampling to generate samples where each subgroup has the same amount of data.
+
+```{r}
+# Use equal counts stratified sampling to get 30 employees from each Education group
+attrition_eq <- attrition_pop %>%
+    group_by(Education) %>%
+    slice_sample(n = 30) %>%
+    ungroup()
+
+# See the results
+str(attrition_eq)
+```
+
+```{r}
+# Get the counts and percents from attrition_eq
+education_counts_eq <- attrition_eq %>%
+  count(Education, sort = T) %>%
+  mutate(percent = n / sum(n) * 100)
+
+# See the results
+education_counts_eq
+```
+
+If you want each subgroup to have equal weight in your analysis, then equal counts stratified sampling is the appropriate technique.
+
+#### Weighted sampling
+
+Weighted sampling, which lets you specify rules about the probability of picking rows at the row level. The probability of picking any given row is proportional to the weight value for that row.
+
+```{r}
+# Using attrition_pop, plot YearsAtCompany as a histogram with binwidth 1
+ggplot(attrition_pop, aes(x = YearsAtCompany)) +
+    geom_histogram(binwidth = 1) +
+    geom_vline(xintercept = mean(attrition_pop$YearsAtCompany),
+               color = "red",
+               linetype = "dotted") +
+    annotate(
+        "text",
+        x = 15, y = 175,
+        label = paste("mean = ", mean(attrition_pop$YearsAtCompany), sep = ""),
+        vjust = 1, size = 4, color = "grey40"
+    )
+```
+
+```{r}
+# Sample 400 employees weighted by YearsAtCompany
+attrition_weight <- attrition_pop %>% 
+    slice_sample(n = 400, weight_by = YearsAtCompany)
+
+# See the results
+glimpse(attrition_weight)
+```
+
+```{r}
+# Using attrition_weight, plot YearsAtCompany as a histogram with binwidth 1
+ggplot(attrition_weight, aes(x = YearsAtCompany)) +
+  geom_histogram(binwidth = 1) +
+  geom_vline(xintercept = mean(attrition_weight$YearsAtCompany),
+             color = "red",
+             linetype = "dotted") +
+  annotate(
+    "text",
+    x = 16, y = 40,
+    label = paste("mean = ", mean(attrition_weight$YearsAtCompany), sep = ""),
+    vjust = 1, size = 4, color = "grey40"
+  )
+```
+
+The weighted sample mean is around 11, which is higher than the population mean of around 7. The fact that the two numbers are different means that the weighted simple random sample is biased.
+
+### Cluster sampling
+
+**Stratified sampling vs. cluster sampling**
+
+The main benefit of cluster sampling over stratified sampling is that you can save time or money by not including every subgroup in your sample.
+
+-   Stratified sampling
+
+    -   Split the population into subgroups
+
+    -   Use simple random sampling on every subgroup
+
+-   Cluster sampling
+
+    -   Use simple random sampling to pick some subgroups
+
+        -   Stage 1: sampling for subgroups
+
+    -   Use simple random sampling on only those subgroups
+
+        -   Stage 2: sampling each group
+
+**Multistage sampling**
+
+-   Cluster sampling is a type of multistage sampling.
+
+-   You can have \> 2 stages.
+
+    -   e.g, Countrywide surveys may sample states, counties, cities, and neighborhoods.
+
+#### Performing cluster sampling
+
+You'll explore the JobRole column of the attrition dataset. You can think of each job role as a subgroup of the whole population of employees.
+
+```{r}
+# Get unique JobRole values
+job_roles_pop <- unique(attrition_pop$JobRole)
+
+# Randomly sample four JobRole values
+job_roles_samp <- sample(job_roles_pop, size = 4)
+
+# See the result
+job_roles_samp
+```
+
+```{r}
+# Filter for rows where JobRole is in job_roles_samp
+attrition_filtered <- attrition_pop %>%
+    filter(JobRole %in% job_roles_samp)
+
+# Randomly sample 10 employees from each sampled job role
+attrition_clus <- attrition_filtered %>%
+    group_by(JobRole) %>%
+    slice_sample(n = 10) %>%
+    ungroup()
+
+# See the result
+str(attrition_clus)
+```
+
+The two-stage sampling technique gives you control over sampling both between subgroups and within subgroups.
+
+### Comparing sampling methods
+
+#### 3 kinds of sampling
+
+Let's compare the performance of point estimates using simple, stratified, and cluster sampling. Before we do that, you'll have to set up the samples.
+
+In these exercises, we'll use the `RelationshipSatisfaction` column of the attrition dataset, which categorizes the employee's relationship with the company.
+
+```{r}
+# simple random sampling
+# Perform simple random sampling to get 0.25 of the population
+attrition_srs <- attrition_pop %>%
+    slice_sample(prop = 0.25)
+
+# stratified sampling
+# Perform stratified sampling to get 0.25 of each relationship group
+attrition_strat <- attrition_pop %>%
+    group_by(RelationshipSatisfaction) %>%
+    slice_sample(prop = 0.25) %>%
+    ungroup()
+
+
+# cluster sampling
+# Get unique values of RelationshipSatisfaction
+satisfaction_unique <- unique(attrition_pop$RelationshipSatisfaction)
+
+# Randomly sample for 2 of the unique satisfaction values
+satisfaction_samp <- sample(satisfaction_unique, size = 2)
+
+# Perform cluster sampling on the selected group getting 0.25 (one quarter) of the population
+attrition_clust <- attrition_pop %>%
+    filter(RelationshipSatisfaction %in% satisfaction_samp) %>%
+    group_by(RelationshipSatisfaction) %>%
+    slice_sample(n = round(nrow(attrition_pop) / 4)) %>%
+    ungroup()
+```
+
+#### Summary statistics on different sample
+
+Now you have three types of sample (simple, stratified, cluster), you can compare point estimates from each sample to the population parameter. That is, you can calculate the same summary statistic on each sample and see how it compares to the summary statistic for the population.
+
+Here, we'll look at how satisfaction with the company affects whether or not the employee leaves the company. That is, you'll calculate the proportion of employees who left the company (they have an `Attrition` value of `"Yes"`), for each value of `RelationshipSatisfaction`.
+
+```{r}
+# Use the whole population dataset 
+mean_attrition_pop <- attrition_pop %>% 
+  # Group by relationship satisfaction level
+  group_by(RelationshipSatisfaction) %>% 
+  # Calculate the proportion of employee attrition
+  summarise(mean_attrition = mean(Attrition == "Yes"))
+
+# See the result
+mean_attrition_pop
+```
+
+```{r}
+# Calculate the same thing for the simple random sample 
+mean_attrition_srs <- attrition_srs %>%
+    group_by(RelationshipSatisfaction) %>%
+    summarise(mean_attrition = mean(Attrition == "Yes"))
+
+# See the result
+mean_attrition_srs
+```
+
+```{r}
+# Calculate the same thing for the stratified sample 
+mean_attrition_strat <- attrition_strat %>%
+    group_by(RelationshipSatisfaction) %>%
+    summarise(mean_attrition = mean(Attrition == "Yes"))
+
+# See the result
+mean_attrition_strat
+```
+
+```{r}
+# Calculate the same thing for the cluster sample 
+mean_attrition_clust <- attrition_clust %>%
+    group_by(RelationshipSatisfaction) %>%
+    summarise(mean_attrition = mean(Attrition == "Yes"))
+
+# See the result
+mean_attrition_clust
+```
+
+The numbers are all fairly similar, with the notable exception that cluster sampling only gives results for the clusters included in the sample.
+
+## Sampling Distributions
+
+### Relative error of point estimates
+
+#### Relative errors
+
+The size of the sample you take affects how accurately the point estimates reflect the corresponding population parameter. For example, when you calculate a sample mean, you want it to be close to the population mean. However, if your sample is too small, this might not be the case.
+
+The most common metric for assessing accuracy is *relative error*. This is the absolute difference between the population parameter and the point estimate, all divided by the population parameter. It is sometimes expressed as a percentage.
+
+``` r
+100 * abs(population_mean - sample_mean) / population_mean
+```
+
+```{r}
+# Population mean
+mean_attrition_pop <- attrition_pop %>%
+    summarise(mean_attrition = mean(Attrition == "Yes")); mean_attrition_pop
+```
+
+When sample size is 10.
+
+```{r}
+# Generate a simple random sample of 10 rows 
+attrition_srs10 <- slice_sample(attrition_pop, n = 10)
+
+# Calculate the proportion of employee attrition in the sample
+mean_attrition_srs10 <- attrition_srs10 %>% 
+    summarise(mean_attrition = mean(Attrition == "Yes"))
+
+# Calculate the relative error percentage
+rel_error_pct10 <- abs(mean_attrition_pop - mean_attrition_srs10) / mean_attrition_pop * 100
+
+# See the result
+rel_error_pct10
+```
+
+When sample size is 100.
+
+```{r}
+# Calculate the relative error percentage again with a sample of 100 rows
+mean_attrition_srs100 <- attrition_pop %>%
+    slice_sample(n = 100) %>%
+    summarise(mean_attrition = mean(Attrition == "Yes"))
+
+
+rel_error_pct100 <- abs(mean_attrition_pop - mean_attrition_srs100) / mean_attrition_pop * 100
+
+# See the result
+rel_error_pct100
+```
+
+As you *increase the sample size*, on average the sample mean gets closer to the population mean and the *relative error decreases*.
+
+#### Relative error vs. sample size
+
+Here's a scatter plot of relative error versus sample size, with a smooth trend line calculated using the LOESS method.
+
+![](image/relative%20error%20vs%20sample%20size.png){width="578"}
+
+-   The relative error decreases as the sample size increases.
+
+-   As you increase sample size, the relative error decreases quickly at first, then more slowly as it drops to zero.
+
+### Creating a sampling distribution
+
+A sampling distribution is a distribution of several replicates of point estimates.
+
+Base-R's `replicate` function let's you run the same code multiple times. It's especially useful for situations like this where the result contains some randomness.
+
+``` r
+replicate(
+    n = 1000,
+    expr = data %>%
+      slice_sample(n = 30) %>%
+      summarize(mean_points = mean(total_points)) %>%
+      pull(mean_points)
+    )
+```
+
+-   The first argument, `n`: is the number of times to run the code,
+
+-   The second argument, `expr`: is the code to run.
+
+Each time the code is run, we get one sample mean, so running the code a thousand times gives us a vector of a thousand sample means.
+
+#### Replicating samples
+
+When you calculate a point estimate such as a sample mean, the value you calculate depends on the rows that were included in the sample. That means that there is some randomness in the answer.
+
+In order to quantify the variation caused by this randomness, you can create many samples and calculate the sample mean (or other statistic) for each sample.
+
+```{r}
+# Replicate this code 500 times
+mean_attritions <- replicate(
+  n = 500,
+  expr = attrition_pop %>% 
+    slice_sample(n = 20) %>% 
+    summarize(mean_attrition = mean(Attrition == "Yes")) %>% 
+    pull(mean_attrition)
+)
+
+# See the result
+str(mean_attritions)
+```
+
+```{r}
+# Store mean_attritions in a tibble in a column named sample_mean
+sample_means <- tibble(sample_mean = mean_attritions)
+
+# Plot a histogram of the `sample_mean` column, binwidth 0.05
+ggplot(sample_means, aes(x = sample_mean)) +
+  geom_histogram(binwidth = 0.05)
+```
+
+By generating the sample statistic many times with different samples, you can quantify the amount of variation in those statistics.
+
+As sample size increases, on average each sample mean has a lower relative error compared to the population mean, thus reducing the range of the distribution.
+
+### Approximate sampling distributions
+
+#### Exact sampling distribution
+
+The distribution of a sample statistic is called the *sampling distribution*. When we can calculate this exactly, rather than using an approximation, it is known as the *exact sampling distribution*.
+
+Let's take another look at the sampling distribution of dice rolls. This time, we'll look at five eight-sided dice.
+
+```{r}
+# Expand a grid representing 5 8-sided dice
+dice <- expand_grid(
+    die1 = 1:8,
+    die2 = 1:8,
+    die3 = 1:8,
+    die4 = 1:8,
+    die5 = 1:8
+)
+
+# See the result
+dice
+```
+
+Add a column, `mean_roll`, to `dice`, that contains the mean of the five rolls.
+
+```{r}
+dice <- dice %>% 
+  # Add a column of mean rolls
+  mutate(mean_roll = rowSums(.)/ncol(.))
+
+dice
+```
+
+```{r}
+# Using dice, draw a bar plot of mean_roll as a factor
+ggplot(dice, aes(x = factor(mean_roll))) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.8, hjust = 1))
+```
+
+The exact sampling distribution shows all possible variations of the point estimate that you are interested in.
+
+#### Approximate sampling distribution
+
+Calculating the exact sampling distribution is only possible in very simple situations. With just five eight-sided dice, the number of possible rolls is `8 ^ 5`, which is over thirty thousand.
+
+When the dataset is more complicated, for example where a variable has hundreds or thousands or categories, the number of possible outcomes becomes too difficult to compute exactly.
+
+In this situation, you can calculate an approximate sampling distribution by simulating the exact sampling distribution. That is, you can repeat a procedure over and over again to simulate both the sampling process and the sample statistic calculation process.
+
+```{r}
+# Sample one to eight, five times, with replacement
+five_rolls <- sample(1:8, size = 5, replace = TRUE)
+
+# Calculate the mean of five_rolls
+mean(five_rolls)
+```
+
+Replicate the sampling code 1000 times.
+
+The code to generate each sample mean was two lines, so we have to wrap the `expr` argument to replicate in `{}`, like in a for loop or a function body.
+
+```{r}
+# Replicate the sampling code 1000 times
+sample_means_1000 <- replicate(
+  n = 1000,
+  expr = {
+    five_rolls <- sample(1:8, size = 5, replace = TRUE)
+    mean(five_rolls)
+  }
+)
+
+# See the result
+str(sample_means_1000)
+```
+
+```{r}
+# Wrap sample_means_1000 in the sample_mean column of a tibble
+sample_means <- tibble(sample_mean = sample_means_1000)
+
+# See the result
+sample_means
+```
+
+```{r}
+# Using sample_means, draw a bar plot of sample_mean as a factor
+ggplot(sample_means, aes(x = factor(sample_mean))) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.8, hjust = 1))
+```
+
+Once your dataset gets sufficiently big, exact sampling distributions cannot be calculated, so an approximate sampling distribution has to be used. Notice that the histogram is close to but not exactly the same as the histogram from the previous exercise.
+
+### Standard errors & CLT
+
+**Consequences of the central limit theorem**
+
+-   Averages of independent samples have approximately normal distributions.
+
+-   As the sample size increases,
+
+    -   the distribution of the averages gets closer to being normally distributed
+
+    -   the width of the sampling distribution gets narrower.
+
+#### Population & sampling distribution means
+
+Here, we'll look at the relationship between the mean of the sampling distribution and the population parameter that the sampling is supposed to estimate.
+
+Three sampling distributions are provided. In each case, the employee attrition dataset was sampled using simple random sampling, then the mean attrition was calculated. This was done 1000 times to get a sampling distribution of mean attritions. One sampling distribution used a sample size of 5 for each replicate, one used 50, and one used 500.
+
+```{r}
+# function
+sampling_distribution_fun <- function(sample_size) {
+    replicate(
+        n = 1000,
+        expr = attrition_pop %>%
+            slice_sample(n = sample_size) %>%
+            summarise(mean_attrition = mean(Attrition == "Yes")) %>%
+            pull(mean_attrition)
+    ) %>%
+    tibble(mean_attrition = .)
+}
+
+# sample size = 5
+sampling_distribution_5 <- sampling_distribution_fun(5)
+sampling_distribution_5
+```
+
+```{r}
+# sample size = 50
+sampling_distribution_50 <- sampling_distribution_fun(50)
+sampling_distribution_50
+```
+
+```{r}
+sampling_distribution_500 <- sampling_distribution_fun(500)
+sampling_distribution_500
+```
+
+Calculate a mean of sample means.
+
+```{r}
+# Calculate the mean across replicates of the mean attritions in sampling_distribution_5
+mean_of_means_5 <- sampling_distribution_5 %>%
+  summarise(mean_mean_attrition_5 = mean(mean_attrition))
+
+# Do the same for sampling_distribution_50
+mean_of_means_50 <- sampling_distribution_50 %>%
+  summarise(mean_mean_attrition_50 = mean(mean_attrition))
+
+
+# ... and for sampling_distribution_500
+mean_of_means_500 <- sampling_distribution_500 %>%
+  summarise(mean_mean_attrition_500 = mean(mean_attrition))
+
+
+# See the results
+cbind(mean_of_means_5, mean_of_means_50, mean_of_means_500)
+```
+
+Regardless of sample size, the mean of the sampling distribution is a close approximation to the population mean.
+
+```{r}
+# For comparison: the mean attrition in the population
+attrition_pop %>% 
+  summarize(mean_attrition = mean(Attrition == "Yes"))
+```
+
+#### Population and sampling distribution variation
+
+Similarly, as a result of the central limit theorem, the standard deviation of the sampling distribution has an interesting relationship with the population parameter's standard deviation and the sample size.
+
+Calculate standard deviation of sample means.
+
+```{r}
+# Calculate the standard deviation across replicates of the mean attritions in sampling_distribution_5
+sd_of_means_5 <- sampling_distribution_5 %>%
+  summarise(sd_mean_attrition_5 = sd(mean_attrition))
+
+# Do the same for sampling_distribution_50
+sd_of_means_50 <- sampling_distribution_50 %>%
+  summarise(sd_mean_attrition_50 = sd(mean_attrition))
+
+
+# ... and for sampling_distribution_500
+sd_of_means_500 <- sampling_distribution_500 %>%
+  summarise(sd_mean_attrition_500 = sd(mean_attrition))
+
+# See the results
+cbind(sd_of_means_5, sd_of_means_50, sd_of_means_500)
+```
+
+The standard deviation of the sampling distribution is approximately equal to the population standard deviation divided by the square root of the sample size.
+
+```{r}
+# For comparison: population standard deviation
+sd_attrition_pop <- attrition_pop %>% 
+  summarize(sd_attrition = sd(Attrition == "Yes")) %>% 
+  pull(sd_attrition)
+
+# The sample sizes of each sampling distribution
+sample_sizes <- c(5, 50, 500)
+
+# create compare df
+Std_sample_mean <- c(pull(sd_of_means_5), pull(sd_of_means_50), pull(sd_of_means_500))
+data.frame(sample_sizes, Std_sample_mean) %>%
+    mutate(Pop_mean_over_sqrt_sample_size = sd_attrition_pop / sqrt(sample_sizes))
+```
+
+## Bootstrap Distributions
+
+### Introduction to bootstrapping
+
+*Bootstrapping* treats your dataset as a sample and uses it to build up a theoretical population.
+
+**Bootstrapping process**
+
+1.  Make a resample of the same size as the original sample.
+
+2.  Calculate the statistic of interest for this bootstrap sample.
+
+3.  Repeat steps 1 and 2 many times.
+
+The resulting statistics are called bootstrap statistics and when viewed to see their variability a bootstrap distribution.
+
+**With or without replacement**
+
+The key to deciding whether to sample without or with replacement is whether or not your dataset is best thought of as being the whole population or not.
+
+-   If dataset = whole population ⟶ with replacement
+
+-   If dataset ≠ whole population ⟶ without replacement
+
+#### Generating a bootstrap distribution
+
+To make a bootstrap distribution, you start with a sample and sample that with replacement. After that, the steps are the same: calculate the summary statistic that you are interested in on that sample/resample, then replicate the process many times.
+
+Here, `spotify_sample` is a subset of the `spotify_population` dataset.
+
+```{r}
+spotify_sample <- spotify_population %>%
+    select(artists, name, danceability) %>%
+    slice_sample(n = 1000)
+
+glimpse(spotify_sample)
+```
+
+Step 1: Generate a single bootstrap resample from `spotify_sample`.
+
+```{r}
+# Generate 1 bootstrap resample
+spotify_1_resample <- spotify_sample %>%
+    slice_sample(prop = 1, replace = TRUE)
+
+# See the result
+glimpse(spotify_1_resample)
+```
+
+Step 2: Summarize to calculate the mean `danceability` of `spotify_1_resample`.
+
+```{r}
+# Calculate mean danceability of resample
+mean_danceability_1 <- spotify_1_resample %>%
+  summarise(mean_danceability = mean(danceability)) %>%
+  pull(mean_danceability)
+
+# See the result
+mean_danceability_1
+```
+
+Replicate the expression provided 1000 times.
+
+```{r}
+# Step 3
+# Replicate this 1000 times
+mean_danceability_1000 <- replicate(
+  n = 1000,
+  expr = {
+    # Step 1
+    spotify_1_resample <- spotify_sample %>% 
+      slice_sample(prop = 1, replace = TRUE)
+    # Step 2
+    spotify_1_resample %>% 
+      summarize(mean_danceability = mean(danceability)) %>% 
+      pull(mean_danceability)
+  }
+)
+
+# See the result
+str(mean_danceability_1000)
+```
+
+Draw a histogram.
+
+```{r}
+# Store the resamples in a tibble
+bootstrap_distn <- tibble(
+  resample_mean = mean_danceability_1000
+)
+
+# Draw a histogram of the resample means with binwidth 0.002
+ggplot(bootstrap_distn, aes(resample_mean)) +
+  geom_histogram(binwidth = 0.002)
+```
+
+### Comparing sampling & bootstrap distributions
+
+**Sample, bootstrap distribution, population means**
+
+-   The bootstrap distribution mean is usually almost identical to the sample mean.
+
+-   It may not be a good estimate of the population mean.
+
+-   Bootstrapping cannot correct biases due to differences between your sample and the population.
+
+**Sample, bootstrap distribution, population stds**
+
+-   *Standard error* is the standard deviation of the statistic of interest.
+
+-   Standard error \* square root of sample size, estimates the population standard deviation.
+
+-   *Estimated standard error* is the standard deviation of the bootstrap distribution for a sample statistic.
+
+-   The bootstrap distribution standard error times the square root of the sample size estimates the standard deviation in the population.
+
+#### Sampling distribution vs. bootstrap distribution
+
+Here, the statistic you are interested in is the mean `popularity` score of the songs.
+
+```{r}
+spotify_sample <- spotify_population %>%
+    slice_sample(n = 500)
+
+glimpse(spotify_sample)
+```
+
+Generate a sampling distribution of 2000 replicates. Sample 500 rows of the population without replacement.
+
+```{r}
+# Generate a sampling distribution
+mean_popularity_2000_samp <- replicate(
+  # Use 2000 replicates
+  n = 2000,
+  expr = {
+    # Start with the population
+    spotify_population %>% 
+      # Sample 500 rows without replacement
+      slice_sample(n = 500, replace = FALSE) %>% 
+      # Calculate the mean popularity as mean_popularity
+      summarise(mean_popularity = mean(popularity)) %>% 
+      # Pull out the mean popularity
+      pull(mean_popularity)
+  }
+)
+
+# See the result
+str(mean_popularity_2000_samp)
+```
+
+Generate a bootstrap distribution of 2000 replicates. Sample 500 rows of the sample with replacement.
+
+```{r}
+# Generate a bootstrap distribution
+mean_popularity_2000_boot <- replicate(
+  # Use 2000 replicates
+  n = 2000,
+  expr = {
+    # Start with the sample
+    spotify_sample %>% 
+      # Sample same number of rows with replacement
+      slice_sample(prop = 1, replace = TRUE) %>% 
+      # Calculate the mean popularity
+      summarise(mean_popularity = mean(popularity)) %>% 
+      # Pull out the mean popularity
+      pull(mean_popularity)
+  }
+)
+
+# See the result
+str(mean_popularity_2000_boot)
+```
+
+#### Compare sampling and bootstrap means
+
+```{r}
+# create tibble to compare
+sampling_distribution <- tibble(sample_mean = mean_popularity_2000_samp)
+bootstrap_distribution <- tibble(resample_mean = mean_popularity_2000_boot)
+
+sampling_distribution
+bootstrap_distribution
+```
+
+Calculate the mean `popularity` with `summarize()` in 4 ways.
+
+-   Population: from `spotify_population`, take the mean of `popularity`.
+
+-   Sample: from `spotify_sample`, take the mean of `popularity`.
+
+-   Sampling distribution: from `sampling_distribution`, take the mean of `sample_mean`.
+
+-   Bootstrap distribution: from `bootstrap_distribution`, take the mean of `resample_mean`.
+
+```{r}
+# Calculate the true population mean popularity
+pop_mean <- spotify_population %>% summarise(mean = mean(popularity))
+
+
+# Calculate the original sample mean popularity
+samp_mean <- spotify_sample %>% summarise(mean = mean(popularity))
+
+
+# Calculate the sampling dist'n estimate of mean popularity
+samp_distn_mean <- sampling_distribution %>% summarise(mean = mean(sample_mean))
+
+
+# Calculate the bootstrap dist'n estimate of mean popularity
+boot_distn_mean <- bootstrap_distribution %>% summarise(mean = mean(resample_mean))
+
+
+# See the results
+c(pop = pop_mean, samp = samp_mean, sam_distn = samp_distn_mean, boot_distn = boot_distn_mean)
+```
+
+The sampling distribution mean (54.82882) is the best estimate of the true population mean (54.83714);
+
+The bootstrap distribution mean (54.71672) is closest to the original sample mean (54.706).
+
+The *sampling distribution mean* can be used to estimate the population mean, but that is not the case with the boostrap distribution.
+
+#### Compare sampling and bootstrap std
+
+```{r}
+# Calculate the true popluation std dev popularity
+pop_sd <- spotify_population %>% summarise(sd = sd(popularity))
+
+
+# Calculate the true sample std dev popularity
+samp_sd <- spotify_sample %>% summarise(sd = sd(popularity))
+
+
+# Calculate the sampling dist'n estimate of std dev popularity
+samp_distn_sd <- sampling_distribution %>% summarise(sd = sd(sample_mean) * sqrt(500))
+
+
+# Calculate the bootstrap dist'n estimate of std dev popularity
+boot_distn_sd <- bootstrap_distribution %>% summarise(sd = sd(resample_mean) * sqrt(500))
+
+
+# See the results
+c(pop = pop_sd, samp = samp_sd, sam_distn = samp_distn_sd, boot_distn = boot_distn_sd)
+```
+
+When you don't know have all the values from the true population, you can use *bootstrapping* to get a good estimate of the population *standard deviation*. (Although it isn't the closest of the values given)
+
+### Confidence intervals
+
+Confidence intervals account for uncertainty in our estimate of a population parameter by providing a range of possible values. We are confident that the true value lies somewhere in the interval specified by that range.
+
+#### Calculating confidence intervals
+
+1.  Mean plus or minus one standard deviation
+
+2.  Quantile method for confidence intervals
+
+    ![](image/quantile%20method%20for%20CI.png){width="327"}
+
+3.  Standard error method for confidence interval
+
+    -   Inverse cumulative distribution function: `qnorm()`
+
+-   Generate a 95% confidence interval using the quantile method.
+
+    -   Summarize to get the `0.025` quantile as `lower`, and the `0.975` quantile as `upper`.
+
+```{r}
+# Generate a 95% confidence interval using the quantile method
+conf_int_quantile <- bootstrap_distribution %>% 
+  summarise(
+    lower = quantile(resample_mean, 0.025),
+    upper = quantile(resample_mean, 0.975)
+  )
+
+# See the result
+conf_int_quantile
+```
+
+-   Generate a 95% confidence interval using the standard error method.
+
+    -   Calculate `point_estimate` as the mean of `resample_mean`, and `standard_error` as the standard deviation of `resample_mean`.
+
+    -   Calculate `lower` as the `0.025` quantile of an inv. CDF from a normal distribution with mean `point_estimate` and standard deviation `standard_error`.
+
+    -   Calculate `upper` as the `0.975` quantile of that same inv. CDF.
+
+```{r}
+# Generate a 95% confidence interval using the std error method
+conf_int_std_error <- bootstrap_distribution %>% 
+  summarise(
+    point_estimate = mean(resample_mean),
+    standard_error = sd(resample_mean),
+    lower = qnorm(p = 0.025, mean = point_estimate, sd = standard_error),
+    upper = qnorm(p = 0.975, mean = point_estimate, sd = standard_error)
+  )
+
+# See the result
+conf_int_std_error
+```
+
+The standard error method for calculating the confidence interval assumes that the bootstrap distribution is normal. This assumption should hold if the sample size and number of replicates are sufficiently large.

@@ -1,0 +1,1272 @@
+# Experimental Design
+
+## Introduction to experimental design
+
+### Introduction
+
+**Key components of an experiment**
+
+-   Randomization
+
+-   Replication
+
+-   Blocking
+
+#### A basic experiment
+
+`ToothGrowth` is a built-in R dataset from a study that examined the effect of three different doses of Vitamin C on the length of the odontoplasts, the cells responsible for teeth growth in 60 guinea pigs, where tooth length was the measured outcome variable.
+
+```{r}
+# Load the ToothGrowth dataset
+data(ToothGrowth)
+
+# View the first 6 rows of ToothGrowth
+head(ToothGrowth)
+```
+
+```{r message=FALSE}
+library(tidyverse)
+
+# Find mean len, median len, and standard deviation len with summarize()
+ToothGrowth %>% 
+    summarize(mean(len), 
+              median(len), 
+              sd(len))
+```
+
+Conduct a two-sided t-test to check if average length of a guinea pig's odontoplasts differs from 18 micrometers.
+
+```{r}
+# Perform a two-sided t-test
+t.test(x = ToothGrowth$len, 
+       alternative = "two.sided", 
+       mu = 18)
+```
+
+Given the high p-value, we fail to reject the null hypothesis that the mean of len is equal to 18. That is, we don't have evidence that it is different from 18 micrometers.
+
+#### Randomization
+
+Randomization of subjects in an experiment helps spread any variability that exists naturally between subjects evenly across groups.
+
+In the experiment that yielded the `ToothGrowth` dataset, guinea pigs were randomized to receive Vitamin C either through orange juice(`OJ`) or ascorbic acid(`VC`), indicated in the dataset by the `supp` variable.
+
+It's natural to wonder if there is a difference in tooth length by supplement type?
+
+```{r}
+# Perform a t-test
+ToothGrowth_ttest <- t.test(len ~ supp, data = ToothGrowth)
+
+# Load broom
+library(broom)
+
+# Tidy ToothGrowth_ttest
+# method = Welch Two Sample t-test, alternative = two.sided
+tidy(ToothGrowth_ttest)
+```
+
+Given the p-value of around 0.06, there seems to be no evidence to support the hypothesis that there's a difference in mean tooth length by supplement type, or, more simply, that there is no difference in mean tooth length by supplement type. Generally in most experiments, any p-value above 0.05 will offer no evidence to support the given hypothesis.
+
+### Replication & blocking
+
+**Replication**
+
+-   Must repeat an experiment to fully assess variability.
+
+**Blocking**
+
+-   Helps control variability by making treatment groups more alike.
+
+-   Inside of groups, differences will be minimal. Across groups, differences will be larger.
+
+**Visualize**
+
+-   Boxplots
+
+**Functions for modeling**
+
+-   Linear models
+
+    -   `lm(formula, data, na.action,…)`
+
+-   One-way ANOVA model (單因子獨立樣本)
+
+    -   `aov(formula, data = NULL, …)`
+
+-   Nested ANOVA model (相依樣本)
+
+    -   `anova(object_model,…)`
+
+#### Replication
+
+Recall that replication means you need to conduct an experiment with an adequate number of subjects to achieve an acceptable statistical power.
+
+Let's examine the `ToothGrowth` dataset to make sure they followed the principle of replication.
+
+```{r}
+# Count number of observations for each combination of supp and dose
+ToothGrowth %>% 
+    count(supp, dose)
+```
+
+The researchers seem to have tested each combination of supp and dose on 10 subjects each, which is low, but was deemed adequate for this experiment.
+
+#### Blocking
+
+Make a boxplot to visually examine if the tooth length is different by `dose`.
+
+```{r}
+# Create a boxplot with geom_boxplot()
+ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
+    geom_boxplot()
+```
+
+Use `aov()` to detect the effect of `dose` and `supp` on `len`. Save as a model object called `ToothGrowth_aov`.
+
+Examine `ToothGrowth_aov` with `summary()` to determine if dose has a significant effect on tooth length.
+
+```{r}
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+
+# Create ToothGrowth_aov
+ToothGrowth_aov <- aov(len ~ supp + dose, data = ToothGrowth)
+
+# Examine ToothGrowth_aov with summary()
+summary(ToothGrowth_aov)
+```
+
+This is called - Randomized Complete Block Design (RCBD) experiment.
+
+Given the very small observed p-value for `dose`, it appears we have evidence to support the hypothesis that mean `len` is different by `dose` amount.
+
+### Hypothesis testing
+
+**Power and sample size**
+
+-   **Power**: probability that the test correctly rejects the null hypothesis when the alternative hypothesis is true.
+
+    -   One "golden rule" in statistics is to aim to have *80% power* in experiments.
+
+-   **Effect size**: standardized measure of the difference you're trying to detect.
+
+    -   Calculated as the difference between group means divided by the pooled standard deviation of the data.
+
+    -   It's easier to detect a larger difference in means.
+
+-   **Sample size**: How many experimental units you need to survey to detect the desired difference at the desired power.
+
+``` r
+library(pwr)
+pwr.anova.test(k = 3,              # number of groups in the comparison
+               n = 20,             # number of observations per group
+               f = 0.2,            # effect size
+               sig.level = 0.05,
+               power = NULL)
+```
+
+#### One sided vs. Two-sided tests
+
+`alternative` = `two.sided`, `less`, `greater`
+
+Test to see if the mean of the length variable of `ToothGrowth` is less than `18`.
+
+```{r}
+# Less than
+t.test(x = ToothGrowth$len,
+       alternative = "less",
+       mu = 18)
+```
+
+Test to see if the mean of the length variable of `ToothGrowth` is greater than `18`.
+
+```{r}
+# Greater than
+t.test(x = ToothGrowth$len,
+       alternative = "greater",
+       mu = 18)
+```
+
+#### Power & Sample Size Calculations
+
+One key part of designing an experiment is knowing the required sample size you'll need to be able to test your hypothesis.
+
+The `pwr` package provides a handy function, `pwr.t.test()`, which will calculate that for you. owever, you do need to know
+
+-   desired significance level
+
+-   test is one- or two-sided
+
+-   data is from one sample, two samples, or paired
+
+-   effect size
+
+-   power
+
+A power or sample size calculation is usually different each time you conduct one, and the details of the calculation strongly depend on what kind of experiment you're designing and what your end goals are.
+
+Calculate power using an effect size of 0.35, a sample size of 100 in each group, and a significance level of 0.10.
+
+```{r}
+# Load the pwr package
+library(pwr)
+
+# Calculate power
+pwr.t.test(n = 100, 
+           d = 0.35,
+           sig.level = 0.10,
+           type = "two.sample", 
+           alternative = "two.sided",
+           power = NULL)
+```
+
+Calculate the sample size needed with an effect size of 0.25, a significance level of 0.05, and a power of 0.8.
+
+```{r}
+# Calculate sample size
+pwr.t.test(n = NULL, 
+           d = 0.25, 
+           sig.level = 0.05, 
+           type = "one.sample", 
+           alternative = "greater", 
+           power = 0.8)
+```
+
+```{r}
+# Inspect output class 
+sample_est <- pwr.t.test(n = NULL, 
+           d = 0.25, 
+           sig.level = 0.05, 
+           type = "one.sample", 
+           alternative = "greater", 
+           power = 0.8)
+
+class(sample_est)
+```
+
+The `pwr` package includes functions for calculating power and sample size for a variety of different tests
+
+## Basic Experiments
+
+### ANOVA & factor experiments
+
+**ANOVA**
+
+-   Used to compare 3+ groups
+
+-   Won't know which groups' means are different without additional post hoc testing
+
+-   Two ways to implement in R:
+
+``` r
+#one
+model_1 <- lm(y ~ x, data = dataset)
+anova(model_1)
+
+#two
+aov(y ~ x, data = dataset)
+```
+
+#### Exploratory Data Analysis (EDA)
+
+A sample of 1500 observations from the Lending Club dataset has been loaded for you and is called `lendingclub`. Let's do some EDA on the data, in hopes that we'll learn what the dataset contains.
+
+```{r message=FALSE}
+lendingclub <- read_csv("data/lendclub.csv")
+
+# Examine the variables with glimpse()
+glimpse(lendingclub)
+```
+
+```{r}
+# Find median loan_amnt and mean int_rate, annual_inc
+lendingclub %>% summarise(median(loan_amnt), 
+                          mean(int_rate), 
+                          mean(annual_inc))
+```
+
+The axes have been flipped for you using `coord_flip()` so the labels are easier to read.
+
+```{r}
+# Use ggplot2 to build a bar chart of purpose
+ggplot(data = lendingclub, aes(x = purpose)) + 
+	geom_bar() +
+	coord_flip()
+```
+
+You can see that the original `purpose` variable were very detailed. By using `recode()` here, you created `purpose_recode`, which has a much more manageable 4 general levels (`debt_related`, `big_purchase`, `home_related`, `life_change`) that describe the purpose for people's loans.
+
+```{r}
+# Use recode() to create the new purpose_recode variable
+lendingclub$purpose_recode <- lendingclub$purpose %>% recode( 
+        "credit_card" = "debt_related", 
+  		"debt_consolidation" = "debt_related",
+  		"medical" = "debt_related",
+        "car" = "big_purchase", 
+  		"major_purchase" = "big_purchase", 
+  		"vacation" = "big_purchase",
+        "moving" = "life_change", 
+  		"small_business" = "life_change", 
+  		"wedding" = "life_change",
+        "house" = "home_related", 
+  		"home_improvement" = "home_related")
+
+unique(lendingclub$purpose_recode)
+```
+
+#### Single factor experiments
+
+How does loan purpose affect amount funded?
+
+Design an experiment where we examine how the loan purpose influences the amount funded, which is the money actually issued to the applicant.
+
+$H_0$: all of the mean funded amounts are equal across the levels of `purpose_recode`.
+
+$H_A$: at least one level of `purpose_recode` has a different mean.
+
+These are the results of the linear regression.
+
+```{r}
+# Build a linear regression model, purpose_recode_model
+purpose_recode_model <- lm(funded_amnt ~ purpose_recode, data = lendingclub)
+
+# Examine results of purpose_recode_model
+summary(purpose_recode_model)
+```
+
+Call `anova()` on model object.
+
+```{r}
+# Get anova results and save as purpose_recode_anova
+purpose_recode_anova <- anova(purpose_recode_model)
+
+# Print purpose_recode_anova
+purpose_recode_anova
+
+# Examine class of purpose_recode_anova
+class(purpose_recode_anova)
+```
+
+Results indicate that there is evidence to support the hypothesis that the mean loan amounts are different for at least one combination of `purpose_recode`'s levels.
+
+#### Post-hoc test
+
+The result of that ANOVA test was statistically significant with a very low p-value. This means we can reject the null hypothesis and accept the alternative hypothesis that at least one mean was different. But which one?
+
+Here comes the post-hoc test. We should use Tukey's HSD test, which stands for Honest Significant Difference.
+
+`TukeyHSD(aov_model, "independent_variable_name", conf.level = 0.9)`
+
+```{r}
+# Use aov() to build purpose_aov
+purpose_aov <- aov(funded_amnt ~ purpose_recode, data = lendingclub)
+
+# Conduct Tukey's HSD test to create tukey_output
+tukey_output <- TukeyHSD(purpose_aov, "purpose_recode", conf.level = 0.95)
+
+# Tidy tukey_output to make sense of the results
+tidy(tukey_output)
+```
+
+we can see that only a few of the mean differences are statistically significant, for example the differences in the means for the `debt_related` and `big_purchase` loan amounts.
+
+In this case, these tiny p-values are most likely to be due to large sample size, and further tests would be required to determine what's actually significant in the case of loans (known as the practical significance.)
+
+#### Multiple Factor Experiments
+
+We can examine more than one explanatory factor in a multiple factor experiment.
+
+Use `aov()` to build a linear model and ANOVA in one step, examining how `purpose_recode` and employment length (`emp_length`) affect the funded amount.
+
+```{r}
+# Use aov() to build purpose_emp_aov
+purpose_emp_aov <- aov(funded_amnt ~ purpose_recode + emp_length, data = lendingclub)
+
+# Print purpose_emp_aov to the console
+purpose_emp_aov
+```
+
+The printed `purpose_emp_aov` does not show p-values, which we might be interested in. Display those by calling `summary()` on the `aov` object.
+
+```{r}
+# Call summary() to see the p-values
+summary(purpose_emp_aov)
+```
+
+### Model validation
+
+**Post-modeling model validation**
+
+-   Residual plot
+
+-   QQ-plot for normality
+
+-   Test ANOVA assumptions
+
+    -   Homogeneity of variances
+
+-   Try non-parametric alternatives to ANOVA
+
+#### Pre-modeling EDA
+
+Examine what effect their Lending Club-assigned loan `grade` variable has on the interest rate, `int_rate`.
+
+```{r}
+# Examine the summary of int_rate, range and interquartile range
+summary(lendingclub$int_rate)
+```
+
+```{r}
+# Examine int_rate by grade
+lendingclub %>% 
+	group_by(grade) %>% 
+	summarize(mean = mean(int_rate), 
+	          var = var(int_rate), 
+	          median = median(int_rate))
+```
+
+```{r}
+# Make a boxplot of int_rate by grade
+ggplot(lendingclub, aes(x = grade, y = int_rate)) + 
+	geom_boxplot()
+```
+
+```{r}
+# Use aov() to create grade_aov and call summary() to print results
+grade_aov <- aov(int_rate ~ grade, data = lendingclub)
+
+summary(grade_aov)
+```
+
+You can see from the numeric summary and the boxplot that grade seems to heavily influence interest rate. Therefore, the linear model results indicating that `int_rate` is significantly different by `grade` are unsurprising.
+
+#### Post-modeling validation
+
+In the last exercise, we found that `int_rate` does differ by `grade`. Now we should validate this model, which for linear regression means examining the *Residuals vs. Fitted* and *Normal Q-Q plots*.
+
+-   `plot(model)`
+
+Another assumption of ANOVA and linear modeling is *homogeneity of variance*. Homogeneity means "same".
+
+-   e.g, the variance of `int_rate` is the same for each level of `grade`.
+
+-   Using `bartlett.test(formula, data)` to test.
+
+Produce the model diagnostic plots.
+
+```{r}
+# For a 2x2 grid of plots:
+par(mfrow=c(2, 2))
+
+# Plot grade_aov
+plot(grade_aov)
+```
+
+The residuals on this model are okay, though the residuals on G have a much smaller range than any other level of grade (the dots are far less spread out.) The Q-Q plot, however, shows that the residuals are fairly normal.
+
+Test for homogeneity of variances using `bartlett.test()`. non.sig means data is homogeneity.
+
+```{r}
+# Bartlett's test for homogeneity of variance
+bartlett.test(int_rate ~ grade, lendingclub)
+```
+
+However, given the highly significant p-value from Bartlett's test, the assumption of homogeneity of variances is violated.
+
+#### Kruskal-Wallis rank sum test
+
+Given that we found in the last exercise that the homogeneity of variance assumption of linear modeling was violated, we may want to try an alternative.
+
+One non-parametric alternative to ANOVA is the Kruskal-Wallis rank sum test. It is an extension of the Mann-Whitney U test for when there are more than two groups.
+
+`kruskal.test(formula, data)`
+
+Use `kruskal.test()` to examine whether `int_rate` varies by `grade` when a non-parametric model is employed.
+
+```{r}
+# Conduct the Kruskal-Wallis rank sum test
+kruskal.test(int_rate ~ grade,
+             data = lendingclub)
+```
+
+The low p-value indicates that `int_rate` varies by `grade`.
+
+### A/B testing
+
+A type of controlled experiment with only two variants of something. (只有一個獨變項，且僅一操弄)
+
+-   e.g, How many consumers click through to create an account based on two different website headers?
+
+    ![](image/AB%20test_lending%20club.png){width="393"}
+
+-   Calculate sample size, given power, significance level, and effect size
+
+#### Sample size for A/B test
+
+We'll be testing the mean `loan_amnt`, which is the requested amount of money the loan applicants ask for, based on which color header (green or blue) that they saw on the Lending Club website.
+
+calculate the required sample size for each group with `d = 0.2`, a power of `0.8`, and a `0.05` significance level.
+
+```{r}
+# Use the correct function from pwr to find the sample size
+pwr.t.test(
+    d = 0.2, 
+    n = NULL, 
+    power = 0.8, 
+    sig.level = 0.05, 
+    type = "two.sample",
+    alternative = "two.sided")
+```
+
+We need about 400 people per group to reach our desired power in this A/B test.
+
+#### Basic A/B test
+
+The A/B test was run until there were 500 applicants in each group. Each applicant has been labeled as group A or B. Where A was shown a mint green website header and B was shown a light blue website header.
+
+```{r message=FALSE}
+lendingclub_ab <- read_delim("data/lendingclub_ab.txt", delim = ",")
+
+glimpse(lendingclub_ab)
+```
+
+Conduct the proper test to see if the mean of `loan_amnt` is different between the two groups.
+
+```{r}
+# Plot the A/B test results
+ggplot(lendingclub_ab, aes(x = Group, y = loan_amnt)) + 
+	geom_boxplot()
+
+# Conduct a two-sided t-test
+t.test(loan_amnt ~ Group, data = lendingclub_ab)
+```
+
+By looking at both the boxplot and the results of the t-test, it seems that there is no compelling evidence to support the hypothesis that there is a difference between the two A/B test groups' mean `loan_amnt`, a result which you would use to help make data-driven decisions at Lending Club.
+
+#### Multivariable experiments
+
+The point of an A/B test is that only one thing is changed and the effect of that change is measured.
+
+On the other hand, a multivariate experiment, is where a few things are changed (similar to a multiple factor experiment.)
+
+Let's examine how `Group`, `grade`, and `verification_status` affect `loan_amnt` in the `lendingclub_ab` dataset.
+
+```{r}
+# Build lendingclub_multi
+lendingclub_multi <- lm(loan_amnt ~ Group + grade + verification_status, lendingclub_ab)
+
+# Examine lendingclub_multi results
+tidy(lendingclub_multi)
+```
+
+From the results, verification status and having an F grade are the factors in this model that have a significant effect on loan amount.
+
+## Block Designs
+
+### Intro to sampling
+
+Probability Sampling: probability is used to select the sample (in various ways)
+
+-   Simple Random Sampling (SRS)
+
+    -   Every unit in a population has an equal probability of being sampled.
+
+    -   `sample()`
+
+-   Stratified Sampling
+
+    -   Splitting your population by some strata variable.
+
+    -   Taking a simple random sample inside of each stratified group.
+
+    -   `dataset %>% group_by(strata_variable) %>% slice_sample()`
+
+-   Cluster Sampling
+
+    -   Divide the population into groups called clusters
+
+        ``` r
+        cluster(dataset,
+                cluster_var_name,
+                number_to_select,
+                method = "option")
+        ```
+
+-   Systematic Sampling
+
+    -   Choosing a sample in a systematic way.
+
+    -   Best implemented in R with a custom function.
+
+-   Multi-stage Sampling
+
+    -   Combines one or more sampling methods.
+
+Non-probability Sampling: probability is not used to select the sample
+
+-   Voluntary response:
+
+    -   Whoever agrees to respond is the sample.
+
+-   Convenience sampling:
+
+    -   Subjects convenient to the researcher are chosen.
+
+#### NHANES dataset construction
+
+NHANES = National Health and Nutrition Examination Survey
+
+-   Conducted by the National Center for Health Statistics (NCHS), a division of the Centers for Disease Control (CDC).
+
+-   Data collected a variety of ways, including interviews & a physical exam.
+
+-   Questions cover medical, dental, socioeconomic, dietary, and general health-related conditions.
+
+```{r}
+# Import the three datasets using read_xpt()
+nhanes_demo <- read_csv("data/nhanes_demo.csv")
+nhanes_medical <- read_csv("data/nhanes_medicalconditions.csv")
+nhanes_bodymeasures <- read_csv("data/nhanes_bodymeasures.csv")
+
+# Merge the 3 datasets you just created to create nhanes_combined
+nhanes_combined <- list(nhanes_demo, nhanes_medical, nhanes_bodymeasures) %>%
+  Reduce(function(df1, df2) inner_join(df1, df2, by = "seqn"), .)
+
+glimpse(nhanes_combined)
+```
+
+#### EDA
+
+Say we have access to NHANES patients and want to conduct a study on the effect of being told by a physician to reduce calories/fat in their diet on weight.
+
+However, we suspect that there may be a difference in weight based on the gender of the patient - a blocking factor!
+
+Is there anything interesting about the `NA` treated patients?
+
+```{r}
+# find mean weight (bmxwt) in kg by our treatment (mcq365d)
+nhanes_combined %>% 
+  group_by(mcq365d) %>% 
+  summarize(mean = mean(bmxwt, na.rm = TRUE))
+```
+
+Look at a boxplot of the IQR of patients' weights by the treatment variable.
+
+```{r}
+# Fill in the ggplot2 code
+nhanes_combined %>% 
+  ggplot(aes(as.factor(mcq365d), bmxwt)) +
+  geom_boxplot() +
+  labs(x = "Treatment",
+       y = "Weight")
+```
+
+Children weren't given the treatment - that's why we see an `NA` age category. We also have some patients have weights missing, thus the warning that the boxplot throws.
+
+#### Data Cleaning
+
+During data cleaning, we discovered that no one under the age of 16 was given the treatment. Let's only keep patients who are greater than 16 years old in the dataset.
+
+```{r}
+# Filter to keep only those 16+ years old
+nhanes_filter <- nhanes_combined %>% filter(ridageyr > 16)
+```
+
+One option for dealing with the missing weights, imputation, can be implemented using the `simputation` package. Imputation is a technique for dealing with missing values where you replace them either with a summary statistic, like mean or median, or use a model to predict a value to use.
+
+We'll use `impute_median()`, which takes a dataset and the variable to impute or formula to impute by as arguments.
+
+```{r warning=FALSE}
+# Load simputation & impute bmxwt by riagendr
+library(simputation)
+nhanes_final <- simputation::impute_median(nhanes_filter, bmxwt ~ riagendr)
+```
+
+Recode the `nhanes_final$mcq365d` variable by setting any observations with a value of 9 to 2 instead. Verify the recoding worked with `count()`.
+
+```{r}
+# Recode mcq365d with recode() & examine with count()
+nhanes_final$mcq365d <- recode(nhanes_final$mcq365d, 
+                               `1` = 1,
+                               `2` = 2,
+                               `9` = 2)
+nhanes_final %>% count(mcq365d)
+```
+
+#### Resampling
+
+The NHANES data is collected on sampled units (people) specifically selected to represent the U.S. population. However, let's resample the `nhanes_final` dataset in different ways so we get a feel for the different sampling methods.
+
+```{r}
+# Use slice_sample() to create nhanes_srs
+nhanes_srs <- nhanes_final %>% slice_sample(n = 2500)
+```
+
+Stratify by `riagendr` and select 2000 of each gender. Confirm that it worked by using `count()` to examine `nhanes_stratified`'s gender variable.
+
+```{r}
+# Create nhanes_stratified with group_by() and slice_sample()
+nhanes_stratified <- nhanes_final %>% 
+    group_by(riagendr) %>% 
+    slice_sample(n = 2000)
+
+nhanes_stratified %>% count(riagendr)
+```
+
+Use `cluster()` to divide `nhanes_final` by `"indhhin2"` into `6` clusters using the `"srswor"` method.
+
+```{r warning=FALSE}
+# Load sampling package and create nhanes_cluster with cluster()
+library(sampling)
+nhanes_cluster <- cluster(nhanes_final, "indhhin2", 6, method = "srswor")
+```
+
+### Randomized Complete Block Designs (RCBD)
+
+**RCBDs**
+
+-   Randomized: the treatment is assigned randomly inside each block
+
+-   Complete: each treatment is used the same number of times in every block
+
+-   Block: experimental groups are blocked to be similar (e.g. by sex)
+
+The purpose of blocking an experiment is to make the experimental groups more like one another. Groups are blocked by a variable that is known to introduce variability that will affect the outcome of the experiment but is not of interest to study in the experiment itself.
+
+A rule of thumb in experimental design is often "block what you can, randomize what you cannot", which means you should aim to block the effects you can control for (e.g. sex) and randomize on those you cannot (e.g. smoking status). Variability inside a block is expected to be fairly small, but variability between blocks will be larger.
+
+#### Drawing RCBDs with Agricolae
+
+`agricolae` package enables you to "draw" some of the different experimental designs.
+
+```{r warning=FALSE}
+library(agricolae)
+
+# Create designs using ls()
+# see all possible designs that agricolae can draw
+designs <- ls("package:agricolae", pattern = "design")
+designs
+```
+
+Let's draw an RCBD design with 5 treatments and 4 blocks, which go in the `r` argument.
+
+```{r}
+# Use str() to view design.rcbd's criteria
+str(design.rcbd)
+```
+
+```{r}
+# Build treats and rep
+treats <- LETTERS[1:5]
+blocks <- 4            # row
+
+# Build my_design_rcbd and view the sketch
+my_design_rcbd <- design.rcbd(treats, r = blocks, seed = 42)
+my_design_rcbd$sketch
+```
+
+#### NHANES RCBD
+
+Recall that our blocked experiment involved a treatment wherein the doctor asks the patient to reduce their fat or calories in their diet, and we're testing the effect this has on weight (`bmxwt`).
+
+Blocking this experiment by gender means that if we observe an effect of the treatment on `bmxwt`, it's more likely that the effect was actually due to the treatment versus the individual's gender.
+
+In your R code, you denote a blocked experiment by using a formula that looks like: `outcome ~ treatment + blocking_factor`
+
+```{r}
+# Use aov() to create nhanes_rcbd
+nhanes_rcbd <- aov(bmxwt ~ mcq365d + riagendr, nhanes_final)
+
+# Check results of nhanes_rcbd with summary()
+summary(nhanes_rcbd)
+```
+
+```{r}
+# Print mean weights by mcq365d and riagendr
+nhanes_final %>% 
+	group_by(mcq365d, riagendr) %>% 
+	summarize(mean_wt = mean(bmxwt))
+```
+
+There truly is a mean difference in weight by gender, so blocking was a good call for this experiment. We also observed a statistically significant effect of the treatment on `bmxwt`.
+
+#### RCBD Model Validation
+
+We can also look at *Interaction plots*. We hope to see parallel lines, no matter which of the block or the treatment is on the x-axis. If they are, they satisfy a key assumption of the RCBD model called *Additivity*.
+
+The initial diganostic plots show that this model is pretty good but not great - especially at the larger end of the data, the Q-Q plot shows the data might not be normal.
+
+```{r}
+# Set up the 2x2 plotting grid and plot nhanes_rcbd
+par(mfrow = c(2, 2))
+plot(nhanes_rcbd)
+```
+
+Interaction plot: `with(dataset, interaction.plot(x.factor, trace.factor, response))`
+
+```{r}
+# Run the code to view the interaction plots
+with(nhanes_final, interaction.plot(mcq365d, riagendr, bmxwt))
+```
+
+```{r}
+# Run the code to view the interaction plots
+with(nhanes_final, interaction.plot(riagendr, mcq365d, bmxwt))
+```
+
+The interaction plots show nearly parallel lines.
+
+### Balanced Incomplete Block Designs (BIBD)
+
+**Balanced Incomplete Block Designs**
+
+-   Balanced: each pair of treatments occur together in a block an equal number of times
+
+-   Incomplete: not every treatment will appear in every block
+
+-   Block: experimental groups are blocked to be similar (e.g. by sex)
+
+**Is there a BIBD?**
+
+t = \# of treatments k = \# of treatments per block r = \# replications
+
+$λ = r × \frac{(k - 1)}{t - 1}$
+
+If λ is whole number, there is a BIBD. (整除才有辦法設計BIBD)
+
+```{r}
+# It takes as input t = number of treatments, k = number of treatments per block, and r = number of repetitions.
+lambda <- function(t, k, r){
+  return((r*(k-1)) / (t-1))
+}
+
+# there is BIBD
+lambda(2,3,4)
+
+# no BIBD
+lambda(3,4,11)
+```
+
+#### Drawing BIBDs with agricolae
+
+We can also use `agricolae` to draw BIBDs. `design.bib()` takes, at minimum, the treatments (`treats`), an integer `k` corresponding to the number of levels of the blocks, and a `seed` as inputs.
+
+The main thing you should notice about a BIBD is that not every treatment will be used in each block (column) of the output.
+
+`design.bib()` will return an error message letting you know if a design is not valid.
+
+``` r
+# using A, B, and C for the treatments, 4 blocks
+# Create my_design_bibd_1
+my_design_bibd_1 <- design.bib(LETTERS[1:3], k = 4, seed = 42)
+```
+
+``` {.r style="color: black; background: white"}
+Error in AlgDesign::optBlock(~., withinData = factor(1:v), blocksizes = rep(k, :
+The number of trials must be at least as large as the minimum blocksize.
+```
+
+``` r
+# using LETTERS[1:8] for treatments, 3 blocks
+# Create my_design_bibd_2
+my_design_bibd_2 <- design.bib(LETTERS[1:8], k = 3, seed = 42)
+```
+
+``` {.r style="color: black; background: white"}
+Error in rep(k, b) : invalid 'times' argument
+```
+
+```{r}
+# using A, B, C, and D as treatments, 4 blocks, and the same seed. Examine the sketch of the object.
+# Create my_design_bibd_3
+my_design_bibd_3 <- design.bib(LETTERS[1:4], k = 4, seed = 42)
+my_design_bibd_3$sketch
+```
+
+The blocks are now the columns.
+
+#### BIBD - cat's kidney function
+
+Say we want to test the difference between four different wet foods in cats' diets on their kidney function.
+
+Cat food, however, is expensive, so we'll only test 3 foods per block to save some money.
+
+The blocking factor is the color of cat, as we aren't interested in that as part of our experiment.
+
+The outcome will be measured blood creatinine level.
+
+```{r}
+# make sure a BIBD is possible
+# Calculate lambda
+lambda(t = 4, k = 3, r = 3)
+```
+
+You can see the order in which the food treatments are used in each block.
+
+```{r}
+# Build the data.frame
+creatinine <- c(1.98, 1.97, 2.35, 2.09, 1.87, 1.95, 2.08, 2.01, 1.84, 2.06, 1.97, 2.22)
+food <- as.factor(c("A", "C", "D", "A", "B", "C", "B", "C", "D", "A", "B", "D"))
+color <- as.factor(rep(c("Black", "White", "Orange", "Spotted"), each = 3))
+cat_experiment <- as.data.frame(cbind(creatinine, food, color))
+
+cat_experiment
+```
+
+Does type of wet food make a difference on creatinine levels?
+
+```{r}
+# Create cat_model and examine with summary()
+cat_model <- aov(creatinine ~ food + color, data = cat_experiment)
+summary(cat_model)
+```
+
+It seems there are no differences by type of wet food in kidney function.
+
+#### NHANES BIBD
+
+Let's jump back into the NHANES data and pretend we have access to NHANES patients ages 18-45.
+
+Blocking: by race, stored in NHANES as `ridreth1`.
+
+Groups, `weightlift_treat`:
+
+-   either no particular upper body weightlifting regimen,
+
+-   a weightlifting regimen,
+
+-   a weightlifting regimen plus a prescribed daily vitamin supplement.
+
+Outcome: arm circumference, `bmxarmc`.
+
+Those funding the study decide they want it to be a BIBD where only 2 treatments appear in each block.
+
+```{r}
+# Does a BIBD exist?
+# Calculate lambda
+lambda(3, 2, 2)
+```
+
+```{r}
+nhanes_final <- read_delim("data/nhanes_final_add_weightlift_treat.txt", delim = ",")
+
+# Create weightlift_model & examine results
+weightlift_model <- aov(bmxarmc ~ weightlift_treat + ridreth1, nhanes_final)
+summary(weightlift_model)
+```
+
+The weight lifting regimen doesn't seem to have a significant effect on arm circumference when the patient population is blocked by race.
+
+## Squares & Factorial Experiments
+
+### Latin squares
+
+-   *Two blocking factors*
+
+-   All factors must have the same number of levels
+
+-   Key assumption: the treatment and two blocking factors do not interact
+
+#### NYC SAT Scores EDA
+
+`nyc_scores` dataset includes:
+
+-   All accredited NYC high schools
+
+-   SAT scores (Reading, Writing, and Math)
+
+-   2014-2015 school year
+
+we'll do experiments where we block by `Borough` and `Teacher_Education_Level`, so let's examine math scores by those variables.
+
+```{r message=FALSE}
+nyc_scores <- read_delim("data/nyc_scores_Teacher_Education.txt", delim = ",")
+glimpse(nyc_scores)
+```
+
+```{r}
+# Mean, var, and median of Math score
+nyc_scores %>%
+    group_by(Borough) %>% 
+    summarise(mean = mean(Average_Score_SAT_Math, na.rm = TRUE),
+              var = var(Average_Score_SAT_Math, na.rm = TRUE),
+              median = median(Average_Score_SAT_Math, na.rm = TRUE))
+```
+
+```{r}
+# Mean, var, and median of Math score by Teacher Education Level
+nyc_scores %>%
+    group_by(Teacher_Education_Level) %>% 
+    summarise(mean = mean(Average_Score_SAT_Math, na.rm = TRUE),
+              var = var(Average_Score_SAT_Math, na.rm = TRUE),
+              median = median(Average_Score_SAT_Math, na.rm = TRUE))
+```
+
+```{r}
+# Mean, var, and median of Math score by both
+nyc_scores %>%
+    group_by(Borough, Teacher_Education_Level) %>% 
+    summarise(mean = mean(Average_Score_SAT_Math, na.rm = TRUE),
+              var = var(Average_Score_SAT_Math, na.rm = TRUE),
+              median = median(Average_Score_SAT_Math, na.rm = TRUE))
+```
+
+#### Dealing with Missing
+
+If we want to use SAT scores as our outcome, we should examine missingness. Examine the pattern of missingness across all the variables in `nyc_scores` using `miss_var_summary()` from the `naniar` package.
+
+```{r}
+# Load naniar
+library(naniar)
+
+# Examine missingness with miss_var_summary()
+nyc_scores %>% miss_var_summary()
+```
+
+There are 60 missing scores in each subject.
+
+```{r}
+# Impute the Math score by Borough
+nyc_scores_2 <- nyc_scores %>% 
+    simputation::impute_median(Average_Score_SAT_Math ~ Borough)
+
+# note that impute_median() returns the imputed variable as type "impute".
+# Convert Math score to numeric
+nyc_scores_2$Average_Score_SAT_Math <- as.numeric(nyc_scores_2$Average_Score_SAT_Math)
+```
+
+```{r}
+# Examine scores by Borough in both datasets, before and after imputation
+nyc_scores %>% 
+	group_by(Borough) %>% 
+	summarize(median = median(Average_Score_SAT_Math, na.rm = TRUE), 
+              mean = mean(Average_Score_SAT_Math, na.rm = TRUE))
+
+nyc_scores_2 %>% 
+	group_by(Borough) %>% 
+	summarize(median = median(Average_Score_SAT_Math, na.rm = TRUE), 
+              mean = mean(Average_Score_SAT_Math, na.rm = TRUE))
+```
+
+#### Drawing Latin Squares
+
+Since a Latin Square experiment has two blocking factors, you can see that in this design, each treatment appears once in both each row (blocking factor 1) and each column (blocking factor 2).
+
+``` r
+     [,1] [,2] [,3] [,4]
+[1,] "B"  "D"  "A"  "C" 
+[2,] "A"  "C"  "D"  "B" 
+[3,] "D"  "B"  "C"  "A" 
+[4,] "C"  "A"  "B"  "D"
+```
+
+Create and view the sketch of a Latin Square design, using treatments A, B, C, D, & E, and a seed of `42`.
+
+```{r}
+# Design a LS with 5 treatments A:E then look at the sketch
+my_design_lsd <- design.lsd(trt = LETTERS[1:5], seed = 42)
+my_design_lsd$sketch
+```
+
+#### Latin Square with NYC SAT Scores
+
+To execute a Latin Square design on this data, suppose we want to know the effect of our tutoring program, which includes one-on-one tutoring, two small groups, and an in and after-school SAT prep class.
+
+A new dataset `nyc_scores_ls` is available that represents this experiment.
+
+```{r message=FALSE}
+nyc_scores_ls <- read_delim("data/nyc_scores_ls.txt", delim = ",")
+glimpse(nyc_scores_ls)
+```
+
+We'll block by `Borough` and `Teacher_Education_Level` to reduce their known variance on the score outcome.
+
+```{r}
+# Build nyc_scores_ls_lm
+nyc_scores_ls_lm <- lm(Average_Score_SAT_Math ~ Tutoring_Program + Borough + Teacher_Education_Level,
+                        data = nyc_scores_ls)
+
+# Tidy the results with broom
+tidy(nyc_scores_ls_lm)
+
+# Examine the results with anova
+anova(nyc_scores_ls_lm)
+```
+
+It seems that when we block for `Borough` of the school and `Teacher_Education_Level`, our `Tutoring_Program` isn't having a statistically significant effect on the Math SAT score.
+
+### Graeco-Latin squares
+
+**Graeco-Latin squares**
+
+-   *Three blocking factors*
+
+-   All factors must have the same number of levels
+
+-   Key assumption: the treatment and three blocking factors do not interact
+
+#### NYC SAT Scores Data Viz
+
+Create and examine the requested boxplot. How do the medians differ by Borough? How many outliers are present, and where are they mostly present?
+
+```{r}
+# Create a boxplot of Math scores by Borough, with a title and x/y axis labels
+ggplot(nyc_scores, aes(x = Borough, y = Average_Score_SAT_Math)) +
+  geom_boxplot() + 
+  labs(title = "Average SAT Math Scores by Borough, NYC",
+  	   xlab = "Borough (NYC)",
+  	   ylab = "Average SAT Math Scores (2014-15)")
+```
+
+#### Drawing Graeco-Latin Squares
+
+One difference in the input to `design.graeco()` that we haven't seen before is that we'll need to input 2 vectors, `trt1` and `trt2`, which must be of equal length.
+
+You can think of `trt1` as your actual treatment; `trt2` as one of your blocking factors.
+
+```{r}
+# Create trt1 and trt2
+trt1 <- LETTERS[1:5]
+trt2 <- 1:5
+
+# Create my_graeco_design
+my_graeco_design <- design.graeco(trt1, trt2, seed = 42)
+
+# Examine the parameters and sketch
+my_graeco_design$sketch
+my_graeco_design$parameters
+```
+
+You can see that this time the sketch object includes your treatment (the capital letter) and a blocking factor (the number.)
+
+#### Graeco-Latin Square with NYC SAT Scores
+
+Recall that our Latin Square exercise in this chapter tested the effect of our tutoring program, blocked by `Borough` and `Teacher_Education_Level`.
+
+For our Graeco-Latin Square, say we also want to block out the known effect of `Homework_Type`, which indicates what kind of homework the student was given: individual only, small or large group homework, or some combination.
+
+We can add this as another blocking factor to create a Graeco-Latin Square experiment.
+
+```{r message=FALSE}
+nyc_scores_gls <- read_delim("data/nyc_scores_gls.txt", delim = ",")
+glimpse(nyc_scores_gls)
+```
+
+```{r}
+# Build nyc_scores_gls_lm
+nyc_scores_gls_lm <- lm(Average_Score_SAT_Math ~ Tutoring_Program + Borough + Teacher_Education_Level + Homework_Type,
+                        data = nyc_scores_gls)
+
+# Tidy the results with broom
+tidy(nyc_scores_gls_lm)
+
+# Examine the results with anova
+anova(nyc_scores_gls_lm)
+```
+
+When blocked out by all the other factors, our Tutoring program has no effect on the Math score.
+
+### Factorial experiments
+
+**Factorial designs**
+
+-   2 or more factor variables are combined and crossed.
+
+-   All of the possible interactions between levels of factors are considered as effects on the outcome.
+
+**2\^k factorial experiments**
+
+-   2\^k factorial experiments involve k factor variables with 2 levels
+
+-   It results in 2\^k number of combinations of effects to test
+
+-   Analyzed with a linear model and ANOVA
+
+-   Also use `TukeyHSD()` to determine which combinations are significantly different
+
+#### Factorial EDA
+
+Let's test the effect of `Percent_Black_HL`, `Percent_Tested_HL`, and `Tutoring_Program` on the outcome, `Average_Score_SAT_Math`.
+
+The `HL` stands for high-low, where a `1` indicates respectively that less than 50% of Black students or that less than 50% of all students in an entire school were tested, and a `2` indicates that greater than 50% of either were tested.
+
+```{r message=FALSE}
+nyc_scores <- read_delim("data/nyc_scores_factorial.txt", delim = ",")
+nyc_scores$Percent_Tested_HL <- as.factor(nyc_scores$Percent_Tested_HL)
+nyc_scores$Percent_Black_HL <- as.factor(nyc_scores$Percent_Black_HL)
+glimpse(nyc_scores)
+```
+
+Build a boxplot of each factor vs. the outcome to have an idea of which have a difference in median by factor level.
+
+```{r}
+# Build the boxplot for the tutoring program vs. Math SAT score
+ggplot(nyc_scores,
+       aes(Tutoring_Program, Average_Score_SAT_Math)) + 
+    geom_boxplot()
+```
+
+```{r}
+# Build the boxplot for the percent black vs. Math SAT score
+ggplot(nyc_scores,
+       aes(Percent_Black_HL, Average_Score_SAT_Math)) + 
+    geom_boxplot()
+```
+
+```{r}
+# Build the boxplot for percent tested vs. Math SAT score
+ggplot(nyc_scores,
+       aes(Percent_Tested_HL, Average_Score_SAT_Math)) + 
+    geom_boxplot()
+```
+
+#### Factorial Experiment with NYC SAT Scores
+
+Now we want to examine the effect of tutoring programs on the NYC schools' SAT Math score. As noted in the last exercise: the variable `Tutoring_Program` is simply `yes` or `no`, depending on if a school got a tutoring program implemented. For `Percent_Black_HL` and `Percent_Tested_HL`, `HL` stands for high/low. A 1 indicates less than 50% Black students or overall students tested, and a 2 indicates greater than 50% of both.
+
+Remember that because we intend to test all of the possible combinations of factor levels, we need to write the formula like: `outcome ~ factor1 * factor2 * factor3`.
+
+```{r}
+# Create nyc_scores_factorial and examine the results
+nyc_scores_factorial <- aov(Average_Score_SAT_Math ~ Percent_Tested_HL * Percent_Black_HL * Tutoring_Program, data = nyc_scores)
+
+tidy(nyc_scores_factorial)
+```
+
+We can see from the results that we can not reject the null hypothesis that there is no difference in score based on tutoring program availability.
+
+We can also see from the low p-values that there are some interaction effects between the Percent Black and Percent Tested and the tutoring program. Next we need to check the model.
+
+#### Evaluating the Factorial Model
+
+We need to examine both if our outcome and our model residuals are normally distributed. We'll check the normality assumption using `shapiro.test()`.
+
+A low p-value means we can reject the null hypothesis that the sample came from a normally distributed population.
+
+Test the outcome `Average_Score_SAT_Math` from `nyc_scores` for normality using `shapiro.test()`.
+
+```{r}
+# Use shapiro.test() to test the outcome
+shapiro.test(nyc_scores$Average_Score_SAT_Math)
+```
+
+```{r}
+# Plot nyc_scores_factorial to examine residuals
+par(mfrow = c(2,2))
+plot(nyc_scores_factorial)
+```
+
+The model appears to be fairly well fit, though our evidence indicates the score may not be from a normally distributed population. Looking at the Q-Q plot, we can see that towards the higher end, the points are not on the line.
+
+### Other experimental designs
+
+-   Other factorial designs (besides 2\^k)
+
+    -   including fractional factorial designs
+
+-   Experiments with random factors
+
+-   Nested designs
+
+-   Split plot designs
+
+-   Lattice designs

@@ -1,0 +1,188 @@
+"continent" "season" "year" "medals_per_participant"
+"Africa" "Summer" 1928 0.172413793103448
+"Africa" "Summer" 1932 0.416666666666667
+"Africa" "Summer" 1936 0.0705882352941176
+"Africa" "Summer" 1948 0.0916666666666667
+"Africa" "Summer" 1952 0.0806451612903226
+"Africa" "Summer" 1956 0.0654205607476635
+"Africa" "Summer" 1960 0.0256410256410256
+"Africa" "Summer" 1964 0.0209059233449477
+"Africa" "Summer" 1968 0.0716981132075472
+"Africa" "Summer" 1972 0.0477326968973747
+"Africa" "Summer" 1980 0.0568475452196382
+"Africa" "Summer" 1984 0.0276338514680484
+"Africa" "Summer" 1988 0.0226537216828479
+"Africa" "Summer" 1992 0.0815047021943574
+"Africa" "Summer" 1996 0.0832025117739403
+"Africa" "Summer" 2000 0.0728900255754476
+"Africa" "Summer" 2004 0.061307901907357
+"Africa" "Summer" 2008 0.0792602377807133
+"Africa" "Summer" 2012 0.04625
+"Africa" "Summer" 2016 0.0832408435072142
+"Asia" "Summer" 1928 0.369230769230769
+"Asia" "Summer" 1932 0.264864864864865
+"Asia" "Summer" 1936 0.125
+"Asia" "Summer" 1948 0.0784313725490196
+"Asia" "Summer" 1952 0.124590163934426
+"Asia" "Summer" 1956 0.130801687763713
+"Asia" "Summer" 1960 0.120200333889816
+"Asia" "Summer" 1964 0.102697095435685
+"Asia" "Summer" 1968 0.190825688073395
+"Asia" "Summer" 1972 0.16036308623298
+"Asia" "Summer" 1976 0.124416796267496
+"Asia" "Summer" 1980 0.0617577197149644
+"Asia" "Summer" 1984 0.165760869565217
+"Asia" "Summer" 1988 0.10651289009498
+"Asia" "Summer" 1992 0.176128093158661
+"Asia" "Summer" 1996 0.155227710070558
+"Asia" "Summer" 2000 0.148786717752235
+"Asia" "Summer" 2004 0.167155425219941
+"Asia" "Summer" 2008 0.184520758585341
+"Asia" "Summer" 2012 0.196149217809868
+"Asia" "Summer" 2016 0.154560349535773
+"Asia" "Winter" 1956 0.05
+"Asia" "Winter" 1964 0.0112359550561798
+"Asia" "Winter" 1972 0.0267857142857143
+"Asia" "Winter" 1980 0.0111111111111111
+"Asia" "Winter" 1984 0.00854700854700855
+"Asia" "Winter" 1988 0.0087719298245614
+"Asia" "Winter" 1992 0.149350649350649
+"Asia" "Winter" 1994 0.196581196581197
+"Asia" "Winter" 1998 0.140287769784173
+"Asia" "Winter" 2002 0.100401606425703
+"Asia" "Winter" 2006 0.129411764705882
+"Asia" "Winter" 2010 0.176706827309237
+"Asia" "Winter" 2014 0.136029411764706
+"Europe" "Summer" 1928 0.205197827773468
+"Europe" "Summer" 1932 0.375401069518717
+"Europe" "Summer" 1936 0.220219914477703
+"Europe" "Summer" 1948 0.21047083626142
+"Europe" "Summer" 1952 0.189858490566038
+"Europe" "Summer" 1956 0.345657276995305
+"Europe" "Summer" 1960 0.182898550724638
+"Europe" "Summer" 1964 0.260100038476337
+"Europe" "Summer" 1968 0.224782899131597
+"Europe" "Summer" 1972 0.198026779422128
+"Europe" "Summer" 1976 0.276117278679192
+"Europe" "Summer" 1980 0.347648817613482
+"Europe" "Summer" 1984 0.251693404634581
+"Europe" "Summer" 1988 0.253956834532374
+"Europe" "Summer" 1992 0.203742203742204
+"Europe" "Summer" 1996 0.17661550123176
+"Europe" "Summer" 2000 0.197017707362535
+"Europe" "Summer" 2004 0.190326749123131
+"Europe" "Summer" 2008 0.169501133786848
+"Europe" "Summer" 2012 0.182230623818526
+"Europe" "Summer" 2016 0.210103779126689
+"Europe" "Winter" 1928 0.16030534351145
+"Europe" "Winter" 1932 0.292307692307692
+"Europe" "Winter" 1936 0.143115942028986
+"Europe" "Winter" 1948 0.188065099457505
+"Europe" "Winter" 1952 0.162408759124088
+"Europe" "Winter" 1956 0.149927219796215
+"Europe" "Winter" 1960 0.223476297968397
+"Europe" "Winter" 1964 0.202863961813842
+"Europe" "Winter" 1968 0.19391206313416
+"Europe" "Winter" 1972 0.231707317073171
+"Europe" "Winter" 1976 0.227745664739884
+"Europe" "Winter" 1980 0.234177215189873
+"Europe" "Winter" 1984 0.223896663078579
+"Europe" "Winter" 1988 0.253048780487805
+"Europe" "Winter" 1992 0.194267515923567
+"Europe" "Winter" 1994 0.18989280245023
+"Europe" "Winter" 1998 0.210351692103517
+"Europe" "Winter" 2002 0.17124488603156
+"Europe" "Winter" 2006 0.211428571428571
+"Europe" "Winter" 2010 0.159955257270694
+"Europe" "Winter" 2014 0.21264367816092
+"North America" "Summer" 1928 0.318537859007833
+"North America" "Summer" 1932 0.350609756097561
+"North America" "Summer" 1936 0.271255060728745
+"North America" "Summer" 1948 0.291118421052632
+"North America" "Summer" 1952 0.264653641207815
+"North America" "Summer" 1956 0.31063829787234
+"North America" "Summer" 1960 0.260115606936416
+"North America" "Summer" 1964 0.270588235294118
+"North America" "Summer" 1968 0.173451327433628
+"North America" "Summer" 1972 0.18491921005386
+"North America" "Summer" 1976 0.169781931464174
+"North America" "Summer" 1980 0.100609756097561
+"North America" "Summer" 1984 0.343655589123867
+"North America" "Summer" 1988 0.204911092294666
+"North America" "Summer" 1992 0.245889921372409
+"North America" "Summer" 1996 0.260347129506008
+"North America" "Summer" 2000 0.272403982930299
+"North America" "Summer" 2004 0.277735271614384
+"North America" "Summer" 2008 0.314451706608569
+"North America" "Summer" 2012 0.311993517017828
+"North America" "Summer" 2016 0.281771968046478
+"North America" "Winter" 1928 0.5
+"North America" "Winter" 1932 0.509433962264151
+"North America" "Winter" 1936 0.345238095238095
+"North America" "Winter" 1948 0.319587628865979
+"North America" "Winter" 1952 0.447619047619048
+"North America" "Winter" 1956 0.450980392156863
+"North America" "Winter" 1960 0.390243902439024
+"North America" "Winter" 1964 0.103448275862069
+"North America" "Winter" 1968 0.162650602409639
+"North America" "Winter" 1972 0.166666666666667
+"North America" "Winter" 1976 0.0848484848484849
+"North America" "Winter" 1980 0.198757763975155
+"North America" "Winter" 1984 0.0726256983240224
+"North America" "Winter" 1988 0.0483271375464684
+"North America" "Winter" 1992 0.163398692810458
+"North America" "Winter" 1994 0.212121212121212
+"North America" "Winter" 1998 0.235795454545455
+"North America" "Winter" 2002 0.427027027027027
+"North America" "Winter" 2006 0.304785894206549
+"North America" "Winter" 2010 0.449519230769231
+"North America" "Winter" 2014 0.337078651685393
+"Oceania" "Summer" 1928 0.185185185185185
+"Oceania" "Summer" 1932 0.205882352941176
+"Oceania" "Summer" 1936 0.0512820512820513
+"Oceania" "Summer" 1948 0.195121951219512
+"Oceania" "Summer" 1952 0.242105263157895
+"Oceania" "Summer" 1956 0.200573065902579
+"Oceania" "Summer" 1960 0.216814159292035
+"Oceania" "Summer" 1964 0.162866449511401
+"Oceania" "Summer" 1968 0.322222222222222
+"Oceania" "Summer" 1972 0.132295719844358
+"Oceania" "Summer" 1976 0.180451127819549
+"Oceania" "Summer" 1980 0.104838709677419
+"Oceania" "Summer" 1984 0.197889182058047
+"Oceania" "Summer" 1988 0.158602150537634
+"Oceania" "Summer" 1992 0.16
+"Oceania" "Summer" 1996 0.262569832402235
+"Oceania" "Summer" 2000 0.236708860759494
+"Oceania" "Summer" 2004 0.253105590062112
+"Oceania" "Summer" 2008 0.253086419753086
+"Oceania" "Summer" 2012 0.223809523809524
+"Oceania" "Summer" 2016 0.179331306990881
+"Oceania" "Winter" 1992 0.0357142857142857
+"Oceania" "Winter" 1994 0.125
+"Oceania" "Winter" 1998 0.032258064516129
+"Oceania" "Winter" 2002 0.0571428571428571
+"Oceania" "Winter" 2006 0.0363636363636364
+"Oceania" "Winter" 2010 0.0535714285714286
+"Oceania" "Winter" 2014 0.0405405405405405
+"South America" "Summer" 1928 0.323529411764706
+"South America" "Summer" 1932 0.0505050505050505
+"South America" "Summer" 1936 0.0443548387096774
+"South America" "Summer" 1948 0.0573394495412844
+"South America" "Summer" 1952 0.08
+"South America" "Summer" 1956 0.0969387755102041
+"South America" "Summer" 1960 0.0610169491525424
+"South America" "Summer" 1964 0.0520446096654275
+"South America" "Summer" 1968 0.021021021021021
+"South America" "Summer" 1972 0.01875
+"South America" "Summer" 1976 0.0153846153846154
+"South America" "Summer" 1980 0.0514018691588785
+"South America" "Summer" 1984 0.0901098901098901
+"South America" "Summer" 1988 0.116438356164384
+"South America" "Summer" 1992 0.0418502202643172
+"South America" "Summer" 1996 0.139072847682119
+"South America" "Summer" 2000 0.157608695652174
+"South America" "Summer" 2004 0.189054726368159
+"South America" "Summer" 2008 0.196480938416422
+"South America" "Summer" 2012 0.125714285714286
+"South America" "Summer" 2016 0.0784313725490196
