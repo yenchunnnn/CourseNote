@@ -1,3 +1,8 @@
+tab:unnamed-chunk-1255
+tab:unnamed-chunk-1256
+tab:unnamed-chunk-1257
+tab:unnamed-chunk-1258
+tab:unnamed-chunk-1259
 tab:unnamed-chunk-1260
 tab:unnamed-chunk-1261
 tab:unnamed-chunk-1262
@@ -46,11 +51,11 @@ tab:unnamed-chunk-1304
 tab:unnamed-chunk-1305
 tab:unnamed-chunk-1306
 tab:unnamed-chunk-1307
-tab:unnamed-chunk-1308
-tab:unnamed-chunk-1309
-tab:unnamed-chunk-1310
-tab:unnamed-chunk-1311
-tab:unnamed-chunk-1312
+tab:unnamed-chunk-1321
+tab:unnamed-chunk-1322
+tab:unnamed-chunk-1323
+tab:unnamed-chunk-1324
+tab:unnamed-chunk-1325
 tab:unnamed-chunk-1326
 tab:unnamed-chunk-1327
 tab:unnamed-chunk-1328
@@ -95,11 +100,6 @@ tab:unnamed-chunk-1366
 tab:unnamed-chunk-1367
 tab:unnamed-chunk-1368
 tab:unnamed-chunk-1369
-tab:unnamed-chunk-1370
-tab:unnamed-chunk-1371
-tab:unnamed-chunk-1372
-tab:unnamed-chunk-1373
-tab:unnamed-chunk-1374
 introduction-to-r
 basic-arithmetic
 basic-data-types

@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 23 Introduction to SQL | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -985,17 +985,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">23.2.1.1</span> Querying table<a href="introduction-to-sql.html#querying-table" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Practice selecting fields from <code>books</code> table.</p>
 <p><img src="https://assets.datacamp.com/production/repositories/6051/datasets/e29a42b38f1f06c8dc59b448acee9cbd9419f337/books_schema_zoom.png" width="192" /></p>
-<div class="sourceCode" id="cb2720"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2720-1"><a href="introduction-to-sql.html#cb2720-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Return all titles from the books table</span></span>
-<span id="cb2720-2"><a href="introduction-to-sql.html#cb2720-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
-<span id="cb2720-3"><a href="introduction-to-sql.html#cb2720-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
-<span id="cb2720-4"><a href="introduction-to-sql.html#cb2720-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2720-5"><a href="introduction-to-sql.html#cb2720-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select title and author from the books table</span></span>
-<span id="cb2720-6"><a href="introduction-to-sql.html#cb2720-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, author</span>
-<span id="cb2720-7"><a href="introduction-to-sql.html#cb2720-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
-<span id="cb2720-8"><a href="introduction-to-sql.html#cb2720-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2720-9"><a href="introduction-to-sql.html#cb2720-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all fields from the books table</span></span>
-<span id="cb2720-10"><a href="introduction-to-sql.html#cb2720-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb2720-11"><a href="introduction-to-sql.html#cb2720-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
+<div class="sourceCode" id="cb3202"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3202-1"><a href="introduction-to-sql.html#cb3202-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Return all titles from the books table</span></span>
+<span id="cb3202-2"><a href="introduction-to-sql.html#cb3202-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
+<span id="cb3202-3"><a href="introduction-to-sql.html#cb3202-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
+<span id="cb3202-4"><a href="introduction-to-sql.html#cb3202-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3202-5"><a href="introduction-to-sql.html#cb3202-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select title and author from the books table</span></span>
+<span id="cb3202-6"><a href="introduction-to-sql.html#cb3202-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, author</span>
+<span id="cb3202-7"><a href="introduction-to-sql.html#cb3202-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
+<span id="cb3202-8"><a href="introduction-to-sql.html#cb3202-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3202-9"><a href="introduction-to-sql.html#cb3202-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all fields from the books table</span></span>
+<span id="cb3202-10"><a href="introduction-to-sql.html#cb3202-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3202-11"><a href="introduction-to-sql.html#cb3202-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
 </div>
 </div>
 <div id="writing-queries" class="section level3 hasAnchor" number="23.2.2">
@@ -1004,21 +1004,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">23.2.2.1</span> DISTINCT<a href="introduction-to-sql.html#distinct" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>DISTINCT</code> keyword can be used to return unique values in a field.</p>
 <p>There are 350 books in the <code>books</code> table, representing all of the books that our local library has available for checkout. But how many different authors are represented in these 350 books? The answer is surely less than 350. For example, J.K. Rowling wrote all seven Harry Potter books, so if our library has all Harry Potter books, seven books will be written by J.K Rowling.</p>
-<div class="sourceCode" id="cb2721"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2721-1"><a href="introduction-to-sql.html#cb2721-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select unique authors from the books table</span></span>
-<span id="cb2721-2"><a href="introduction-to-sql.html#cb2721-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author</span>
-<span id="cb2721-3"><a href="introduction-to-sql.html#cb2721-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books </span>
-<span id="cb2721-4"><a href="introduction-to-sql.html#cb2721-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2721-5"><a href="introduction-to-sql.html#cb2721-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select unique authors and genre combinations from the books table</span></span>
-<span id="cb2721-6"><a href="introduction-to-sql.html#cb2721-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author, genre</span>
-<span id="cb2721-7"><a href="introduction-to-sql.html#cb2721-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
+<div class="sourceCode" id="cb3203"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3203-1"><a href="introduction-to-sql.html#cb3203-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select unique authors from the books table</span></span>
+<span id="cb3203-2"><a href="introduction-to-sql.html#cb3203-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author</span>
+<span id="cb3203-3"><a href="introduction-to-sql.html#cb3203-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books </span>
+<span id="cb3203-4"><a href="introduction-to-sql.html#cb3203-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3203-5"><a href="introduction-to-sql.html#cb3203-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select unique authors and genre combinations from the books table</span></span>
+<span id="cb3203-6"><a href="introduction-to-sql.html#cb3203-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author, genre</span>
+<span id="cb3203-7"><a href="introduction-to-sql.html#cb3203-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
 <p>You found 247 unique authors in the books table overall but 249 unique combinations of authors and genres. This means there are one or two authors who have written books in multiple genres!</p>
 </div>
 <div id="as" class="section level4 hasAnchor" number="23.2.2.2">
 <h4><span class="header-section-number">23.2.2.2</span> AS<a href="introduction-to-sql.html#as" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Use <em>aliasing</em> to rename columns.</p>
-<div class="sourceCode" id="cb2722"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2722-1"><a href="introduction-to-sql.html#cb2722-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Alias author so that it becomes unique_author</span></span>
-<span id="cb2722-2"><a href="introduction-to-sql.html#cb2722-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author <span class="kw">AS</span> unique_author</span>
-<span id="cb2722-3"><a href="introduction-to-sql.html#cb2722-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
+<div class="sourceCode" id="cb3204"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3204-1"><a href="introduction-to-sql.html#cb3204-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Alias author so that it becomes unique_author</span></span>
+<span id="cb3204-2"><a href="introduction-to-sql.html#cb3204-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author <span class="kw">AS</span> unique_author</span>
+<span id="cb3204-3"><a href="introduction-to-sql.html#cb3204-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
 </div>
 <div id="view" class="section level4 hasAnchor" number="23.2.2.3">
 <h4><span class="header-section-number">23.2.2.3</span> VIEW<a href="introduction-to-sql.html#view" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1026,14 +1026,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A view is a virtual table that is the result of a saved SQL <code>SELECT</code> statement</p></li>
 <li><p>The query code is stored for later use.</p></li>
 </ul>
-<div class="sourceCode" id="cb2723"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2723-1"><a href="introduction-to-sql.html#cb2723-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Save the results of this query as a view called library_authors</span></span>
-<span id="cb2723-2"><a href="introduction-to-sql.html#cb2723-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> library_authors <span class="kw">AS</span></span>
-<span id="cb2723-3"><a href="introduction-to-sql.html#cb2723-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author <span class="kw">AS</span> unique_author</span>
-<span id="cb2723-4"><a href="introduction-to-sql.html#cb2723-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
-<span id="cb2723-5"><a href="introduction-to-sql.html#cb2723-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2723-6"><a href="introduction-to-sql.html#cb2723-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all columns from library_authors</span></span>
-<span id="cb2723-7"><a href="introduction-to-sql.html#cb2723-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb2723-8"><a href="introduction-to-sql.html#cb2723-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> library_authors</span></code></pre></div>
+<div class="sourceCode" id="cb3205"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3205-1"><a href="introduction-to-sql.html#cb3205-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Save the results of this query as a view called library_authors</span></span>
+<span id="cb3205-2"><a href="introduction-to-sql.html#cb3205-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> library_authors <span class="kw">AS</span></span>
+<span id="cb3205-3"><a href="introduction-to-sql.html#cb3205-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author <span class="kw">AS</span> unique_author</span>
+<span id="cb3205-4"><a href="introduction-to-sql.html#cb3205-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
+<span id="cb3205-5"><a href="introduction-to-sql.html#cb3205-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3205-6"><a href="introduction-to-sql.html#cb3205-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all columns from library_authors</span></span>
+<span id="cb3205-7"><a href="introduction-to-sql.html#cb3205-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3205-8"><a href="introduction-to-sql.html#cb3205-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> library_authors</span></code></pre></div>
 <p>As your SQL queries become long and complex, you’ll want to be able to save your queries for referencing later. Views can also be useful when the information contained in a database table isn’t quite what you need. You can create your own custom view with exactly the information you are looking for, without needing to edit the database itself</p>
 </div>
 </div>
@@ -1061,10 +1061,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="limit" class="section level4 hasAnchor" number="23.2.3.1">
 <h4><span class="header-section-number">23.2.3.1</span> LIMIT<a href="introduction-to-sql.html#limit" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Queries are often written with a <code>LIMIT</code> of just a few records to test out code before selecting thousands of results from the database.</p>
-<div class="sourceCode" id="cb2724"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2724-1"><a href="introduction-to-sql.html#cb2724-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the first 10 genres from books using PostgreSQL</span></span>
-<span id="cb2724-2"><a href="introduction-to-sql.html#cb2724-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> genre </span>
-<span id="cb2724-3"><a href="introduction-to-sql.html#cb2724-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books</span>
-<span id="cb2724-4"><a href="introduction-to-sql.html#cb2724-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3206"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3206-1"><a href="introduction-to-sql.html#cb3206-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the first 10 genres from books using PostgreSQL</span></span>
+<span id="cb3206-2"><a href="introduction-to-sql.html#cb3206-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> genre </span>
+<span id="cb3206-3"><a href="introduction-to-sql.html#cb3206-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books</span>
+<span id="cb3206-4"><a href="introduction-to-sql.html#cb3206-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 
 </div>
 </div>

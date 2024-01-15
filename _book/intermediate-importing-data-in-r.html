@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 22 Intermediate Importing Data in R | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -949,24 +949,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The first step to import data from a SQL database is creating a connection to it. As Filip explained, you need different packages depending on the database you want to connect to. All of these packages do this in a uniform way, as specified in the <code>DBI</code> package.</p>
 <p><a href="https://www.rdocumentation.org/packages/DBI/functions/dbConnect"><strong><code>dbConnect()</code></strong></a> creates a connection between your R session and a SQL database. The first argument has to be a <code>DBIdriver</code> object, that specifies how connections are made and how data is mapped between R and the database. Specifically for MySQL databases, you can build such a driver with <a href="https://www.rdocumentation.org/packages/RMySQL/functions/MySQLDriver-class"><strong><code>RMySQL::MySQL()</code></strong></a>.</p>
 <p>If the MySQL database is a remote database hosted on a server, you’ll also have to specify the following arguments in <a href="https://www.rdocumentation.org/packages/DBI/functions/dbConnect"><strong><code>dbConnect()</code></strong></a>: <code>dbname</code>, <code>host</code>, <code>port</code>, <code>user</code> and <code>password</code>.</p>
-<div class="sourceCode" id="cb2615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2615-1"><a href="intermediate-importing-data-in-r.html#cb2615-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DBI package</span></span>
-<span id="cb2615-2"><a href="intermediate-importing-data-in-r.html#cb2615-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb2615-3"><a href="intermediate-importing-data-in-r.html#cb2615-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2615-4"><a href="intermediate-importing-data-in-r.html#cb2615-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit dbConnect() call</span></span>
-<span id="cb2615-5"><a href="intermediate-importing-data-in-r.html#cb2615-5" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(), <span class="co"># specifies the driver</span></span>
-<span id="cb2615-6"><a href="intermediate-importing-data-in-r.html#cb2615-6" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># database name</span></span>
-<span id="cb2615-7"><a href="intermediate-importing-data-in-r.html#cb2615-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">&quot;tweater&quot;</span>, </span>
-<span id="cb2615-8"><a href="intermediate-importing-data-in-r.html#cb2615-8" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># where the database is hosted</span></span>
-<span id="cb2615-9"><a href="intermediate-importing-data-in-r.html#cb2615-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">&quot;courses.csrrinzqubik.us-east-1.rds.amazonaws.com&quot;</span>, </span>
-<span id="cb2615-10"><a href="intermediate-importing-data-in-r.html#cb2615-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># through which port you want to connect</span></span>
-<span id="cb2615-11"><a href="intermediate-importing-data-in-r.html#cb2615-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">port =</span> <span class="dv">3306</span>,</span>
-<span id="cb2615-12"><a href="intermediate-importing-data-in-r.html#cb2615-12" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># credentials to authenticate yourself</span></span>
-<span id="cb2615-13"><a href="intermediate-importing-data-in-r.html#cb2615-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">&quot;student&quot;</span>,</span>
-<span id="cb2615-14"><a href="intermediate-importing-data-in-r.html#cb2615-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">&quot;datacamp&quot;</span>)</span>
-<span id="cb2615-15"><a href="intermediate-importing-data-in-r.html#cb2615-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2615-16"><a href="intermediate-importing-data-in-r.html#cb2615-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the connection</span></span>
-<span id="cb2615-17"><a href="intermediate-importing-data-in-r.html#cb2615-17" aria-hidden="true" tabindex="-1"></a>con</span></code></pre></div>
-<pre><code>## &lt;MySQLConnection:0,2&gt;</code></pre>
+<div class="sourceCode" id="cb3073"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3073-1"><a href="intermediate-importing-data-in-r.html#cb3073-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DBI package</span></span>
+<span id="cb3073-2"><a href="intermediate-importing-data-in-r.html#cb3073-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb3073-3"><a href="intermediate-importing-data-in-r.html#cb3073-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3073-4"><a href="intermediate-importing-data-in-r.html#cb3073-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit dbConnect() call</span></span>
+<span id="cb3073-5"><a href="intermediate-importing-data-in-r.html#cb3073-5" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(), <span class="co"># specifies the driver</span></span>
+<span id="cb3073-6"><a href="intermediate-importing-data-in-r.html#cb3073-6" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># database name</span></span>
+<span id="cb3073-7"><a href="intermediate-importing-data-in-r.html#cb3073-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">&quot;tweater&quot;</span>, </span>
+<span id="cb3073-8"><a href="intermediate-importing-data-in-r.html#cb3073-8" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># where the database is hosted</span></span>
+<span id="cb3073-9"><a href="intermediate-importing-data-in-r.html#cb3073-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">&quot;courses.csrrinzqubik.us-east-1.rds.amazonaws.com&quot;</span>, </span>
+<span id="cb3073-10"><a href="intermediate-importing-data-in-r.html#cb3073-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># through which port you want to connect</span></span>
+<span id="cb3073-11"><a href="intermediate-importing-data-in-r.html#cb3073-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">port =</span> <span class="dv">3306</span>,</span>
+<span id="cb3073-12"><a href="intermediate-importing-data-in-r.html#cb3073-12" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># credentials to authenticate yourself</span></span>
+<span id="cb3073-13"><a href="intermediate-importing-data-in-r.html#cb3073-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">&quot;student&quot;</span>,</span>
+<span id="cb3073-14"><a href="intermediate-importing-data-in-r.html#cb3073-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">&quot;datacamp&quot;</span>)</span>
+<span id="cb3073-15"><a href="intermediate-importing-data-in-r.html#cb3073-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3073-16"><a href="intermediate-importing-data-in-r.html#cb3073-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the connection</span></span>
+<span id="cb3073-17"><a href="intermediate-importing-data-in-r.html#cb3073-17" aria-hidden="true" tabindex="-1"></a>con</span></code></pre></div>
+<pre><code>## &lt;MySQLConnection:0,0&gt;</code></pre>
 <p>You are now connected to the MySQL database <code>tweater</code>.</p>
 <p><code>dbDisconnect(con)</code> is to disconnected after finish work.</p>
 </div>
@@ -976,34 +976,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="list-the-database-tables" class="section level4 hasAnchor" number="22.1.2.1">
 <h4><span class="header-section-number">22.1.2.1</span> List the database tables<a href="intermediate-importing-data-in-r.html#list-the-database-tables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>dbListTables()</code> requires the connection object as an input, and outputs a character vector with the table names.</p>
-<div class="sourceCode" id="cb2617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2617-1"><a href="intermediate-importing-data-in-r.html#cb2617-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a vector of table names: tables</span></span>
-<span id="cb2617-2"><a href="intermediate-importing-data-in-r.html#cb2617-2" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">dbListTables</span>(con)</span>
-<span id="cb2617-3"><a href="intermediate-importing-data-in-r.html#cb2617-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2617-4"><a href="intermediate-importing-data-in-r.html#cb2617-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display structure of tables</span></span>
-<span id="cb2617-5"><a href="intermediate-importing-data-in-r.html#cb2617-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tables)</span></code></pre></div>
+<div class="sourceCode" id="cb3075"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3075-1"><a href="intermediate-importing-data-in-r.html#cb3075-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a vector of table names: tables</span></span>
+<span id="cb3075-2"><a href="intermediate-importing-data-in-r.html#cb3075-2" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">dbListTables</span>(con)</span>
+<span id="cb3075-3"><a href="intermediate-importing-data-in-r.html#cb3075-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3075-4"><a href="intermediate-importing-data-in-r.html#cb3075-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display structure of tables</span></span>
+<span id="cb3075-5"><a href="intermediate-importing-data-in-r.html#cb3075-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tables)</span></code></pre></div>
 <pre><code>##  chr [1:3] &quot;comments&quot; &quot;tweats&quot; &quot;users&quot;</code></pre>
 </div>
 <div id="import-table" class="section level4 hasAnchor" number="22.1.2.2">
 <h4><span class="header-section-number">22.1.2.2</span> Import table<a href="intermediate-importing-data-in-r.html#import-table" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>dbReadTable()</code> simply pass it the connection object, followed by the name of the table you want to import. The resulting object is a standard R data frame.</p>
-<div class="sourceCode" id="cb2619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2619-1"><a href="intermediate-importing-data-in-r.html#cb2619-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the users table from tweater: users</span></span>
-<span id="cb2619-2"><a href="intermediate-importing-data-in-r.html#cb2619-2" aria-hidden="true" tabindex="-1"></a>users <span class="ot">&lt;-</span> <span class="fu">dbReadTable</span>(con, <span class="st">&quot;users&quot;</span>)</span>
-<span id="cb2619-3"><a href="intermediate-importing-data-in-r.html#cb2619-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2619-4"><a href="intermediate-importing-data-in-r.html#cb2619-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print users</span></span>
-<span id="cb2619-5"><a href="intermediate-importing-data-in-r.html#cb2619-5" aria-hidden="true" tabindex="-1"></a>users</span></code></pre></div>
+<div class="sourceCode" id="cb3077"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3077-1"><a href="intermediate-importing-data-in-r.html#cb3077-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the users table from tweater: users</span></span>
+<span id="cb3077-2"><a href="intermediate-importing-data-in-r.html#cb3077-2" aria-hidden="true" tabindex="-1"></a>users <span class="ot">&lt;-</span> <span class="fu">dbReadTable</span>(con, <span class="st">&quot;users&quot;</span>)</span>
+<span id="cb3077-3"><a href="intermediate-importing-data-in-r.html#cb3077-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3077-4"><a href="intermediate-importing-data-in-r.html#cb3077-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print users</span></span>
+<span id="cb3077-5"><a href="intermediate-importing-data-in-r.html#cb3077-5" aria-hidden="true" tabindex="-1"></a>users</span></code></pre></div>
+<pre><code>##   id      name     login
+## 1  1 elisabeth  elismith
+## 2  2      mike     mikey
+## 3  3      thea   teatime
+## 4  4    thomas tomatotom
+## 5  5    oliver olivander
+## 6  6      kate  katebenn
+## 7  7    anjali    lianja</code></pre>
 </div>
 <div id="import-all-tables" class="section level4 hasAnchor" number="22.1.2.3">
 <h4><span class="header-section-number">22.1.2.3</span> Import all tables<a href="intermediate-importing-data-in-r.html#import-all-tables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Use <code>lapply</code></p>
-<div class="sourceCode" id="cb2620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2620-1"><a href="intermediate-importing-data-in-r.html#cb2620-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get table names</span></span>
-<span id="cb2620-2"><a href="intermediate-importing-data-in-r.html#cb2620-2" aria-hidden="true" tabindex="-1"></a>table_names <span class="ot">&lt;-</span> <span class="fu">dbListTables</span>(con)</span>
-<span id="cb2620-3"><a href="intermediate-importing-data-in-r.html#cb2620-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2620-4"><a href="intermediate-importing-data-in-r.html#cb2620-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import all tables, conn is the first argument of dbReadTable</span></span>
-<span id="cb2620-5"><a href="intermediate-importing-data-in-r.html#cb2620-5" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">lapply</span>(table_names, dbReadTable, <span class="at">conn =</span> con)</span>
-<span id="cb2620-6"><a href="intermediate-importing-data-in-r.html#cb2620-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2620-7"><a href="intermediate-importing-data-in-r.html#cb2620-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out tables</span></span>
-<span id="cb2620-8"><a href="intermediate-importing-data-in-r.html#cb2620-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tables) <span class="ot">&lt;-</span> table_names</span>
-<span id="cb2620-9"><a href="intermediate-importing-data-in-r.html#cb2620-9" aria-hidden="true" tabindex="-1"></a>tables</span></code></pre></div>
+<div class="sourceCode" id="cb3079"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3079-1"><a href="intermediate-importing-data-in-r.html#cb3079-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get table names</span></span>
+<span id="cb3079-2"><a href="intermediate-importing-data-in-r.html#cb3079-2" aria-hidden="true" tabindex="-1"></a>table_names <span class="ot">&lt;-</span> <span class="fu">dbListTables</span>(con)</span>
+<span id="cb3079-3"><a href="intermediate-importing-data-in-r.html#cb3079-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3079-4"><a href="intermediate-importing-data-in-r.html#cb3079-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import all tables, conn is the first argument of dbReadTable</span></span>
+<span id="cb3079-5"><a href="intermediate-importing-data-in-r.html#cb3079-5" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">lapply</span>(table_names, dbReadTable, <span class="at">conn =</span> con)</span>
+<span id="cb3079-6"><a href="intermediate-importing-data-in-r.html#cb3079-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3079-7"><a href="intermediate-importing-data-in-r.html#cb3079-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out tables</span></span>
+<span id="cb3079-8"><a href="intermediate-importing-data-in-r.html#cb3079-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tables) <span class="ot">&lt;-</span> table_names</span>
+<span id="cb3079-9"><a href="intermediate-importing-data-in-r.html#cb3079-9" aria-hidden="true" tabindex="-1"></a>tables</span></code></pre></div>
 <pre><code>## $comments
 ##      id tweat_id user_id            message
 ## 1  1022       87       7              nice!
@@ -1061,35 +1069,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">22.2.1</span> SQL Queries from inside R<a href="intermediate-importing-data-in-r.html#sql-queries-from-inside-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As a data scientist, you’ll often be working with huge databases that contain tables with millions of rows. If you want to do some analyses on this data, it’s possible that you only need a fraction of this data. In this case, it’s a good idea to send SQL queries to your database, and only import the data you actually need into R.</p>
 <p><code>dbGetQuery(con, SQLquery)</code>, the second argument is an SQL query in the form of a character string.</p>
-<div class="sourceCode" id="cb2622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2622-1"><a href="intermediate-importing-data-in-r.html#cb2622-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import tweat_id column of comments where user_id is 1: elisabeth</span></span>
-<span id="cb2622-2"><a href="intermediate-importing-data-in-r.html#cb2622-2" aria-hidden="true" tabindex="-1"></a>elisabeth <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT tweat_id FROM comments</span></span>
-<span id="cb2622-3"><a href="intermediate-importing-data-in-r.html#cb2622-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                WHERE user_id = 1&quot;</span>)</span>
-<span id="cb2622-4"><a href="intermediate-importing-data-in-r.html#cb2622-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2622-5"><a href="intermediate-importing-data-in-r.html#cb2622-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print elisabeth</span></span>
-<span id="cb2622-6"><a href="intermediate-importing-data-in-r.html#cb2622-6" aria-hidden="true" tabindex="-1"></a>elisabeth</span></code></pre></div>
-<div class="sourceCode" id="cb2623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2623-1"><a href="intermediate-importing-data-in-r.html#cb2623-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import post column of tweats where date is higher than &#39;2015-09-21&#39;: latest</span></span>
-<span id="cb2623-2"><a href="intermediate-importing-data-in-r.html#cb2623-2" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT post FROM tweats</span></span>
-<span id="cb2623-3"><a href="intermediate-importing-data-in-r.html#cb2623-3" aria-hidden="true" tabindex="-1"></a><span class="st">                             WHERE date &gt; &#39;2015-09-21&#39;&quot;</span>)</span>
-<span id="cb2623-4"><a href="intermediate-importing-data-in-r.html#cb2623-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2623-5"><a href="intermediate-importing-data-in-r.html#cb2623-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print latest</span></span>
-<span id="cb2623-6"><a href="intermediate-importing-data-in-r.html#cb2623-6" aria-hidden="true" tabindex="-1"></a>latest</span></code></pre></div>
-<div class="sourceCode" id="cb2624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2624-1"><a href="intermediate-importing-data-in-r.html#cb2624-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame specific</span></span>
-<span id="cb2624-2"><a href="intermediate-importing-data-in-r.html#cb2624-2" aria-hidden="true" tabindex="-1"></a>specific <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT message FROM comments</span></span>
-<span id="cb2624-3"><a href="intermediate-importing-data-in-r.html#cb2624-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                WHERE tweat_id = 77 AND user_id &gt; 4&quot;</span>)</span>
-<span id="cb2624-4"><a href="intermediate-importing-data-in-r.html#cb2624-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2624-5"><a href="intermediate-importing-data-in-r.html#cb2624-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print specific</span></span>
-<span id="cb2624-6"><a href="intermediate-importing-data-in-r.html#cb2624-6" aria-hidden="true" tabindex="-1"></a>specific</span></code></pre></div>
-<div class="sourceCode" id="cb2625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2625-1"><a href="intermediate-importing-data-in-r.html#cb2625-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame short</span></span>
-<span id="cb2625-2"><a href="intermediate-importing-data-in-r.html#cb2625-2" aria-hidden="true" tabindex="-1"></a><span class="co"># CHAR_LENGTH() returns the number of characters in a string</span></span>
-<span id="cb2625-3"><a href="intermediate-importing-data-in-r.html#cb2625-3" aria-hidden="true" tabindex="-1"></a>short <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT id, name FROM users</span></span>
-<span id="cb2625-4"><a href="intermediate-importing-data-in-r.html#cb2625-4" aria-hidden="true" tabindex="-1"></a><span class="st">                            WHERE CHAR_LENGTH(name) &lt; 5&quot;</span>)</span>
-<span id="cb2625-5"><a href="intermediate-importing-data-in-r.html#cb2625-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2625-6"><a href="intermediate-importing-data-in-r.html#cb2625-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print short</span></span>
-<span id="cb2625-7"><a href="intermediate-importing-data-in-r.html#cb2625-7" aria-hidden="true" tabindex="-1"></a>short</span></code></pre></div>
-<div class="sourceCode" id="cb2626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2626-1"><a href="intermediate-importing-data-in-r.html#cb2626-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join by key</span></span>
-<span id="cb2626-2"><a href="intermediate-importing-data-in-r.html#cb2626-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT post, message</span></span>
-<span id="cb2626-3"><a href="intermediate-importing-data-in-r.html#cb2626-3" aria-hidden="true" tabindex="-1"></a><span class="st">                   FROM tweats INNER JOIN comments on tweats.id = tweat_id</span></span>
-<span id="cb2626-4"><a href="intermediate-importing-data-in-r.html#cb2626-4" aria-hidden="true" tabindex="-1"></a><span class="st">                     WHERE tweat_id = 77&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3081"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3081-1"><a href="intermediate-importing-data-in-r.html#cb3081-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import tweat_id column of comments where user_id is 1: elisabeth</span></span>
+<span id="cb3081-2"><a href="intermediate-importing-data-in-r.html#cb3081-2" aria-hidden="true" tabindex="-1"></a>elisabeth <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT tweat_id FROM comments</span></span>
+<span id="cb3081-3"><a href="intermediate-importing-data-in-r.html#cb3081-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                WHERE user_id = 1&quot;</span>)</span>
+<span id="cb3081-4"><a href="intermediate-importing-data-in-r.html#cb3081-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3081-5"><a href="intermediate-importing-data-in-r.html#cb3081-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print elisabeth</span></span>
+<span id="cb3081-6"><a href="intermediate-importing-data-in-r.html#cb3081-6" aria-hidden="true" tabindex="-1"></a>elisabeth</span></code></pre></div>
+<pre><code>##   tweat_id
+## 1       87
+## 2       49
+## 3       77
+## 4       77</code></pre>
+<div class="sourceCode" id="cb3083"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3083-1"><a href="intermediate-importing-data-in-r.html#cb3083-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import post column of tweats where date is higher than &#39;2015-09-21&#39;: latest</span></span>
+<span id="cb3083-2"><a href="intermediate-importing-data-in-r.html#cb3083-2" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT post FROM tweats</span></span>
+<span id="cb3083-3"><a href="intermediate-importing-data-in-r.html#cb3083-3" aria-hidden="true" tabindex="-1"></a><span class="st">                             WHERE date &gt; &#39;2015-09-21&#39;&quot;</span>)</span>
+<span id="cb3083-4"><a href="intermediate-importing-data-in-r.html#cb3083-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3083-5"><a href="intermediate-importing-data-in-r.html#cb3083-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print latest</span></span>
+<span id="cb3083-6"><a href="intermediate-importing-data-in-r.html#cb3083-6" aria-hidden="true" tabindex="-1"></a>latest</span></code></pre></div>
+<pre><code>##                                                                  post
+## 1               open and crush avocado. add shrimps. perfect starter.
+## 2 nachos. add tomato sauce, minced meat and cheese. oven for 10 mins.
+## 3                              just eat an apple. simply and healthy.</code></pre>
+<div class="sourceCode" id="cb3085"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3085-1"><a href="intermediate-importing-data-in-r.html#cb3085-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame specific</span></span>
+<span id="cb3085-2"><a href="intermediate-importing-data-in-r.html#cb3085-2" aria-hidden="true" tabindex="-1"></a>specific <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT message FROM comments</span></span>
+<span id="cb3085-3"><a href="intermediate-importing-data-in-r.html#cb3085-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                WHERE tweat_id = 77 AND user_id &gt; 4&quot;</span>)</span>
+<span id="cb3085-4"><a href="intermediate-importing-data-in-r.html#cb3085-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3085-5"><a href="intermediate-importing-data-in-r.html#cb3085-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print specific</span></span>
+<span id="cb3085-6"><a href="intermediate-importing-data-in-r.html#cb3085-6" aria-hidden="true" tabindex="-1"></a>specific</span></code></pre></div>
+<pre><code>##   message
+## 1  great!</code></pre>
+<div class="sourceCode" id="cb3087"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3087-1"><a href="intermediate-importing-data-in-r.html#cb3087-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame short</span></span>
+<span id="cb3087-2"><a href="intermediate-importing-data-in-r.html#cb3087-2" aria-hidden="true" tabindex="-1"></a><span class="co"># CHAR_LENGTH() returns the number of characters in a string</span></span>
+<span id="cb3087-3"><a href="intermediate-importing-data-in-r.html#cb3087-3" aria-hidden="true" tabindex="-1"></a>short <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT id, name FROM users</span></span>
+<span id="cb3087-4"><a href="intermediate-importing-data-in-r.html#cb3087-4" aria-hidden="true" tabindex="-1"></a><span class="st">                            WHERE CHAR_LENGTH(name) &lt; 5&quot;</span>)</span>
+<span id="cb3087-5"><a href="intermediate-importing-data-in-r.html#cb3087-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3087-6"><a href="intermediate-importing-data-in-r.html#cb3087-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print short</span></span>
+<span id="cb3087-7"><a href="intermediate-importing-data-in-r.html#cb3087-7" aria-hidden="true" tabindex="-1"></a>short</span></code></pre></div>
+<pre><code>##   id name
+## 1  2 mike
+## 2  3 thea
+## 3  6 kate</code></pre>
+<div class="sourceCode" id="cb3089"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3089-1"><a href="intermediate-importing-data-in-r.html#cb3089-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join by key</span></span>
+<span id="cb3089-2"><a href="intermediate-importing-data-in-r.html#cb3089-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT post, message</span></span>
+<span id="cb3089-3"><a href="intermediate-importing-data-in-r.html#cb3089-3" aria-hidden="true" tabindex="-1"></a><span class="st">                   FROM tweats INNER JOIN comments on tweats.id = tweat_id</span></span>
+<span id="cb3089-4"><a href="intermediate-importing-data-in-r.html#cb3089-4" aria-hidden="true" tabindex="-1"></a><span class="st">                     WHERE tweat_id = 77&quot;</span>)</span></code></pre></div>
+<pre><code>##                                            post            message
+## 1 2 slices of bread. add cheese. grill. heaven.             great!
+## 2 2 slices of bread. add cheese. grill. heaven.      not my thing!
+## 3 2 slices of bread. add cheese. grill. heaven. couldn&#39;t be better
+## 4 2 slices of bread. add cheese. grill. heaven.       saved my day</code></pre>
 </div>
 <div id="dbi-internals" class="section level3 hasAnchor" number="22.2.2">
 <h3><span class="header-section-number">22.2.2</span> DBI internals<a href="intermediate-importing-data-in-r.html#dbi-internals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1105,35 +1133,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Clearing the result with <a href="https://www.rdocumentation.org/packages/DBI/functions/dbClearResult"><strong><code>dbClearResult()</code></strong></a>.</p></li>
 </ul>
 <p>It gives you the ability to fetch the query’s result in chunks rather than all at once. You can do this by specifying the <code>n</code> argument inside <code>dbFetch()</code>.</p>
-<div class="sourceCode" id="cb2627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2627-1"><a href="intermediate-importing-data-in-r.html#cb2627-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Send query to the database</span></span>
-<span id="cb2627-2"><a href="intermediate-importing-data-in-r.html#cb2627-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Selects comments for the users with an id above 4</span></span>
-<span id="cb2627-3"><a href="intermediate-importing-data-in-r.html#cb2627-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">&quot;SELECT * FROM comments </span></span>
-<span id="cb2627-4"><a href="intermediate-importing-data-in-r.html#cb2627-4" aria-hidden="true" tabindex="-1"></a><span class="st">                           WHERE user_id &gt; 4&quot;</span>)</span>
-<span id="cb2627-5"><a href="intermediate-importing-data-in-r.html#cb2627-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2627-6"><a href="intermediate-importing-data-in-r.html#cb2627-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use dbFetch() twice</span></span>
-<span id="cb2627-7"><a href="intermediate-importing-data-in-r.html#cb2627-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dbFetch</span>(res, <span class="at">n =</span> <span class="dv">2</span>) <span class="co"># import only two records of the query</span></span>
-<span id="cb2627-8"><a href="intermediate-importing-data-in-r.html#cb2627-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dbFetch</span>(res)        <span class="co"># import all remaining queries (don&#39;t specify n)</span></span>
-<span id="cb2627-9"><a href="intermediate-importing-data-in-r.html#cb2627-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2627-10"><a href="intermediate-importing-data-in-r.html#cb2627-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear res</span></span>
-<span id="cb2627-11"><a href="intermediate-importing-data-in-r.html#cb2627-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dbClearResult</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb3091"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3091-1"><a href="intermediate-importing-data-in-r.html#cb3091-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Send query to the database</span></span>
+<span id="cb3091-2"><a href="intermediate-importing-data-in-r.html#cb3091-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Selects comments for the users with an id above 4</span></span>
+<span id="cb3091-3"><a href="intermediate-importing-data-in-r.html#cb3091-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">&quot;SELECT * FROM comments </span></span>
+<span id="cb3091-4"><a href="intermediate-importing-data-in-r.html#cb3091-4" aria-hidden="true" tabindex="-1"></a><span class="st">                           WHERE user_id &gt; 4&quot;</span>)</span>
+<span id="cb3091-5"><a href="intermediate-importing-data-in-r.html#cb3091-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3091-6"><a href="intermediate-importing-data-in-r.html#cb3091-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use dbFetch() twice</span></span>
+<span id="cb3091-7"><a href="intermediate-importing-data-in-r.html#cb3091-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dbFetch</span>(res, <span class="at">n =</span> <span class="dv">2</span>) <span class="co"># import only two records of the query</span></span></code></pre></div>
+<pre><code>##     id tweat_id user_id message
+## 1 1022       87       7   nice!
+## 2 1000       77       7  great!</code></pre>
+<div class="sourceCode" id="cb3093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3093-1"><a href="intermediate-importing-data-in-r.html#cb3093-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbFetch</span>(res)        <span class="co"># import all remaining queries (don&#39;t specify n)</span></span></code></pre></div>
+<pre><code>##     id tweat_id user_id  message
+## 1 1011       49       5  love it
+## 2 1010       88       6    yuck!
+## 3 1030       75       6 so easy!</code></pre>
+<div class="sourceCode" id="cb3095"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3095-1"><a href="intermediate-importing-data-in-r.html#cb3095-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear res</span></span>
+<span id="cb3095-2"><a href="intermediate-importing-data-in-r.html#cb3095-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbClearResult</span>(res)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p><code>dbGetQuery</code> will get all 5 records at once. So above using <code>dbFetch</code>, you first get 2 records by setting <code>n = 2</code> (first chunk), next get 5-2=3 remaining records (second chunk).</p>
-<div class="sourceCode" id="cb2629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2629-1"><a href="intermediate-importing-data-in-r.html#cb2629-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try what dbGetQuery get</span></span>
-<span id="cb2629-2"><a href="intermediate-importing-data-in-r.html#cb2629-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM comments </span></span>
-<span id="cb2629-3"><a href="intermediate-importing-data-in-r.html#cb2629-3" aria-hidden="true" tabindex="-1"></a><span class="st">                   WHERE user_id &gt; 4&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3097"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3097-1"><a href="intermediate-importing-data-in-r.html#cb3097-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try what dbGetQuery get</span></span>
+<span id="cb3097-2"><a href="intermediate-importing-data-in-r.html#cb3097-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM comments </span></span>
+<span id="cb3097-3"><a href="intermediate-importing-data-in-r.html#cb3097-3" aria-hidden="true" tabindex="-1"></a><span class="st">                   WHERE user_id &gt; 4&quot;</span>)</span></code></pre></div>
+<pre><code>##     id tweat_id user_id  message
+## 1 1022       87       7    nice!
+## 2 1000       77       7   great!
+## 3 1011       49       5  love it
+## 4 1010       88       6    yuck!
+## 5 1030       75       6 so easy!</code></pre>
 </div>
 <div id="disconnect" class="section level4 hasAnchor" number="22.2.2.2">
 <h4><span class="header-section-number">22.2.2.2</span> Disconnect<a href="intermediate-importing-data-in-r.html#disconnect" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>It’s always polite to manually disconnect from the database afterwards. You do this with the <code>dbDisconnect()</code> function.</p>
-<div class="sourceCode" id="cb2630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2630-1"><a href="intermediate-importing-data-in-r.html#cb2630-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the data frame  long_tweats</span></span>
-<span id="cb2630-2"><a href="intermediate-importing-data-in-r.html#cb2630-2" aria-hidden="true" tabindex="-1"></a>long_tweats <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT post, date FROM tweats</span></span>
-<span id="cb2630-3"><a href="intermediate-importing-data-in-r.html#cb2630-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                  WHERE CHAR_LENGTH(post) &gt; 40&quot;</span>)</span>
-<span id="cb2630-4"><a href="intermediate-importing-data-in-r.html#cb2630-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2630-5"><a href="intermediate-importing-data-in-r.html#cb2630-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print long_tweats</span></span>
-<span id="cb2630-6"><a href="intermediate-importing-data-in-r.html#cb2630-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(long_tweats)</span></code></pre></div>
+<div class="sourceCode" id="cb3099"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3099-1"><a href="intermediate-importing-data-in-r.html#cb3099-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the data frame  long_tweats</span></span>
+<span id="cb3099-2"><a href="intermediate-importing-data-in-r.html#cb3099-2" aria-hidden="true" tabindex="-1"></a>long_tweats <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT post, date FROM tweats</span></span>
+<span id="cb3099-3"><a href="intermediate-importing-data-in-r.html#cb3099-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                  WHERE CHAR_LENGTH(post) &gt; 40&quot;</span>)</span>
+<span id="cb3099-4"><a href="intermediate-importing-data-in-r.html#cb3099-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3099-5"><a href="intermediate-importing-data-in-r.html#cb3099-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print long_tweats</span></span>
+<span id="cb3099-6"><a href="intermediate-importing-data-in-r.html#cb3099-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(long_tweats)</span></code></pre></div>
+<pre><code>##                                                                  post
+## 1                           wash strawberries. add ice. blend. enjoy.
+## 2                       2 slices of bread. add cheese. grill. heaven.
+## 3               open and crush avocado. add shrimps. perfect starter.
+## 4 nachos. add tomato sauce, minced meat and cheese. oven for 10 mins.
+##         date
+## 1 2015-09-14
+## 2 2015-09-21
+## 3 2015-09-22
+## 4 2015-09-22</code></pre>
 <p>Disconnect from the database.</p>
-<div class="sourceCode" id="cb2631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2631-1"><a href="intermediate-importing-data-in-r.html#cb2631-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disconnect from the database</span></span>
-<span id="cb2631-2"><a href="intermediate-importing-data-in-r.html#cb2631-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb3101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3101-1"><a href="intermediate-importing-data-in-r.html#cb3101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disconnect from the database</span></span>
+<span id="cb3101-2"><a href="intermediate-importing-data-in-r.html#cb3101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -1151,56 +1201,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">22.3.1.1</span> Import flat files from the web<a href="intermediate-importing-data-in-r.html#import-flat-files-from-the-web" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><img src="image/import%20file_http.png" width="249" /></p>
 <p>R sees it’s a URL, does GET request, and reads in the specific type’s file.</p>
-<div class="sourceCode" id="cb2633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2633-1"><a href="intermediate-importing-data-in-r.html#cb2633-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the readr package</span></span>
-<span id="cb2633-2"><a href="intermediate-importing-data-in-r.html#cb2633-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb2633-3"><a href="intermediate-importing-data-in-r.html#cb2633-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2633-4"><a href="intermediate-importing-data-in-r.html#cb2633-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the csv file: pools</span></span>
-<span id="cb2633-5"><a href="intermediate-importing-data-in-r.html#cb2633-5" aria-hidden="true" tabindex="-1"></a>url_csv <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/swimming_pools.csv&quot;</span></span>
-<span id="cb2633-6"><a href="intermediate-importing-data-in-r.html#cb2633-6" aria-hidden="true" tabindex="-1"></a>pools <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url_csv)</span></code></pre></div>
+<div class="sourceCode" id="cb3103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3103-1"><a href="intermediate-importing-data-in-r.html#cb3103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the readr package</span></span>
+<span id="cb3103-2"><a href="intermediate-importing-data-in-r.html#cb3103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3103-3"><a href="intermediate-importing-data-in-r.html#cb3103-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3103-4"><a href="intermediate-importing-data-in-r.html#cb3103-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the csv file: pools</span></span>
+<span id="cb3103-5"><a href="intermediate-importing-data-in-r.html#cb3103-5" aria-hidden="true" tabindex="-1"></a>url_csv <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/swimming_pools.csv&quot;</span></span>
+<span id="cb3103-6"><a href="intermediate-importing-data-in-r.html#cb3103-6" aria-hidden="true" tabindex="-1"></a>pools <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url_csv)</span></code></pre></div>
 <pre><code>## Rows: 20 Columns: 4
-## ── Column specification ───────────────────────────────────────────────────
+## ── Column specification ──────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (2): Name, Address
 ## dbl (2): Latitude, Longitude
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb2635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2635-1"><a href="intermediate-importing-data-in-r.html#cb2635-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the txt file: potatoes</span></span>
-<span id="cb2635-2"><a href="intermediate-importing-data-in-r.html#cb2635-2" aria-hidden="true" tabindex="-1"></a>url_delim <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/potatoes.txt&quot;</span></span>
-<span id="cb2635-3"><a href="intermediate-importing-data-in-r.html#cb2635-3" aria-hidden="true" tabindex="-1"></a>potatoes <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(url_delim)</span></code></pre></div>
+<div class="sourceCode" id="cb3105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3105-1"><a href="intermediate-importing-data-in-r.html#cb3105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the txt file: potatoes</span></span>
+<span id="cb3105-2"><a href="intermediate-importing-data-in-r.html#cb3105-2" aria-hidden="true" tabindex="-1"></a>url_delim <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/potatoes.txt&quot;</span></span>
+<span id="cb3105-3"><a href="intermediate-importing-data-in-r.html#cb3105-3" aria-hidden="true" tabindex="-1"></a>potatoes <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(url_delim)</span></code></pre></div>
 <pre><code>## Rows: 160 Columns: 8
-## ── Column specification ───────────────────────────────────────────────────
+## ── Column specification ──────────────────────
 ## Delimiter: &quot;\t&quot;
 ## dbl (8): area, temp, size, storage, method, texture, flavor, moistness
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb2637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2637-1"><a href="intermediate-importing-data-in-r.html#cb2637-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print pools and potatoes</span></span>
-<span id="cb2637-2"><a href="intermediate-importing-data-in-r.html#cb2637-2" aria-hidden="true" tabindex="-1"></a>pools</span>
-<span id="cb2637-3"><a href="intermediate-importing-data-in-r.html#cb2637-3" aria-hidden="true" tabindex="-1"></a>potatoes</span></code></pre></div>
+<div class="sourceCode" id="cb3107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3107-1"><a href="intermediate-importing-data-in-r.html#cb3107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print pools and potatoes</span></span>
+<span id="cb3107-2"><a href="intermediate-importing-data-in-r.html#cb3107-2" aria-hidden="true" tabindex="-1"></a>pools</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 4
+##    Name                                      Address          Latitude Longitude
+##    &lt;chr&gt;                                     &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Acacia Ridge Leisure Centre               1391 Beaudesert…    -27.6      153.
+##  2 Bellbowrie Pool                           Sugarwood Stree…    -27.6      153.
+##  3 Carole Park                               Cnr Boundary Ro…    -27.6      153.
+##  4 Centenary Pool (inner City)               400 Gregory Ter…    -27.5      153.
+##  5 Chermside Pool                            375 Hamilton Ro…    -27.4      153.
+##  6 Colmslie Pool (Morningside)               400 Lytton Road…    -27.5      153.
+##  7 Spring Hill Baths (inner City)            14 Torrington S…    -27.5      153.
+##  8 Dunlop Park Pool (Corinda)                794 Oxley Road,…    -27.5      153.
+##  9 Fortitude Valley Pool                     432 Wickham Str…    -27.5      153.
+## 10 Hibiscus Sports Complex (upper MtGravatt) 90 Klumpp Road,…    -27.6      153.
+## 11 Ithaca Pool ( Paddington)                 131 Caxton Stre…    -27.5      153.
+## 12 Jindalee Pool                             11 Yallambee Ro…    -27.5      153.
+## 13 Manly Pool                                1 Fairlead Cres…    -27.5      153.
+## 14 Mt Gravatt East Aquatic Centre            Cnr wecker Road…    -27.5      153.
+## 15 Musgrave Park Pool (South Brisbane)       100 Edmonstone …    -27.5      153.
+## 16 Newmarket Pool                            71 Alderson Str…    -27.4      153.
+## 17 Runcorn Pool                              37 Bonemill Roa…    -27.6      153.
+## 18 Sandgate Pool                             231 Flinders Pa…    -27.3      153.
+## 19 Langlands Parks Pool (Stones Corner)      5 Panitya Stree…    -27.5      153.
+## 20 Yeronga Park Pool                         81 School Road,…    -27.5      153.</code></pre>
+<div class="sourceCode" id="cb3109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3109-1"><a href="intermediate-importing-data-in-r.html#cb3109-1" aria-hidden="true" tabindex="-1"></a>potatoes</span></code></pre></div>
+<pre><code>## # A tibble: 160 × 8
+##     area  temp  size storage method texture flavor moistness
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+##  1     1     1     1       1      1     2.9    3.2       3  
+##  2     1     1     1       1      2     2.3    2.5       2.6
+##  3     1     1     1       1      3     2.5    2.8       2.8
+##  4     1     1     1       1      4     2.1    2.9       2.4
+##  5     1     1     1       1      5     1.9    2.8       2.2
+##  6     1     1     1       2      1     1.8    3         1.7
+##  7     1     1     1       2      2     2.6    3.1       2.4
+##  8     1     1     1       2      3     3      3         2.9
+##  9     1     1     1       2      4     2.2    3.2       2.5
+## 10     1     1     1       2      5     2      2.8       1.9
+## # ℹ 150 more rows</code></pre>
 </div>
 <div id="secure-importing" class="section level4 hasAnchor" number="22.3.1.2">
 <h4><span class="header-section-number">22.3.1.2</span> Secure importing<a href="intermediate-importing-data-in-r.html#secure-importing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In the previous exercises, you have been working with URLs that all start with <code>http://</code>. There is, however, a safer alternative to HTTP, namely <strong>HTTPS</strong>, which stands for <em>HyperText Transfer Protocol Secure</em>. Just remember this: <em>HTTPS is relatively safe</em>, HTTP is not.</p>
-<div class="sourceCode" id="cb2638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2638-1"><a href="intermediate-importing-data-in-r.html#cb2638-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https URL to the swimming_pools csv file.</span></span>
-<span id="cb2638-2"><a href="intermediate-importing-data-in-r.html#cb2638-2" aria-hidden="true" tabindex="-1"></a>url_csv <span class="ot">&lt;-</span> <span class="st">&quot;https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/swimming_pools.csv&quot;</span></span>
-<span id="cb2638-3"><a href="intermediate-importing-data-in-r.html#cb2638-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2638-4"><a href="intermediate-importing-data-in-r.html#cb2638-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the file using read.csv(): pools1</span></span>
-<span id="cb2638-5"><a href="intermediate-importing-data-in-r.html#cb2638-5" aria-hidden="true" tabindex="-1"></a><span class="co"># .csv referring to contains column names in the first row</span></span>
-<span id="cb2638-6"><a href="intermediate-importing-data-in-r.html#cb2638-6" aria-hidden="true" tabindex="-1"></a>pools1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url_csv)</span>
-<span id="cb2638-7"><a href="intermediate-importing-data-in-r.html#cb2638-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2638-8"><a href="intermediate-importing-data-in-r.html#cb2638-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the structure of pools1</span></span>
-<span id="cb2638-9"><a href="intermediate-importing-data-in-r.html#cb2638-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pools1)</span></code></pre></div>
+<div class="sourceCode" id="cb3111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3111-1"><a href="intermediate-importing-data-in-r.html#cb3111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https URL to the swimming_pools csv file.</span></span>
+<span id="cb3111-2"><a href="intermediate-importing-data-in-r.html#cb3111-2" aria-hidden="true" tabindex="-1"></a>url_csv <span class="ot">&lt;-</span> <span class="st">&quot;https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/swimming_pools.csv&quot;</span></span>
+<span id="cb3111-3"><a href="intermediate-importing-data-in-r.html#cb3111-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3111-4"><a href="intermediate-importing-data-in-r.html#cb3111-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the file using read.csv(): pools1</span></span>
+<span id="cb3111-5"><a href="intermediate-importing-data-in-r.html#cb3111-5" aria-hidden="true" tabindex="-1"></a><span class="co"># .csv referring to contains column names in the first row</span></span>
+<span id="cb3111-6"><a href="intermediate-importing-data-in-r.html#cb3111-6" aria-hidden="true" tabindex="-1"></a>pools1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url_csv)</span>
+<span id="cb3111-7"><a href="intermediate-importing-data-in-r.html#cb3111-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3111-8"><a href="intermediate-importing-data-in-r.html#cb3111-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the structure of pools1</span></span>
+<span id="cb3111-9"><a href="intermediate-importing-data-in-r.html#cb3111-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pools1)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    20 obs. of  4 variables:
 ##  $ Name     : chr  &quot;Acacia Ridge Leisure Centre&quot; &quot;Bellbowrie Pool&quot; &quot;Carole Park&quot; &quot;Centenary Pool (inner City)&quot; ...
 ##  $ Address  : chr  &quot;1391 Beaudesert Road, Acacia Ridge&quot; &quot;Sugarwood Street, Bellbowrie&quot; &quot;Cnr Boundary Road and Waterford Road Wacol&quot; &quot;400 Gregory Terrace, Spring Hill&quot; ...
 ##  $ Latitude : num  -27.6 -27.6 -27.6 -27.5 -27.4 ...
 ##  $ Longitude: num  153 153 153 153 153 ...</code></pre>
-<div class="sourceCode" id="cb2640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2640-1"><a href="intermediate-importing-data-in-r.html#cb2640-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the file using read_csv(): pools2</span></span>
-<span id="cb2640-2"><a href="intermediate-importing-data-in-r.html#cb2640-2" aria-hidden="true" tabindex="-1"></a>pools2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url_csv)</span>
-<span id="cb2640-3"><a href="intermediate-importing-data-in-r.html#cb2640-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2640-4"><a href="intermediate-importing-data-in-r.html#cb2640-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the structure of pools2</span></span>
-<span id="cb2640-5"><a href="intermediate-importing-data-in-r.html#cb2640-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pools2)</span></code></pre></div>
+<div class="sourceCode" id="cb3113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3113-1"><a href="intermediate-importing-data-in-r.html#cb3113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the file using read_csv(): pools2</span></span>
+<span id="cb3113-2"><a href="intermediate-importing-data-in-r.html#cb3113-2" aria-hidden="true" tabindex="-1"></a>pools2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url_csv)</span>
+<span id="cb3113-3"><a href="intermediate-importing-data-in-r.html#cb3113-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3113-4"><a href="intermediate-importing-data-in-r.html#cb3113-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the structure of pools2</span></span>
+<span id="cb3113-5"><a href="intermediate-importing-data-in-r.html#cb3113-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pools2)</span></code></pre></div>
 <pre><code>## spc_tbl_ [20 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Name     : chr [1:20] &quot;Acacia Ridge Leisure Centre&quot; &quot;Bellbowrie Pool&quot; &quot;Carole Park&quot; &quot;Centenary Pool (inner City)&quot; ...
 ##  $ Address  : chr [1:20] &quot;1391 Beaudesert Road, Acacia Ridge&quot; &quot;Sugarwood Street, Bellbowrie&quot; &quot;Cnr Boundary Road and Waterford Road Wacol&quot; &quot;400 Gregory Terrace, Spring Hill&quot; ...
@@ -1221,72 +1308,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="import-excel-files-from-the-web" class="section level4 hasAnchor" number="22.3.2.1">
 <h4><span class="header-section-number">22.3.2.1</span> Import Excel files from the web<a href="intermediate-importing-data-in-r.html#import-excel-files-from-the-web" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>readxl</code> can’t handle <code>.xls</code> files that are on the internet, so you can first download to local file: <code>download.file(url, file.path())</code>, then import it.</p>
-<div class="sourceCode" id="cb2642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2642-1"><a href="intermediate-importing-data-in-r.html#cb2642-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the readxl package</span></span>
-<span id="cb2642-2"><a href="intermediate-importing-data-in-r.html#cb2642-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb2642-3"><a href="intermediate-importing-data-in-r.html#cb2642-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2642-4"><a href="intermediate-importing-data-in-r.html#cb2642-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Specification of url: url_xls</span></span>
-<span id="cb2642-5"><a href="intermediate-importing-data-in-r.html#cb2642-5" aria-hidden="true" tabindex="-1"></a>url_xls <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/latitude.xls&quot;</span></span>
-<span id="cb2642-6"><a href="intermediate-importing-data-in-r.html#cb2642-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2642-7"><a href="intermediate-importing-data-in-r.html#cb2642-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download file behind URL, name it local_latitude.xls</span></span>
-<span id="cb2642-8"><a href="intermediate-importing-data-in-r.html#cb2642-8" aria-hidden="true" tabindex="-1"></a>dest_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;local_latitude.xls&quot;</span>)</span>
-<span id="cb2642-9"><a href="intermediate-importing-data-in-r.html#cb2642-9" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url_xls, dest_path)</span>
-<span id="cb2642-10"><a href="intermediate-importing-data-in-r.html#cb2642-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2642-11"><a href="intermediate-importing-data-in-r.html#cb2642-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the local .xls file with readxl: excel_readxl</span></span>
-<span id="cb2642-12"><a href="intermediate-importing-data-in-r.html#cb2642-12" aria-hidden="true" tabindex="-1"></a>excel_readxl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(dest_path)</span></code></pre></div>
+<div class="sourceCode" id="cb3115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3115-1"><a href="intermediate-importing-data-in-r.html#cb3115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the readxl package</span></span>
+<span id="cb3115-2"><a href="intermediate-importing-data-in-r.html#cb3115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3115-3"><a href="intermediate-importing-data-in-r.html#cb3115-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3115-4"><a href="intermediate-importing-data-in-r.html#cb3115-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Specification of url: url_xls</span></span>
+<span id="cb3115-5"><a href="intermediate-importing-data-in-r.html#cb3115-5" aria-hidden="true" tabindex="-1"></a>url_xls <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/latitude.xls&quot;</span></span>
+<span id="cb3115-6"><a href="intermediate-importing-data-in-r.html#cb3115-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3115-7"><a href="intermediate-importing-data-in-r.html#cb3115-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download file behind URL, name it local_latitude.xls</span></span>
+<span id="cb3115-8"><a href="intermediate-importing-data-in-r.html#cb3115-8" aria-hidden="true" tabindex="-1"></a>dest_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;local_latitude.xls&quot;</span>)</span>
+<span id="cb3115-9"><a href="intermediate-importing-data-in-r.html#cb3115-9" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url_xls, dest_path)</span>
+<span id="cb3115-10"><a href="intermediate-importing-data-in-r.html#cb3115-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3115-11"><a href="intermediate-importing-data-in-r.html#cb3115-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the local .xls file with readxl: excel_readxl</span></span>
+<span id="cb3115-12"><a href="intermediate-importing-data-in-r.html#cb3115-12" aria-hidden="true" tabindex="-1"></a>excel_readxl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(dest_path)</span></code></pre></div>
 </div>
 <div id="downloading-any-file-securely" class="section level4 hasAnchor" number="22.3.2.2">
 <h4><span class="header-section-number">22.3.2.2</span> Downloading any file securely<a href="intermediate-importing-data-in-r.html#downloading-any-file-securely" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>With <code>download.file()</code> you can download any kind of file from the web, using HTTP and HTTPS: images, executable files, but also <code>.RData</code> files. An <code>RData</code> file is very efficient format to store R data.</p>
 <p>You can load data from an <code>RData</code> file using the <code>load()</code> function, but this function does not accept a URL string as an argument. In this exercise, you’ll first download the <code>RData</code> file securely, and then import the local data file.</p>
-<div class="sourceCode" id="cb2643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2643-1"><a href="intermediate-importing-data-in-r.html#cb2643-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https URL to the wine RData file.</span></span>
-<span id="cb2643-2"><a href="intermediate-importing-data-in-r.html#cb2643-2" aria-hidden="true" tabindex="-1"></a>url_rdata <span class="ot">&lt;-</span> <span class="st">&quot;https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/wine.RData&quot;</span></span>
-<span id="cb2643-3"><a href="intermediate-importing-data-in-r.html#cb2643-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2643-4"><a href="intermediate-importing-data-in-r.html#cb2643-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the wine file to your working directory</span></span>
-<span id="cb2643-5"><a href="intermediate-importing-data-in-r.html#cb2643-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url_rdata, <span class="fu">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;wine_local.RData&quot;</span>))</span>
-<span id="cb2643-6"><a href="intermediate-importing-data-in-r.html#cb2643-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2643-7"><a href="intermediate-importing-data-in-r.html#cb2643-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the wine data into your workspace using load()</span></span>
-<span id="cb2643-8"><a href="intermediate-importing-data-in-r.html#cb2643-8" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/wine_local.RData&quot;</span>)</span>
-<span id="cb2643-9"><a href="intermediate-importing-data-in-r.html#cb2643-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2643-10"><a href="intermediate-importing-data-in-r.html#cb2643-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the summary of the wine data</span></span>
-<span id="cb2643-11"><a href="intermediate-importing-data-in-r.html#cb2643-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wine)</span></code></pre></div>
-<pre><code>##     Alcohol       Malic acid        Ash       Alcalinity of ash
-##  Min.   :11.0   Min.   :0.74   Min.   :1.36   Min.   :10.6     
-##  1st Qu.:12.4   1st Qu.:1.60   1st Qu.:2.21   1st Qu.:17.2     
-##  Median :13.1   Median :1.87   Median :2.36   Median :19.5     
-##  Mean   :13.0   Mean   :2.34   Mean   :2.37   Mean   :19.5     
-##  3rd Qu.:13.7   3rd Qu.:3.10   3rd Qu.:2.56   3rd Qu.:21.5     
-##  Max.   :14.8   Max.   :5.80   Max.   :3.23   Max.   :30.0     
-##    Magnesium     Total phenols    Flavanoids   Nonflavanoid phenols
-##  Min.   : 70.0   Min.   :0.98   Min.   :0.34   Min.   :0.130       
-##  1st Qu.: 88.0   1st Qu.:1.74   1st Qu.:1.20   1st Qu.:0.270       
-##  Median : 98.0   Median :2.35   Median :2.13   Median :0.340       
-##  Mean   : 99.6   Mean   :2.29   Mean   :2.02   Mean   :0.362       
-##  3rd Qu.:107.0   3rd Qu.:2.80   3rd Qu.:2.86   3rd Qu.:0.440       
-##  Max.   :162.0   Max.   :3.88   Max.   :5.08   Max.   :0.660       
-##  Proanthocyanins Color intensity      Hue          Proline    
-##  Min.   :0.41    Min.   : 1.28   Min.   :1.27   Min.   : 278  
-##  1st Qu.:1.25    1st Qu.: 3.21   1st Qu.:1.93   1st Qu.: 500  
-##  Median :1.55    Median : 4.68   Median :2.78   Median : 672  
-##  Mean   :1.59    Mean   : 5.05   Mean   :2.60   Mean   : 745  
-##  3rd Qu.:1.95    3rd Qu.: 6.20   3rd Qu.:3.17   3rd Qu.: 985  
-##  Max.   :3.58    Max.   :13.00   Max.   :4.00   Max.   :1680</code></pre>
+<div class="sourceCode" id="cb3116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3116-1"><a href="intermediate-importing-data-in-r.html#cb3116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https URL to the wine RData file.</span></span>
+<span id="cb3116-2"><a href="intermediate-importing-data-in-r.html#cb3116-2" aria-hidden="true" tabindex="-1"></a>url_rdata <span class="ot">&lt;-</span> <span class="st">&quot;https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/wine.RData&quot;</span></span>
+<span id="cb3116-3"><a href="intermediate-importing-data-in-r.html#cb3116-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3116-4"><a href="intermediate-importing-data-in-r.html#cb3116-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the wine file to your working directory</span></span>
+<span id="cb3116-5"><a href="intermediate-importing-data-in-r.html#cb3116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url_rdata, <span class="fu">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;wine_local.RData&quot;</span>))</span>
+<span id="cb3116-6"><a href="intermediate-importing-data-in-r.html#cb3116-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3116-7"><a href="intermediate-importing-data-in-r.html#cb3116-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the wine data into your workspace using load()</span></span>
+<span id="cb3116-8"><a href="intermediate-importing-data-in-r.html#cb3116-8" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/wine_local.RData&quot;</span>)</span>
+<span id="cb3116-9"><a href="intermediate-importing-data-in-r.html#cb3116-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3116-10"><a href="intermediate-importing-data-in-r.html#cb3116-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the summary of the wine data</span></span>
+<span id="cb3116-11"><a href="intermediate-importing-data-in-r.html#cb3116-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wine)</span></code></pre></div>
+<pre><code>##     Alcohol       Malic acid        Ash       Alcalinity of ash   Magnesium    
+##  Min.   :11.0   Min.   :0.74   Min.   :1.36   Min.   :10.6      Min.   : 70.0  
+##  1st Qu.:12.4   1st Qu.:1.60   1st Qu.:2.21   1st Qu.:17.2      1st Qu.: 88.0  
+##  Median :13.1   Median :1.87   Median :2.36   Median :19.5      Median : 98.0  
+##  Mean   :13.0   Mean   :2.34   Mean   :2.37   Mean   :19.5      Mean   : 99.6  
+##  3rd Qu.:13.7   3rd Qu.:3.10   3rd Qu.:2.56   3rd Qu.:21.5      3rd Qu.:107.0  
+##  Max.   :14.8   Max.   :5.80   Max.   :3.23   Max.   :30.0      Max.   :162.0  
+##  Total phenols    Flavanoids   Nonflavanoid phenols Proanthocyanins
+##  Min.   :0.98   Min.   :0.34   Min.   :0.130        Min.   :0.41   
+##  1st Qu.:1.74   1st Qu.:1.20   1st Qu.:0.270        1st Qu.:1.25   
+##  Median :2.35   Median :2.13   Median :0.340        Median :1.55   
+##  Mean   :2.29   Mean   :2.02   Mean   :0.362        Mean   :1.59   
+##  3rd Qu.:2.80   3rd Qu.:2.86   3rd Qu.:0.440        3rd Qu.:1.95   
+##  Max.   :3.88   Max.   :5.08   Max.   :0.660        Max.   :3.58   
+##  Color intensity      Hue          Proline    
+##  Min.   : 1.28   Min.   :1.27   Min.   : 278  
+##  1st Qu.: 3.21   1st Qu.:1.93   1st Qu.: 500  
+##  Median : 4.68   Median :2.78   Median : 672  
+##  Mean   : 5.05   Mean   :2.60   Mean   : 745  
+##  3rd Qu.: 6.20   3rd Qu.:3.17   3rd Qu.: 985  
+##  Max.   :13.00   Max.   :4.00   Max.   :1680</code></pre>
 </div>
 <div id="httr" class="section level4 hasAnchor" number="22.3.2.3">
 <h4><span class="header-section-number">22.3.2.3</span> httr<a href="intermediate-importing-data-in-r.html#httr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Downloading a file from the Internet means sending a GET request and receiving the file you asked for. Internally, all the previously discussed functions use a GET request to download files.</p>
 <p><code>httr</code> provides a convenient function, <a href="https://www.rdocumentation.org/packages/httr/functions/GET"><strong><code>GET()</code></strong></a> to execute this GET request. The result is a <code>response</code> object, that provides easy access to the status code, content-type and, of course, the actual content.</p>
 <p>You can extract the content from the request using the <a href="https://www.rdocumentation.org/packages/httr/functions/content"><strong><code>content()</code></strong></a> function. At the time of writing, there are three ways to retrieve this content: as a raw object, as a character vector, or an R object, such as a list.</p>
-<div class="sourceCode" id="cb2645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2645-1"><a href="intermediate-importing-data-in-r.html#cb2645-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the httr package</span></span>
-<span id="cb2645-2"><a href="intermediate-importing-data-in-r.html#cb2645-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb2645-3"><a href="intermediate-importing-data-in-r.html#cb2645-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2645-4"><a href="intermediate-importing-data-in-r.html#cb2645-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the url, save response to resp</span></span>
-<span id="cb2645-5"><a href="intermediate-importing-data-in-r.html#cb2645-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;http://www.example.com/&quot;</span></span>
-<span id="cb2645-6"><a href="intermediate-importing-data-in-r.html#cb2645-6" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
-<span id="cb2645-7"><a href="intermediate-importing-data-in-r.html#cb2645-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2645-8"><a href="intermediate-importing-data-in-r.html#cb2645-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print resp</span></span>
-<span id="cb2645-9"><a href="intermediate-importing-data-in-r.html#cb2645-9" aria-hidden="true" tabindex="-1"></a>resp</span></code></pre></div>
+<div class="sourceCode" id="cb3118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3118-1"><a href="intermediate-importing-data-in-r.html#cb3118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the httr package</span></span>
+<span id="cb3118-2"><a href="intermediate-importing-data-in-r.html#cb3118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb3118-3"><a href="intermediate-importing-data-in-r.html#cb3118-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3118-4"><a href="intermediate-importing-data-in-r.html#cb3118-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the url, save response to resp</span></span>
+<span id="cb3118-5"><a href="intermediate-importing-data-in-r.html#cb3118-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;http://www.example.com/&quot;</span></span>
+<span id="cb3118-6"><a href="intermediate-importing-data-in-r.html#cb3118-6" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
+<span id="cb3118-7"><a href="intermediate-importing-data-in-r.html#cb3118-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3118-8"><a href="intermediate-importing-data-in-r.html#cb3118-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print resp</span></span>
+<span id="cb3118-9"><a href="intermediate-importing-data-in-r.html#cb3118-9" aria-hidden="true" tabindex="-1"></a>resp</span></code></pre></div>
 <pre><code>## Response [http://www.example.com/]
-##   Date: 2024-01-14 06:26
+##   Date: 2024-01-15 08:10
 ##   Status: 200
 ##   Content-Type: text/html; charset=UTF-8
 ##   Size: 1.26 kB
@@ -1301,37 +1388,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     &lt;style type=&quot;text/css&quot;&gt;
 ##     body {
 ## ...</code></pre>
-<div class="sourceCode" id="cb2647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2647-1"><a href="intermediate-importing-data-in-r.html#cb2647-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the raw content of resp: raw_content</span></span>
-<span id="cb2647-2"><a href="intermediate-importing-data-in-r.html#cb2647-2" aria-hidden="true" tabindex="-1"></a>raw_content <span class="ot">&lt;-</span> <span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">&quot;raw&quot;</span>)</span>
-<span id="cb2647-3"><a href="intermediate-importing-data-in-r.html#cb2647-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2647-4"><a href="intermediate-importing-data-in-r.html#cb2647-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the head of raw_content</span></span>
-<span id="cb2647-5"><a href="intermediate-importing-data-in-r.html#cb2647-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw_content)</span></code></pre></div>
+<div class="sourceCode" id="cb3120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3120-1"><a href="intermediate-importing-data-in-r.html#cb3120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the raw content of resp: raw_content</span></span>
+<span id="cb3120-2"><a href="intermediate-importing-data-in-r.html#cb3120-2" aria-hidden="true" tabindex="-1"></a>raw_content <span class="ot">&lt;-</span> <span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">&quot;raw&quot;</span>)</span>
+<span id="cb3120-3"><a href="intermediate-importing-data-in-r.html#cb3120-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3120-4"><a href="intermediate-importing-data-in-r.html#cb3120-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the head of raw_content</span></span>
+<span id="cb3120-5"><a href="intermediate-importing-data-in-r.html#cb3120-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw_content)</span></code></pre></div>
 <pre><code>## [1] 3c 21 64 6f 63 74</code></pre>
 <p>If you don’t tell <a href="https://www.rdocumentation.org/packages/httr/functions/content"><strong><code>content()</code></strong></a> how to retrieve the content through the <code>as</code> argument, it’ll try its best to figure out which type is most appropriate based on the content-type.</p>
-<div class="sourceCode" id="cb2649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2649-1"><a href="intermediate-importing-data-in-r.html#cb2649-1" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp)</span></code></pre></div>
+<div class="sourceCode" id="cb3122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3122-1"><a href="intermediate-importing-data-in-r.html#cb3122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp)</span></code></pre></div>
 <pre><code>## {html_document}
 ## &lt;html&gt;
-## [1] &lt;head&gt;\n&lt;title&gt;Example Domain&lt;/title&gt;\n&lt;meta charset=&quot;utf-8&quot;&gt;\n&lt;meta ...
-## [2] &lt;body&gt;\n&lt;div&gt;\n    &lt;h1&gt;Example Domain&lt;/h1&gt;\n    &lt;p&gt;This domain is fo ...</code></pre>
+## [1] &lt;head&gt;\n&lt;title&gt;Example Domain&lt;/title&gt;\n&lt;meta charset=&quot;utf-8&quot;&gt;\n&lt;meta http ...
+## [2] &lt;body&gt;\n&lt;div&gt;\n    &lt;h1&gt;Example Domain&lt;/h1&gt;\n    &lt;p&gt;This domain is for use ...</code></pre>
 <p>Web content does not limit itself to HTML pages and files stored on remote servers. There are many other data formats out there. A very common one is <em>JSON</em>. This format is very often used by so-called Web APIs, interfaces to web servers with which you as a client can communicate to get or store information in more complicated ways.</p>
 <p>See the content-type is json.</p>
-<div class="sourceCode" id="cb2651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2651-1"><a href="intermediate-importing-data-in-r.html#cb2651-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the url</span></span>
-<span id="cb2651-2"><a href="intermediate-importing-data-in-r.html#cb2651-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;http://www.omdbapi.com/?apikey=72bc447a&amp;t=Annie+Hall&amp;y=&amp;plot=short&amp;r=json&quot;</span></span>
-<span id="cb2651-3"><a href="intermediate-importing-data-in-r.html#cb2651-3" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
-<span id="cb2651-4"><a href="intermediate-importing-data-in-r.html#cb2651-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2651-5"><a href="intermediate-importing-data-in-r.html#cb2651-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print resp</span></span>
-<span id="cb2651-6"><a href="intermediate-importing-data-in-r.html#cb2651-6" aria-hidden="true" tabindex="-1"></a>resp</span></code></pre></div>
+<div class="sourceCode" id="cb3124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3124-1"><a href="intermediate-importing-data-in-r.html#cb3124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the url</span></span>
+<span id="cb3124-2"><a href="intermediate-importing-data-in-r.html#cb3124-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;http://www.omdbapi.com/?apikey=72bc447a&amp;t=Annie+Hall&amp;y=&amp;plot=short&amp;r=json&quot;</span></span>
+<span id="cb3124-3"><a href="intermediate-importing-data-in-r.html#cb3124-3" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
+<span id="cb3124-4"><a href="intermediate-importing-data-in-r.html#cb3124-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3124-5"><a href="intermediate-importing-data-in-r.html#cb3124-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print resp</span></span>
+<span id="cb3124-6"><a href="intermediate-importing-data-in-r.html#cb3124-6" aria-hidden="true" tabindex="-1"></a>resp</span></code></pre></div>
 <pre><code>## Response [http://www.omdbapi.com/?apikey=72bc447a&amp;t=Annie+Hall&amp;y=&amp;plot=short&amp;r=json]
-##   Date: 2024-01-14 06:26
+##   Date: 2024-01-15 08:10
 ##   Status: 200
 ##   Content-Type: application/json; charset=utf-8
 ##   Size: 1.02 kB</code></pre>
-<div class="sourceCode" id="cb2653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2653-1"><a href="intermediate-importing-data-in-r.html#cb2653-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print content of resp as text</span></span>
-<span id="cb2653-2"><a href="intermediate-importing-data-in-r.html#cb2653-2" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">&quot;text&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3126-1"><a href="intermediate-importing-data-in-r.html#cb3126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print content of resp as text</span></span>
+<span id="cb3126-2"><a href="intermediate-importing-data-in-r.html#cb3126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">&quot;text&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;{\&quot;Title\&quot;:\&quot;Annie Hall\&quot;,\&quot;Year\&quot;:\&quot;1977\&quot;,\&quot;Rated\&quot;:\&quot;PG\&quot;,\&quot;Released\&quot;:\&quot;20 Apr 1977\&quot;,\&quot;Runtime\&quot;:\&quot;93 min\&quot;,\&quot;Genre\&quot;:\&quot;Comedy, Romance\&quot;,\&quot;Director\&quot;:\&quot;Woody Allen\&quot;,\&quot;Writer\&quot;:\&quot;Woody Allen, Marshall Brickman\&quot;,\&quot;Actors\&quot;:\&quot;Woody Allen, Diane Keaton, Tony Roberts\&quot;,\&quot;Plot\&quot;:\&quot;Alvy Singer, a divorced Jewish comedian, reflects on his relationship with ex-lover Annie Hall, an aspiring nightclub singer, which ended abruptly just like his previous marriages.\&quot;,\&quot;Language\&quot;:\&quot;English, German\&quot;,\&quot;Country\&quot;:\&quot;United States\&quot;,\&quot;Awards\&quot;:\&quot;Won 4 Oscars. 32 wins &amp; 9 nominations total\&quot;,\&quot;Poster\&quot;:\&quot;https://m.media-amazon.com/images/M/MV5BZDg1OGQ4YzgtM2Y2NS00NjA3LWFjYTctMDRlMDI3NWE1OTUyXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_SX300.jpg\&quot;,\&quot;Ratings\&quot;:[{\&quot;Source\&quot;:\&quot;Internet Movie Database\&quot;,\&quot;Value\&quot;:\&quot;8.0/10\&quot;},{\&quot;Source\&quot;:\&quot;Rotten Tomatoes\&quot;,\&quot;Value\&quot;:\&quot;97%\&quot;},{\&quot;Source\&quot;:\&quot;Metacritic\&quot;,\&quot;Value\&quot;:\&quot;92/100\&quot;}],\&quot;Metascore\&quot;:\&quot;92\&quot;,\&quot;imdbRating\&quot;:\&quot;8.0\&quot;,\&quot;imdbVotes\&quot;:\&quot;274,689\&quot;,\&quot;imdbID\&quot;:\&quot;tt0075686\&quot;,\&quot;Type\&quot;:\&quot;movie\&quot;,\&quot;DVD\&quot;:\&quot;03 Sep 2015\&quot;,\&quot;BoxOffice\&quot;:\&quot;$38,251,425\&quot;,\&quot;Production\&quot;:\&quot;N/A\&quot;,\&quot;Website\&quot;:\&quot;N/A\&quot;,\&quot;Response\&quot;:\&quot;True\&quot;}&quot;</code></pre>
 <p>This time do not specify <code>as</code> argument. R figures out automatically that you’re dealing with a JSON, and converts the JSON to a named R list.</p>
-<div class="sourceCode" id="cb2655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2655-1"><a href="intermediate-importing-data-in-r.html#cb2655-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print content of resp</span></span>
-<span id="cb2655-2"><a href="intermediate-importing-data-in-r.html#cb2655-2" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp)</span></code></pre></div>
+<div class="sourceCode" id="cb3128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3128-1"><a href="intermediate-importing-data-in-r.html#cb3128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print content of resp</span></span>
+<span id="cb3128-2"><a href="intermediate-importing-data-in-r.html#cb3128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp)</span></code></pre></div>
 <pre><code>## $Title
 ## [1] &quot;Annie Hall&quot;
 ## 
@@ -1464,17 +1551,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="from-json-to-r" class="section level4 hasAnchor" number="22.4.1.1">
 <h4><span class="header-section-number">22.4.1.1</span> From JSON to R<a href="intermediate-importing-data-in-r.html#from-json-to-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>fromJSON()</code> can convert character strings that represent JSON data into a nicely structured R list.</p>
-<div class="sourceCode" id="cb2657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2657-1"><a href="intermediate-importing-data-in-r.html#cb2657-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the jsonlite package</span></span>
-<span id="cb2657-2"><a href="intermediate-importing-data-in-r.html#cb2657-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb2657-3"><a href="intermediate-importing-data-in-r.html#cb2657-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2657-4"><a href="intermediate-importing-data-in-r.html#cb2657-4" aria-hidden="true" tabindex="-1"></a><span class="co"># wine_json is a JSON</span></span>
-<span id="cb2657-5"><a href="intermediate-importing-data-in-r.html#cb2657-5" aria-hidden="true" tabindex="-1"></a>wine_json <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;name&quot;:&quot;Chateau Migraine&quot;, &quot;year&quot;:1997, &quot;alcohol_pct&quot;:12.4, &quot;color&quot;:&quot;red&quot;, &quot;awarded&quot;:false}&#39;</span></span>
-<span id="cb2657-6"><a href="intermediate-importing-data-in-r.html#cb2657-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2657-7"><a href="intermediate-importing-data-in-r.html#cb2657-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert wine_json into a list: wine</span></span>
-<span id="cb2657-8"><a href="intermediate-importing-data-in-r.html#cb2657-8" aria-hidden="true" tabindex="-1"></a>wine <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(wine_json)</span>
-<span id="cb2657-9"><a href="intermediate-importing-data-in-r.html#cb2657-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2657-10"><a href="intermediate-importing-data-in-r.html#cb2657-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print structure of wine</span></span>
-<span id="cb2657-11"><a href="intermediate-importing-data-in-r.html#cb2657-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(wine)</span></code></pre></div>
+<div class="sourceCode" id="cb3130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3130-1"><a href="intermediate-importing-data-in-r.html#cb3130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the jsonlite package</span></span>
+<span id="cb3130-2"><a href="intermediate-importing-data-in-r.html#cb3130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;jsonlite&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     flatten</code></pre>
+<div class="sourceCode" id="cb3133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3133-1"><a href="intermediate-importing-data-in-r.html#cb3133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wine_json is a JSON</span></span>
+<span id="cb3133-2"><a href="intermediate-importing-data-in-r.html#cb3133-2" aria-hidden="true" tabindex="-1"></a>wine_json <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;name&quot;:&quot;Chateau Migraine&quot;, &quot;year&quot;:1997, &quot;alcohol_pct&quot;:12.4, &quot;color&quot;:&quot;red&quot;, &quot;awarded&quot;:false}&#39;</span></span>
+<span id="cb3133-3"><a href="intermediate-importing-data-in-r.html#cb3133-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3133-4"><a href="intermediate-importing-data-in-r.html#cb3133-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert wine_json into a list: wine</span></span>
+<span id="cb3133-5"><a href="intermediate-importing-data-in-r.html#cb3133-5" aria-hidden="true" tabindex="-1"></a>wine <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(wine_json)</span>
+<span id="cb3133-6"><a href="intermediate-importing-data-in-r.html#cb3133-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3133-7"><a href="intermediate-importing-data-in-r.html#cb3133-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print structure of wine</span></span>
+<span id="cb3133-8"><a href="intermediate-importing-data-in-r.html#cb3133-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(wine)</span></code></pre></div>
 <pre><code>## List of 5
 ##  $ name       : chr &quot;Chateau Migraine&quot;
 ##  $ year       : int 1997
@@ -1486,14 +1577,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">22.4.1.2</span> Quandl API<a href="intermediate-importing-data-in-r.html#quandl-api" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>fromJSON()</code> also works if you pass a URL as a character string or the path to a local file that contains JSON data.</p>
 <p>Let’s try this out on the Quandl API, where you can fetch all sorts of financial and economical data.</p>
-<div class="sourceCode" id="cb2659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2659-1"><a href="intermediate-importing-data-in-r.html#cb2659-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of quandl_url</span></span>
-<span id="cb2659-2"><a href="intermediate-importing-data-in-r.html#cb2659-2" aria-hidden="true" tabindex="-1"></a>quandl_url <span class="ot">&lt;-</span> <span class="st">&quot;https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?auth_token=i83asDsiWUUyfoypkgMz&quot;</span></span>
-<span id="cb2659-3"><a href="intermediate-importing-data-in-r.html#cb2659-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2659-4"><a href="intermediate-importing-data-in-r.html#cb2659-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Quandl data: quandl_data</span></span>
-<span id="cb2659-5"><a href="intermediate-importing-data-in-r.html#cb2659-5" aria-hidden="true" tabindex="-1"></a>quandl_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(quandl_url)</span>
-<span id="cb2659-6"><a href="intermediate-importing-data-in-r.html#cb2659-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2659-7"><a href="intermediate-importing-data-in-r.html#cb2659-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print structure of quandl_data</span></span>
-<span id="cb2659-8"><a href="intermediate-importing-data-in-r.html#cb2659-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(quandl_data)</span></code></pre></div>
+<div class="sourceCode" id="cb3135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3135-1"><a href="intermediate-importing-data-in-r.html#cb3135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of quandl_url</span></span>
+<span id="cb3135-2"><a href="intermediate-importing-data-in-r.html#cb3135-2" aria-hidden="true" tabindex="-1"></a>quandl_url <span class="ot">&lt;-</span> <span class="st">&quot;https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?auth_token=i83asDsiWUUyfoypkgMz&quot;</span></span>
+<span id="cb3135-3"><a href="intermediate-importing-data-in-r.html#cb3135-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3135-4"><a href="intermediate-importing-data-in-r.html#cb3135-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Quandl data: quandl_data</span></span>
+<span id="cb3135-5"><a href="intermediate-importing-data-in-r.html#cb3135-5" aria-hidden="true" tabindex="-1"></a>quandl_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(quandl_url)</span>
+<span id="cb3135-6"><a href="intermediate-importing-data-in-r.html#cb3135-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3135-7"><a href="intermediate-importing-data-in-r.html#cb3135-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print structure of quandl_data</span></span>
+<span id="cb3135-8"><a href="intermediate-importing-data-in-r.html#cb3135-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(quandl_data)</span></code></pre></div>
 <pre><code>## List of 1
 ##  $ dataset_data:List of 10
 ##   ..$ limit       : NULL
@@ -1511,16 +1602,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="omdb-api" class="section level4 hasAnchor" number="22.4.1.3">
 <h4><span class="header-section-number">22.4.1.3</span> OMDb API<a href="intermediate-importing-data-in-r.html#omdb-api" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s compare the release year of two movies in the Open Movie Database.</p>
-<div class="sourceCode" id="cb2661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2661-1"><a href="intermediate-importing-data-in-r.html#cb2661-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of the URLs</span></span>
-<span id="cb2661-2"><a href="intermediate-importing-data-in-r.html#cb2661-2" aria-hidden="true" tabindex="-1"></a>url_sw4 <span class="ot">&lt;-</span> <span class="st">&quot;http://www.omdbapi.com/?apikey=72bc447a&amp;i=tt0076759&amp;r=json&quot;</span></span>
-<span id="cb2661-3"><a href="intermediate-importing-data-in-r.html#cb2661-3" aria-hidden="true" tabindex="-1"></a>url_sw3 <span class="ot">&lt;-</span> <span class="st">&quot;http://www.omdbapi.com/?apikey=72bc447a&amp;i=tt0121766&amp;r=json&quot;</span></span>
-<span id="cb2661-4"><a href="intermediate-importing-data-in-r.html#cb2661-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2661-5"><a href="intermediate-importing-data-in-r.html#cb2661-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import two URLs with fromJSON(): sw4 and sw3</span></span>
-<span id="cb2661-6"><a href="intermediate-importing-data-in-r.html#cb2661-6" aria-hidden="true" tabindex="-1"></a>sw4 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url_sw4)</span>
-<span id="cb2661-7"><a href="intermediate-importing-data-in-r.html#cb2661-7" aria-hidden="true" tabindex="-1"></a>sw3 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url_sw3)</span>
-<span id="cb2661-8"><a href="intermediate-importing-data-in-r.html#cb2661-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2661-9"><a href="intermediate-importing-data-in-r.html#cb2661-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print structure of sw4</span></span>
-<span id="cb2661-10"><a href="intermediate-importing-data-in-r.html#cb2661-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sw4)</span></code></pre></div>
+<div class="sourceCode" id="cb3137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3137-1"><a href="intermediate-importing-data-in-r.html#cb3137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of the URLs</span></span>
+<span id="cb3137-2"><a href="intermediate-importing-data-in-r.html#cb3137-2" aria-hidden="true" tabindex="-1"></a>url_sw4 <span class="ot">&lt;-</span> <span class="st">&quot;http://www.omdbapi.com/?apikey=72bc447a&amp;i=tt0076759&amp;r=json&quot;</span></span>
+<span id="cb3137-3"><a href="intermediate-importing-data-in-r.html#cb3137-3" aria-hidden="true" tabindex="-1"></a>url_sw3 <span class="ot">&lt;-</span> <span class="st">&quot;http://www.omdbapi.com/?apikey=72bc447a&amp;i=tt0121766&amp;r=json&quot;</span></span>
+<span id="cb3137-4"><a href="intermediate-importing-data-in-r.html#cb3137-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3137-5"><a href="intermediate-importing-data-in-r.html#cb3137-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import two URLs with fromJSON(): sw4 and sw3</span></span>
+<span id="cb3137-6"><a href="intermediate-importing-data-in-r.html#cb3137-6" aria-hidden="true" tabindex="-1"></a>sw4 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url_sw4)</span>
+<span id="cb3137-7"><a href="intermediate-importing-data-in-r.html#cb3137-7" aria-hidden="true" tabindex="-1"></a>sw3 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url_sw3)</span>
+<span id="cb3137-8"><a href="intermediate-importing-data-in-r.html#cb3137-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3137-9"><a href="intermediate-importing-data-in-r.html#cb3137-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print structure of sw4</span></span>
+<span id="cb3137-10"><a href="intermediate-importing-data-in-r.html#cb3137-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sw4)</span></code></pre></div>
 <pre><code>## List of 25
 ##  $ Title     : chr &quot;Star Wars: Episode IV - A New Hope&quot;
 ##  $ Year      : chr &quot;1977&quot;
@@ -1550,15 +1641,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ Website   : chr &quot;N/A&quot;
 ##  $ Response  : chr &quot;True&quot;</code></pre>
 <p>Title names</p>
-<div class="sourceCode" id="cb2663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2663-1"><a href="intermediate-importing-data-in-r.html#cb2663-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the Title element of both lists</span></span>
-<span id="cb2663-2"><a href="intermediate-importing-data-in-r.html#cb2663-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">sw4 =</span> sw4<span class="sc">$</span>Title, <span class="at">sw3 =</span> sw3<span class="sc">$</span>Title)</span></code></pre></div>
+<div class="sourceCode" id="cb3139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3139-1"><a href="intermediate-importing-data-in-r.html#cb3139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the Title element of both lists</span></span>
+<span id="cb3139-2"><a href="intermediate-importing-data-in-r.html#cb3139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">sw4 =</span> sw4<span class="sc">$</span>Title, <span class="at">sw3 =</span> sw3<span class="sc">$</span>Title)</span></code></pre></div>
 <pre><code>## $sw4
 ## [1] &quot;Star Wars: Episode IV - A New Hope&quot;
 ## 
 ## $sw3
 ## [1] &quot;Star Wars: Episode III - Revenge of the Sith&quot;</code></pre>
-<div class="sourceCode" id="cb2665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2665-1"><a href="intermediate-importing-data-in-r.html#cb2665-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the release year of sw4 later than sw3?</span></span>
-<span id="cb2665-2"><a href="intermediate-importing-data-in-r.html#cb2665-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(sw4<span class="sc">$</span>Year <span class="sc">&gt;</span> sw3<span class="sc">$</span>Year, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3141-1"><a href="intermediate-importing-data-in-r.html#cb3141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the release year of sw4 later than sw3?</span></span>
+<span id="cb3141-2"><a href="intermediate-importing-data-in-r.html#cb3141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(sw4<span class="sc">$</span>Year <span class="sc">&gt;</span> sw3<span class="sc">$</span>Year, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>The fourth episode of the Star Wars saga was released before the third one!</p>
 </div>
@@ -1613,36 +1704,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="json-object-array" class="section level4 hasAnchor" number="22.4.2.1">
 <h4><span class="header-section-number">22.4.2.1</span> JSON object &amp; array<a href="intermediate-importing-data-in-r.html#json-object-array" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>JSON is built on two structures: objects and arrays. To help you experiment with these, two JSON strings are included in the sample code.</p>
-<div class="sourceCode" id="cb2667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2667-1"><a href="intermediate-importing-data-in-r.html#cb2667-1" aria-hidden="true" tabindex="-1"></a><span class="co"># array</span></span>
-<span id="cb2667-2"><a href="intermediate-importing-data-in-r.html#cb2667-2" aria-hidden="true" tabindex="-1"></a>json1 <span class="ot">&lt;-</span> <span class="st">&#39;[1, 2, 3, 4, 5, 6]&#39;</span></span>
-<span id="cb2667-3"><a href="intermediate-importing-data-in-r.html#cb2667-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json1)</span></code></pre></div>
+<div class="sourceCode" id="cb3143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3143-1"><a href="intermediate-importing-data-in-r.html#cb3143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># array</span></span>
+<span id="cb3143-2"><a href="intermediate-importing-data-in-r.html#cb3143-2" aria-hidden="true" tabindex="-1"></a>json1 <span class="ot">&lt;-</span> <span class="st">&#39;[1, 2, 3, 4, 5, 6]&#39;</span></span>
+<span id="cb3143-3"><a href="intermediate-importing-data-in-r.html#cb3143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json1)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
-<div class="sourceCode" id="cb2669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2669-1"><a href="intermediate-importing-data-in-r.html#cb2669-1" aria-hidden="true" tabindex="-1"></a><span class="co"># object:array</span></span>
-<span id="cb2669-2"><a href="intermediate-importing-data-in-r.html#cb2669-2" aria-hidden="true" tabindex="-1"></a>json2 <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;a&quot;: [1, 2, 3], &quot;b&quot;: [4, 5, 6]}&#39;</span></span>
-<span id="cb2669-3"><a href="intermediate-importing-data-in-r.html#cb2669-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json2)</span></code></pre></div>
+<div class="sourceCode" id="cb3145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3145-1"><a href="intermediate-importing-data-in-r.html#cb3145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># object:array</span></span>
+<span id="cb3145-2"><a href="intermediate-importing-data-in-r.html#cb3145-2" aria-hidden="true" tabindex="-1"></a>json2 <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;a&quot;: [1, 2, 3], &quot;b&quot;: [4, 5, 6]}&#39;</span></span>
+<span id="cb3145-3"><a href="intermediate-importing-data-in-r.html#cb3145-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json2)</span></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3
 ## 
 ## $b
 ## [1] 4 5 6</code></pre>
-<div class="sourceCode" id="cb2671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2671-1"><a href="intermediate-importing-data-in-r.html#cb2671-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 by 2 matrix </span></span>
-<span id="cb2671-2"><a href="intermediate-importing-data-in-r.html#cb2671-2" aria-hidden="true" tabindex="-1"></a>json1 <span class="ot">&lt;-</span> <span class="st">&#39;[[1, 2], [3, 4]]&#39;</span></span>
-<span id="cb2671-3"><a href="intermediate-importing-data-in-r.html#cb2671-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json1)</span></code></pre></div>
+<div class="sourceCode" id="cb3147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3147-1"><a href="intermediate-importing-data-in-r.html#cb3147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 by 2 matrix </span></span>
+<span id="cb3147-2"><a href="intermediate-importing-data-in-r.html#cb3147-2" aria-hidden="true" tabindex="-1"></a>json1 <span class="ot">&lt;-</span> <span class="st">&#39;[[1, 2], [3, 4]]&#39;</span></span>
+<span id="cb3147-3"><a href="intermediate-importing-data-in-r.html#cb3147-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json1)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    4</code></pre>
-<div class="sourceCode" id="cb2673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2673-1"><a href="intermediate-importing-data-in-r.html#cb2673-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data frame</span></span>
-<span id="cb2673-2"><a href="intermediate-importing-data-in-r.html#cb2673-2" aria-hidden="true" tabindex="-1"></a>json2 <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;: 1, &quot;b&quot;: 2}, {&quot;a&quot;: 3, &quot;b&quot;: 4}, {&quot;a&quot;: 5, &quot;b&quot;: 6}]&#39;</span></span>
-<span id="cb2673-3"><a href="intermediate-importing-data-in-r.html#cb2673-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json2)</span></code></pre></div>
-<div class="sourceCode" id="cb2674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2674-1"><a href="intermediate-importing-data-in-r.html#cb2674-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nesting</span></span>
-<span id="cb2674-2"><a href="intermediate-importing-data-in-r.html#cb2674-2" aria-hidden="true" tabindex="-1"></a>nest <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">&#39;{&quot;id&quot;:1, </span></span>
-<span id="cb2674-3"><a href="intermediate-importing-data-in-r.html#cb2674-3" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;name&quot;:&quot;Frank&quot;,</span></span>
-<span id="cb2674-4"><a href="intermediate-importing-data-in-r.html#cb2674-4" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;age&quot;:23, </span></span>
-<span id="cb2674-5"><a href="intermediate-importing-data-in-r.html#cb2674-5" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;married&quot;:false, </span></span>
-<span id="cb2674-6"><a href="intermediate-importing-data-in-r.html#cb2674-6" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;partner&quot;:{&quot;id&quot;:4,&quot;name&quot;:&quot;Julie&quot;}</span></span>
-<span id="cb2674-7"><a href="intermediate-importing-data-in-r.html#cb2674-7" aria-hidden="true" tabindex="-1"></a><span class="st">                  }&#39;</span>)</span>
-<span id="cb2674-8"><a href="intermediate-importing-data-in-r.html#cb2674-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2674-9"><a href="intermediate-importing-data-in-r.html#cb2674-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nest)</span></code></pre></div>
+<div class="sourceCode" id="cb3149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3149-1"><a href="intermediate-importing-data-in-r.html#cb3149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data frame</span></span>
+<span id="cb3149-2"><a href="intermediate-importing-data-in-r.html#cb3149-2" aria-hidden="true" tabindex="-1"></a>json2 <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;: 1, &quot;b&quot;: 2}, {&quot;a&quot;: 3, &quot;b&quot;: 4}, {&quot;a&quot;: 5, &quot;b&quot;: 6}]&#39;</span></span>
+<span id="cb3149-3"><a href="intermediate-importing-data-in-r.html#cb3149-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json2)</span></code></pre></div>
+<pre><code>##   a b
+## 1 1 2
+## 2 3 4
+## 3 5 6</code></pre>
+<div class="sourceCode" id="cb3151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3151-1"><a href="intermediate-importing-data-in-r.html#cb3151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nesting</span></span>
+<span id="cb3151-2"><a href="intermediate-importing-data-in-r.html#cb3151-2" aria-hidden="true" tabindex="-1"></a>nest <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">&#39;{&quot;id&quot;:1, </span></span>
+<span id="cb3151-3"><a href="intermediate-importing-data-in-r.html#cb3151-3" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;name&quot;:&quot;Frank&quot;,</span></span>
+<span id="cb3151-4"><a href="intermediate-importing-data-in-r.html#cb3151-4" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;age&quot;:23, </span></span>
+<span id="cb3151-5"><a href="intermediate-importing-data-in-r.html#cb3151-5" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;married&quot;:false, </span></span>
+<span id="cb3151-6"><a href="intermediate-importing-data-in-r.html#cb3151-6" aria-hidden="true" tabindex="-1"></a><span class="st">                   &quot;partner&quot;:{&quot;id&quot;:4,&quot;name&quot;:&quot;Julie&quot;}</span></span>
+<span id="cb3151-7"><a href="intermediate-importing-data-in-r.html#cb3151-7" aria-hidden="true" tabindex="-1"></a><span class="st">                  }&#39;</span>)</span>
+<span id="cb3151-8"><a href="intermediate-importing-data-in-r.html#cb3151-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3151-9"><a href="intermediate-importing-data-in-r.html#cb3151-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nest)</span></code></pre></div>
 <pre><code>## List of 5
 ##  $ id     : int 1
 ##  $ name   : chr &quot;Frank&quot;
@@ -1651,26 +1746,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ partner:List of 2
 ##   ..$ id  : int 4
 ##   ..$ name: chr &quot;Julie&quot;</code></pre>
-<div class="sourceCode" id="cb2676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2676-1"><a href="intermediate-importing-data-in-r.html#cb2676-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JSON Array of JSON Objects</span></span>
-<span id="cb2676-2"><a href="intermediate-importing-data-in-r.html#cb2676-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">&#39;[{&quot;id&quot;:1, &quot;name&quot;:&quot;Frank&quot;},</span></span>
-<span id="cb2676-3"><a href="intermediate-importing-data-in-r.html#cb2676-3" aria-hidden="true" tabindex="-1"></a><span class="st">           {&quot;id&quot;:4, &quot;name&quot;:&quot;Julie&quot;},</span></span>
-<span id="cb2676-4"><a href="intermediate-importing-data-in-r.html#cb2676-4" aria-hidden="true" tabindex="-1"></a><span class="st">           {&quot;id&quot;:12, &quot;name&quot;:&quot;Zach&quot;}]&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3153-1"><a href="intermediate-importing-data-in-r.html#cb3153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JSON Array of JSON Objects</span></span>
+<span id="cb3153-2"><a href="intermediate-importing-data-in-r.html#cb3153-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">&#39;[{&quot;id&quot;:1, &quot;name&quot;:&quot;Frank&quot;},</span></span>
+<span id="cb3153-3"><a href="intermediate-importing-data-in-r.html#cb3153-3" aria-hidden="true" tabindex="-1"></a><span class="st">           {&quot;id&quot;:4, &quot;name&quot;:&quot;Julie&quot;},</span></span>
+<span id="cb3153-4"><a href="intermediate-importing-data-in-r.html#cb3153-4" aria-hidden="true" tabindex="-1"></a><span class="st">           {&quot;id&quot;:12, &quot;name&quot;:&quot;Zach&quot;}]&#39;</span>)</span></code></pre></div>
+<pre><code>##   id  name
+## 1  1 Frank
+## 2  4 Julie
+## 3 12  Zach</code></pre>
 </div>
 <div id="tojson" class="section level4 hasAnchor" number="22.4.2.2">
 <h4><span class="header-section-number">22.4.2.2</span> toJSON()<a href="intermediate-importing-data-in-r.html#tojson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>toJSON()</code> to convert R data to a JSON format. In its most basic use, you simply pass this function an R object to convert to a JSON.</p>
 <p>The result is an R object of the class <code>json</code>, which is basically a character string representing that JSON.</p>
-<div class="sourceCode" id="cb2677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2677-1"><a href="intermediate-importing-data-in-r.html#cb2677-1" aria-hidden="true" tabindex="-1"></a><span class="co"># URL pointing to the .csv file</span></span>
-<span id="cb2677-2"><a href="intermediate-importing-data-in-r.html#cb2677-2" aria-hidden="true" tabindex="-1"></a>url_csv <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/water.csv&quot;</span></span>
-<span id="cb2677-3"><a href="intermediate-importing-data-in-r.html#cb2677-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2677-4"><a href="intermediate-importing-data-in-r.html#cb2677-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the .csv file located at url_csv</span></span>
-<span id="cb2677-5"><a href="intermediate-importing-data-in-r.html#cb2677-5" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url_csv)</span>
-<span id="cb2677-6"><a href="intermediate-importing-data-in-r.html#cb2677-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2677-7"><a href="intermediate-importing-data-in-r.html#cb2677-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data file according to the requirements</span></span>
-<span id="cb2677-8"><a href="intermediate-importing-data-in-r.html#cb2677-8" aria-hidden="true" tabindex="-1"></a>water_json <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(water)</span>
-<span id="cb2677-9"><a href="intermediate-importing-data-in-r.html#cb2677-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2677-10"><a href="intermediate-importing-data-in-r.html#cb2677-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out water_json</span></span>
-<span id="cb2677-11"><a href="intermediate-importing-data-in-r.html#cb2677-11" aria-hidden="true" tabindex="-1"></a>water_json</span></code></pre></div>
+<div class="sourceCode" id="cb3155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3155-1"><a href="intermediate-importing-data-in-r.html#cb3155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># URL pointing to the .csv file</span></span>
+<span id="cb3155-2"><a href="intermediate-importing-data-in-r.html#cb3155-2" aria-hidden="true" tabindex="-1"></a>url_csv <span class="ot">&lt;-</span> <span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/water.csv&quot;</span></span>
+<span id="cb3155-3"><a href="intermediate-importing-data-in-r.html#cb3155-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3155-4"><a href="intermediate-importing-data-in-r.html#cb3155-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the .csv file located at url_csv</span></span>
+<span id="cb3155-5"><a href="intermediate-importing-data-in-r.html#cb3155-5" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url_csv)</span>
+<span id="cb3155-6"><a href="intermediate-importing-data-in-r.html#cb3155-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3155-7"><a href="intermediate-importing-data-in-r.html#cb3155-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data file according to the requirements</span></span>
+<span id="cb3155-8"><a href="intermediate-importing-data-in-r.html#cb3155-8" aria-hidden="true" tabindex="-1"></a>water_json <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(water)</span>
+<span id="cb3155-9"><a href="intermediate-importing-data-in-r.html#cb3155-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3155-10"><a href="intermediate-importing-data-in-r.html#cb3155-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out water_json</span></span>
+<span id="cb3155-11"><a href="intermediate-importing-data-in-r.html#cb3155-11" aria-hidden="true" tabindex="-1"></a>water_json</span></code></pre></div>
 <pre><code>## [{&quot;water&quot;:&quot;Algeria&quot;,&quot;X1992&quot;:0.064,&quot;X2002&quot;:0.017},{&quot;water&quot;:&quot;American Samoa&quot;},{&quot;water&quot;:&quot;Angola&quot;,&quot;X1992&quot;:0.0001,&quot;X2002&quot;:0.0001},{&quot;water&quot;:&quot;Antigua and Barbuda&quot;,&quot;X1992&quot;:0.0033},{&quot;water&quot;:&quot;Argentina&quot;,&quot;X1992&quot;:0.0007,&quot;X1997&quot;:0.0007,&quot;X2002&quot;:0.0007},{&quot;water&quot;:&quot;Australia&quot;,&quot;X1992&quot;:0.0298,&quot;X2002&quot;:0.0298},{&quot;water&quot;:&quot;Austria&quot;,&quot;X1992&quot;:0.0022,&quot;X2002&quot;:0.0022},{&quot;water&quot;:&quot;Bahamas&quot;,&quot;X1992&quot;:0.0013,&quot;X2002&quot;:0.0074},{&quot;water&quot;:&quot;Bahrain&quot;,&quot;X1992&quot;:0.0441,&quot;X2002&quot;:0.0441,&quot;X2007&quot;:0.1024},{&quot;water&quot;:&quot;Barbados&quot;,&quot;X2007&quot;:0.0146},{&quot;water&quot;:&quot;British Virgin Islands&quot;,&quot;X2007&quot;:0.0042},{&quot;water&quot;:&quot;Canada&quot;,&quot;X1992&quot;:0.0027,&quot;X2002&quot;:0.0027},{&quot;water&quot;:&quot;Cape Verde&quot;,&quot;X1992&quot;:0.002,&quot;X1997&quot;:0.0017},{&quot;water&quot;:&quot;Cayman Islands&quot;,&quot;X1992&quot;:0.0033},{&quot;water&quot;:&quot;Central African Rep.&quot;},{&quot;water&quot;:&quot;Chile&quot;,&quot;X1992&quot;:0.0048,&quot;X2002&quot;:0.0048},{&quot;water&quot;:&quot;Colombia&quot;,&quot;X1992&quot;:0.0027,&quot;X2002&quot;:0.0027},{&quot;water&quot;:&quot;Cuba&quot;,&quot;X1992&quot;:0.0069,&quot;X1997&quot;:0.0069,&quot;X2002&quot;:0.0069},{&quot;water&quot;:&quot;Cyprus&quot;,&quot;X1992&quot;:0.003,&quot;X1997&quot;:0.003,&quot;X2002&quot;:0.0335},{&quot;water&quot;:&quot;Czech Rep.&quot;,&quot;X1992&quot;:0.0002,&quot;X2002&quot;:0.0002},{&quot;water&quot;:&quot;Denmark&quot;,&quot;X1992&quot;:0.015,&quot;X2002&quot;:0.015},{&quot;water&quot;:&quot;Djibouti&quot;,&quot;X1992&quot;:0.0001,&quot;X2002&quot;:0.0001},{&quot;water&quot;:&quot;Ecuador&quot;,&quot;X1992&quot;:0.0022,&quot;X1997&quot;:0.0022,&quot;X2002&quot;:0.0022},{&quot;water&quot;:&quot;Egypt&quot;,&quot;X1992&quot;:0.025,&quot;X1997&quot;:0.025,&quot;X2002&quot;:0.1},{&quot;water&quot;:&quot;El Salvador&quot;,&quot;X1992&quot;:0.0001,&quot;X2002&quot;:0.0001},{&quot;water&quot;:&quot;Finland&quot;,&quot;X1992&quot;:0.0001,&quot;X2002&quot;:0.0001},{&quot;water&quot;:&quot;France&quot;,&quot;X1992&quot;:0.0117,&quot;X2002&quot;:0.0117},{&quot;water&quot;:&quot;Gibraltar&quot;,&quot;X1992&quot;:0.0077},{&quot;water&quot;:&quot;Greece&quot;,&quot;X1992&quot;:0.01,&quot;X2002&quot;:0.01},{&quot;water&quot;:&quot;Honduras&quot;,&quot;X1992&quot;:0.0002,&quot;X2002&quot;:0.0002},{&quot;water&quot;:&quot;Hungary&quot;,&quot;X1992&quot;:0.0002,&quot;X2002&quot;:0.0002},{&quot;water&quot;:&quot;India&quot;,&quot;X1997&quot;:0.0005,&quot;X2002&quot;:0.0005},{&quot;water&quot;:&quot;Indonesia&quot;,&quot;X1992&quot;:0.0187,&quot;X2002&quot;:0.0187},{&quot;water&quot;:&quot;Iran&quot;,&quot;X1992&quot;:0.003,&quot;X1997&quot;:0.003,&quot;X2002&quot;:0.003,&quot;X2007&quot;:0.2},{&quot;water&quot;:&quot;Iraq&quot;,&quot;X1997&quot;:0.0074,&quot;X2002&quot;:0.0074},{&quot;water&quot;:&quot;Ireland&quot;,&quot;X1992&quot;:0.0002,&quot;X2002&quot;:0.0002},{&quot;water&quot;:&quot;Israel&quot;,&quot;X1992&quot;:0.0256,&quot;X2002&quot;:0.0256,&quot;X2007&quot;:0.14},{&quot;water&quot;:&quot;Italy&quot;,&quot;X1992&quot;:0.0973,&quot;X2002&quot;:0.0973},{&quot;water&quot;:&quot;Jamaica&quot;,&quot;X1992&quot;:0.0005,&quot;X1997&quot;:0.0005,&quot;X2002&quot;:0.0005},{&quot;water&quot;:&quot;Japan&quot;,&quot;X1997&quot;:0.04,&quot;X2002&quot;:0.04},{&quot;water&quot;:&quot;Jordan&quot;,&quot;X1997&quot;:0.002,&quot;X2007&quot;:0.0098},{&quot;water&quot;:&quot;Kazakhstan&quot;,&quot;X1997&quot;:1.328,&quot;X2002&quot;:1.328},{&quot;water&quot;:&quot;Kuwait&quot;,&quot;X1992&quot;:0.507,&quot;X1997&quot;:0.231,&quot;X2002&quot;:0.4202},{&quot;water&quot;:&quot;Lebanon&quot;,&quot;X2007&quot;:0.0473},{&quot;water&quot;:&quot;Libya&quot;,&quot;X2002&quot;:0.018},{&quot;water&quot;:&quot;Malaysia&quot;,&quot;X1992&quot;:0.0043,&quot;X2002&quot;:0.0043},{&quot;water&quot;:&quot;Maldives&quot;,&quot;X1992&quot;:0.0004},{&quot;water&quot;:&quot;Malta&quot;,&quot;X1992&quot;:0.024,&quot;X1997&quot;:0.031,&quot;X2002&quot;:0.031},{&quot;water&quot;:&quot;Marshall Islands&quot;,&quot;X1992&quot;:0.0007},{&quot;water&quot;:&quot;Mauritania&quot;,&quot;X1992&quot;:0.002,&quot;X2002&quot;:0.002},{&quot;water&quot;:&quot;Mexico&quot;,&quot;X1992&quot;:0.0307,&quot;X2002&quot;:0.0307},{&quot;water&quot;:&quot;Morocco&quot;,&quot;X1992&quot;:0.0034,&quot;X1997&quot;:0.0034,&quot;X2002&quot;:0.007},{&quot;water&quot;:&quot;Namibia&quot;,&quot;X1992&quot;:0.0003,&quot;X2002&quot;:0.0003},{&quot;water&quot;:&quot;Netherlands Antilles&quot;,&quot;X1992&quot;:0.063},{&quot;water&quot;:&quot;Nicaragua&quot;,&quot;X1992&quot;:0.0002,&quot;X2002&quot;:0.0002},{&quot;water&quot;:&quot;Nigeria&quot;,&quot;X1992&quot;:0.003,&quot;X2002&quot;:0.003},{&quot;water&quot;:&quot;Norway&quot;,&quot;X1992&quot;:0.0001,&quot;X2002&quot;:0.0001},{&quot;water&quot;:&quot;Oman&quot;,&quot;X1997&quot;:0.034,&quot;X2002&quot;:0.034,&quot;X2007&quot;:0.109},{&quot;water&quot;:&quot;Peru&quot;,&quot;X1992&quot;:0.0054,&quot;X2002&quot;:0.0054},{&quot;water&quot;:&quot;Poland&quot;,&quot;X1992&quot;:0.007,&quot;X2002&quot;:0.007},{&quot;water&quot;:&quot;Portugal&quot;,&quot;X1992&quot;:0.0016,&quot;X2002&quot;:0.0016},{&quot;water&quot;:&quot;Qatar&quot;,&quot;X1992&quot;:0.065,&quot;X1997&quot;:0.099,&quot;X2002&quot;:0.099,&quot;X2007&quot;:0.18},{&quot;water&quot;:&quot;Saudi Arabia&quot;,&quot;X1992&quot;:0.683,&quot;X1997&quot;:0.727,&quot;X2002&quot;:0.863,&quot;X2007&quot;:1.033},{&quot;water&quot;:&quot;Senegal&quot;,&quot;X1992&quot;:0,&quot;X2002&quot;:0},{&quot;water&quot;:&quot;Somalia&quot;,&quot;X1992&quot;:0.0001,&quot;X2002&quot;:0.0001},{&quot;water&quot;:&quot;South Africa&quot;,&quot;X1992&quot;:0.018,&quot;X2002&quot;:0.018},{&quot;water&quot;:&quot;Spain&quot;,&quot;X1992&quot;:0.1002,&quot;X2002&quot;:0.1002},{&quot;water&quot;:&quot;Sudan&quot;,&quot;X1992&quot;:0.0004,&quot;X1997&quot;:0.0004,&quot;X2002&quot;:0.0004},{&quot;water&quot;:&quot;Sweden&quot;,&quot;X1992&quot;:0.0002,&quot;X2002&quot;:0.0002},{&quot;water&quot;:&quot;Trinidad and Tobago&quot;,&quot;X2007&quot;:0.036},{&quot;water&quot;:&quot;Tunisia&quot;,&quot;X1992&quot;:0.008,&quot;X2002&quot;:0.013},{&quot;water&quot;:&quot;Turkey&quot;,&quot;X1992&quot;:0.0005,&quot;X2002&quot;:0.0005,&quot;X2007&quot;:0.0005},{&quot;water&quot;:&quot;United Arab Emirates&quot;,&quot;X1992&quot;:0.163,&quot;X1997&quot;:0.385,&quot;X2007&quot;:0.95},{&quot;water&quot;:&quot;United Kingdom&quot;,&quot;X1992&quot;:0.0333,&quot;X2002&quot;:0.0333},{&quot;water&quot;:&quot;United States&quot;,&quot;X1992&quot;:0.58,&quot;X2002&quot;:0.58},{&quot;water&quot;:&quot;Venezuela&quot;,&quot;X1992&quot;:0.0052,&quot;X2002&quot;:0.0052},{&quot;water&quot;:&quot;Yemen, Rep.&quot;,&quot;X1992&quot;:0.01,&quot;X2002&quot;:0.01}]</code></pre>
 <p>As you can see, the JSON you printed out isn’t easy to read.</p>
 </div>
@@ -1681,28 +1780,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>minified format,</p></li>
 <li><p>pretty format: with indentation, whitespace and new lines.</p></li>
 </ol>
-<div class="sourceCode" id="cb2679"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2679-1"><a href="intermediate-importing-data-in-r.html#cb2679-1" aria-hidden="true" tabindex="-1"></a><span class="er">#</span> <span class="er">Mini</span></span>
-<span id="cb2679-2"><a href="intermediate-importing-data-in-r.html#cb2679-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;a&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span><span class="dt">&quot;b&quot;</span><span class="fu">:</span><span class="dv">2</span><span class="fu">,</span><span class="dt">&quot;c&quot;</span><span class="fu">:{</span><span class="dt">&quot;x&quot;</span><span class="fu">:</span><span class="dv">5</span><span class="fu">,</span><span class="dt">&quot;y&quot;</span><span class="fu">:</span><span class="dv">6</span><span class="fu">}}</span></span>
-<span id="cb2679-3"><a href="intermediate-importing-data-in-r.html#cb2679-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2679-4"><a href="intermediate-importing-data-in-r.html#cb2679-4" aria-hidden="true" tabindex="-1"></a><span class="er">#</span> <span class="er">Pretty</span></span>
-<span id="cb2679-5"><a href="intermediate-importing-data-in-r.html#cb2679-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2679-6"><a href="intermediate-importing-data-in-r.html#cb2679-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;a&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb2679-7"><a href="intermediate-importing-data-in-r.html#cb2679-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;b&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
-<span id="cb2679-8"><a href="intermediate-importing-data-in-r.html#cb2679-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;c&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2679-9"><a href="intermediate-importing-data-in-r.html#cb2679-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;x&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
-<span id="cb2679-10"><a href="intermediate-importing-data-in-r.html#cb2679-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;y&quot;</span><span class="fu">:</span> <span class="dv">6</span></span>
-<span id="cb2679-11"><a href="intermediate-importing-data-in-r.html#cb2679-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb2679-12"><a href="intermediate-importing-data-in-r.html#cb2679-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3157"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3157-1"><a href="intermediate-importing-data-in-r.html#cb3157-1" aria-hidden="true" tabindex="-1"></a><span class="er">#</span> <span class="er">Mini</span></span>
+<span id="cb3157-2"><a href="intermediate-importing-data-in-r.html#cb3157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;a&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span><span class="dt">&quot;b&quot;</span><span class="fu">:</span><span class="dv">2</span><span class="fu">,</span><span class="dt">&quot;c&quot;</span><span class="fu">:{</span><span class="dt">&quot;x&quot;</span><span class="fu">:</span><span class="dv">5</span><span class="fu">,</span><span class="dt">&quot;y&quot;</span><span class="fu">:</span><span class="dv">6</span><span class="fu">}}</span></span>
+<span id="cb3157-3"><a href="intermediate-importing-data-in-r.html#cb3157-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3157-4"><a href="intermediate-importing-data-in-r.html#cb3157-4" aria-hidden="true" tabindex="-1"></a><span class="er">#</span> <span class="er">Pretty</span></span>
+<span id="cb3157-5"><a href="intermediate-importing-data-in-r.html#cb3157-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3157-6"><a href="intermediate-importing-data-in-r.html#cb3157-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;a&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb3157-7"><a href="intermediate-importing-data-in-r.html#cb3157-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;b&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb3157-8"><a href="intermediate-importing-data-in-r.html#cb3157-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;c&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3157-9"><a href="intermediate-importing-data-in-r.html#cb3157-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;x&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb3157-10"><a href="intermediate-importing-data-in-r.html#cb3157-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;y&quot;</span><span class="fu">:</span> <span class="dv">6</span></span>
+<span id="cb3157-11"><a href="intermediate-importing-data-in-r.html#cb3157-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb3157-12"><a href="intermediate-importing-data-in-r.html#cb3157-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The standard form that <code>toJSON()</code> returns, is the minified version. You can adapt this behavior by :</p>
 <ul>
 <li><p><code>toJSON(object, pretty = TRUE)</code></p></li>
 <li><p><code>prettify(json_string)</code>, <code>minify(json_string)</code></p></li>
 </ul>
-<div class="sourceCode" id="cb2680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2680-1"><a href="intermediate-importing-data-in-r.html#cb2680-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert mtcars to a pretty JSON: pretty_json</span></span>
-<span id="cb2680-2"><a href="intermediate-importing-data-in-r.html#cb2680-2" aria-hidden="true" tabindex="-1"></a>pretty_json <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(mtcars, <span class="at">pretty =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2680-3"><a href="intermediate-importing-data-in-r.html#cb2680-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2680-4"><a href="intermediate-importing-data-in-r.html#cb2680-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print pretty_json</span></span>
-<span id="cb2680-5"><a href="intermediate-importing-data-in-r.html#cb2680-5" aria-hidden="true" tabindex="-1"></a>pretty_json</span></code></pre></div>
+<div class="sourceCode" id="cb3158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3158-1"><a href="intermediate-importing-data-in-r.html#cb3158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert mtcars to a pretty JSON: pretty_json</span></span>
+<span id="cb3158-2"><a href="intermediate-importing-data-in-r.html#cb3158-2" aria-hidden="true" tabindex="-1"></a>pretty_json <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(mtcars, <span class="at">pretty =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3158-3"><a href="intermediate-importing-data-in-r.html#cb3158-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3158-4"><a href="intermediate-importing-data-in-r.html#cb3158-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print pretty_json</span></span>
+<span id="cb3158-5"><a href="intermediate-importing-data-in-r.html#cb3158-5" aria-hidden="true" tabindex="-1"></a>pretty_json</span></code></pre></div>
 <pre><code>## [
 ##   {
 ##     &quot;mpg&quot;: 21,
@@ -2314,11 +2413,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   }
 ## ]</code></pre>
 <p>Convert <code>pretty_json</code> to a minimal version.</p>
-<div class="sourceCode" id="cb2682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2682-1"><a href="intermediate-importing-data-in-r.html#cb2682-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Minify pretty_json: mini_json</span></span>
-<span id="cb2682-2"><a href="intermediate-importing-data-in-r.html#cb2682-2" aria-hidden="true" tabindex="-1"></a>mini_json <span class="ot">&lt;-</span> <span class="fu">minify</span>(pretty_json)</span>
-<span id="cb2682-3"><a href="intermediate-importing-data-in-r.html#cb2682-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2682-4"><a href="intermediate-importing-data-in-r.html#cb2682-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print mini_json</span></span>
-<span id="cb2682-5"><a href="intermediate-importing-data-in-r.html#cb2682-5" aria-hidden="true" tabindex="-1"></a>mini_json</span></code></pre></div>
+<div class="sourceCode" id="cb3160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3160-1"><a href="intermediate-importing-data-in-r.html#cb3160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Minify pretty_json: mini_json</span></span>
+<span id="cb3160-2"><a href="intermediate-importing-data-in-r.html#cb3160-2" aria-hidden="true" tabindex="-1"></a>mini_json <span class="ot">&lt;-</span> <span class="fu">minify</span>(pretty_json)</span>
+<span id="cb3160-3"><a href="intermediate-importing-data-in-r.html#cb3160-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3160-4"><a href="intermediate-importing-data-in-r.html#cb3160-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print mini_json</span></span>
+<span id="cb3160-5"><a href="intermediate-importing-data-in-r.html#cb3160-5" aria-hidden="true" tabindex="-1"></a>mini_json</span></code></pre></div>
 <pre><code>## [{&quot;mpg&quot;:21,&quot;cyl&quot;:6,&quot;disp&quot;:160,&quot;hp&quot;:110,&quot;drat&quot;:3.9,&quot;wt&quot;:2.62,&quot;qsec&quot;:16.46,&quot;vs&quot;:0,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Mazda RX4&quot;,&quot;fcyl_fam&quot;:&quot;6:1&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Mazda RX4&quot;},{&quot;mpg&quot;:21,&quot;cyl&quot;:6,&quot;disp&quot;:160,&quot;hp&quot;:110,&quot;drat&quot;:3.9,&quot;wt&quot;:2.875,&quot;qsec&quot;:17.02,&quot;vs&quot;:0,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Mazda RX4 Wag&quot;,&quot;fcyl_fam&quot;:&quot;6:1&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Mazda RX4 Wag&quot;},{&quot;mpg&quot;:22.8,&quot;cyl&quot;:4,&quot;disp&quot;:108,&quot;hp&quot;:93,&quot;drat&quot;:3.85,&quot;wt&quot;:2.32,&quot;qsec&quot;:18.61,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Datsun 710&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Datsun 710&quot;},{&quot;mpg&quot;:21.4,&quot;cyl&quot;:6,&quot;disp&quot;:258,&quot;hp&quot;:110,&quot;drat&quot;:3.08,&quot;wt&quot;:3.215,&quot;qsec&quot;:19.44,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Hornet 4 Drive&quot;,&quot;fcyl_fam&quot;:&quot;6:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Hornet 4 Drive&quot;},{&quot;mpg&quot;:18.7,&quot;cyl&quot;:8,&quot;disp&quot;:360,&quot;hp&quot;:175,&quot;drat&quot;:3.15,&quot;wt&quot;:3.44,&quot;qsec&quot;:17.02,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Hornet Sportabout&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Hornet Sportabout&quot;},{&quot;mpg&quot;:18.1,&quot;cyl&quot;:6,&quot;disp&quot;:225,&quot;hp&quot;:105,&quot;drat&quot;:2.76,&quot;wt&quot;:3.46,&quot;qsec&quot;:20.22,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Valiant&quot;,&quot;fcyl_fam&quot;:&quot;6:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Valiant&quot;},{&quot;mpg&quot;:14.3,&quot;cyl&quot;:8,&quot;disp&quot;:360,&quot;hp&quot;:245,&quot;drat&quot;:3.21,&quot;wt&quot;:3.57,&quot;qsec&quot;:15.84,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Duster 360&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Duster 360&quot;},{&quot;mpg&quot;:24.4,&quot;cyl&quot;:4,&quot;disp&quot;:146.7,&quot;hp&quot;:62,&quot;drat&quot;:3.69,&quot;wt&quot;:3.19,&quot;qsec&quot;:20,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:4,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 240D&quot;,&quot;fcyl_fam&quot;:&quot;4:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Merc 240D&quot;},{&quot;mpg&quot;:22.8,&quot;cyl&quot;:4,&quot;disp&quot;:140.8,&quot;hp&quot;:95,&quot;drat&quot;:3.92,&quot;wt&quot;:3.15,&quot;qsec&quot;:22.9,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:4,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 230&quot;,&quot;fcyl_fam&quot;:&quot;4:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Merc 230&quot;},{&quot;mpg&quot;:19.2,&quot;cyl&quot;:6,&quot;disp&quot;:167.6,&quot;hp&quot;:123,&quot;drat&quot;:3.92,&quot;wt&quot;:3.44,&quot;qsec&quot;:18.3,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:4,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 280&quot;,&quot;fcyl_fam&quot;:&quot;6:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Merc 280&quot;},{&quot;mpg&quot;:17.8,&quot;cyl&quot;:6,&quot;disp&quot;:167.6,&quot;hp&quot;:123,&quot;drat&quot;:3.92,&quot;wt&quot;:3.44,&quot;qsec&quot;:18.9,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:4,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 280C&quot;,&quot;fcyl_fam&quot;:&quot;6:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Merc 280C&quot;},{&quot;mpg&quot;:16.4,&quot;cyl&quot;:8,&quot;disp&quot;:275.8,&quot;hp&quot;:180,&quot;drat&quot;:3.07,&quot;wt&quot;:4.07,&quot;qsec&quot;:17.4,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:3,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 450SE&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Merc 450SE&quot;},{&quot;mpg&quot;:17.3,&quot;cyl&quot;:8,&quot;disp&quot;:275.8,&quot;hp&quot;:180,&quot;drat&quot;:3.07,&quot;wt&quot;:3.73,&quot;qsec&quot;:17.6,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:3,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 450SL&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Merc 450SL&quot;},{&quot;mpg&quot;:15.2,&quot;cyl&quot;:8,&quot;disp&quot;:275.8,&quot;hp&quot;:180,&quot;drat&quot;:3.07,&quot;wt&quot;:3.78,&quot;qsec&quot;:18,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:3,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Merc 450SLC&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Merc 450SLC&quot;},{&quot;mpg&quot;:10.4,&quot;cyl&quot;:8,&quot;disp&quot;:472,&quot;hp&quot;:205,&quot;drat&quot;:2.93,&quot;wt&quot;:5.25,&quot;qsec&quot;:17.98,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Cadillac Fleetwood&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Cadillac Fleetwood&quot;},{&quot;mpg&quot;:10.4,&quot;cyl&quot;:8,&quot;disp&quot;:460,&quot;hp&quot;:215,&quot;drat&quot;:3,&quot;wt&quot;:5.424,&quot;qsec&quot;:17.82,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Lincoln Continental&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Lincoln Continental&quot;},{&quot;mpg&quot;:14.7,&quot;cyl&quot;:8,&quot;disp&quot;:440,&quot;hp&quot;:230,&quot;drat&quot;:3.23,&quot;wt&quot;:5.345,&quot;qsec&quot;:17.42,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Chrysler Imperial&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Chrysler Imperial&quot;},{&quot;mpg&quot;:32.4,&quot;cyl&quot;:4,&quot;disp&quot;:78.7,&quot;hp&quot;:66,&quot;drat&quot;:4.08,&quot;wt&quot;:2.2,&quot;qsec&quot;:19.47,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Fiat 128&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Fiat 128&quot;},{&quot;mpg&quot;:30.4,&quot;cyl&quot;:4,&quot;disp&quot;:75.7,&quot;hp&quot;:52,&quot;drat&quot;:4.93,&quot;wt&quot;:1.615,&quot;qsec&quot;:18.52,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Honda Civic&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Honda Civic&quot;},{&quot;mpg&quot;:33.9,&quot;cyl&quot;:4,&quot;disp&quot;:71.1,&quot;hp&quot;:65,&quot;drat&quot;:4.22,&quot;wt&quot;:1.835,&quot;qsec&quot;:19.9,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Toyota Corolla&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Toyota Corolla&quot;},{&quot;mpg&quot;:21.5,&quot;cyl&quot;:4,&quot;disp&quot;:120.1,&quot;hp&quot;:97,&quot;drat&quot;:3.7,&quot;wt&quot;:2.465,&quot;qsec&quot;:20.01,&quot;vs&quot;:1,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Toyota Corona&quot;,&quot;fcyl_fam&quot;:&quot;4:0&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Toyota Corona&quot;},{&quot;mpg&quot;:15.5,&quot;cyl&quot;:8,&quot;disp&quot;:318,&quot;hp&quot;:150,&quot;drat&quot;:2.76,&quot;wt&quot;:3.52,&quot;qsec&quot;:16.87,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Dodge Challenger&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Dodge Challenger&quot;},{&quot;mpg&quot;:15.2,&quot;cyl&quot;:8,&quot;disp&quot;:304,&quot;hp&quot;:150,&quot;drat&quot;:3.15,&quot;wt&quot;:3.435,&quot;qsec&quot;:17.3,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;AMC Javelin&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;AMC Javelin&quot;},{&quot;mpg&quot;:13.3,&quot;cyl&quot;:8,&quot;disp&quot;:350,&quot;hp&quot;:245,&quot;drat&quot;:3.73,&quot;wt&quot;:3.84,&quot;qsec&quot;:15.41,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Camaro Z28&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Camaro Z28&quot;},{&quot;mpg&quot;:19.2,&quot;cyl&quot;:8,&quot;disp&quot;:400,&quot;hp&quot;:175,&quot;drat&quot;:3.08,&quot;wt&quot;:3.845,&quot;qsec&quot;:17.05,&quot;vs&quot;:0,&quot;am&quot;:0,&quot;gear&quot;:3,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;automatic&quot;,&quot;car&quot;:&quot;Pontiac Firebird&quot;,&quot;fcyl_fam&quot;:&quot;8:0&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Pontiac Firebird&quot;},{&quot;mpg&quot;:27.3,&quot;cyl&quot;:4,&quot;disp&quot;:79,&quot;hp&quot;:66,&quot;drat&quot;:4.08,&quot;wt&quot;:1.935,&quot;qsec&quot;:18.9,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:1,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Fiat X1-9&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Fiat X1-9&quot;},{&quot;mpg&quot;:26,&quot;cyl&quot;:4,&quot;disp&quot;:120.3,&quot;hp&quot;:91,&quot;drat&quot;:4.43,&quot;wt&quot;:2.14,&quot;qsec&quot;:16.7,&quot;vs&quot;:0,&quot;am&quot;:1,&quot;gear&quot;:5,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Porsche 914-2&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Porsche 914-2&quot;},{&quot;mpg&quot;:30.4,&quot;cyl&quot;:4,&quot;disp&quot;:95.1,&quot;hp&quot;:113,&quot;drat&quot;:3.77,&quot;wt&quot;:1.513,&quot;qsec&quot;:16.9,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:5,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Lotus Europa&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Lotus Europa&quot;},{&quot;mpg&quot;:15.8,&quot;cyl&quot;:8,&quot;disp&quot;:351,&quot;hp&quot;:264,&quot;drat&quot;:4.22,&quot;wt&quot;:3.17,&quot;qsec&quot;:14.5,&quot;vs&quot;:0,&quot;am&quot;:1,&quot;gear&quot;:5,&quot;carb&quot;:4,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Ford Pantera L&quot;,&quot;fcyl_fam&quot;:&quot;8:1&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Ford Pantera L&quot;},{&quot;mpg&quot;:19.7,&quot;cyl&quot;:6,&quot;disp&quot;:145,&quot;hp&quot;:175,&quot;drat&quot;:3.62,&quot;wt&quot;:2.77,&quot;qsec&quot;:15.5,&quot;vs&quot;:0,&quot;am&quot;:1,&quot;gear&quot;:5,&quot;carb&quot;:6,&quot;fcyl&quot;:&quot;6&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Ferrari Dino&quot;,&quot;fcyl_fam&quot;:&quot;6:1&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Ferrari Dino&quot;},{&quot;mpg&quot;:15,&quot;cyl&quot;:8,&quot;disp&quot;:301,&quot;hp&quot;:335,&quot;drat&quot;:3.54,&quot;wt&quot;:3.57,&quot;qsec&quot;:14.6,&quot;vs&quot;:0,&quot;am&quot;:1,&quot;gear&quot;:5,&quot;carb&quot;:8,&quot;fcyl&quot;:&quot;8&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Maserati Bora&quot;,&quot;fcyl_fam&quot;:&quot;8:1&quot;,&quot;fvs&quot;:&quot;V-shaped&quot;,&quot;_row&quot;:&quot;Maserati Bora&quot;},{&quot;mpg&quot;:21.4,&quot;cyl&quot;:4,&quot;disp&quot;:121,&quot;hp&quot;:109,&quot;drat&quot;:4.11,&quot;wt&quot;:2.78,&quot;qsec&quot;:18.6,&quot;vs&quot;:1,&quot;am&quot;:1,&quot;gear&quot;:4,&quot;carb&quot;:2,&quot;fcyl&quot;:&quot;4&quot;,&quot;fam&quot;:&quot;manual&quot;,&quot;car&quot;:&quot;Volvo 142E&quot;,&quot;fcyl_fam&quot;:&quot;4:1&quot;,&quot;fvs&quot;:&quot;straight&quot;,&quot;_row&quot;:&quot;Volvo 142E&quot;}]</code></pre>
 <p>Pretty format is way easier to read and understand.</p>
 </div>
@@ -2333,14 +2432,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>All these functions take one key argument: the path to your local file. In fact, you can even pass a URL; <code>haven</code> will then automatically download the file for you before importing it.</p>
 <div id="import-sas-data" class="section level4 hasAnchor" number="22.5.1.1">
 <h4><span class="header-section-number">22.5.1.1</span> Import SAS data<a href="intermediate-importing-data-in-r.html#import-sas-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2684-1"><a href="intermediate-importing-data-in-r.html#cb2684-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the haven package</span></span>
-<span id="cb2684-2"><a href="intermediate-importing-data-in-r.html#cb2684-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb2684-3"><a href="intermediate-importing-data-in-r.html#cb2684-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2684-4"><a href="intermediate-importing-data-in-r.html#cb2684-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import sales.sas7bdat: sales</span></span>
-<span id="cb2684-5"><a href="intermediate-importing-data-in-r.html#cb2684-5" aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">&quot;data/sales.sas7bdat&quot;</span>)</span>
-<span id="cb2684-6"><a href="intermediate-importing-data-in-r.html#cb2684-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2684-7"><a href="intermediate-importing-data-in-r.html#cb2684-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the structure of sales</span></span>
-<span id="cb2684-8"><a href="intermediate-importing-data-in-r.html#cb2684-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sales)</span></code></pre></div>
+<div class="sourceCode" id="cb3162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3162-1"><a href="intermediate-importing-data-in-r.html#cb3162-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the haven package</span></span>
+<span id="cb3162-2"><a href="intermediate-importing-data-in-r.html#cb3162-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb3162-3"><a href="intermediate-importing-data-in-r.html#cb3162-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3162-4"><a href="intermediate-importing-data-in-r.html#cb3162-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import sales.sas7bdat: sales</span></span>
+<span id="cb3162-5"><a href="intermediate-importing-data-in-r.html#cb3162-5" aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">&quot;data/sales.sas7bdat&quot;</span>)</span>
+<span id="cb3162-6"><a href="intermediate-importing-data-in-r.html#cb3162-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3162-7"><a href="intermediate-importing-data-in-r.html#cb3162-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the structure of sales</span></span>
+<span id="cb3162-8"><a href="intermediate-importing-data-in-r.html#cb3162-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sales)</span></code></pre></div>
 <pre><code>## tibble [431 × 4] (S3: tbl_df/tbl/data.frame)
 ##  $ purchase: num [1:431] 0 0 1 1 0 0 0 0 0 0 ...
 ##  $ age     : num [1:431] 41 47 41 39 32 32 33 45 43 40 ...
@@ -2352,11 +2451,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When inspecting the result of the <code>read_dta()</code> call, you will notice that one column will be imported as a <code>labelled</code> vector, an R equivalent for the common data structure in other statistical environments.</p>
 <p>In order to effectively continue working on the data in R, it’s best to change this data into a standard R class. To convert a variable of the class <code>labelled</code> to a factor, you’ll need <code>haven</code>’s <code>as_factor()</code> function.</p>
 <p>The <code>Date</code> column has class <code>labelled</code>.</p>
-<div class="sourceCode" id="cb2686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2686-1"><a href="intermediate-importing-data-in-r.html#cb2686-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data from the URL: sugar</span></span>
-<span id="cb2686-2"><a href="intermediate-importing-data-in-r.html#cb2686-2" aria-hidden="true" tabindex="-1"></a>sugar <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;http://assets.datacamp.com/production/course_1478/datasets/trade.dta&quot;</span>)</span>
-<span id="cb2686-3"><a href="intermediate-importing-data-in-r.html#cb2686-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2686-4"><a href="intermediate-importing-data-in-r.html#cb2686-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of sugar</span></span>
-<span id="cb2686-5"><a href="intermediate-importing-data-in-r.html#cb2686-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sugar)</span></code></pre></div>
+<div class="sourceCode" id="cb3164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3164-1"><a href="intermediate-importing-data-in-r.html#cb3164-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data from the URL: sugar</span></span>
+<span id="cb3164-2"><a href="intermediate-importing-data-in-r.html#cb3164-2" aria-hidden="true" tabindex="-1"></a>sugar <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;http://assets.datacamp.com/production/course_1478/datasets/trade.dta&quot;</span>)</span>
+<span id="cb3164-3"><a href="intermediate-importing-data-in-r.html#cb3164-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3164-4"><a href="intermediate-importing-data-in-r.html#cb3164-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of sugar</span></span>
+<span id="cb3164-5"><a href="intermediate-importing-data-in-r.html#cb3164-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sugar)</span></code></pre></div>
 <pre><code>## tibble [10 × 5] (S3: tbl_df/tbl/data.frame)
 ##  $ Date    : dbl+lbl [1:10] 10,  9,  8,  7,  6,  5,  4,  3,  2,  1
 ##    ..@ label       : chr &quot;Date&quot;
@@ -2376,11 +2475,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;Weight_E&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%9.0g&quot;
 ##  - attr(*, &quot;label&quot;)= chr &quot;Written by R.&quot;</code></pre>
-<div class="sourceCode" id="cb2688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2688-1"><a href="intermediate-importing-data-in-r.html#cb2688-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert values in Date column to dates</span></span>
-<span id="cb2688-2"><a href="intermediate-importing-data-in-r.html#cb2688-2" aria-hidden="true" tabindex="-1"></a>sugar<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">as_factor</span>(sugar<span class="sc">$</span>Date))</span>
-<span id="cb2688-3"><a href="intermediate-importing-data-in-r.html#cb2688-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2688-4"><a href="intermediate-importing-data-in-r.html#cb2688-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of sugar again</span></span>
-<span id="cb2688-5"><a href="intermediate-importing-data-in-r.html#cb2688-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sugar)</span></code></pre></div>
+<div class="sourceCode" id="cb3166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3166-1"><a href="intermediate-importing-data-in-r.html#cb3166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert values in Date column to dates</span></span>
+<span id="cb3166-2"><a href="intermediate-importing-data-in-r.html#cb3166-2" aria-hidden="true" tabindex="-1"></a>sugar<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">as_factor</span>(sugar<span class="sc">$</span>Date))</span>
+<span id="cb3166-3"><a href="intermediate-importing-data-in-r.html#cb3166-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3166-4"><a href="intermediate-importing-data-in-r.html#cb3166-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of sugar again</span></span>
+<span id="cb3166-5"><a href="intermediate-importing-data-in-r.html#cb3166-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sugar)</span></code></pre></div>
 <pre><code>## tibble [10 × 5] (S3: tbl_df/tbl/data.frame)
 ##  $ Date    : Date[1:10], format: &quot;2013-12-31&quot; &quot;2012-12-31&quot; ...
 ##  $ Import  : num [1:10] 37664782 16316512 11082246 35677943 9879878 ...
@@ -2397,17 +2496,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%9.0g&quot;
 ##  - attr(*, &quot;label&quot;)= chr &quot;Written by R.&quot;</code></pre>
 <p>The more sugar is traded, the higher the weight that’s traded.</p>
-<div class="sourceCode" id="cb2690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2690-1"><a href="intermediate-importing-data-in-r.html#cb2690-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sugar<span class="sc">$</span>Import, sugar<span class="sc">$</span>Weight_I)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1245-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3168-1"><a href="intermediate-importing-data-in-r.html#cb3168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sugar<span class="sc">$</span>Import, sugar<span class="sc">$</span>Weight_I)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1240-1.png" width="672" /></p>
 </div>
 <div id="import-spss-data" class="section level4 hasAnchor" number="22.5.1.3">
 <h4><span class="header-section-number">22.5.1.3</span> Import SPSS data<a href="intermediate-importing-data-in-r.html#import-spss-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Depending on the SPSS data file you’re working with, you’ll need either <code>read_sav()</code> - for <code>.sav</code> files - or <code>read_por()</code> - for <code>.por</code> files. <code>read_spss()</code> will choose dependently.</p>
-<div class="sourceCode" id="cb2691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2691-1"><a href="intermediate-importing-data-in-r.html#cb2691-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import person.sav: traits</span></span>
-<span id="cb2691-2"><a href="intermediate-importing-data-in-r.html#cb2691-2" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;data/person.sav&quot;</span>)</span>
-<span id="cb2691-3"><a href="intermediate-importing-data-in-r.html#cb2691-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2691-4"><a href="intermediate-importing-data-in-r.html#cb2691-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize traits</span></span>
-<span id="cb2691-5"><a href="intermediate-importing-data-in-r.html#cb2691-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(traits)</span></code></pre></div>
+<div class="sourceCode" id="cb3169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3169-1"><a href="intermediate-importing-data-in-r.html#cb3169-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import person.sav: traits</span></span>
+<span id="cb3169-2"><a href="intermediate-importing-data-in-r.html#cb3169-2" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;data/person.sav&quot;</span>)</span>
+<span id="cb3169-3"><a href="intermediate-importing-data-in-r.html#cb3169-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3169-4"><a href="intermediate-importing-data-in-r.html#cb3169-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize traits</span></span>
+<span id="cb3169-5"><a href="intermediate-importing-data-in-r.html#cb3169-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(traits)</span></code></pre></div>
 <pre><code>##     Neurotic     Extroversion  Agreeableness  Conscientiousness
 ##  Min.   : 0.0   Min.   : 5.0   Min.   :15.0   Min.   : 7.0     
 ##  1st Qu.:18.0   1st Qu.:26.0   1st Qu.:39.0   1st Qu.:25.0     
@@ -2417,23 +2516,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Max.   :44.0   Max.   :65.0   Max.   :73.0   Max.   :58.0     
 ##  NA&#39;s   :14     NA&#39;s   :16     NA&#39;s   :19     NA&#39;s   :14</code></pre>
 <p><code>subset</code> of those individuals that scored high on Extroversion and on Agreeableness, i.e. scoring higher than 40 on each of these two categories.</p>
-<div class="sourceCode" id="cb2693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2693-1"><a href="intermediate-importing-data-in-r.html#cb2693-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out a subset</span></span>
-<span id="cb2693-2"><a href="intermediate-importing-data-in-r.html#cb2693-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(traits, Extroversion <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> Agreeableness <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3171-1"><a href="intermediate-importing-data-in-r.html#cb3171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out a subset</span></span>
+<span id="cb3171-2"><a href="intermediate-importing-data-in-r.html#cb3171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(traits, Extroversion <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> Agreeableness <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 4
+##   Neurotic Extroversion Agreeableness Conscientiousness
+##      &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+## 1       38           43            49                29
+## 2       20           42            46                31
+## 3       18           42            49                31
+## 4       42           43            44                29
+## 5       30           42            51                24
+## 6       18           42            50                25
+## 7       27           45            55                23
+## 8       18           43            57                34</code></pre>
 <p>With SPSS data files, it can also happen that some of the variables you import have the <code>labelled</code> class. This is done to keep all the labelling information that was originally present in the <code>.sav</code> and <code>.por</code> files. It’s advised to coerce (or change) these variables to factors or other standard R classes.</p>
-<div class="sourceCode" id="cb2694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2694-1"><a href="intermediate-importing-data-in-r.html#cb2694-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import SPSS data from the URL: work</span></span>
-<span id="cb2694-2"><a href="intermediate-importing-data-in-r.html#cb2694-2" aria-hidden="true" tabindex="-1"></a>work <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/employee.sav&quot;</span>)</span>
-<span id="cb2694-3"><a href="intermediate-importing-data-in-r.html#cb2694-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2694-4"><a href="intermediate-importing-data-in-r.html#cb2694-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display summary of work$GENDER</span></span>
-<span id="cb2694-5"><a href="intermediate-importing-data-in-r.html#cb2694-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(work<span class="sc">$</span>GENDER)</span></code></pre></div>
+<div class="sourceCode" id="cb3173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3173-1"><a href="intermediate-importing-data-in-r.html#cb3173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import SPSS data from the URL: work</span></span>
+<span id="cb3173-2"><a href="intermediate-importing-data-in-r.html#cb3173-2" aria-hidden="true" tabindex="-1"></a>work <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/employee.sav&quot;</span>)</span>
+<span id="cb3173-3"><a href="intermediate-importing-data-in-r.html#cb3173-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3173-4"><a href="intermediate-importing-data-in-r.html#cb3173-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display summary of work$GENDER</span></span>
+<span id="cb3173-5"><a href="intermediate-importing-data-in-r.html#cb3173-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(work<span class="sc">$</span>GENDER)</span></code></pre></div>
 <pre><code>##    Length     Class      Mode 
 ##       474 character character</code></pre>
 <p>This information doesn’t give you a lot of useful information.</p>
 <p>Use <code>as_factor()</code> to convert to categorical variables.</p>
-<div class="sourceCode" id="cb2696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2696-1"><a href="intermediate-importing-data-in-r.html#cb2696-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert work$GENDER to a factor</span></span>
-<span id="cb2696-2"><a href="intermediate-importing-data-in-r.html#cb2696-2" aria-hidden="true" tabindex="-1"></a>work<span class="sc">$</span>GENDER <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(work<span class="sc">$</span>GENDER)</span>
-<span id="cb2696-3"><a href="intermediate-importing-data-in-r.html#cb2696-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2696-4"><a href="intermediate-importing-data-in-r.html#cb2696-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display summary of work$GENDER again</span></span>
-<span id="cb2696-5"><a href="intermediate-importing-data-in-r.html#cb2696-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(work<span class="sc">$</span>GENDER)</span></code></pre></div>
+<div class="sourceCode" id="cb3175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3175-1"><a href="intermediate-importing-data-in-r.html#cb3175-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert work$GENDER to a factor</span></span>
+<span id="cb3175-2"><a href="intermediate-importing-data-in-r.html#cb3175-2" aria-hidden="true" tabindex="-1"></a>work<span class="sc">$</span>GENDER <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(work<span class="sc">$</span>GENDER)</span>
+<span id="cb3175-3"><a href="intermediate-importing-data-in-r.html#cb3175-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3175-4"><a href="intermediate-importing-data-in-r.html#cb3175-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display summary of work$GENDER again</span></span>
+<span id="cb3175-5"><a href="intermediate-importing-data-in-r.html#cb3175-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(work<span class="sc">$</span>GENDER)</span></code></pre></div>
 <pre><code>## Female   Male 
 ##    216    258</code></pre>
 </div>
@@ -2447,10 +2557,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="import-stata-data-1" class="section level4 hasAnchor" number="22.5.2.1">
 <h4><span class="header-section-number">22.5.2.1</span> Import STATA data<a href="intermediate-importing-data-in-r.html#import-stata-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2698-1"><a href="intermediate-importing-data-in-r.html#cb2698-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.dta</span>(file,</span>
-<span id="cb2698-2"><a href="intermediate-importing-data-in-r.html#cb2698-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">convert.factors =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2698-3"><a href="intermediate-importing-data-in-r.html#cb2698-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">convert.dates =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2698-4"><a href="intermediate-importing-data-in-r.html#cb2698-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">missing.type =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3177-1"><a href="intermediate-importing-data-in-r.html#cb3177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.dta</span>(file,</span>
+<span id="cb3177-2"><a href="intermediate-importing-data-in-r.html#cb3177-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">convert.factors =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3177-3"><a href="intermediate-importing-data-in-r.html#cb3177-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">convert.dates =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3177-4"><a href="intermediate-importing-data-in-r.html#cb3177-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">missing.type =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <ul>
 <li><p><code>convert.factors</code> : convert labelled STATA values to R factors</p></li>
 <li><p><code>convert.dates</code> : convert STATA dates and times to Date and POSIXct</p></li>
@@ -2460,23 +2570,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>if <code>TRUE</code> , store how values are missing in attributes</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2699-1"><a href="intermediate-importing-data-in-r.html#cb2699-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the foreign package</span></span>
-<span id="cb2699-2"><a href="intermediate-importing-data-in-r.html#cb2699-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb2699-3"><a href="intermediate-importing-data-in-r.html#cb2699-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2699-4"><a href="intermediate-importing-data-in-r.html#cb2699-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import florida.dta and name the resulting data frame florida</span></span>
-<span id="cb2699-5"><a href="intermediate-importing-data-in-r.html#cb2699-5" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;data/florida.dta&quot;</span>)</span>
-<span id="cb2699-6"><a href="intermediate-importing-data-in-r.html#cb2699-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2699-7"><a href="intermediate-importing-data-in-r.html#cb2699-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check tail() of florida</span></span>
-<span id="cb2699-8"><a href="intermediate-importing-data-in-r.html#cb2699-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(florida)</span></code></pre></div>
+<div class="sourceCode" id="cb3178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3178-1"><a href="intermediate-importing-data-in-r.html#cb3178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the foreign package</span></span>
+<span id="cb3178-2"><a href="intermediate-importing-data-in-r.html#cb3178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb3178-3"><a href="intermediate-importing-data-in-r.html#cb3178-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3178-4"><a href="intermediate-importing-data-in-r.html#cb3178-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import florida.dta and name the resulting data frame florida</span></span>
+<span id="cb3178-5"><a href="intermediate-importing-data-in-r.html#cb3178-5" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;data/florida.dta&quot;</span>)</span>
+<span id="cb3178-6"><a href="intermediate-importing-data-in-r.html#cb3178-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3178-7"><a href="intermediate-importing-data-in-r.html#cb3178-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check tail() of florida</span></span>
+<span id="cb3178-8"><a href="intermediate-importing-data-in-r.html#cb3178-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(florida)</span></code></pre></div>
+<pre><code>##     gore  bush buchanan nader  total
+## 62  2647  4051       27    59   6784
+## 63  1399  2326       26    29   3780
+## 64 97063 82214      396  2436 182109
+## 65  3835  4511       46   149   8541
+## 66  5637 12176      120   265  18198
+## 67  2796  4983       88    93   7960</code></pre>
 <p>The arguments you will use most often are <code>convert.dates</code>, <code>convert.factors</code>, <code>missing.type</code> and <code>convert.underscore</code>.</p>
 <p>Specify the path to the file using <code>file.path()</code>. Use the <code>path</code> variable to import the data file in three different ways; each time show its structure.</p>
 <p>Default</p>
-<div class="sourceCode" id="cb2700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2700-1"><a href="intermediate-importing-data-in-r.html#cb2700-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path using file.path(): path</span></span>
-<span id="cb2700-2"><a href="intermediate-importing-data-in-r.html#cb2700-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;edequality.dta&quot;</span>)</span>
-<span id="cb2700-3"><a href="intermediate-importing-data-in-r.html#cb2700-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2700-4"><a href="intermediate-importing-data-in-r.html#cb2700-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print structure of edu_equal_1</span></span>
-<span id="cb2700-5"><a href="intermediate-importing-data-in-r.html#cb2700-5" aria-hidden="true" tabindex="-1"></a>edu_equal_1 <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(path)</span>
-<span id="cb2700-6"><a href="intermediate-importing-data-in-r.html#cb2700-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(edu_equal_1)</span></code></pre></div>
+<div class="sourceCode" id="cb3180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3180-1"><a href="intermediate-importing-data-in-r.html#cb3180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path using file.path(): path</span></span>
+<span id="cb3180-2"><a href="intermediate-importing-data-in-r.html#cb3180-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;edequality.dta&quot;</span>)</span>
+<span id="cb3180-3"><a href="intermediate-importing-data-in-r.html#cb3180-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3180-4"><a href="intermediate-importing-data-in-r.html#cb3180-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print structure of edu_equal_1</span></span>
+<span id="cb3180-5"><a href="intermediate-importing-data-in-r.html#cb3180-5" aria-hidden="true" tabindex="-1"></a>edu_equal_1 <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(path)</span>
+<span id="cb3180-6"><a href="intermediate-importing-data-in-r.html#cb3180-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(edu_equal_1)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    12214 obs. of  27 variables:
 ##  $ hhid              : num  1 1 1 2 2 3 4 4 5 6 ...
 ##  $ hhweight          : num  627 627 627 627 627 ...
@@ -2551,9 +2668,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$         : Named int [1:2] 1 2
 ##   .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;no&quot; &quot;yes&quot;</code></pre>
 <p>Setting <code>convert.factors</code> to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb2702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2702-1"><a href="intermediate-importing-data-in-r.html#cb2702-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print structure of edu_equal_2</span></span>
-<span id="cb2702-2"><a href="intermediate-importing-data-in-r.html#cb2702-2" aria-hidden="true" tabindex="-1"></a>edu_equal_2 <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(path, <span class="at">convert.factors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2702-3"><a href="intermediate-importing-data-in-r.html#cb2702-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(edu_equal_2)</span></code></pre></div>
+<div class="sourceCode" id="cb3182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3182-1"><a href="intermediate-importing-data-in-r.html#cb3182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print structure of edu_equal_2</span></span>
+<span id="cb3182-2"><a href="intermediate-importing-data-in-r.html#cb3182-2" aria-hidden="true" tabindex="-1"></a>edu_equal_2 <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(path, <span class="at">convert.factors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3182-3"><a href="intermediate-importing-data-in-r.html#cb3182-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(edu_equal_2)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    12214 obs. of  27 variables:
 ##  $ hhid              : num  1 1 1 2 2 3 4 4 5 6 ...
 ##  $ hhweight          : num  627 627 627 627 627 ...
@@ -2628,9 +2745,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$         : Named int [1:2] 1 2
 ##   .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;no&quot; &quot;yes&quot;</code></pre>
 <p>Setting <code>convert.underscore</code> to <code>TRUE</code>.</p>
-<div class="sourceCode" id="cb2704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2704-1"><a href="intermediate-importing-data-in-r.html#cb2704-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print structure of edu_equal_3</span></span>
-<span id="cb2704-2"><a href="intermediate-importing-data-in-r.html#cb2704-2" aria-hidden="true" tabindex="-1"></a>edu_equal_3 <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(path, <span class="at">convert.underscore =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2704-3"><a href="intermediate-importing-data-in-r.html#cb2704-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(edu_equal_3)</span></code></pre></div>
+<div class="sourceCode" id="cb3184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3184-1"><a href="intermediate-importing-data-in-r.html#cb3184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print structure of edu_equal_3</span></span>
+<span id="cb3184-2"><a href="intermediate-importing-data-in-r.html#cb3184-2" aria-hidden="true" tabindex="-1"></a>edu_equal_3 <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(path, <span class="at">convert.underscore =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3184-3"><a href="intermediate-importing-data-in-r.html#cb3184-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(edu_equal_3)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    12214 obs. of  27 variables:
 ##  $ hhid              : num  1 1 1 2 2 3 4 4 5 6 ...
 ##  $ hhweight          : num  627 627 627 627 627 ...
@@ -2705,14 +2822,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$         : Named int [1:2] 1 2
 ##   .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;no&quot; &quot;yes&quot;</code></pre>
 <p>How many observations/individuals of Bulgarian ethnicity have an income above 1000?</p>
-<div class="sourceCode" id="cb2706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2706-1"><a href="intermediate-importing-data-in-r.html#cb2706-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">subset</span>(edu_equal_1, ethnicity_head <span class="sc">==</span> <span class="st">&quot;Bulgaria&quot;</span> <span class="sc">&amp;</span> income <span class="sc">&gt;</span> <span class="dv">1000</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3186-1"><a href="intermediate-importing-data-in-r.html#cb3186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">subset</span>(edu_equal_1, ethnicity_head <span class="sc">==</span> <span class="st">&quot;Bulgaria&quot;</span> <span class="sc">&amp;</span> income <span class="sc">&gt;</span> <span class="dv">1000</span>))</span></code></pre></div>
 <pre><code>## [1] 8997</code></pre>
 </div>
 <div id="import-spss-data-1" class="section level4 hasAnchor" number="22.5.2.2">
 <h4><span class="header-section-number">22.5.2.2</span> Import SPSS data<a href="intermediate-importing-data-in-r.html#import-spss-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2708-1"><a href="intermediate-importing-data-in-r.html#cb2708-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.spss</span>(file,</span>
-<span id="cb2708-2"><a href="intermediate-importing-data-in-r.html#cb2708-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">use.value.labels =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2708-3"><a href="intermediate-importing-data-in-r.html#cb2708-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">to.data.frame =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3188-1"><a href="intermediate-importing-data-in-r.html#cb3188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.spss</span>(file,</span>
+<span id="cb3188-2"><a href="intermediate-importing-data-in-r.html#cb3188-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">use.value.labels =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3188-3"><a href="intermediate-importing-data-in-r.html#cb3188-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">to.data.frame =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <ul>
 <li><p><code>use.value.labels</code> : convert labelled SPSS values to R factors</p></li>
 <li><p><code>to.data.frame</code> : return data frame instead of a list</p></li>
@@ -2720,30 +2837,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>trim_values</code></p></li>
 <li><p><code>use.missings</code></p></li>
 </ul>
-<div class="sourceCode" id="cb2709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2709-1"><a href="intermediate-importing-data-in-r.html#cb2709-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import international.sav as a data frame: demo</span></span>
-<span id="cb2709-2"><a href="intermediate-importing-data-in-r.html#cb2709-2" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;data/international.sav&quot;</span>, <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3189-1"><a href="intermediate-importing-data-in-r.html#cb3189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import international.sav as a data frame: demo</span></span>
+<span id="cb3189-2"><a href="intermediate-importing-data-in-r.html#cb3189-2" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;data/international.sav&quot;</span>, <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## re-encoding from CP1252</code></pre>
-<div class="sourceCode" id="cb2711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2711-1"><a href="intermediate-importing-data-in-r.html#cb2711-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create boxplot of gdp variable of demo</span></span>
-<span id="cb2711-2"><a href="intermediate-importing-data-in-r.html#cb2711-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(demo<span class="sc">$</span>gdp)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1255-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3191-1"><a href="intermediate-importing-data-in-r.html#cb3191-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create boxplot of gdp variable of demo</span></span>
+<span id="cb3191-2"><a href="intermediate-importing-data-in-r.html#cb3191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(demo<span class="sc">$</span>gdp)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1250-1.png" width="672" /></p>
 <p>What is the correlation coefficient for the two numerical variables <code>gdp</code> and <code>f_illit</code> (female illiteracy rate)?</p>
-<div class="sourceCode" id="cb2712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2712-1"><a href="intermediate-importing-data-in-r.html#cb2712-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(demo<span class="sc">$</span>gdp, demo<span class="sc">$</span>f_illit)</span></code></pre></div>
+<div class="sourceCode" id="cb3192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3192-1"><a href="intermediate-importing-data-in-r.html#cb3192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(demo<span class="sc">$</span>gdp, demo<span class="sc">$</span>f_illit)</span></code></pre></div>
 <pre><code>## [1] -0.448</code></pre>
 <p>Indicates a negative association among GDP and female illiteracy.</p>
 <p>You will experiment with another argument, <code>use.value.labels</code>. It specifies whether variables with value labels should be converted into R factors with levels that are named accordingly.</p>
-<div class="sourceCode" id="cb2714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2714-1"><a href="intermediate-importing-data-in-r.html#cb2714-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import international.sav as demo_1</span></span>
-<span id="cb2714-2"><a href="intermediate-importing-data-in-r.html#cb2714-2" aria-hidden="true" tabindex="-1"></a>demo_1 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;data/international.sav&quot;</span>, <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3194-1"><a href="intermediate-importing-data-in-r.html#cb3194-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import international.sav as demo_1</span></span>
+<span id="cb3194-2"><a href="intermediate-importing-data-in-r.html#cb3194-2" aria-hidden="true" tabindex="-1"></a>demo_1 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;data/international.sav&quot;</span>, <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## re-encoding from CP1252</code></pre>
-<div class="sourceCode" id="cb2716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2716-1"><a href="intermediate-importing-data-in-r.html#cb2716-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the head of demo_1</span></span>
-<span id="cb2716-2"><a href="intermediate-importing-data-in-r.html#cb2716-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_1)</span></code></pre></div>
+<div class="sourceCode" id="cb3196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3196-1"><a href="intermediate-importing-data-in-r.html#cb3196-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the head of demo_1</span></span>
+<span id="cb3196-2"><a href="intermediate-importing-data-in-r.html#cb3196-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_1)</span></code></pre></div>
+<pre><code>##   id              country  contint m_illit f_illit lifeexpt  gdp
+## 1  1 Argentina            Americas     3.0     3.0       16 3375
+## 2  2 Benin                  Africa    45.2    74.5        7  521
+## 3  3 Burundi                Africa    33.2    48.1        5   86
+## 4  4 Chile                Americas     4.2     4.4       14 4523
+## 5  5 Dominican Republic   Americas    12.0    12.7       12 2408
+## 6  6 El Salvador          Americas    17.6    22.9       11 2302</code></pre>
 <p>This time, variables with value labels are not converted to R factors.</p>
-<div class="sourceCode" id="cb2717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2717-1"><a href="intermediate-importing-data-in-r.html#cb2717-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import international.sav as demo_2</span></span>
-<span id="cb2717-2"><a href="intermediate-importing-data-in-r.html#cb2717-2" aria-hidden="true" tabindex="-1"></a>demo_2 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;data/international.sav&quot;</span>, </span>
-<span id="cb2717-3"><a href="intermediate-importing-data-in-r.html#cb2717-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2717-4"><a href="intermediate-importing-data-in-r.html#cb2717-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">use.value.labels =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3198-1"><a href="intermediate-importing-data-in-r.html#cb3198-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import international.sav as demo_2</span></span>
+<span id="cb3198-2"><a href="intermediate-importing-data-in-r.html#cb3198-2" aria-hidden="true" tabindex="-1"></a>demo_2 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;data/international.sav&quot;</span>, </span>
+<span id="cb3198-3"><a href="intermediate-importing-data-in-r.html#cb3198-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb3198-4"><a href="intermediate-importing-data-in-r.html#cb3198-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">use.value.labels =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## re-encoding from CP1252</code></pre>
-<div class="sourceCode" id="cb2719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2719-1"><a href="intermediate-importing-data-in-r.html#cb2719-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the head of demo_2</span></span>
-<span id="cb2719-2"><a href="intermediate-importing-data-in-r.html#cb2719-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_2)</span></code></pre></div>
+<div class="sourceCode" id="cb3200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3200-1"><a href="intermediate-importing-data-in-r.html#cb3200-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the head of demo_2</span></span>
+<span id="cb3200-2"><a href="intermediate-importing-data-in-r.html#cb3200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_2)</span></code></pre></div>
+<pre><code>##   id              country contint m_illit f_illit lifeexpt  gdp
+## 1  1 Argentina                  2     3.0     3.0       16 3375
+## 2  2 Benin                      1    45.2    74.5        7  521
+## 3  3 Burundi                    1    33.2    48.1        5   86
+## 4  4 Chile                      2     4.2     4.4       14 4523
+## 5  5 Dominican Republic         2    12.0    12.7       12 2408
+## 6  6 El Salvador                2    17.6    22.9       11 2302</code></pre>
 
 </div>
 </div>

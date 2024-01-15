@@ -1110,11 +1110,11 @@ null_distn
 ```
 
 Visualize the null distribution.
+
 ```{r}
 # Visualize the null distribution
 visualize(null_distn)
 ```
-
 
 To determine a result from the test, we need to compare this null distribution to the observed statistic.
 
@@ -1122,8 +1122,8 @@ To determine a result from the test, we need to compare this null distribution t
 
 In order to get a p-value and weigh up the evidence against the null hypothesis, you need to calculate the difference in proportions that is observed in the `late_shipments` sample.
 
-
 Copy, paste, and modify the null distribution pipeline to get the observed statistic.
+
 ```{r}
 # Copy, paste, and modify the pipeline to get the observed statistic
 obs_stat <- late_shipments %>% 
@@ -1150,8 +1150,8 @@ visualize(null_distn) +
   color = "red")
 ```
 
-
 Get the p-value from the null distribution and observed statistic, assuming an appropriate direction for the alternative hypothesis.
+
 ```{r warning=FALSE}
 # Get the p-value
 p_value <- get_p_value(
@@ -1164,7 +1164,7 @@ p_value <- get_p_value(
 p_value
 ```
 
-The p-value is calculated from the null distribution and the observed statistic. Here, the observed difference in proportions appears way outside of the null distribution histogram, which resulted in a p-value of zero. This can be interpreted as “p is very small”, rather than actually zero.
+The p-value is calculated from the null distribution and the observed statistic. Here, the observed difference in proportions appears way outside of the null distribution histogram, which resulted in a p-value of zero. This can be interpreted as "p is very small", rather than actually zero.
 
 ### Non-parametric ANOVA & unpaired t-tests
 
@@ -1174,19 +1174,19 @@ A non-parametric test is a hypothesis test that doesn't assume a probability dis
 
 There are two types of non-parametric hypothesis test:
 
-1. Simulation-based.
+1.  Simulation-based.
 
-    - `infer` pipeline
+    -   `infer` pipeline
 
-2. Rank-based.
+2.  Rank-based.
 
-    - Wilcoxon-Mann-Whitney test: is a t-test on the ranks of the numeric input.
-    
-        - `wilcox.test(y ~ x, data, alternative, correct)`
-    
-    - Kruskal-Wallis test: Kruskal-Wallis test is to Wilcoxon-Mann-Whitney test as ANOVA is to t-test.
-    
-        - `kruskal.test(y ~ x, data)`
+    -   Wilcoxon-Mann-Whitney test: is a t-test on the ranks of the numeric input.
+
+        -   `wilcox.test(y ~ x, data, alternative, correct)`
+
+    -   Kruskal-Wallis test: Kruskal-Wallis test is to Wilcoxon-Mann-Whitney test as ANOVA is to t-test.
+
+        -   `kruskal.test(y ~ x, data)`
 
 #### Simulation-based t-test
 
@@ -1229,6 +1229,7 @@ null_distn
 ```
 
 Calculate the difference in means observed in the `late_shipments` dataset.
+
 ```{r}
 # Calculate the observed difference in means
 obs_stat <- late_shipments %>% 
@@ -1240,6 +1241,7 @@ obs_stat
 ```
 
 Get the p-value from the null distribution and the observed difference in means, setting an appropriate direction.
+
 ```{r}
 # Get the p-value
 p_value <- get_p_value(
@@ -1264,6 +1266,7 @@ By calculating on the ranks of data instead of the actual values, you can avoid 
 Two commonly used rank-based tests are the Wilcoxon-Mann-Whitney test, which is like a non-parametric t-test, and the Kruskal-Wallis test, which is like a non-parametric ANOVA.
 
 Run a Wilcoxon-Mann-Whitney test on the weight in kilograms versus whether or not the shipment was late.
+
 ```{r}
 # Run a Wilcoxon-Mann-Whitney test on weight_kilograms vs. late
 test_results <- wilcox.test(
@@ -1276,6 +1279,7 @@ test_results
 ```
 
 Run a Kruskal-Wallace test on the weight in kilograms versus the shipment mode.
+
 ```{r}
 # Run a Kruskal-Wallace test on weight_kilograms vs. shipment_mode
 test_results <- kruskal.test(
@@ -1286,13 +1290,3 @@ test_results <- kruskal.test(
 # See the result
 test_results
 ```
-
-
-
-
-
-
-
-
-
-

@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 1 Introduction to R | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1088,14 +1088,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-6"><a href="introduction-to-r.html#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box_office</span></span>
 <span id="cb45-7"><a href="introduction-to-r.html#cb45-7" aria-hidden="true" tabindex="-1"></a>box_office <span class="ot">&lt;-</span> <span class="fu">c</span>(new_hope, empire_strikes, return_jedi)</span>
 <span id="cb45-8"><a href="introduction-to-r.html#cb45-8" aria-hidden="true" tabindex="-1"></a>box_office</span></code></pre></div>
-<pre><code>## [1] 461 314 290 248 309 166</code></pre>
+<pre><code>## [1] 460.998 314.400 290.475 247.900 309.306 165.800</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="introduction-to-r.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct a matrix with 3 rows, where each row represents a movie.</span></span>
 <span id="cb47-2"><a href="introduction-to-r.html#cb47-2" aria-hidden="true" tabindex="-1"></a>star_wars_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(box_office, <span class="at">byrow =</span> T, <span class="at">nrow =</span> <span class="dv">3</span>)</span>
 <span id="cb47-3"><a href="introduction-to-r.html#cb47-3" aria-hidden="true" tabindex="-1"></a>star_wars_matrix</span></code></pre></div>
-<pre><code>##      [,1] [,2]
-## [1,]  461  314
-## [2,]  290  248
-## [3,]  309  166</code></pre>
+<pre><code>##         [,1]  [,2]
+## [1,] 460.998 314.4
+## [2,] 290.475 247.9
+## [3,] 309.306 165.8</code></pre>
 </div>
 <div id="naming-a-matrix" class="section level3 hasAnchor" number="1.4.3">
 <h3><span class="header-section-number">1.4.3</span> Naming a matrix<a href="introduction-to-r.html#naming-a-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1117,19 +1117,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-10"><a href="introduction-to-r.html#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-11"><a href="introduction-to-r.html#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out star_wars_matrix</span></span>
 <span id="cb49-12"><a href="introduction-to-r.html#cb49-12" aria-hidden="true" tabindex="-1"></a>star_wars_matrix</span></code></pre></div>
-<pre><code>##                          US non-US
-## A New Hope              461    314
-## The Empire Strikes Back 290    248
-## Return of the Jedi      309    166</code></pre>
+<pre><code>##                              US non-US
+## A New Hope              460.998  314.4
+## The Empire Strikes Back 290.475  247.9
+## Return of the Jedi      309.306  165.8</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="introduction-to-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct by matrix argument &quot;dimnames&quot;</span></span>
 <span id="cb51-2"><a href="introduction-to-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a>star_wars_matrix_dim <span class="ot">&lt;-</span> <span class="fu">matrix</span>(box_office, </span>
 <span id="cb51-3"><a href="introduction-to-r.html#cb51-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb51-4"><a href="introduction-to-r.html#cb51-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">dimnames =</span> <span class="fu">list</span>(titles, region))</span>
 <span id="cb51-5"><a href="introduction-to-r.html#cb51-5" aria-hidden="true" tabindex="-1"></a>star_wars_matrix_dim</span></code></pre></div>
-<pre><code>##                          US non-US
-## A New Hope              461    314
-## The Empire Strikes Back 290    248
-## Return of the Jedi      309    166</code></pre>
+<pre><code>##                              US non-US
+## A New Hope              460.998  314.4
+## The Empire Strikes Back 290.475  247.9
+## Return of the Jedi      309.306  165.8</code></pre>
 </div>
 <div id="manipulating---sum-of-each-row-column" class="section level3 hasAnchor" number="1.4.4">
 <h3><span class="header-section-number">1.4.4</span> Manipulating - sum of each row &amp; column<a href="introduction-to-r.html#manipulating---sum-of-each-row-column" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1137,11 +1137,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introduction-to-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate worldwide box office figures for each row</span></span>
 <span id="cb53-2"><a href="introduction-to-r.html#cb53-2" aria-hidden="true" tabindex="-1"></a>worldwide_vector <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(star_wars_matrix); worldwide_vector</span></code></pre></div>
 <pre><code>##              A New Hope The Empire Strikes Back      Return of the Jedi 
-##                     775                     538                     475</code></pre>
+##                 775.398                 538.375                 475.106</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate worldwide box office figures for each column</span></span>
 <span id="cb55-2"><a href="introduction-to-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a>worldwide_vector_col <span class="ot">&lt;-</span> <span class="fu">colSums</span>(star_wars_matrix); worldwide_vector_col</span></code></pre></div>
-<pre><code>##     US non-US 
-##   1061    728</code></pre>
+<pre><code>##       US   non-US 
+## 1060.779  728.100</code></pre>
 </div>
 <div id="manipulating---add-columns" class="section level3 hasAnchor" number="1.4.5">
 <h3><span class="header-section-number">1.4.5</span> Manipulating - add columns<a href="introduction-to-r.html#manipulating---add-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1150,10 +1150,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-r.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind the new variable worldwide_vector as a column to star_wars_matrix</span></span>
 <span id="cb57-2"><a href="introduction-to-r.html#cb57-2" aria-hidden="true" tabindex="-1"></a>all_wars_matrix <span class="ot">&lt;-</span> <span class="fu">cbind</span>(star_wars_matrix, worldwide_vector)</span>
 <span id="cb57-3"><a href="introduction-to-r.html#cb57-3" aria-hidden="true" tabindex="-1"></a>all_wars_matrix</span></code></pre></div>
-<pre><code>##                          US non-US worldwide_vector
-## A New Hope              461    314              775
-## The Empire Strikes Back 290    248              538
-## Return of the Jedi      309    166              475</code></pre>
+<pre><code>##                              US non-US worldwide_vector
+## A New Hope              460.998  314.4          775.398
+## The Empire Strikes Back 290.475  247.9          538.375
+## Return of the Jedi      309.306  165.8          475.106</code></pre>
 </div>
 <div id="manipulating---add-rows" class="section level3 hasAnchor" number="1.4.6">
 <h3><span class="header-section-number">1.4.6</span> Manipulating - add rows<a href="introduction-to-r.html#manipulating---add-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1164,20 +1164,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-4"><a href="introduction-to-r.html#cb59-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">byrow =</span> T, <span class="at">nrow =</span> <span class="dv">3</span>,</span>
 <span id="cb59-5"><a href="introduction-to-r.html#cb59-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">dimnames =</span> <span class="fu">list</span>(matrix2_rowname, region))</span>
 <span id="cb59-6"><a href="introduction-to-r.html#cb59-6" aria-hidden="true" tabindex="-1"></a>star_wars_matrix2</span></code></pre></div>
-<pre><code>##                       US non-US
-## The Phantom Menace   474    552
-## Attack of the Clones 311    339
-## Revenge of the Sith  380    468</code></pre>
+<pre><code>##                         US non-US
+## The Phantom Menace   474.5  552.5
+## Attack of the Clones 310.7  338.7
+## Revenge of the Sith  380.3  468.5</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-r.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine both Star Wars trilogies in one matrix</span></span>
 <span id="cb61-2"><a href="introduction-to-r.html#cb61-2" aria-hidden="true" tabindex="-1"></a>all_wars_matrix <span class="ot">&lt;-</span> <span class="fu">rbind</span>(star_wars_matrix, star_wars_matrix2)</span>
 <span id="cb61-3"><a href="introduction-to-r.html#cb61-3" aria-hidden="true" tabindex="-1"></a>all_wars_matrix</span></code></pre></div>
-<pre><code>##                          US non-US
-## A New Hope              461    314
-## The Empire Strikes Back 290    248
-## Return of the Jedi      309    166
-## The Phantom Menace      474    552
-## Attack of the Clones    311    339
-## Revenge of the Sith     380    468</code></pre>
+<pre><code>##                              US non-US
+## A New Hope              460.998  314.4
+## The Empire Strikes Back 290.475  247.9
+## Return of the Jedi      309.306  165.8
+## The Phantom Menace      474.500  552.5
+## Attack of the Clones    310.700  338.7
+## Revenge of the Sith     380.300  468.5</code></pre>
 </div>
 <div id="selection-of-matrix-elements" class="section level3 hasAnchor" number="1.4.7">
 <h3><span class="header-section-number">1.4.7</span> Selection of matrix elements<a href="introduction-to-r.html#selection-of-matrix-elements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1190,13 +1190,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-r.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the non-US revenue for all movies</span></span>
 <span id="cb63-2"><a href="introduction-to-r.html#cb63-2" aria-hidden="true" tabindex="-1"></a>non_us_all <span class="ot">&lt;-</span> all_wars_matrix[, <span class="dv">2</span>]; non_us_all</span></code></pre></div>
 <pre><code>##              A New Hope The Empire Strikes Back      Return of the Jedi 
-##                     314                     248                     166 
+##                   314.4                   247.9                   165.8 
 ##      The Phantom Menace    Attack of the Clones     Revenge of the Sith 
-##                     552                     339                     468</code></pre>
+##                   552.5                   338.7                   468.5</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-r.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the non-US revenue for first two movies</span></span>
 <span id="cb65-2"><a href="introduction-to-r.html#cb65-2" aria-hidden="true" tabindex="-1"></a>non_us_some <span class="ot">&lt;-</span> all_wars_matrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">2</span>]; non_us_some</span></code></pre></div>
 <pre><code>##              A New Hope The Empire Strikes Back 
-##                     314                     248</code></pre>
+##                   314.4                   247.9</code></pre>
 </div>
 <div id="arithmetic---1" class="section level3 hasAnchor" number="1.4.8">
 <h3><span class="header-section-number">1.4.8</span> Arithmetic - 1<a href="introduction-to-r.html#arithmetic---1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1205,13 +1205,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate the visitors.Assume that the price of a ticket was 5 dollars. Simply dividing the box office numbers by this ticket price gives you the number of visitors.</span></span>
 <span id="cb67-2"><a href="introduction-to-r.html#cb67-2" aria-hidden="true" tabindex="-1"></a>visitors <span class="ot">&lt;-</span> all_wars_matrix <span class="sc">/</span> <span class="dv">5</span></span>
 <span id="cb67-3"><a href="introduction-to-r.html#cb67-3" aria-hidden="true" tabindex="-1"></a>visitors</span></code></pre></div>
-<pre><code>##                           US non-US
-## A New Hope              92.2   62.9
-## The Empire Strikes Back 58.1   49.6
-## Return of the Jedi      61.9   33.2
-## The Phantom Menace      94.9  110.5
-## Attack of the Clones    62.1   67.7
-## Revenge of the Sith     76.1   93.7</code></pre>
+<pre><code>##                              US non-US
+## A New Hope              92.1996  62.88
+## The Empire Strikes Back 58.0950  49.58
+## Return of the Jedi      61.8612  33.16
+## The Phantom Menace      94.9000 110.50
+## Attack of the Clones    62.1400  67.74
+## Revenge of the Sith     76.0600  93.70</code></pre>
 </div>
 <div id="arithmetic---2" class="section level3 hasAnchor" number="1.4.9">
 <h3><span class="header-section-number">1.4.9</span> Arithmetic - 2<a href="introduction-to-r.html#arithmetic---2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1238,7 +1238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-6"><a href="introduction-to-r.html#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb71-7"><a href="introduction-to-r.html#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Average number of US visitors</span></span>
 <span id="cb71-8"><a href="introduction-to-r.html#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(us_visitors)</span></code></pre></div>
-<pre><code>## [1] 75</code></pre>
+<pre><code>## [1] 75.01339</code></pre>
 </div>
 </div>
 <div id="factor" class="section level2 hasAnchor" number="1.5">
@@ -1345,48 +1345,89 @@ A good example of a categorical variable is sex(“Male” or “Female”).</p>
 <div id="quick-look-at-dataset" class="section level3 hasAnchor" number="1.6.1">
 <h3><span class="header-section-number">1.6.1</span> Quick look at dataset<a href="introduction-to-r.html#quick-look-at-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The function <code>head()</code> enables you to show the first observations of a data frame. Similarly, the function <code>tail()</code> prints out the last observations in your dataset.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="introduction-to-r.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span>
-<span id="cb99-2"><a href="introduction-to-r.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(mtcars)</span>
-<span id="cb99-3"><a href="introduction-to-r.html#cb99-3" aria-hidden="true" tabindex="-1"></a>?mtcars</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="introduction-to-r.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb fcyl
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4    6
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4    6
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1    4
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1    6
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2    8
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1    6
+##                         fam               car fcyl_fam      fvs
+## Mazda RX4            manual         Mazda RX4      6:1 V-shaped
+## Mazda RX4 Wag        manual     Mazda RX4 Wag      6:1 V-shaped
+## Datsun 710           manual        Datsun 710      4:1 straight
+## Hornet 4 Drive    automatic    Hornet 4 Drive      6:0 straight
+## Hornet Sportabout automatic Hornet Sportabout      8:0 V-shaped
+## Valiant           automatic           Valiant      6:0 straight</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="introduction-to-r.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(mtcars)</span></code></pre></div>
+<pre><code>##                 mpg cyl  disp  hp drat    wt qsec vs am gear carb fcyl    fam
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.7  0  1    5    2    4 manual
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.9  1  1    5    2    4 manual
+## Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.5  0  1    5    4    8 manual
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.5  0  1    5    6    6 manual
+## Maserati Bora  15.0   8 301.0 335 3.54 3.570 14.6  0  1    5    8    8 manual
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.6  1  1    4    2    4 manual
+##                           car fcyl_fam      fvs
+## Porsche 914-2   Porsche 914-2      4:1 V-shaped
+## Lotus Europa     Lotus Europa      4:1 straight
+## Ford Pantera L Ford Pantera L      8:1 V-shaped
+## Ferrari Dino     Ferrari Dino      6:1 V-shaped
+## Maserati Bora   Maserati Bora      8:1 V-shaped
+## Volvo 142E         Volvo 142E      4:1 straight</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="introduction-to-r.html#cb103-1" aria-hidden="true" tabindex="-1"></a>?mtcars</span></code></pre></div>
+<pre><code>## starting httpd help server ... done</code></pre>
 <p>The function <code>str()</code> shows you the structure of your dataset.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="introduction-to-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
-##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
-##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
-##  $ disp: num  160 160 108 258 360 ...
-##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
-##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
-##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
-##  $ qsec: num  16.5 17 18.6 19.4 17 ...
-##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
-##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
-##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
-##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="introduction-to-r.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  16 variables:
+##  $ mpg     : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl     : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp    : num  160 160 108 258 360 ...
+##  $ hp      : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat    : num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt      : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec    : num  16.5 17 18.6 19.4 17 ...
+##  $ vs      : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am      : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear    : num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb    : num  4 4 1 1 2 1 4 2 2 4 ...
+##  $ fcyl    : Factor w/ 3 levels &quot;4&quot;,&quot;6&quot;,&quot;8&quot;: 2 2 1 2 3 2 3 1 1 2 ...
+##  $ fam     : Factor w/ 2 levels &quot;manual&quot;,&quot;automatic&quot;: 1 1 1 2 2 2 2 2 2 2 ...
+##  $ car     : chr  &quot;Mazda RX4&quot; &quot;Mazda RX4 Wag&quot; &quot;Datsun 710&quot; &quot;Hornet 4 Drive&quot; ...
+##  $ fcyl_fam: Factor w/ 6 levels &quot;4:0&quot;,&quot;6:0&quot;,&quot;8:0&quot;,..: 5 5 4 2 3 2 3 1 1 2 ...
+##  $ fvs     : Factor w/ 2 levels &quot;V-shaped&quot;,&quot;straight&quot;: 1 1 2 2 1 2 1 2 2 2 ...</code></pre>
 </div>
 <div id="creating-a-data-frame" class="section level3 hasAnchor" number="1.6.2">
 <h3><span class="header-section-number">1.6.2</span> Creating a data frame<a href="introduction-to-r.html#creating-a-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Function: <code>data.frame()</code></p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="introduction-to-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of vectors</span></span>
-<span id="cb102-2"><a href="introduction-to-r.html#cb102-2" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mercury&quot;</span>, <span class="st">&quot;Venus&quot;</span>, <span class="st">&quot;Earth&quot;</span>, </span>
-<span id="cb102-3"><a href="introduction-to-r.html#cb102-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Mars&quot;</span>, <span class="st">&quot;Jupiter&quot;</span>, <span class="st">&quot;Saturn&quot;</span>, </span>
-<span id="cb102-4"><a href="introduction-to-r.html#cb102-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Uranus&quot;</span>, <span class="st">&quot;Neptune&quot;</span>)</span>
-<span id="cb102-5"><a href="introduction-to-r.html#cb102-5" aria-hidden="true" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Terrestrial planet&quot;</span>, </span>
-<span id="cb102-6"><a href="introduction-to-r.html#cb102-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Terrestrial planet&quot;</span>, </span>
-<span id="cb102-7"><a href="introduction-to-r.html#cb102-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Terrestrial planet&quot;</span>, </span>
-<span id="cb102-8"><a href="introduction-to-r.html#cb102-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Terrestrial planet&quot;</span>, <span class="st">&quot;Gas giant&quot;</span>, </span>
-<span id="cb102-9"><a href="introduction-to-r.html#cb102-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Gas giant&quot;</span>, <span class="st">&quot;Gas giant&quot;</span>, <span class="st">&quot;Gas giant&quot;</span>)</span>
-<span id="cb102-10"><a href="introduction-to-r.html#cb102-10" aria-hidden="true" tabindex="-1"></a>diameter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.382</span>, <span class="fl">0.949</span>, <span class="dv">1</span>, <span class="fl">0.532</span>, </span>
-<span id="cb102-11"><a href="introduction-to-r.html#cb102-11" aria-hidden="true" tabindex="-1"></a>              <span class="fl">11.209</span>, <span class="fl">9.449</span>, <span class="fl">4.007</span>, <span class="fl">3.883</span>)</span>
-<span id="cb102-12"><a href="introduction-to-r.html#cb102-12" aria-hidden="true" tabindex="-1"></a>rotation <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">58.64</span>, <span class="sc">-</span><span class="fl">243.02</span>, <span class="dv">1</span>, <span class="fl">1.03</span>, </span>
-<span id="cb102-13"><a href="introduction-to-r.html#cb102-13" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.41</span>, <span class="fl">0.43</span>, <span class="sc">-</span><span class="fl">0.72</span>, <span class="fl">0.67</span>)</span>
-<span id="cb102-14"><a href="introduction-to-r.html#cb102-14" aria-hidden="true" tabindex="-1"></a>rings <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb102-15"><a href="introduction-to-r.html#cb102-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-16"><a href="introduction-to-r.html#cb102-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame from the vectors</span></span>
-<span id="cb102-17"><a href="introduction-to-r.html#cb102-17" aria-hidden="true" tabindex="-1"></a>planets_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name, type, diameter, rotation, rings)</span>
-<span id="cb102-18"><a href="introduction-to-r.html#cb102-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-19"><a href="introduction-to-r.html#cb102-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-20"><a href="introduction-to-r.html#cb102-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(planets_df)</span>
-<span id="cb102-21"><a href="introduction-to-r.html#cb102-21" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(planets_df)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="introduction-to-r.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of vectors</span></span>
+<span id="cb107-2"><a href="introduction-to-r.html#cb107-2" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mercury&quot;</span>, <span class="st">&quot;Venus&quot;</span>, <span class="st">&quot;Earth&quot;</span>, </span>
+<span id="cb107-3"><a href="introduction-to-r.html#cb107-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Mars&quot;</span>, <span class="st">&quot;Jupiter&quot;</span>, <span class="st">&quot;Saturn&quot;</span>, </span>
+<span id="cb107-4"><a href="introduction-to-r.html#cb107-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Uranus&quot;</span>, <span class="st">&quot;Neptune&quot;</span>)</span>
+<span id="cb107-5"><a href="introduction-to-r.html#cb107-5" aria-hidden="true" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Terrestrial planet&quot;</span>, </span>
+<span id="cb107-6"><a href="introduction-to-r.html#cb107-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Terrestrial planet&quot;</span>, </span>
+<span id="cb107-7"><a href="introduction-to-r.html#cb107-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Terrestrial planet&quot;</span>, </span>
+<span id="cb107-8"><a href="introduction-to-r.html#cb107-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Terrestrial planet&quot;</span>, <span class="st">&quot;Gas giant&quot;</span>, </span>
+<span id="cb107-9"><a href="introduction-to-r.html#cb107-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Gas giant&quot;</span>, <span class="st">&quot;Gas giant&quot;</span>, <span class="st">&quot;Gas giant&quot;</span>)</span>
+<span id="cb107-10"><a href="introduction-to-r.html#cb107-10" aria-hidden="true" tabindex="-1"></a>diameter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.382</span>, <span class="fl">0.949</span>, <span class="dv">1</span>, <span class="fl">0.532</span>, </span>
+<span id="cb107-11"><a href="introduction-to-r.html#cb107-11" aria-hidden="true" tabindex="-1"></a>              <span class="fl">11.209</span>, <span class="fl">9.449</span>, <span class="fl">4.007</span>, <span class="fl">3.883</span>)</span>
+<span id="cb107-12"><a href="introduction-to-r.html#cb107-12" aria-hidden="true" tabindex="-1"></a>rotation <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">58.64</span>, <span class="sc">-</span><span class="fl">243.02</span>, <span class="dv">1</span>, <span class="fl">1.03</span>, </span>
+<span id="cb107-13"><a href="introduction-to-r.html#cb107-13" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.41</span>, <span class="fl">0.43</span>, <span class="sc">-</span><span class="fl">0.72</span>, <span class="fl">0.67</span>)</span>
+<span id="cb107-14"><a href="introduction-to-r.html#cb107-14" aria-hidden="true" tabindex="-1"></a>rings <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb107-15"><a href="introduction-to-r.html#cb107-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-16"><a href="introduction-to-r.html#cb107-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame from the vectors</span></span>
+<span id="cb107-17"><a href="introduction-to-r.html#cb107-17" aria-hidden="true" tabindex="-1"></a>planets_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name, type, diameter, rotation, rings)</span>
+<span id="cb107-18"><a href="introduction-to-r.html#cb107-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-19"><a href="introduction-to-r.html#cb107-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-20"><a href="introduction-to-r.html#cb107-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(planets_df)</span></code></pre></div>
+<pre><code>##      name               type diameter rotation rings
+## 1 Mercury Terrestrial planet    0.382    58.64 FALSE
+## 2   Venus Terrestrial planet    0.949  -243.02 FALSE
+## 3   Earth Terrestrial planet    1.000     1.00 FALSE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE
+## 5 Jupiter          Gas giant   11.209     0.41  TRUE
+## 6  Saturn          Gas giant    9.449     0.43  TRUE</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-to-r.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(planets_df)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    8 obs. of  5 variables:
 ##  $ name    : chr  &quot;Mercury&quot; &quot;Venus&quot; &quot;Earth&quot; &quot;Mars&quot; ...
 ##  $ type    : chr  &quot;Terrestrial planet&quot; &quot;Terrestrial planet&quot; &quot;Terrestrial planet&quot; &quot;Terrestrial planet&quot; ...
@@ -1400,27 +1441,34 @@ A good example of a categorical variable is sex(“Male” or “Female”).</p>
 - <code>my_df[1,2]</code> selects the value at the first row and second column in <code>my_df</code>.
 - <code>my_df[1:3,2:4]</code> selects rows 1, 2, 3 and columns 2, 3, 4 in <code>my_df</code>.
 Sometimes you want to select all elements of a row or column. For example, <code>my_df[1, ]</code> selects all elements of the first row.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="introduction-to-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out diameter of Mercury (row 1, column 3)</span></span>
-<span id="cb104-2"><a href="introduction-to-r.html#cb104-2" aria-hidden="true" tabindex="-1"></a>planets_df[<span class="dv">1</span>, <span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-to-r.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out diameter of Mercury (row 1, column 3)</span></span>
+<span id="cb111-2"><a href="introduction-to-r.html#cb111-2" aria-hidden="true" tabindex="-1"></a>planets_df[<span class="dv">1</span>, <span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## [1] 0.382</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="introduction-to-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out data for Mars (entire fourth row)</span></span>
-<span id="cb106-2"><a href="introduction-to-r.html#cb106-2" aria-hidden="true" tabindex="-1"></a>planets_df[<span class="dv">4</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-to-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out data for Mars (entire fourth row)</span></span>
+<span id="cb113-2"><a href="introduction-to-r.html#cb113-2" aria-hidden="true" tabindex="-1"></a>planets_df[<span class="dv">4</span>, ]</span></code></pre></div>
+<pre><code>##   name               type diameter rotation rings
+## 4 Mars Terrestrial planet    0.532     1.03 FALSE</code></pre>
 </div>
 <div id="selection---names" class="section level3 hasAnchor" number="1.6.4">
 <h3><span class="header-section-number">1.6.4</span> Selection - names<a href="introduction-to-r.html#selection---names" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can also use the variable names to select columns of a data frame.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="introduction-to-r.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select first 5 values of diameter column</span></span>
-<span id="cb107-2"><a href="introduction-to-r.html#cb107-2" aria-hidden="true" tabindex="-1"></a>planets_df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">&quot;diameter&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-to-r.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select first 5 values of diameter column</span></span>
+<span id="cb115-2"><a href="introduction-to-r.html#cb115-2" aria-hidden="true" tabindex="-1"></a>planets_df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">&quot;diameter&quot;</span>]</span></code></pre></div>
 <pre><code>## [1]  0.382  0.949  1.000  0.532 11.209</code></pre>
 </div>
 <div id="selection--" class="section level3 hasAnchor" number="1.6.5">
 <h3><span class="header-section-number">1.6.5</span> Selection - $<a href="introduction-to-r.html#selection--" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There is a short-cut. If your columns have names, you can use the <code>$</code> sign.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-to-r.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the rings variable from planets_df</span></span>
-<span id="cb109-2"><a href="introduction-to-r.html#cb109-2" aria-hidden="true" tabindex="-1"></a>rings_vector <span class="ot">&lt;-</span> planets_df<span class="sc">$</span>rings; rings_vector</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-to-r.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the rings variable from planets_df</span></span>
+<span id="cb117-2"><a href="introduction-to-r.html#cb117-2" aria-hidden="true" tabindex="-1"></a>rings_vector <span class="ot">&lt;-</span> planets_df<span class="sc">$</span>rings; rings_vector</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-to-r.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns for planets with rings (only output True value)</span></span>
-<span id="cb111-2"><a href="introduction-to-r.html#cb111-2" aria-hidden="true" tabindex="-1"></a>planets_df[rings_vector, ]</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-to-r.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns for planets with rings (only output True value)</span></span>
+<span id="cb119-2"><a href="introduction-to-r.html#cb119-2" aria-hidden="true" tabindex="-1"></a>planets_df[rings_vector, ]</span></code></pre></div>
+<pre><code>##      name      type diameter rotation rings
+## 5 Jupiter Gas giant   11.209     0.41  TRUE
+## 6  Saturn Gas giant    9.449     0.43  TRUE
+## 7  Uranus Gas giant    4.007    -0.72  TRUE
+## 8 Neptune Gas giant    3.883     0.67  TRUE</code></pre>
 </div>
 <div id="selection---subset" class="section level3 hasAnchor" number="1.6.6">
 <h3><span class="header-section-number">1.6.6</span> Selection - subset<a href="introduction-to-r.html#selection---subset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1428,23 +1476,36 @@ Sometimes you want to select all elements of a row or column. For example, <code
 <p><code>subset(my_df, subset = some_condition)</code></p>
 <p>You should see the <code>subset()</code> function as a short-cut. The code below will give the exact same result as you got in the previous exercise, but this time, you didn’t need the <code>rings_vector</code>!</p>
 <p><code>subset(planets_df, subset = rings)</code></p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="introduction-to-r.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select planets with diameter &lt; 1</span></span>
-<span id="cb112-2"><a href="introduction-to-r.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(planets_df, <span class="at">subset =</span> diameter <span class="sc">&lt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-to-r.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select planets with diameter &lt; 1</span></span>
+<span id="cb121-2"><a href="introduction-to-r.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(planets_df, <span class="at">subset =</span> diameter <span class="sc">&lt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##      name               type diameter rotation rings
+## 1 Mercury Terrestrial planet    0.382    58.64 FALSE
+## 2   Venus Terrestrial planet    0.949  -243.02 FALSE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE</code></pre>
 </div>
 <div id="sorting" class="section level3 hasAnchor" number="1.6.7">
 <h3><span class="header-section-number">1.6.7</span> Sorting<a href="introduction-to-r.html#sorting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>order()</code> is a function that gives you the ranked position of each element when it is applied on a variable, such as a vector for example:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-to-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
-<span id="cb113-2"><a href="introduction-to-r.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">order</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="introduction-to-r.html#cb123-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb123-2"><a href="introduction-to-r.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">order</span>(a)</span></code></pre></div>
 <pre><code>## [1] 2 1 3</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-to-r.html#cb115-1" aria-hidden="true" tabindex="-1"></a>a[<span class="fu">order</span>(a)]</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="introduction-to-r.html#cb125-1" aria-hidden="true" tabindex="-1"></a>a[<span class="fu">order</span>(a)]</span></code></pre></div>
 <pre><code>## [1]   10  100 1000</code></pre>
 <p>You would like to rearrange your data frame such that it starts with the smallest planet and ends with the largest one. A sort on the diameter column.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-to-r.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use order() to create positions</span></span>
-<span id="cb117-2"><a href="introduction-to-r.html#cb117-2" aria-hidden="true" tabindex="-1"></a>positions <span class="ot">&lt;-</span>  <span class="fu">order</span>(planets_df<span class="sc">$</span>diameter)</span>
-<span id="cb117-3"><a href="introduction-to-r.html#cb117-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-4"><a href="introduction-to-r.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use positions to sort planets_df</span></span>
-<span id="cb117-5"><a href="introduction-to-r.html#cb117-5" aria-hidden="true" tabindex="-1"></a>planets_df[positions, ]</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="introduction-to-r.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use order() to create positions</span></span>
+<span id="cb127-2"><a href="introduction-to-r.html#cb127-2" aria-hidden="true" tabindex="-1"></a>positions <span class="ot">&lt;-</span>  <span class="fu">order</span>(planets_df<span class="sc">$</span>diameter)</span>
+<span id="cb127-3"><a href="introduction-to-r.html#cb127-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-4"><a href="introduction-to-r.html#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use positions to sort planets_df</span></span>
+<span id="cb127-5"><a href="introduction-to-r.html#cb127-5" aria-hidden="true" tabindex="-1"></a>planets_df[positions, ]</span></code></pre></div>
+<pre><code>##      name               type diameter rotation rings
+## 1 Mercury Terrestrial planet    0.382    58.64 FALSE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE
+## 2   Venus Terrestrial planet    0.949  -243.02 FALSE
+## 3   Earth Terrestrial planet    1.000     1.00 FALSE
+## 8 Neptune          Gas giant    3.883     0.67  TRUE
+## 7  Uranus          Gas giant    4.007    -0.72  TRUE
+## 6  Saturn          Gas giant    9.449     0.43  TRUE
+## 5 Jupiter          Gas giant   11.209     0.41  TRUE</code></pre>
 </div>
 </div>
 <div id="list" class="section level2 hasAnchor" number="1.7">
@@ -1455,18 +1516,18 @@ Sometimes you want to select all elements of a row or column. For example, <code
 <p>Function: <code>list()</code></p>
 <p><code>my_list &lt;- list(comp1, comp2 ...)</code></p>
 <p>The arguments to the list function are the list components. These components can be matrices, vectors, other lists, etc.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="introduction-to-r.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector with numerics from 1 up to 10</span></span>
-<span id="cb118-2"><a href="introduction-to-r.html#cb118-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> </span>
-<span id="cb118-3"><a href="introduction-to-r.html#cb118-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-4"><a href="introduction-to-r.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix with numerics from 1 up to 9</span></span>
-<span id="cb118-5"><a href="introduction-to-r.html#cb118-5" aria-hidden="true" tabindex="-1"></a>my_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb118-6"><a href="introduction-to-r.html#cb118-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-7"><a href="introduction-to-r.html#cb118-7" aria-hidden="true" tabindex="-1"></a><span class="co"># First 10 elements of the built-in data frame mtcars</span></span>
-<span id="cb118-8"><a href="introduction-to-r.html#cb118-8" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span>
-<span id="cb118-9"><a href="introduction-to-r.html#cb118-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-10"><a href="introduction-to-r.html#cb118-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct list with these different elements:</span></span>
-<span id="cb118-11"><a href="introduction-to-r.html#cb118-11" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(my_vector, my_matrix, my_df)</span>
-<span id="cb118-12"><a href="introduction-to-r.html#cb118-12" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="introduction-to-r.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector with numerics from 1 up to 10</span></span>
+<span id="cb129-2"><a href="introduction-to-r.html#cb129-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> </span>
+<span id="cb129-3"><a href="introduction-to-r.html#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-4"><a href="introduction-to-r.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix with numerics from 1 up to 9</span></span>
+<span id="cb129-5"><a href="introduction-to-r.html#cb129-5" aria-hidden="true" tabindex="-1"></a>my_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb129-6"><a href="introduction-to-r.html#cb129-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-7"><a href="introduction-to-r.html#cb129-7" aria-hidden="true" tabindex="-1"></a><span class="co"># First 10 elements of the built-in data frame mtcars</span></span>
+<span id="cb129-8"><a href="introduction-to-r.html#cb129-8" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span>
+<span id="cb129-9"><a href="introduction-to-r.html#cb129-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-10"><a href="introduction-to-r.html#cb129-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct list with these different elements:</span></span>
+<span id="cb129-11"><a href="introduction-to-r.html#cb129-11" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(my_vector, my_matrix, my_df)</span>
+<span id="cb129-12"><a href="introduction-to-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ## 
@@ -1477,17 +1538,28 @@ Sometimes you want to select all elements of a row or column. For example, <code
 ## [3,]    3    6    9
 ## 
 ## [[3]]
-##                    mpg cyl disp  hp drat   wt qsec vs am gear carb
-## Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4
-## Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.21 19.4  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2
-## Valiant           18.1   6  225 105 2.76 3.46 20.2  1  0    3    1
-## Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4
-## Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2
-## Merc 230          22.8   4  141  95 3.92 3.15 22.9  1  0    4    2
-## Merc 280          19.2   6  168 123 3.92 3.44 18.3  1  0    4    4</code></pre>
+##                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb fcyl
+## Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4    6
+## Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4    6
+## Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1    4
+## Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1    6
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2    8
+## Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1    6
+## Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4    8
+## Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2    4
+## Merc 230          22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2    4
+## Merc 280          19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4    6
+##                         fam               car fcyl_fam      fvs
+## Mazda RX4            manual         Mazda RX4      6:1 V-shaped
+## Mazda RX4 Wag        manual     Mazda RX4 Wag      6:1 V-shaped
+## Datsun 710           manual        Datsun 710      4:1 straight
+## Hornet 4 Drive    automatic    Hornet 4 Drive      6:0 straight
+## Hornet Sportabout automatic Hornet Sportabout      8:0 V-shaped
+## Valiant           automatic           Valiant      6:0 straight
+## Duster 360        automatic        Duster 360      8:0 V-shaped
+## Merc 240D         automatic         Merc 240D      4:0 straight
+## Merc 230          automatic          Merc 230      4:0 straight
+## Merc 280          automatic          Merc 280      6:0 straight</code></pre>
 </div>
 <div id="creating-a-named-list" class="section level3 hasAnchor" number="1.7.2">
 <h3><span class="header-section-number">1.7.2</span> Creating a named list<a href="introduction-to-r.html#creating-a-named-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1497,9 +1569,9 @@ Sometimes you want to select all elements of a row or column. For example, <code
 <p>If you want to <em>name your lists after you’ve created them</em>, you can use the <code>names()</code> function as you did with vectors. The following commands are fully equivalent to the assignment above:</p>
 <pre><code>my_list &lt;- list(your_comp1, your_comp2)
 names(my_list) &lt;- c(&quot;name1&quot;, &quot;name2&quot;)</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="introduction-to-r.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adapt list() call to give the components names-after</span></span>
-<span id="cb122-2"><a href="introduction-to-r.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_list) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vec&quot;</span>, <span class="st">&quot;mat&quot;</span>, <span class="st">&quot;df&quot;</span>)</span>
-<span id="cb122-3"><a href="introduction-to-r.html#cb122-3" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="introduction-to-r.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adapt list() call to give the components names-after</span></span>
+<span id="cb133-2"><a href="introduction-to-r.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_list) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vec&quot;</span>, <span class="st">&quot;mat&quot;</span>, <span class="st">&quot;df&quot;</span>)</span>
+<span id="cb133-3"><a href="introduction-to-r.html#cb133-3" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
 <pre><code>## $vec
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ## 
@@ -1510,22 +1582,33 @@ names(my_list) &lt;- c(&quot;name1&quot;, &quot;name2&quot;)</code></pre>
 ## [3,]    3    6    9
 ## 
 ## $df
-##                    mpg cyl disp  hp drat   wt qsec vs am gear carb
-## Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4
-## Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.21 19.4  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2
-## Valiant           18.1   6  225 105 2.76 3.46 20.2  1  0    3    1
-## Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4
-## Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2
-## Merc 230          22.8   4  141  95 3.92 3.15 22.9  1  0    4    2
-## Merc 280          19.2   6  168 123 3.92 3.44 18.3  1  0    4    4</code></pre>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="introduction-to-r.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adapt list() call to give the components names-before</span></span>
-<span id="cb124-2"><a href="introduction-to-r.html#cb124-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;vec&quot;</span> <span class="ot">=</span> my_vector, </span>
-<span id="cb124-3"><a href="introduction-to-r.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;mat&quot;</span> <span class="ot">=</span> my_matrix, </span>
-<span id="cb124-4"><a href="introduction-to-r.html#cb124-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;df&quot;</span> <span class="ot">=</span> my_df)</span>
-<span id="cb124-5"><a href="introduction-to-r.html#cb124-5" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
+##                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb fcyl
+## Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4    6
+## Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4    6
+## Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1    4
+## Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1    6
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2    8
+## Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1    6
+## Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4    8
+## Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2    4
+## Merc 230          22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2    4
+## Merc 280          19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4    6
+##                         fam               car fcyl_fam      fvs
+## Mazda RX4            manual         Mazda RX4      6:1 V-shaped
+## Mazda RX4 Wag        manual     Mazda RX4 Wag      6:1 V-shaped
+## Datsun 710           manual        Datsun 710      4:1 straight
+## Hornet 4 Drive    automatic    Hornet 4 Drive      6:0 straight
+## Hornet Sportabout automatic Hornet Sportabout      8:0 V-shaped
+## Valiant           automatic           Valiant      6:0 straight
+## Duster 360        automatic        Duster 360      8:0 V-shaped
+## Merc 240D         automatic         Merc 240D      4:0 straight
+## Merc 230          automatic          Merc 230      4:0 straight
+## Merc 280          automatic          Merc 280      6:0 straight</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="introduction-to-r.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adapt list() call to give the components names-before</span></span>
+<span id="cb135-2"><a href="introduction-to-r.html#cb135-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;vec&quot;</span> <span class="ot">=</span> my_vector, </span>
+<span id="cb135-3"><a href="introduction-to-r.html#cb135-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;mat&quot;</span> <span class="ot">=</span> my_matrix, </span>
+<span id="cb135-4"><a href="introduction-to-r.html#cb135-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;df&quot;</span> <span class="ot">=</span> my_df)</span>
+<span id="cb135-5"><a href="introduction-to-r.html#cb135-5" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
 <pre><code>## $vec
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ## 
@@ -1536,58 +1619,69 @@ names(my_list) &lt;- c(&quot;name1&quot;, &quot;name2&quot;)</code></pre>
 ## [3,]    3    6    9
 ## 
 ## $df
-##                    mpg cyl disp  hp drat   wt qsec vs am gear carb
-## Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4
-## Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.21 19.4  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2
-## Valiant           18.1   6  225 105 2.76 3.46 20.2  1  0    3    1
-## Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4
-## Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2
-## Merc 230          22.8   4  141  95 3.92 3.15 22.9  1  0    4    2
-## Merc 280          19.2   6  168 123 3.92 3.44 18.3  1  0    4    4</code></pre>
+##                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb fcyl
+## Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4    6
+## Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4    6
+## Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1    4
+## Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1    6
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2    8
+## Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1    6
+## Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4    8
+## Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2    4
+## Merc 230          22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2    4
+## Merc 280          19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4    6
+##                         fam               car fcyl_fam      fvs
+## Mazda RX4            manual         Mazda RX4      6:1 V-shaped
+## Mazda RX4 Wag        manual     Mazda RX4 Wag      6:1 V-shaped
+## Datsun 710           manual        Datsun 710      4:1 straight
+## Hornet 4 Drive    automatic    Hornet 4 Drive      6:0 straight
+## Hornet Sportabout automatic Hornet Sportabout      8:0 V-shaped
+## Valiant           automatic           Valiant      6:0 straight
+## Duster 360        automatic        Duster 360      8:0 V-shaped
+## Merc 240D         automatic         Merc 240D      4:0 straight
+## Merc 230          automatic          Merc 230      4:0 straight
+## Merc 280          automatic          Merc 280      6:0 straight</code></pre>
 </div>
 <div id="selection" class="section level3 hasAnchor" number="1.7.3">
 <h3><span class="header-section-number">1.7.3</span> Selection<a href="introduction-to-r.html#selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can also refer to the names of the components, with <code>[[ ]]</code> or with the <code>$</code> sign.</p>
 <p><em>Note: to select elements from vectors, you use single square brackets: <code>[ ]</code>. Don’t mix them up!</em></p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="introduction-to-r.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first element of the list, which is a vector</span></span>
-<span id="cb126-2"><a href="introduction-to-r.html#cb126-2" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="introduction-to-r.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first element of the list, which is a vector</span></span>
+<span id="cb137-2"><a href="introduction-to-r.html#cb137-2" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="introduction-to-r.html#cb128-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="st">&quot;vec&quot;</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="introduction-to-r.html#cb139-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="st">&quot;vec&quot;</span>]]</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="introduction-to-r.html#cb130-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>vec</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="introduction-to-r.html#cb141-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>vec</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="introduction-to-r.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the second element of the vector</span></span>
-<span id="cb132-2"><a href="introduction-to-r.html#cb132-2" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">1</span>]][<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="introduction-to-r.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the second element of the vector</span></span>
+<span id="cb143-2"><a href="introduction-to-r.html#cb143-2" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">1</span>]][<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 </div>
 </div>
 <div id="bring-it-all-together" class="section level2 hasAnchor" number="1.8">
 <h2><span class="header-section-number">1.8</span> Bring it all together<a href="introduction-to-r.html#bring-it-all-together" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="introduction-to-r.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct vectors</span></span>
-<span id="cb134-2"><a href="introduction-to-r.html#cb134-2" aria-hidden="true" tabindex="-1"></a>movie_title <span class="ot">&lt;-</span> <span class="st">&quot;The Departed&quot;</span></span>
-<span id="cb134-3"><a href="introduction-to-r.html#cb134-3" aria-hidden="true" tabindex="-1"></a>movie_actors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Leonardo DiCaprio&quot;</span>, <span class="st">&quot;Matt Damon&quot;</span>, <span class="st">&quot;Jack Nicholson&quot;</span>, </span>
-<span id="cb134-4"><a href="introduction-to-r.html#cb134-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Mark Wahlberg&quot;</span>, <span class="st">&quot;Vera Farmiga&quot;</span>, <span class="st">&quot;Martin Sheen&quot;</span>)</span>
-<span id="cb134-5"><a href="introduction-to-r.html#cb134-5" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.6</span>, <span class="dv">5</span>, <span class="fl">4.8</span>, <span class="dv">5</span>, <span class="fl">4.2</span>)</span>
-<span id="cb134-6"><a href="introduction-to-r.html#cb134-6" aria-hidden="true" tabindex="-1"></a>comments <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;I would watch it again&quot;</span>, <span class="st">&quot;Amazing!&quot;</span>, <span class="st">&quot;I liked it&quot;</span>, <span class="st">&quot;One of the best movies&quot;</span>, <span class="st">&quot;Fascinating plot&quot;</span>) </span>
-<span id="cb134-7"><a href="introduction-to-r.html#cb134-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-8"><a href="introduction-to-r.html#cb134-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the average of the scores vector as avg_review</span></span>
-<span id="cb134-9"><a href="introduction-to-r.html#cb134-9" aria-hidden="true" tabindex="-1"></a>avg_review <span class="ot">&lt;-</span> <span class="fu">mean</span>(scores)</span>
-<span id="cb134-10"><a href="introduction-to-r.html#cb134-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-11"><a href="introduction-to-r.html#cb134-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine scores and comments into the reviews_df data frame</span></span>
-<span id="cb134-12"><a href="introduction-to-r.html#cb134-12" aria-hidden="true" tabindex="-1"></a>reviews_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(scores, comments)</span>
-<span id="cb134-13"><a href="introduction-to-r.html#cb134-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-14"><a href="introduction-to-r.html#cb134-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort reviews_df by scores</span></span>
-<span id="cb134-15"><a href="introduction-to-r.html#cb134-15" aria-hidden="true" tabindex="-1"></a>reviews_df <span class="ot">&lt;-</span> reviews_df[<span class="fu">order</span>(reviews_df<span class="sc">$</span>scores), ]</span>
-<span id="cb134-16"><a href="introduction-to-r.html#cb134-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-17"><a href="introduction-to-r.html#cb134-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print out a list, called departed_list</span></span>
-<span id="cb134-18"><a href="introduction-to-r.html#cb134-18" aria-hidden="true" tabindex="-1"></a>departed_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;title&quot;</span> <span class="ot">=</span> movie_title, </span>
-<span id="cb134-19"><a href="introduction-to-r.html#cb134-19" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;actors&quot;</span> <span class="ot">=</span> movie_actors, </span>
-<span id="cb134-20"><a href="introduction-to-r.html#cb134-20" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;reviews&quot;</span> <span class="ot">=</span> reviews_df, </span>
-<span id="cb134-21"><a href="introduction-to-r.html#cb134-21" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;average&quot;</span> <span class="ot">=</span> avg_review)</span>
-<span id="cb134-22"><a href="introduction-to-r.html#cb134-22" aria-hidden="true" tabindex="-1"></a>departed_list</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="introduction-to-r.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct vectors</span></span>
+<span id="cb145-2"><a href="introduction-to-r.html#cb145-2" aria-hidden="true" tabindex="-1"></a>movie_title <span class="ot">&lt;-</span> <span class="st">&quot;The Departed&quot;</span></span>
+<span id="cb145-3"><a href="introduction-to-r.html#cb145-3" aria-hidden="true" tabindex="-1"></a>movie_actors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Leonardo DiCaprio&quot;</span>, <span class="st">&quot;Matt Damon&quot;</span>, <span class="st">&quot;Jack Nicholson&quot;</span>, </span>
+<span id="cb145-4"><a href="introduction-to-r.html#cb145-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Mark Wahlberg&quot;</span>, <span class="st">&quot;Vera Farmiga&quot;</span>, <span class="st">&quot;Martin Sheen&quot;</span>)</span>
+<span id="cb145-5"><a href="introduction-to-r.html#cb145-5" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.6</span>, <span class="dv">5</span>, <span class="fl">4.8</span>, <span class="dv">5</span>, <span class="fl">4.2</span>)</span>
+<span id="cb145-6"><a href="introduction-to-r.html#cb145-6" aria-hidden="true" tabindex="-1"></a>comments <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;I would watch it again&quot;</span>, <span class="st">&quot;Amazing!&quot;</span>, <span class="st">&quot;I liked it&quot;</span>, <span class="st">&quot;One of the best movies&quot;</span>, <span class="st">&quot;Fascinating plot&quot;</span>) </span>
+<span id="cb145-7"><a href="introduction-to-r.html#cb145-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-8"><a href="introduction-to-r.html#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the average of the scores vector as avg_review</span></span>
+<span id="cb145-9"><a href="introduction-to-r.html#cb145-9" aria-hidden="true" tabindex="-1"></a>avg_review <span class="ot">&lt;-</span> <span class="fu">mean</span>(scores)</span>
+<span id="cb145-10"><a href="introduction-to-r.html#cb145-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-11"><a href="introduction-to-r.html#cb145-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine scores and comments into the reviews_df data frame</span></span>
+<span id="cb145-12"><a href="introduction-to-r.html#cb145-12" aria-hidden="true" tabindex="-1"></a>reviews_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(scores, comments)</span>
+<span id="cb145-13"><a href="introduction-to-r.html#cb145-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-14"><a href="introduction-to-r.html#cb145-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort reviews_df by scores</span></span>
+<span id="cb145-15"><a href="introduction-to-r.html#cb145-15" aria-hidden="true" tabindex="-1"></a>reviews_df <span class="ot">&lt;-</span> reviews_df[<span class="fu">order</span>(reviews_df<span class="sc">$</span>scores), ]</span>
+<span id="cb145-16"><a href="introduction-to-r.html#cb145-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-17"><a href="introduction-to-r.html#cb145-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print out a list, called departed_list</span></span>
+<span id="cb145-18"><a href="introduction-to-r.html#cb145-18" aria-hidden="true" tabindex="-1"></a>departed_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;title&quot;</span> <span class="ot">=</span> movie_title, </span>
+<span id="cb145-19"><a href="introduction-to-r.html#cb145-19" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;actors&quot;</span> <span class="ot">=</span> movie_actors, </span>
+<span id="cb145-20"><a href="introduction-to-r.html#cb145-20" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;reviews&quot;</span> <span class="ot">=</span> reviews_df, </span>
+<span id="cb145-21"><a href="introduction-to-r.html#cb145-21" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;average&quot;</span> <span class="ot">=</span> avg_review)</span>
+<span id="cb145-22"><a href="introduction-to-r.html#cb145-22" aria-hidden="true" tabindex="-1"></a>departed_list</span></code></pre></div>
 <pre><code>## $title
 ## [1] &quot;The Departed&quot;
 ## 

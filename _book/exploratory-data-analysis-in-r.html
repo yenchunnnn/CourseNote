@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 13 Exploratory Data Analysis in R | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -920,32 +920,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">13.1.1.1</span> Contingency table<a href="exploratory-data-analysis-in-r.html#contingency-table" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Create a contingency table by <code>table()</code>, is a useful way to represent the total counts of observations that fall into each combination of the levels of categorical variables.</p>
 <p><code>comics</code> dataset is a collection of characteristics on all of the superheroes created by Marvel and DC comics in the last 80 years.</p>
-<div class="sourceCode" id="cb1471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1471-1"><a href="exploratory-data-analysis-in-r.html#cb1471-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1471-2"><a href="exploratory-data-analysis-in-r.html#cb1471-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1471-3"><a href="exploratory-data-analysis-in-r.html#cb1471-3" aria-hidden="true" tabindex="-1"></a>comics <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/comics.csv&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;ffffffffiff&quot;</span>)</span>
-<span id="cb1471-4"><a href="exploratory-data-analysis-in-r.html#cb1471-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(comics)</span></code></pre></div>
+<div class="sourceCode" id="cb1724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1724-1"><a href="exploratory-data-analysis-in-r.html#cb1724-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1724-2"><a href="exploratory-data-analysis-in-r.html#cb1724-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1724-3"><a href="exploratory-data-analysis-in-r.html#cb1724-3" aria-hidden="true" tabindex="-1"></a>comics <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/comics.csv&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;ffffffffiff&quot;</span>)</span>
+<span id="cb1724-4"><a href="exploratory-data-analysis-in-r.html#cb1724-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(comics)</span></code></pre></div>
 <pre><code>## Rows: 23,272
 ## Columns: 11
-## $ name         &lt;fct&gt; &quot;Spider-Man (Peter Parker)&quot;, &quot;Captain America (Steve…
-## $ id           &lt;fct&gt; Secret, Public, Public, Public, No Dual, Public, Pub…
-## $ align        &lt;fct&gt; Good, Good, Neutral, Good, Good, Good, Good, Good, N…
-## $ eye          &lt;fct&gt; Hazel Eyes, Blue Eyes, Blue Eyes, Blue Eyes, Blue Ey…
-## $ hair         &lt;fct&gt; Brown Hair, White Hair, Black Hair, Black Hair, Blon…
-## $ gender       &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male…
-## $ gsm          &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ alive        &lt;fct&gt; Living Characters, Living Characters, Living Charact…
-## $ appearances  &lt;int&gt; 4043, 3360, 3061, 2961, 2258, 2255, 2072, 2017, 1955…
-## $ first_appear &lt;fct&gt; &quot;Aug-62&quot;, &quot;Mar-41&quot;, &quot;Oct-74&quot;, &quot;Mar-63&quot;, &quot;Nov-50&quot;, &quot;N…
-## $ publisher    &lt;fct&gt; marvel, marvel, marvel, marvel, marvel, marvel, marv…</code></pre>
-<div class="sourceCode" id="cb1473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1473-1"><a href="exploratory-data-analysis-in-r.html#cb1473-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check levels of align</span></span>
-<span id="cb1473-2"><a href="exploratory-data-analysis-in-r.html#cb1473-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(comics<span class="sc">$</span>align)</span></code></pre></div>
+## $ name         &lt;fct&gt; &quot;Spider-Man (Peter Parker)&quot;, &quot;Captain America (Steven Rog…
+## $ id           &lt;fct&gt; Secret, Public, Public, Public, No Dual, Public, Public, …
+## $ align        &lt;fct&gt; Good, Good, Neutral, Good, Good, Good, Good, Good, Neutra…
+## $ eye          &lt;fct&gt; Hazel Eyes, Blue Eyes, Blue Eyes, Blue Eyes, Blue Eyes, B…
+## $ hair         &lt;fct&gt; Brown Hair, White Hair, Black Hair, Black Hair, Blond Hai…
+## $ gender       &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Mal…
+## $ gsm          &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ alive        &lt;fct&gt; Living Characters, Living Characters, Living Characters, …
+## $ appearances  &lt;int&gt; 4043, 3360, 3061, 2961, 2258, 2255, 2072, 2017, 1955, 193…
+## $ first_appear &lt;fct&gt; &quot;Aug-62&quot;, &quot;Mar-41&quot;, &quot;Oct-74&quot;, &quot;Mar-63&quot;, &quot;Nov-50&quot;, &quot;Nov-61…
+## $ publisher    &lt;fct&gt; marvel, marvel, marvel, marvel, marvel, marvel, marvel, m…</code></pre>
+<div class="sourceCode" id="cb1726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1726-1"><a href="exploratory-data-analysis-in-r.html#cb1726-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check levels of align</span></span>
+<span id="cb1726-2"><a href="exploratory-data-analysis-in-r.html#cb1726-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(comics<span class="sc">$</span>align)</span></code></pre></div>
 <pre><code>## [1] &quot;Good&quot;               &quot;Neutral&quot;            &quot;Bad&quot;               
 ## [4] &quot;Reformed Criminals&quot;</code></pre>
-<div class="sourceCode" id="cb1475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1475-1"><a href="exploratory-data-analysis-in-r.html#cb1475-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the levels of gender</span></span>
-<span id="cb1475-2"><a href="exploratory-data-analysis-in-r.html#cb1475-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(comics<span class="sc">$</span>gender)</span></code></pre></div>
+<div class="sourceCode" id="cb1728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1728-1"><a href="exploratory-data-analysis-in-r.html#cb1728-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the levels of gender</span></span>
+<span id="cb1728-2"><a href="exploratory-data-analysis-in-r.html#cb1728-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(comics<span class="sc">$</span>gender)</span></code></pre></div>
 <pre><code>## [1] &quot;Male&quot;   &quot;Female&quot; &quot;Other&quot;</code></pre>
-<div class="sourceCode" id="cb1477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1477-1"><a href="exploratory-data-analysis-in-r.html#cb1477-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 2-way contingency table</span></span>
-<span id="cb1477-2"><a href="exploratory-data-analysis-in-r.html#cb1477-2" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(comics<span class="sc">$</span>gender, comics<span class="sc">$</span>align); tab</span></code></pre></div>
+<div class="sourceCode" id="cb1730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1730-1"><a href="exploratory-data-analysis-in-r.html#cb1730-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 2-way contingency table</span></span>
+<span id="cb1730-2"><a href="exploratory-data-analysis-in-r.html#cb1730-2" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(comics<span class="sc">$</span>gender, comics<span class="sc">$</span>align); tab</span></code></pre></div>
 <pre><code>##         
 ##          Good Neutral  Bad Reformed Criminals
 ##   Male   4809    1799 7561                  2
@@ -962,40 +962,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>(This is because the <code>droplevels()</code> would keep levels that have just 1 or 2 counts; it only drops levels that don’t exist in a dataset.)</p>
 <p>Find out which level of <code>align</code> has the fewest total entries. Then filter out all rows of comics with that level, then drop the unused level with <code>droplevels()</code>.</p>
-<div class="sourceCode" id="cb1479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1479-1"><a href="exploratory-data-analysis-in-r.html#cb1479-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove align level</span></span>
-<span id="cb1479-2"><a href="exploratory-data-analysis-in-r.html#cb1479-2" aria-hidden="true" tabindex="-1"></a>comics_filtered <span class="ot">&lt;-</span> comics <span class="sc">%&gt;%</span></span>
-<span id="cb1479-3"><a href="exploratory-data-analysis-in-r.html#cb1479-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(align <span class="sc">!=</span> <span class="st">&quot;Reformed Criminals&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1479-4"><a href="exploratory-data-analysis-in-r.html#cb1479-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
-<span id="cb1479-5"><a href="exploratory-data-analysis-in-r.html#cb1479-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1479-6"><a href="exploratory-data-analysis-in-r.html#cb1479-6" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
-<span id="cb1479-7"><a href="exploratory-data-analysis-in-r.html#cb1479-7" aria-hidden="true" tabindex="-1"></a>comics_filtered</span></code></pre></div>
-<div class="sourceCode" id="cb1480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1480-1"><a href="exploratory-data-analysis-in-r.html#cb1480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(comics_filtered<span class="sc">$</span>align)</span></code></pre></div>
+<div class="sourceCode" id="cb1732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1732-1"><a href="exploratory-data-analysis-in-r.html#cb1732-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove align level</span></span>
+<span id="cb1732-2"><a href="exploratory-data-analysis-in-r.html#cb1732-2" aria-hidden="true" tabindex="-1"></a>comics_filtered <span class="ot">&lt;-</span> comics <span class="sc">%&gt;%</span></span>
+<span id="cb1732-3"><a href="exploratory-data-analysis-in-r.html#cb1732-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(align <span class="sc">!=</span> <span class="st">&quot;Reformed Criminals&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1732-4"><a href="exploratory-data-analysis-in-r.html#cb1732-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb1732-5"><a href="exploratory-data-analysis-in-r.html#cb1732-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1732-6"><a href="exploratory-data-analysis-in-r.html#cb1732-6" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb1732-7"><a href="exploratory-data-analysis-in-r.html#cb1732-7" aria-hidden="true" tabindex="-1"></a>comics_filtered</span></code></pre></div>
+<pre><code>## # A tibble: 19,856 × 11
+##    name      id    align eye   hair  gender gsm   alive appearances first_appear
+##    &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;       
+##  1 &quot;Spider-… Secr… Good  Haze… Brow… Male   &lt;NA&gt;  Livi…        4043 Aug-62      
+##  2 &quot;Captain… Publ… Good  Blue… Whit… Male   &lt;NA&gt;  Livi…        3360 Mar-41      
+##  3 &quot;Wolveri… Publ… Neut… Blue… Blac… Male   &lt;NA&gt;  Livi…        3061 Oct-74      
+##  4 &quot;Iron Ma… Publ… Good  Blue… Blac… Male   &lt;NA&gt;  Livi…        2961 Mar-63      
+##  5 &quot;Thor (T… No D… Good  Blue… Blon… Male   &lt;NA&gt;  Livi…        2258 Nov-50      
+##  6 &quot;Benjami… Publ… Good  Blue… No H… Male   &lt;NA&gt;  Livi…        2255 Nov-61      
+##  7 &quot;Reed Ri… Publ… Good  Brow… Brow… Male   &lt;NA&gt;  Livi…        2072 Nov-61      
+##  8 &quot;Hulk (R… Publ… Good  Brow… Brow… Male   &lt;NA&gt;  Livi…        2017 May-62      
+##  9 &quot;Scott S… Publ… Neut… Brow… Brow… Male   &lt;NA&gt;  Livi…        1955 Sep-63      
+## 10 &quot;Jonatha… Publ… Good  Blue… Blon… Male   &lt;NA&gt;  Livi…        1934 Nov-61      
+## # ℹ 19,846 more rows
+## # ℹ 1 more variable: publisher &lt;fct&gt;</code></pre>
+<div class="sourceCode" id="cb1734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1734-1"><a href="exploratory-data-analysis-in-r.html#cb1734-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(comics_filtered<span class="sc">$</span>align)</span></code></pre></div>
 <pre><code>##  Factor w/ 3 levels &quot;Good&quot;,&quot;Neutral&quot;,..: 1 1 2 1 1 1 1 1 2 1 ...</code></pre>
 </div>
 <div id="side-by-side-bar-charts" class="section level4 hasAnchor" number="13.1.1.3">
 <h4><span class="header-section-number">13.1.1.3</span> Side-by-side bar charts<a href="exploratory-data-analysis-in-r.html#side-by-side-bar-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>While a contingency table represents the counts numerically, it’s often more useful to represent them graphically.</p>
 <p>Here you’ll construct two side-by-side bar charts of the comics data. This shows that there can often be two or more options for presenting the same data.</p>
-<div class="sourceCode" id="cb1482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1482-1"><a href="exploratory-data-analysis-in-r.html#cb1482-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side bar chart of gender by alignment</span></span>
-<span id="cb1482-2"><a href="exploratory-data-analysis-in-r.html#cb1482-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
-<span id="cb1482-3"><a href="exploratory-data-analysis-in-r.html#cb1482-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-603-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1483-1"><a href="exploratory-data-analysis-in-r.html#cb1483-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side bar chart of alignment by gender</span></span>
-<span id="cb1483-2"><a href="exploratory-data-analysis-in-r.html#cb1483-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> align)) <span class="sc">+</span> </span>
-<span id="cb1483-3"><a href="exploratory-data-analysis-in-r.html#cb1483-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1483-4"><a href="exploratory-data-analysis-in-r.html#cb1483-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-603-2.png" width="672" /></p>
+<div class="sourceCode" id="cb1736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1736-1"><a href="exploratory-data-analysis-in-r.html#cb1736-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side bar chart of gender by alignment</span></span>
+<span id="cb1736-2"><a href="exploratory-data-analysis-in-r.html#cb1736-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
+<span id="cb1736-3"><a href="exploratory-data-analysis-in-r.html#cb1736-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-598-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1737-1"><a href="exploratory-data-analysis-in-r.html#cb1737-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side bar chart of alignment by gender</span></span>
+<span id="cb1737-2"><a href="exploratory-data-analysis-in-r.html#cb1737-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> align)) <span class="sc">+</span> </span>
+<span id="cb1737-3"><a href="exploratory-data-analysis-in-r.html#cb1737-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1737-4"><a href="exploratory-data-analysis-in-r.html#cb1737-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-598-2.png" width="672" /></p>
 </div>
 </div>
 <div id="counts-vs.-proportions" class="section level3 hasAnchor" number="13.1.2">
 <h3><span class="header-section-number">13.1.2</span> Counts vs. proportions<a href="exploratory-data-analysis-in-r.html#counts-vs.-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="proportions" class="section level4 hasAnchor" number="13.1.2.1">
 <h4><span class="header-section-number">13.1.2.1</span> Proportions<a href="exploratory-data-analysis-in-r.html#proportions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb1484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1484-1"><a href="exploratory-data-analysis-in-r.html#cb1484-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify display format</span></span>
-<span id="cb1484-2"><a href="exploratory-data-analysis-in-r.html#cb1484-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>, <span class="at">digits =</span> <span class="dv">3</span>) </span>
-<span id="cb1484-3"><a href="exploratory-data-analysis-in-r.html#cb1484-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1484-4"><a href="exploratory-data-analysis-in-r.html#cb1484-4" aria-hidden="true" tabindex="-1"></a>tab_cnt <span class="ot">&lt;-</span> <span class="fu">table</span>(comics<span class="sc">$</span>id, comics<span class="sc">$</span>align)</span>
-<span id="cb1484-5"><a href="exploratory-data-analysis-in-r.html#cb1484-5" aria-hidden="true" tabindex="-1"></a>tab_cnt</span></code></pre></div>
+<div class="sourceCode" id="cb1738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1738-1"><a href="exploratory-data-analysis-in-r.html#cb1738-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify display format</span></span>
+<span id="cb1738-2"><a href="exploratory-data-analysis-in-r.html#cb1738-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>, <span class="at">digits =</span> <span class="dv">3</span>) </span>
+<span id="cb1738-3"><a href="exploratory-data-analysis-in-r.html#cb1738-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1738-4"><a href="exploratory-data-analysis-in-r.html#cb1738-4" aria-hidden="true" tabindex="-1"></a>tab_cnt <span class="ot">&lt;-</span> <span class="fu">table</span>(comics<span class="sc">$</span>id, comics<span class="sc">$</span>align)</span>
+<span id="cb1738-5"><a href="exploratory-data-analysis-in-r.html#cb1738-5" aria-hidden="true" tabindex="-1"></a>tab_cnt</span></code></pre></div>
 <pre><code>##          
 ##           Good Neutral  Bad Reformed Criminals
 ##   Secret  2475     959 4493                  1
@@ -1003,7 +1018,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   No Dual  647     390  474                  0
 ##   Unknown    0       2    7                  0</code></pre>
 <p>Compute the proportions by <code>prop.table(table)</code>.</p>
-<div class="sourceCode" id="cb1486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1486-1"><a href="exploratory-data-analysis-in-r.html#cb1486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab_cnt)</span></code></pre></div>
+<div class="sourceCode" id="cb1740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1740-1"><a href="exploratory-data-analysis-in-r.html#cb1740-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab_cnt)</span></code></pre></div>
 <pre><code>##          
 ##                Good   Neutral       Bad Reformed Criminals
 ##   Secret  0.1595128 0.0618072 0.2895721          0.0000644
@@ -1011,13 +1026,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   No Dual 0.0416989 0.0251353 0.0305491          0.0000000
 ##   Unknown 0.0000000 0.0001289 0.0004511          0.0000000</code></pre>
 <p>Note that because these are all proportions out of the whole dataset, the sum of all of these proportions is 1.</p>
-<div class="sourceCode" id="cb1488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1488-1"><a href="exploratory-data-analysis-in-r.html#cb1488-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">prop.table</span>(tab_cnt))</span></code></pre></div>
+<div class="sourceCode" id="cb1742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1742-1"><a href="exploratory-data-analysis-in-r.html#cb1742-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">prop.table</span>(tab_cnt))</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="conditional-proportions" class="section level4 hasAnchor" number="13.1.2.2">
 <h4><span class="header-section-number">13.1.2.2</span> Conditional proportions<a href="exploratory-data-analysis-in-r.html#conditional-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>condition on the rows: <code>prop.table(table, 1)</code></p>
-<div class="sourceCode" id="cb1490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1490-1"><a href="exploratory-data-analysis-in-r.html#cb1490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab_cnt, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1744-1"><a href="exploratory-data-analysis-in-r.html#cb1744-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab_cnt, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##          
 ##               Good  Neutral      Bad Reformed Criminals
 ##   Secret  0.312185 0.120964 0.566726           0.000126
@@ -1025,11 +1040,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   No Dual 0.428193 0.258107 0.313700           0.000000
 ##   Unknown 0.000000 0.222222 0.777778           0.000000</code></pre>
 <p>Because we’re conditioning on row, it’s every row that now sums to one.</p>
-<div class="sourceCode" id="cb1492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1492-1"><a href="exploratory-data-analysis-in-r.html#cb1492-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(<span class="fu">prop.table</span>(tab_cnt, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1746-1"><a href="exploratory-data-analysis-in-r.html#cb1746-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(<span class="fu">prop.table</span>(tab_cnt, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>##  Secret  Public No Dual Unknown 
 ##       1       1       1       1</code></pre>
 <p>condition on the columns: <code>prop.table(table, 2)</code></p>
-<div class="sourceCode" id="cb1494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1494-1"><a href="exploratory-data-analysis-in-r.html#cb1494-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab_cnt, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1748-1"><a href="exploratory-data-analysis-in-r.html#cb1748-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab_cnt, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##          
 ##               Good  Neutral      Bad Reformed Criminals
 ##   Secret  0.408956 0.414076 0.628743           0.500000
@@ -1037,11 +1052,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   No Dual 0.106907 0.168394 0.066331           0.000000
 ##   Unknown 0.000000 0.000864 0.000980           0.000000</code></pre>
 <p>Because we’re conditioning on column, it’s every column that now sums to one.</p>
-<div class="sourceCode" id="cb1496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1496-1"><a href="exploratory-data-analysis-in-r.html#cb1496-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">prop.table</span>(tab_cnt, <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>##               Good            Neutral                Bad 
-##                  1                  1                  1 
-## Reformed Criminals 
-##                  1</code></pre>
+<div class="sourceCode" id="cb1750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1750-1"><a href="exploratory-data-analysis-in-r.html#cb1750-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">prop.table</span>(tab_cnt, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##               Good            Neutral                Bad Reformed Criminals 
+##                  1                  1                  1                  1</code></pre>
 <p>Approximately 41% of all good characters are secret.</p>
 </div>
 <div id="conditional-bar-chart" class="section level4 hasAnchor" number="13.1.2.3">
@@ -1049,16 +1062,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Bar charts can tell dramatically different stories depending on whether they represent counts or proportions and, if proportions, what the proportions are conditioned on.</p>
 <p>By adding <code>position = "fill"</code> to <code>geom_bar()</code>, you are saying you want the bars to fill the entire height of the plotting window, thus displaying proportions and not raw counts.</p>
 <p>Create a stacked bar chart of gender <em>counts</em>.</p>
-<div class="sourceCode" id="cb1498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1498-1"><a href="exploratory-data-analysis-in-r.html#cb1498-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of gender by align</span></span>
-<span id="cb1498-2"><a href="exploratory-data-analysis-in-r.html#cb1498-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align, <span class="at">fill =</span> gender)) <span class="sc">+</span></span>
-<span id="cb1498-3"><a href="exploratory-data-analysis-in-r.html#cb1498-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-611-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1752-1"><a href="exploratory-data-analysis-in-r.html#cb1752-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of gender by align</span></span>
+<span id="cb1752-2"><a href="exploratory-data-analysis-in-r.html#cb1752-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align, <span class="at">fill =</span> gender)) <span class="sc">+</span></span>
+<span id="cb1752-3"><a href="exploratory-data-analysis-in-r.html#cb1752-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-606-1.png" width="672" /></p>
 <p>Create a stacked bar chart of gender <em>proportions</em>.</p>
-<div class="sourceCode" id="cb1499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1499-1"><a href="exploratory-data-analysis-in-r.html#cb1499-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot proportion of gender, conditional on align</span></span>
-<span id="cb1499-2"><a href="exploratory-data-analysis-in-r.html#cb1499-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
-<span id="cb1499-3"><a href="exploratory-data-analysis-in-r.html#cb1499-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1499-4"><a href="exploratory-data-analysis-in-r.html#cb1499-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;proportion&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-612-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1753-1"><a href="exploratory-data-analysis-in-r.html#cb1753-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot proportion of gender, conditional on align</span></span>
+<span id="cb1753-2"><a href="exploratory-data-analysis-in-r.html#cb1753-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
+<span id="cb1753-3"><a href="exploratory-data-analysis-in-r.html#cb1753-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1753-4"><a href="exploratory-data-analysis-in-r.html#cb1753-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;proportion&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-607-1.png" width="672" /></p>
 </div>
 </div>
 <div id="distribution-of-one-variable" class="section level3 hasAnchor" number="13.1.3">
@@ -1067,56 +1080,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">13.1.3.1</span> Marginal bar chart<a href="exploratory-data-analysis-in-r.html#marginal-bar-chart" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>If you are interested in the distribution of alignment of all superheroes, it makes sense to construct a bar chart for just that single variable.</p>
 <p>You can improve the interpretability of the plot, though, by implementing some sensible ordering.</p>
-<div class="sourceCode" id="cb1500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1500-1"><a href="exploratory-data-analysis-in-r.html#cb1500-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the order of the levels in align</span></span>
-<span id="cb1500-2"><a href="exploratory-data-analysis-in-r.html#cb1500-2" aria-hidden="true" tabindex="-1"></a>comics<span class="sc">$</span>align <span class="ot">&lt;-</span> <span class="fu">factor</span>(comics<span class="sc">$</span>align, </span>
-<span id="cb1500-3"><a href="exploratory-data-analysis-in-r.html#cb1500-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Bad&quot;</span>, <span class="st">&quot;Neutral&quot;</span>, <span class="st">&quot;Good&quot;</span>))</span>
-<span id="cb1500-4"><a href="exploratory-data-analysis-in-r.html#cb1500-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1500-5"><a href="exploratory-data-analysis-in-r.html#cb1500-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of align</span></span>
-<span id="cb1500-6"><a href="exploratory-data-analysis-in-r.html#cb1500-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align)) <span class="sc">+</span> </span>
-<span id="cb1500-7"><a href="exploratory-data-analysis-in-r.html#cb1500-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-613-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1754-1"><a href="exploratory-data-analysis-in-r.html#cb1754-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the order of the levels in align</span></span>
+<span id="cb1754-2"><a href="exploratory-data-analysis-in-r.html#cb1754-2" aria-hidden="true" tabindex="-1"></a>comics<span class="sc">$</span>align <span class="ot">&lt;-</span> <span class="fu">factor</span>(comics<span class="sc">$</span>align, </span>
+<span id="cb1754-3"><a href="exploratory-data-analysis-in-r.html#cb1754-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Bad&quot;</span>, <span class="st">&quot;Neutral&quot;</span>, <span class="st">&quot;Good&quot;</span>))</span>
+<span id="cb1754-4"><a href="exploratory-data-analysis-in-r.html#cb1754-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1754-5"><a href="exploratory-data-analysis-in-r.html#cb1754-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of align</span></span>
+<span id="cb1754-6"><a href="exploratory-data-analysis-in-r.html#cb1754-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align)) <span class="sc">+</span> </span>
+<span id="cb1754-7"><a href="exploratory-data-analysis-in-r.html#cb1754-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-608-1.png" width="672" /></p>
 </div>
 <div id="conditional-bar-chart-1" class="section level4 hasAnchor" number="13.1.3.2">
 <h4><span class="header-section-number">13.1.3.2</span> Conditional bar chart<a href="exploratory-data-analysis-in-r.html#conditional-bar-chart-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now, if you want to break down the distribution of alignment based on gender, you’re looking for conditional distributions.</p>
 <p>You could make these by creating multiple filtered datasets (one for each gender) or by <em>faceting</em> the plot of alignment based on gender.</p>
 <p>Create a bar chart of <code>align</code> faceted by <code>gender</code>.</p>
-<div class="sourceCode" id="cb1501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1501-1"><a href="exploratory-data-analysis-in-r.html#cb1501-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of alignment broken down by gender</span></span>
-<span id="cb1501-2"><a href="exploratory-data-analysis-in-r.html#cb1501-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align)) <span class="sc">+</span> </span>
-<span id="cb1501-3"><a href="exploratory-data-analysis-in-r.html#cb1501-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb1501-4"><a href="exploratory-data-analysis-in-r.html#cb1501-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> gender)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-614-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1755-1"><a href="exploratory-data-analysis-in-r.html#cb1755-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of alignment broken down by gender</span></span>
+<span id="cb1755-2"><a href="exploratory-data-analysis-in-r.html#cb1755-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comics, <span class="fu">aes</span>(<span class="at">x =</span> align)) <span class="sc">+</span> </span>
+<span id="cb1755-3"><a href="exploratory-data-analysis-in-r.html#cb1755-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb1755-4"><a href="exploratory-data-analysis-in-r.html#cb1755-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> gender)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-609-1.png" width="672" /></p>
 </div>
 <div id="improve-pie-chart" class="section level4 hasAnchor" number="13.1.3.3">
 <h4><span class="header-section-number">13.1.3.3</span> Improve pie chart<a href="exploratory-data-analysis-in-r.html#improve-pie-chart" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The pie chart is a very common way to represent the distribution of a single categorical variable, but they can be more difficult to interpret than bar charts.</p>
 <p>This is a pie chart of a dataset called <code>pies</code> that contains the favorite pie flavors of 98 people.</p>
-<div class="sourceCode" id="cb1502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1502-1"><a href="exploratory-data-analysis-in-r.html#cb1502-1" aria-hidden="true" tabindex="-1"></a>pies <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/pies.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1756-1"><a href="exploratory-data-analysis-in-r.html#cb1756-1" aria-hidden="true" tabindex="-1"></a>pies <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/pies.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 98 Columns: 1
-## ── Column specification ───────────────────────────────────────────────────
+## ── Column specification ──────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): flavor
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb1504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1504-1"><a href="exploratory-data-analysis-in-r.html#cb1504-1" aria-hidden="true" tabindex="-1"></a>pies<span class="sc">$</span>flavor <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pies<span class="sc">$</span>flavor)</span>
-<span id="cb1504-2"><a href="exploratory-data-analysis-in-r.html#cb1504-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1504-3"><a href="exploratory-data-analysis-in-r.html#cb1504-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pie chart, 很難看出數量很難看出數量高低</span></span>
-<span id="cb1504-4"><a href="exploratory-data-analysis-in-r.html#cb1504-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pies, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(<span class="dv">1</span>), <span class="at">fill =</span> flavor)) <span class="sc">+</span></span>
-<span id="cb1504-5"><a href="exploratory-data-analysis-in-r.html#cb1504-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb1504-6"><a href="exploratory-data-analysis-in-r.html#cb1504-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1504-7"><a href="exploratory-data-analysis-in-r.html#cb1504-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-615-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1758-1"><a href="exploratory-data-analysis-in-r.html#cb1758-1" aria-hidden="true" tabindex="-1"></a>pies<span class="sc">$</span>flavor <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pies<span class="sc">$</span>flavor)</span>
+<span id="cb1758-2"><a href="exploratory-data-analysis-in-r.html#cb1758-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1758-3"><a href="exploratory-data-analysis-in-r.html#cb1758-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pie chart, 很難看出數量很難看出數量高低</span></span>
+<span id="cb1758-4"><a href="exploratory-data-analysis-in-r.html#cb1758-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pies, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(<span class="dv">1</span>), <span class="at">fill =</span> flavor)) <span class="sc">+</span></span>
+<span id="cb1758-5"><a href="exploratory-data-analysis-in-r.html#cb1758-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1758-6"><a href="exploratory-data-analysis-in-r.html#cb1758-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1758-7"><a href="exploratory-data-analysis-in-r.html#cb1758-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-610-1.png" width="672" /></p>
 <p>Improve the representation of these data by constructing a bar chart that is ordered in descending order of count.</p>
-<div class="sourceCode" id="cb1505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1505-1"><a href="exploratory-data-analysis-in-r.html#cb1505-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put levels of flavor in descending order</span></span>
-<span id="cb1505-2"><a href="exploratory-data-analysis-in-r.html#cb1505-2" aria-hidden="true" tabindex="-1"></a>lev <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;key lime&quot;</span>, <span class="st">&quot;boston creme&quot;</span>, <span class="st">&quot;blueberry&quot;</span>, <span class="st">&quot;cherry&quot;</span>, <span class="st">&quot;pumpkin&quot;</span>, <span class="st">&quot;strawberry&quot;</span>)</span>
-<span id="cb1505-3"><a href="exploratory-data-analysis-in-r.html#cb1505-3" aria-hidden="true" tabindex="-1"></a>pies<span class="sc">$</span>flavor <span class="ot">&lt;-</span> <span class="fu">factor</span>(pies<span class="sc">$</span>flavor, <span class="at">levels =</span> lev)</span>
-<span id="cb1505-4"><a href="exploratory-data-analysis-in-r.html#cb1505-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1505-5"><a href="exploratory-data-analysis-in-r.html#cb1505-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar chart of flavor</span></span>
-<span id="cb1505-6"><a href="exploratory-data-analysis-in-r.html#cb1505-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pies, <span class="fu">aes</span>(<span class="at">x =</span> flavor)) <span class="sc">+</span> </span>
-<span id="cb1505-7"><a href="exploratory-data-analysis-in-r.html#cb1505-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;chartreuse&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb1505-8"><a href="exploratory-data-analysis-in-r.html#cb1505-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-616-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1759-1"><a href="exploratory-data-analysis-in-r.html#cb1759-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put levels of flavor in descending order</span></span>
+<span id="cb1759-2"><a href="exploratory-data-analysis-in-r.html#cb1759-2" aria-hidden="true" tabindex="-1"></a>lev <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;key lime&quot;</span>, <span class="st">&quot;boston creme&quot;</span>, <span class="st">&quot;blueberry&quot;</span>, <span class="st">&quot;cherry&quot;</span>, <span class="st">&quot;pumpkin&quot;</span>, <span class="st">&quot;strawberry&quot;</span>)</span>
+<span id="cb1759-3"><a href="exploratory-data-analysis-in-r.html#cb1759-3" aria-hidden="true" tabindex="-1"></a>pies<span class="sc">$</span>flavor <span class="ot">&lt;-</span> <span class="fu">factor</span>(pies<span class="sc">$</span>flavor, <span class="at">levels =</span> lev)</span>
+<span id="cb1759-4"><a href="exploratory-data-analysis-in-r.html#cb1759-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1759-5"><a href="exploratory-data-analysis-in-r.html#cb1759-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar chart of flavor</span></span>
+<span id="cb1759-6"><a href="exploratory-data-analysis-in-r.html#cb1759-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pies, <span class="fu">aes</span>(<span class="at">x =</span> flavor)) <span class="sc">+</span> </span>
+<span id="cb1759-7"><a href="exploratory-data-analysis-in-r.html#cb1759-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;chartreuse&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb1759-8"><a href="exploratory-data-analysis-in-r.html#cb1759-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-611-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -1128,10 +1141,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">13.2.1.1</span> Faceted histogram<a href="exploratory-data-analysis-in-r.html#faceted-histogram" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>cars</code> dataset, which records characteristics on all of the new models of cars for sale in the US in a certain year.</p>
 <p>You will investigate the distribution of mileage across a categorical variable,</p>
-<div class="sourceCode" id="cb1506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1506-1"><a href="exploratory-data-analysis-in-r.html#cb1506-1" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/cars04.csv&quot;</span>)</span>
-<span id="cb1506-2"><a href="exploratory-data-analysis-in-r.html#cb1506-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1506-3"><a href="exploratory-data-analysis-in-r.html#cb1506-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn data structure</span></span>
-<span id="cb1506-4"><a href="exploratory-data-analysis-in-r.html#cb1506-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cars, <span class="at">give.attr =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1760-1"><a href="exploratory-data-analysis-in-r.html#cb1760-1" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/cars04.csv&quot;</span>)</span>
+<span id="cb1760-2"><a href="exploratory-data-analysis-in-r.html#cb1760-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1760-3"><a href="exploratory-data-analysis-in-r.html#cb1760-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn data structure</span></span>
+<span id="cb1760-4"><a href="exploratory-data-analysis-in-r.html#cb1760-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cars, <span class="at">give.attr =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## spc_tbl_ [428 × 19] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ name       : chr [1:428] &quot;Chevrolet Aveo 4dr&quot; &quot;Chevrolet Aveo LS 4dr hatch&quot; &quot;Chevrolet Cavalier 2dr&quot; &quot;Chevrolet Cavalier 4dr&quot; ...
 ##  $ sports_car : logi [1:428] FALSE FALSE FALSE FALSE FALSE FALSE ...
@@ -1153,13 +1166,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ length     : num [1:428] 167 153 183 183 183 174 174 168 168 168 ...
 ##  $ width      : num [1:428] 66 66 69 68 69 67 67 67 67 67 ...</code></pre>
 <p>Plot a histogram of <code>city_mpg</code> faceted by <code>suv</code>, a logical variable indicating whether the car is an SUV or not.</p>
-<div class="sourceCode" id="cb1508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1508-1"><a href="exploratory-data-analysis-in-r.html#cb1508-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create faceted histogram</span></span>
-<span id="cb1508-2"><a href="exploratory-data-analysis-in-r.html#cb1508-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars, <span class="fu">aes</span>(<span class="at">x =</span> city_mpg)) <span class="sc">+</span></span>
-<span id="cb1508-3"><a href="exploratory-data-analysis-in-r.html#cb1508-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb1508-4"><a href="exploratory-data-analysis-in-r.html#cb1508-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> suv)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 14 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-618-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1762-1"><a href="exploratory-data-analysis-in-r.html#cb1762-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create faceted histogram</span></span>
+<span id="cb1762-2"><a href="exploratory-data-analysis-in-r.html#cb1762-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars, <span class="fu">aes</span>(<span class="at">x =</span> city_mpg)) <span class="sc">+</span></span>
+<span id="cb1762-3"><a href="exploratory-data-analysis-in-r.html#cb1762-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1762-4"><a href="exploratory-data-analysis-in-r.html#cb1762-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> suv)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values
+## (`stat_bin()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-613-1.png" width="672" /></p>
 <p>you can facet a plot by any categorical variable using <code>facet_wrap()</code>.</p>
 </div>
 <div id="boxplots-density-plots" class="section level4 hasAnchor" number="13.2.1.2">
@@ -1167,22 +1182,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The mileage of a car tends to be associated with the size of its engine (as measured by the number of cylinders).</p>
 <p>To explore the relationship between these two variables, you’ll try your hand at two alternatives: the box plot and the density plot.</p>
 <p>A quick look at <code>ncyl</code> shows that there are more possible levels of <code>ncyl</code> than you might think. Here, restrict attention to the most common levels.</p>
-<div class="sourceCode" id="cb1511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1511-1"><a href="exploratory-data-analysis-in-r.html#cb1511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(cars<span class="sc">$</span>ncyl)</span></code></pre></div>
+<div class="sourceCode" id="cb1765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1765-1"><a href="exploratory-data-analysis-in-r.html#cb1765-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(cars<span class="sc">$</span>ncyl)</span></code></pre></div>
 <pre><code>## [1]  4  6  3  8  5 12 10 -1</code></pre>
-<div class="sourceCode" id="cb1513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1513-1"><a href="exploratory-data-analysis-in-r.html#cb1513-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter cars with 4, 6, 8 cylinders</span></span>
-<span id="cb1513-2"><a href="exploratory-data-analysis-in-r.html#cb1513-2" aria-hidden="true" tabindex="-1"></a>common_cyl <span class="ot">&lt;-</span> <span class="fu">filter</span>(cars, cars<span class="sc">$</span>ncyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1767-1"><a href="exploratory-data-analysis-in-r.html#cb1767-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter cars with 4, 6, 8 cylinders</span></span>
+<span id="cb1767-2"><a href="exploratory-data-analysis-in-r.html#cb1767-2" aria-hidden="true" tabindex="-1"></a>common_cyl <span class="ot">&lt;-</span> <span class="fu">filter</span>(cars, cars<span class="sc">$</span>ncyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>))</span></code></pre></div>
 <p>Create side-by-side box plots.</p>
-<div class="sourceCode" id="cb1514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1514-1"><a href="exploratory-data-analysis-in-r.html#cb1514-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box plots of city mpg by ncyl</span></span>
-<span id="cb1514-2"><a href="exploratory-data-analysis-in-r.html#cb1514-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(common_cyl, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(ncyl), <span class="at">y =</span> city_mpg)) <span class="sc">+</span></span>
-<span id="cb1514-3"><a href="exploratory-data-analysis-in-r.html#cb1514-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<pre><code>## Warning: Removed 11 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-620-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1768-1"><a href="exploratory-data-analysis-in-r.html#cb1768-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box plots of city mpg by ncyl</span></span>
+<span id="cb1768-2"><a href="exploratory-data-analysis-in-r.html#cb1768-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(common_cyl, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(ncyl), <span class="at">y =</span> city_mpg)) <span class="sc">+</span></span>
+<span id="cb1768-3"><a href="exploratory-data-analysis-in-r.html#cb1768-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 11 rows containing non-finite values
+## (`stat_boxplot()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-615-1.png" width="672" /></p>
 <p>Create overlaid density plots.</p>
-<div class="sourceCode" id="cb1516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1516-1"><a href="exploratory-data-analysis-in-r.html#cb1516-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create overlaid density plots for same data</span></span>
-<span id="cb1516-2"><a href="exploratory-data-analysis-in-r.html#cb1516-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(common_cyl, <span class="fu">aes</span>(<span class="at">x =</span> city_mpg, <span class="at">fill =</span> <span class="fu">as.factor</span>(ncyl))) <span class="sc">+</span></span>
-<span id="cb1516-3"><a href="exploratory-data-analysis-in-r.html#cb1516-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 11 rows containing non-finite values (`stat_density()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-621-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1770-1"><a href="exploratory-data-analysis-in-r.html#cb1770-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create overlaid density plots for same data</span></span>
+<span id="cb1770-2"><a href="exploratory-data-analysis-in-r.html#cb1770-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(common_cyl, <span class="fu">aes</span>(<span class="at">x =</span> city_mpg, <span class="at">fill =</span> <span class="fu">as.factor</span>(ncyl))) <span class="sc">+</span></span>
+<span id="cb1770-3"><a href="exploratory-data-analysis-in-r.html#cb1770-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 11 rows containing non-finite values
+## (`stat_density()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-616-1.png" width="672" /></p>
 </div>
 </div>
 <div id="distribution-of-one-variable-1" class="section level3 hasAnchor" number="13.2.2">
@@ -1190,50 +1207,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="marginal-conditional-hist" class="section level4 hasAnchor" number="13.2.2.1">
 <h4><span class="header-section-number">13.2.2.1</span> Marginal &amp; conditional hist<a href="exploratory-data-analysis-in-r.html#marginal-conditional-hist" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now, turn your attention to a new variable: <code>horsepwr</code>. The goal is to get a sense of the marginal distribution of this variable and then compare it to the distribution of horsepower conditional on the price of the car being less than $25,000.</p>
-<div class="sourceCode" id="cb1518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1518-1"><a href="exploratory-data-analysis-in-r.html#cb1518-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr</span></span>
-<span id="cb1518-2"><a href="exploratory-data-analysis-in-r.html#cb1518-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span></span>
-<span id="cb1518-3"><a href="exploratory-data-analysis-in-r.html#cb1518-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
-<span id="cb1518-4"><a href="exploratory-data-analysis-in-r.html#cb1518-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb1518-5"><a href="exploratory-data-analysis-in-r.html#cb1518-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;marginal distribution of horsepower&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-622-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1520-1"><a href="exploratory-data-analysis-in-r.html#cb1520-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr for affordable cars</span></span>
-<span id="cb1520-2"><a href="exploratory-data-analysis-in-r.html#cb1520-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span> </span>
-<span id="cb1520-3"><a href="exploratory-data-analysis-in-r.html#cb1520-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(msrp <span class="sc">&lt;</span> <span class="dv">25000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1520-4"><a href="exploratory-data-analysis-in-r.html#cb1520-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
-<span id="cb1520-5"><a href="exploratory-data-analysis-in-r.html#cb1520-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb1520-6"><a href="exploratory-data-analysis-in-r.html#cb1520-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">550</span>)) <span class="sc">+</span></span>
-<span id="cb1520-7"><a href="exploratory-data-analysis-in-r.html#cb1520-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;distribution of horsepower conditional on the price less than $25000&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (`stat_bin()`).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (`geom_bar()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-622-2.png" width="672" /></p>
+<div class="sourceCode" id="cb1772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1772-1"><a href="exploratory-data-analysis-in-r.html#cb1772-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr</span></span>
+<span id="cb1772-2"><a href="exploratory-data-analysis-in-r.html#cb1772-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span></span>
+<span id="cb1772-3"><a href="exploratory-data-analysis-in-r.html#cb1772-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
+<span id="cb1772-4"><a href="exploratory-data-analysis-in-r.html#cb1772-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1772-5"><a href="exploratory-data-analysis-in-r.html#cb1772-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;marginal distribution of horsepower&quot;</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-617-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1774-1"><a href="exploratory-data-analysis-in-r.html#cb1774-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr for affordable cars</span></span>
+<span id="cb1774-2"><a href="exploratory-data-analysis-in-r.html#cb1774-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span> </span>
+<span id="cb1774-3"><a href="exploratory-data-analysis-in-r.html#cb1774-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(msrp <span class="sc">&lt;</span> <span class="dv">25000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1774-4"><a href="exploratory-data-analysis-in-r.html#cb1774-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
+<span id="cb1774-5"><a href="exploratory-data-analysis-in-r.html#cb1774-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1774-6"><a href="exploratory-data-analysis-in-r.html#cb1774-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">550</span>)) <span class="sc">+</span></span>
+<span id="cb1774-7"><a href="exploratory-data-analysis-in-r.html#cb1774-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;distribution of horsepower conditional on the price less than $25000&quot;</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values
+## (`stat_bin()`).</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values
+## (`geom_bar()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-617-2.png" width="672" /></p>
 </div>
 <div id="binwidths" class="section level4 hasAnchor" number="13.2.2.2">
 <h4><span class="header-section-number">13.2.2.2</span> Binwidths<a href="exploratory-data-analysis-in-r.html#binwidths" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The binwidth determines how smooth your distribution will appear: the smaller the binwidth, the more jagged your distribution becomes.</p>
 <p>It’s good practice to consider several binwidths in order to detect different types of structure in your data.</p>
-<div class="sourceCode" id="cb1524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1524-1"><a href="exploratory-data-analysis-in-r.html#cb1524-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr with binwidth of 3</span></span>
-<span id="cb1524-2"><a href="exploratory-data-analysis-in-r.html#cb1524-2" aria-hidden="true" tabindex="-1"></a>plot_A <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1524-3"><a href="exploratory-data-analysis-in-r.html#cb1524-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
-<span id="cb1524-4"><a href="exploratory-data-analysis-in-r.html#cb1524-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb1524-5"><a href="exploratory-data-analysis-in-r.html#cb1524-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Plot A, binwidth = 3&quot;</span>)</span>
-<span id="cb1524-6"><a href="exploratory-data-analysis-in-r.html#cb1524-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1524-7"><a href="exploratory-data-analysis-in-r.html#cb1524-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr with binwidth of 30</span></span>
-<span id="cb1524-8"><a href="exploratory-data-analysis-in-r.html#cb1524-8" aria-hidden="true" tabindex="-1"></a>plot_B <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1524-9"><a href="exploratory-data-analysis-in-r.html#cb1524-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
-<span id="cb1524-10"><a href="exploratory-data-analysis-in-r.html#cb1524-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
-<span id="cb1524-11"><a href="exploratory-data-analysis-in-r.html#cb1524-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Plot B, binwidth = 30&quot;</span>)</span>
-<span id="cb1524-12"><a href="exploratory-data-analysis-in-r.html#cb1524-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1524-13"><a href="exploratory-data-analysis-in-r.html#cb1524-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr with binwidth of 60</span></span>
-<span id="cb1524-14"><a href="exploratory-data-analysis-in-r.html#cb1524-14" aria-hidden="true" tabindex="-1"></a>plot_C <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1524-15"><a href="exploratory-data-analysis-in-r.html#cb1524-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
-<span id="cb1524-16"><a href="exploratory-data-analysis-in-r.html#cb1524-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">60</span>) <span class="sc">+</span></span>
-<span id="cb1524-17"><a href="exploratory-data-analysis-in-r.html#cb1524-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Plot C, binwidth = 60&quot;</span>)</span>
-<span id="cb1524-18"><a href="exploratory-data-analysis-in-r.html#cb1524-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1524-19"><a href="exploratory-data-analysis-in-r.html#cb1524-19" aria-hidden="true" tabindex="-1"></a><span class="co"># put all plot together to compare</span></span>
-<span id="cb1524-20"><a href="exploratory-data-analysis-in-r.html#cb1524-20" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(plot_A, plot_B, plot_C, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-623-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1778-1"><a href="exploratory-data-analysis-in-r.html#cb1778-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr with binwidth of 3</span></span>
+<span id="cb1778-2"><a href="exploratory-data-analysis-in-r.html#cb1778-2" aria-hidden="true" tabindex="-1"></a>plot_A <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1778-3"><a href="exploratory-data-analysis-in-r.html#cb1778-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
+<span id="cb1778-4"><a href="exploratory-data-analysis-in-r.html#cb1778-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb1778-5"><a href="exploratory-data-analysis-in-r.html#cb1778-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Plot A, binwidth = 3&quot;</span>)</span>
+<span id="cb1778-6"><a href="exploratory-data-analysis-in-r.html#cb1778-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1778-7"><a href="exploratory-data-analysis-in-r.html#cb1778-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr with binwidth of 30</span></span>
+<span id="cb1778-8"><a href="exploratory-data-analysis-in-r.html#cb1778-8" aria-hidden="true" tabindex="-1"></a>plot_B <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1778-9"><a href="exploratory-data-analysis-in-r.html#cb1778-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
+<span id="cb1778-10"><a href="exploratory-data-analysis-in-r.html#cb1778-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb1778-11"><a href="exploratory-data-analysis-in-r.html#cb1778-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Plot B, binwidth = 30&quot;</span>)</span>
+<span id="cb1778-12"><a href="exploratory-data-analysis-in-r.html#cb1778-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1778-13"><a href="exploratory-data-analysis-in-r.html#cb1778-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hist of horsepwr with binwidth of 60</span></span>
+<span id="cb1778-14"><a href="exploratory-data-analysis-in-r.html#cb1778-14" aria-hidden="true" tabindex="-1"></a>plot_C <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1778-15"><a href="exploratory-data-analysis-in-r.html#cb1778-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> horsepwr)) <span class="sc">+</span></span>
+<span id="cb1778-16"><a href="exploratory-data-analysis-in-r.html#cb1778-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb1778-17"><a href="exploratory-data-analysis-in-r.html#cb1778-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Plot C, binwidth = 60&quot;</span>)</span>
+<span id="cb1778-18"><a href="exploratory-data-analysis-in-r.html#cb1778-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1778-19"><a href="exploratory-data-analysis-in-r.html#cb1778-19" aria-hidden="true" tabindex="-1"></a><span class="co"># put all plot together to compare</span></span>
+<span id="cb1778-20"><a href="exploratory-data-analysis-in-r.html#cb1778-20" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(plot_A, plot_B, plot_C, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-618-1.png" width="672" /></p>
 <p>Plot A is the only histogram that shows the count for cars with exactly 200 and 300 horsepower.</p>
 </div>
 </div>
@@ -1243,54 +1264,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">13.2.3.1</span> Box plots for outliers<a href="exploratory-data-analysis-in-r.html#box-plots-for-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In addition to indicating the center and spread of a distribution, a box plot provides a graphical means to detect outliers.</p>
 <p>You can apply this method to the <code>msrp</code> column (manufacturer’s suggested retail price) to detect if there are unusually expensive or cheap cars.</p>
-<div class="sourceCode" id="cb1525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1525-1"><a href="exploratory-data-analysis-in-r.html#cb1525-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct box plot of msrp</span></span>
-<span id="cb1525-2"><a href="exploratory-data-analysis-in-r.html#cb1525-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span></span>
-<span id="cb1525-3"><a href="exploratory-data-analysis-in-r.html#cb1525-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> msrp)) <span class="sc">+</span></span>
-<span id="cb1525-4"><a href="exploratory-data-analysis-in-r.html#cb1525-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-624-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1526-1"><a href="exploratory-data-analysis-in-r.html#cb1526-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclude outliers from data</span></span>
-<span id="cb1526-2"><a href="exploratory-data-analysis-in-r.html#cb1526-2" aria-hidden="true" tabindex="-1"></a>cars_no_out <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1526-3"><a href="exploratory-data-analysis-in-r.html#cb1526-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(msrp <span class="sc">&lt;</span> <span class="dv">100000</span>)</span>
-<span id="cb1526-4"><a href="exploratory-data-analysis-in-r.html#cb1526-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1526-5"><a href="exploratory-data-analysis-in-r.html#cb1526-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct box plot of msrp using the reduced dataset</span></span>
-<span id="cb1526-6"><a href="exploratory-data-analysis-in-r.html#cb1526-6" aria-hidden="true" tabindex="-1"></a>cars_no_out <span class="sc">%&gt;%</span></span>
-<span id="cb1526-7"><a href="exploratory-data-analysis-in-r.html#cb1526-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> msrp)) <span class="sc">+</span></span>
-<span id="cb1526-8"><a href="exploratory-data-analysis-in-r.html#cb1526-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-624-2.png" width="672" /></p>
+<div class="sourceCode" id="cb1779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1779-1"><a href="exploratory-data-analysis-in-r.html#cb1779-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct box plot of msrp</span></span>
+<span id="cb1779-2"><a href="exploratory-data-analysis-in-r.html#cb1779-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span></span>
+<span id="cb1779-3"><a href="exploratory-data-analysis-in-r.html#cb1779-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> msrp)) <span class="sc">+</span></span>
+<span id="cb1779-4"><a href="exploratory-data-analysis-in-r.html#cb1779-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-619-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1780-1"><a href="exploratory-data-analysis-in-r.html#cb1780-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclude outliers from data</span></span>
+<span id="cb1780-2"><a href="exploratory-data-analysis-in-r.html#cb1780-2" aria-hidden="true" tabindex="-1"></a>cars_no_out <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1780-3"><a href="exploratory-data-analysis-in-r.html#cb1780-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(msrp <span class="sc">&lt;</span> <span class="dv">100000</span>)</span>
+<span id="cb1780-4"><a href="exploratory-data-analysis-in-r.html#cb1780-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1780-5"><a href="exploratory-data-analysis-in-r.html#cb1780-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct box plot of msrp using the reduced dataset</span></span>
+<span id="cb1780-6"><a href="exploratory-data-analysis-in-r.html#cb1780-6" aria-hidden="true" tabindex="-1"></a>cars_no_out <span class="sc">%&gt;%</span></span>
+<span id="cb1780-7"><a href="exploratory-data-analysis-in-r.html#cb1780-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> msrp)) <span class="sc">+</span></span>
+<span id="cb1780-8"><a href="exploratory-data-analysis-in-r.html#cb1780-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-619-2.png" width="672" /></p>
 </div>
 <div id="plot-selection" class="section level4 hasAnchor" number="13.2.3.2">
 <h4><span class="header-section-number">13.2.3.2</span> Plot selection<a href="exploratory-data-analysis-in-r.html#plot-selection" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Both density plots and box plots display the central tendency and spread of the data, but the box plot is more robust to outliers.</p>
 <p>Consider two other columns in the cars dataset: <code>city_mpg</code> and <code>width</code>. Which is the most appropriate plot for displaying the important features of their distributions?</p>
 <p>For each variable, try both plots and decide which one is better at capturing the important structure.</p>
-<div class="sourceCode" id="cb1527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1527-1"><a href="exploratory-data-analysis-in-r.html#cb1527-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of city_mpg</span></span>
-<span id="cb1527-2"><a href="exploratory-data-analysis-in-r.html#cb1527-2" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot</span></span>
-<span id="cb1527-3"><a href="exploratory-data-analysis-in-r.html#cb1527-3" aria-hidden="true" tabindex="-1"></a>city_mpg_boxplot <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1527-4"><a href="exploratory-data-analysis-in-r.html#cb1527-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> city_mpg)) <span class="sc">+</span></span>
-<span id="cb1527-5"><a href="exploratory-data-analysis-in-r.html#cb1527-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span>
-<span id="cb1527-6"><a href="exploratory-data-analysis-in-r.html#cb1527-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1527-7"><a href="exploratory-data-analysis-in-r.html#cb1527-7" aria-hidden="true" tabindex="-1"></a><span class="co"># density plot</span></span>
-<span id="cb1527-8"><a href="exploratory-data-analysis-in-r.html#cb1527-8" aria-hidden="true" tabindex="-1"></a>city_mpg_density <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1527-9"><a href="exploratory-data-analysis-in-r.html#cb1527-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> city_mpg)) <span class="sc">+</span></span>
-<span id="cb1527-10"><a href="exploratory-data-analysis-in-r.html#cb1527-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span>
-<span id="cb1527-11"><a href="exploratory-data-analysis-in-r.html#cb1527-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1527-12"><a href="exploratory-data-analysis-in-r.html#cb1527-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of width</span></span>
-<span id="cb1527-13"><a href="exploratory-data-analysis-in-r.html#cb1527-13" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot</span></span>
-<span id="cb1527-14"><a href="exploratory-data-analysis-in-r.html#cb1527-14" aria-hidden="true" tabindex="-1"></a>width_boxplot <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1527-15"><a href="exploratory-data-analysis-in-r.html#cb1527-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> width)) <span class="sc">+</span></span>
-<span id="cb1527-16"><a href="exploratory-data-analysis-in-r.html#cb1527-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span>
-<span id="cb1527-17"><a href="exploratory-data-analysis-in-r.html#cb1527-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1527-18"><a href="exploratory-data-analysis-in-r.html#cb1527-18" aria-hidden="true" tabindex="-1"></a><span class="co"># density plot</span></span>
-<span id="cb1527-19"><a href="exploratory-data-analysis-in-r.html#cb1527-19" aria-hidden="true" tabindex="-1"></a>width_density <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
-<span id="cb1527-20"><a href="exploratory-data-analysis-in-r.html#cb1527-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> width)) <span class="sc">+</span></span>
-<span id="cb1527-21"><a href="exploratory-data-analysis-in-r.html#cb1527-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span>
-<span id="cb1527-22"><a href="exploratory-data-analysis-in-r.html#cb1527-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1527-23"><a href="exploratory-data-analysis-in-r.html#cb1527-23" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(city_mpg_boxplot, city_mpg_density, width_boxplot, width_density, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 14 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 14 rows containing non-finite values (`stat_density()`).</code></pre>
-<pre><code>## Warning: Removed 28 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 28 rows containing non-finite values (`stat_density()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-625-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1781-1"><a href="exploratory-data-analysis-in-r.html#cb1781-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of city_mpg</span></span>
+<span id="cb1781-2"><a href="exploratory-data-analysis-in-r.html#cb1781-2" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot</span></span>
+<span id="cb1781-3"><a href="exploratory-data-analysis-in-r.html#cb1781-3" aria-hidden="true" tabindex="-1"></a>city_mpg_boxplot <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1781-4"><a href="exploratory-data-analysis-in-r.html#cb1781-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> city_mpg)) <span class="sc">+</span></span>
+<span id="cb1781-5"><a href="exploratory-data-analysis-in-r.html#cb1781-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span>
+<span id="cb1781-6"><a href="exploratory-data-analysis-in-r.html#cb1781-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1781-7"><a href="exploratory-data-analysis-in-r.html#cb1781-7" aria-hidden="true" tabindex="-1"></a><span class="co"># density plot</span></span>
+<span id="cb1781-8"><a href="exploratory-data-analysis-in-r.html#cb1781-8" aria-hidden="true" tabindex="-1"></a>city_mpg_density <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1781-9"><a href="exploratory-data-analysis-in-r.html#cb1781-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> city_mpg)) <span class="sc">+</span></span>
+<span id="cb1781-10"><a href="exploratory-data-analysis-in-r.html#cb1781-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span>
+<span id="cb1781-11"><a href="exploratory-data-analysis-in-r.html#cb1781-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1781-12"><a href="exploratory-data-analysis-in-r.html#cb1781-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of width</span></span>
+<span id="cb1781-13"><a href="exploratory-data-analysis-in-r.html#cb1781-13" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot</span></span>
+<span id="cb1781-14"><a href="exploratory-data-analysis-in-r.html#cb1781-14" aria-hidden="true" tabindex="-1"></a>width_boxplot <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1781-15"><a href="exploratory-data-analysis-in-r.html#cb1781-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> width)) <span class="sc">+</span></span>
+<span id="cb1781-16"><a href="exploratory-data-analysis-in-r.html#cb1781-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span>
+<span id="cb1781-17"><a href="exploratory-data-analysis-in-r.html#cb1781-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1781-18"><a href="exploratory-data-analysis-in-r.html#cb1781-18" aria-hidden="true" tabindex="-1"></a><span class="co"># density plot</span></span>
+<span id="cb1781-19"><a href="exploratory-data-analysis-in-r.html#cb1781-19" aria-hidden="true" tabindex="-1"></a>width_density <span class="ot">&lt;-</span> cars <span class="sc">%&gt;%</span></span>
+<span id="cb1781-20"><a href="exploratory-data-analysis-in-r.html#cb1781-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> width)) <span class="sc">+</span></span>
+<span id="cb1781-21"><a href="exploratory-data-analysis-in-r.html#cb1781-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span>
+<span id="cb1781-22"><a href="exploratory-data-analysis-in-r.html#cb1781-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1781-23"><a href="exploratory-data-analysis-in-r.html#cb1781-23" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(city_mpg_boxplot, city_mpg_density, width_boxplot, width_density, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 14 rows containing non-finite values
+## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values
+## (`stat_density()`).</code></pre>
+<pre><code>## Warning: Removed 28 rows containing non-finite values
+## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 28 rows containing non-finite values
+## (`stat_density()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-620-1.png" width="672" /></p>
 <p>Because the <code>city_mpg</code> variable has a much wider range with its outliers, it’s best to display its distribution as a box plot.</p>
 </div>
 </div>
@@ -1303,15 +1328,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Faceting</em> is a valuable technique for looking at several conditional distributions at the same time.</p>
 <p>If the faceted distributions are laid out in a grid, you can consider the association between a variable and two others, one on the rows of the grid and the other on the columns.</p>
 <p>Using <code>common_cyl</code>, create a histogram of hwy_mpg. Grid-facet the plot rowwise by <code>ncyl</code> and columnwise by <code>suv</code>.</p>
-<div class="sourceCode" id="cb1532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1532-1"><a href="exploratory-data-analysis-in-r.html#cb1532-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Facet hists using hwy mileage and ncyl</span></span>
-<span id="cb1532-2"><a href="exploratory-data-analysis-in-r.html#cb1532-2" aria-hidden="true" tabindex="-1"></a>common_cyl <span class="sc">%&gt;%</span></span>
-<span id="cb1532-3"><a href="exploratory-data-analysis-in-r.html#cb1532-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hwy_mpg)) <span class="sc">+</span></span>
-<span id="cb1532-4"><a href="exploratory-data-analysis-in-r.html#cb1532-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb1532-5"><a href="exploratory-data-analysis-in-r.html#cb1532-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(ncyl <span class="sc">~</span> suv) <span class="sc">+</span></span>
-<span id="cb1532-6"><a href="exploratory-data-analysis-in-r.html#cb1532-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;hwy_mpg faceted by ncyl and suv&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 11 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-626-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1786-1"><a href="exploratory-data-analysis-in-r.html#cb1786-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Facet hists using hwy mileage and ncyl</span></span>
+<span id="cb1786-2"><a href="exploratory-data-analysis-in-r.html#cb1786-2" aria-hidden="true" tabindex="-1"></a>common_cyl <span class="sc">%&gt;%</span></span>
+<span id="cb1786-3"><a href="exploratory-data-analysis-in-r.html#cb1786-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hwy_mpg)) <span class="sc">+</span></span>
+<span id="cb1786-4"><a href="exploratory-data-analysis-in-r.html#cb1786-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1786-5"><a href="exploratory-data-analysis-in-r.html#cb1786-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(ncyl <span class="sc">~</span> suv) <span class="sc">+</span></span>
+<span id="cb1786-6"><a href="exploratory-data-analysis-in-r.html#cb1786-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;hwy_mpg faceted by ncyl and suv&quot;</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 11 rows containing non-finite values
+## (`stat_bin()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-621-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -1331,20 +1358,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="calculate-center-measures" class="section level4 hasAnchor" number="13.3.1.1">
 <h4><span class="header-section-number">13.3.1.1</span> Calculate center measures<a href="exploratory-data-analysis-in-r.html#calculate-center-measures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You will use data from <code>gapminder</code>, which tracks demographic data in countries of the world over time. How the life expectancy differs from continent to continent?</p>
-<div class="sourceCode" id="cb1535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1535-1"><a href="exploratory-data-analysis-in-r.html#cb1535-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset of 2007 data</span></span>
-<span id="cb1535-2"><a href="exploratory-data-analysis-in-r.html#cb1535-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="ot">&lt;-</span> <span class="fu">filter</span>(gapminder<span class="sc">::</span>gapminder, year <span class="sc">==</span> <span class="dv">2007</span>)</span>
-<span id="cb1535-3"><a href="exploratory-data-analysis-in-r.html#cb1535-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1535-4"><a href="exploratory-data-analysis-in-r.html#cb1535-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute groupwise mean and median lifeExp</span></span>
-<span id="cb1535-5"><a href="exploratory-data-analysis-in-r.html#cb1535-5" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1535-6"><a href="exploratory-data-analysis-in-r.html#cb1535-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
-<span id="cb1535-7"><a href="exploratory-data-analysis-in-r.html#cb1535-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(lifeExp),</span>
-<span id="cb1535-8"><a href="exploratory-data-analysis-in-r.html#cb1535-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">median</span>(lifeExp))</span>
-<span id="cb1535-9"><a href="exploratory-data-analysis-in-r.html#cb1535-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1535-10"><a href="exploratory-data-analysis-in-r.html#cb1535-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate box plots of lifeExp for each continent</span></span>
-<span id="cb1535-11"><a href="exploratory-data-analysis-in-r.html#cb1535-11" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1535-12"><a href="exploratory-data-analysis-in-r.html#cb1535-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb1535-13"><a href="exploratory-data-analysis-in-r.html#cb1535-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-627-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1789-1"><a href="exploratory-data-analysis-in-r.html#cb1789-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset of 2007 data</span></span>
+<span id="cb1789-2"><a href="exploratory-data-analysis-in-r.html#cb1789-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="ot">&lt;-</span> <span class="fu">filter</span>(gapminder<span class="sc">::</span>gapminder, year <span class="sc">==</span> <span class="dv">2007</span>)</span>
+<span id="cb1789-3"><a href="exploratory-data-analysis-in-r.html#cb1789-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1789-4"><a href="exploratory-data-analysis-in-r.html#cb1789-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute groupwise mean and median lifeExp</span></span>
+<span id="cb1789-5"><a href="exploratory-data-analysis-in-r.html#cb1789-5" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1789-6"><a href="exploratory-data-analysis-in-r.html#cb1789-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb1789-7"><a href="exploratory-data-analysis-in-r.html#cb1789-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(lifeExp),</span>
+<span id="cb1789-8"><a href="exploratory-data-analysis-in-r.html#cb1789-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">median</span>(lifeExp))</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##   continent `mean(lifeExp)` `median(lifeExp)`
+##   &lt;fct&gt;               &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Africa               54.8              52.9
+## 2 Americas             73.6              72.9
+## 3 Asia                 70.7              72.4
+## 4 Europe               77.6              78.6
+## 5 Oceania              80.7              80.7</code></pre>
+<div class="sourceCode" id="cb1791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1791-1"><a href="exploratory-data-analysis-in-r.html#cb1791-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate box plots of lifeExp for each continent</span></span>
+<span id="cb1791-2"><a href="exploratory-data-analysis-in-r.html#cb1791-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1791-3"><a href="exploratory-data-analysis-in-r.html#cb1791-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb1791-4"><a href="exploratory-data-analysis-in-r.html#cb1791-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-622-1.png" width="672" /></p>
 </div>
 </div>
 <div id="measures-of-variability" class="section level3 hasAnchor" number="13.3.2">
@@ -1355,44 +1389,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="calculate-spread-measures" class="section level4 hasAnchor" number="13.3.2.1">
 <h4><span class="header-section-number">13.3.2.1</span> Calculate spread measures<a href="exploratory-data-analysis-in-r.html#calculate-spread-measures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>summarize life expectancies using the <code>sd()</code>, the <code>IQR()</code>, and the count of countries, <code>n()</code>.</p>
-<div class="sourceCode" id="cb1536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1536-1"><a href="exploratory-data-analysis-in-r.html#cb1536-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute groupwise measures of spread</span></span>
-<span id="cb1536-2"><a href="exploratory-data-analysis-in-r.html#cb1536-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1536-3"><a href="exploratory-data-analysis-in-r.html#cb1536-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
-<span id="cb1536-4"><a href="exploratory-data-analysis-in-r.html#cb1536-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">sd</span>(lifeExp),</span>
-<span id="cb1536-5"><a href="exploratory-data-analysis-in-r.html#cb1536-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">IQR</span>(lifeExp),</span>
-<span id="cb1536-6"><a href="exploratory-data-analysis-in-r.html#cb1536-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">n</span>())</span>
-<span id="cb1536-7"><a href="exploratory-data-analysis-in-r.html#cb1536-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1536-8"><a href="exploratory-data-analysis-in-r.html#cb1536-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphically compare the spread of these distributions</span></span>
-<span id="cb1536-9"><a href="exploratory-data-analysis-in-r.html#cb1536-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate overlaid density plots</span></span>
-<span id="cb1536-10"><a href="exploratory-data-analysis-in-r.html#cb1536-10" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1536-11"><a href="exploratory-data-analysis-in-r.html#cb1536-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lifeExp, <span class="at">fill =</span> continent)) <span class="sc">+</span></span>
-<span id="cb1536-12"><a href="exploratory-data-analysis-in-r.html#cb1536-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-628-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1792-1"><a href="exploratory-data-analysis-in-r.html#cb1792-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute groupwise measures of spread</span></span>
+<span id="cb1792-2"><a href="exploratory-data-analysis-in-r.html#cb1792-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1792-3"><a href="exploratory-data-analysis-in-r.html#cb1792-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb1792-4"><a href="exploratory-data-analysis-in-r.html#cb1792-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">sd</span>(lifeExp),</span>
+<span id="cb1792-5"><a href="exploratory-data-analysis-in-r.html#cb1792-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">IQR</span>(lifeExp),</span>
+<span id="cb1792-6"><a href="exploratory-data-analysis-in-r.html#cb1792-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 4
+##   continent `sd(lifeExp)` `IQR(lifeExp)` `n()`
+##   &lt;fct&gt;             &lt;dbl&gt;          &lt;dbl&gt; &lt;int&gt;
+## 1 Africa            9.63          11.6      52
+## 2 Americas          4.44           4.63     25
+## 3 Asia              7.96          10.2      33
+## 4 Europe            2.98           4.78     30
+## 5 Oceania           0.729          0.516     2</code></pre>
+<div class="sourceCode" id="cb1794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1794-1"><a href="exploratory-data-analysis-in-r.html#cb1794-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphically compare the spread of these distributions</span></span>
+<span id="cb1794-2"><a href="exploratory-data-analysis-in-r.html#cb1794-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate overlaid density plots</span></span>
+<span id="cb1794-3"><a href="exploratory-data-analysis-in-r.html#cb1794-3" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1794-4"><a href="exploratory-data-analysis-in-r.html#cb1794-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lifeExp, <span class="at">fill =</span> continent)) <span class="sc">+</span></span>
+<span id="cb1794-5"><a href="exploratory-data-analysis-in-r.html#cb1794-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-623-1.png" width="672" /></p>
 </div>
 <div id="choose-measures-for-center-spread" class="section level4 hasAnchor" number="13.3.2.2">
 <h4><span class="header-section-number">13.3.2.2</span> Choose measures for center &amp; spread<a href="exploratory-data-analysis-in-r.html#choose-measures-for-center-spread" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Using the shapes of the density plots, calculate the most appropriate measures of center and spread.</p>
-<div class="sourceCode" id="cb1537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1537-1"><a href="exploratory-data-analysis-in-r.html#cb1537-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The distribution of life expectancy in the countries of the Americas.</span></span>
-<span id="cb1537-2"><a href="exploratory-data-analysis-in-r.html#cb1537-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1537-3"><a href="exploratory-data-analysis-in-r.html#cb1537-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Americas&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1537-4"><a href="exploratory-data-analysis-in-r.html#cb1537-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb1537-5"><a href="exploratory-data-analysis-in-r.html#cb1537-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-629-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1538-1"><a href="exploratory-data-analysis-in-r.html#cb1538-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute stats for lifeExp in Americas</span></span>
-<span id="cb1538-2"><a href="exploratory-data-analysis-in-r.html#cb1538-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1538-3"><a href="exploratory-data-analysis-in-r.html#cb1538-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Americas&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1538-4"><a href="exploratory-data-analysis-in-r.html#cb1538-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(lifeExp),</span>
-<span id="cb1538-5"><a href="exploratory-data-analysis-in-r.html#cb1538-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(lifeExp))</span></code></pre></div>
-<div class="sourceCode" id="cb1539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1539-1"><a href="exploratory-data-analysis-in-r.html#cb1539-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The distribution of country populations across the entire gap2007 dataset.</span></span>
-<span id="cb1539-2"><a href="exploratory-data-analysis-in-r.html#cb1539-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1539-3"><a href="exploratory-data-analysis-in-r.html#cb1539-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pop)) <span class="sc">+</span></span>
-<span id="cb1539-4"><a href="exploratory-data-analysis-in-r.html#cb1539-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-631-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1795-1"><a href="exploratory-data-analysis-in-r.html#cb1795-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The distribution of life expectancy in the countries of the Americas.</span></span>
+<span id="cb1795-2"><a href="exploratory-data-analysis-in-r.html#cb1795-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1795-3"><a href="exploratory-data-analysis-in-r.html#cb1795-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Americas&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1795-4"><a href="exploratory-data-analysis-in-r.html#cb1795-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb1795-5"><a href="exploratory-data-analysis-in-r.html#cb1795-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-624-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1796-1"><a href="exploratory-data-analysis-in-r.html#cb1796-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute stats for lifeExp in Americas</span></span>
+<span id="cb1796-2"><a href="exploratory-data-analysis-in-r.html#cb1796-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1796-3"><a href="exploratory-data-analysis-in-r.html#cb1796-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Americas&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1796-4"><a href="exploratory-data-analysis-in-r.html#cb1796-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(lifeExp),</span>
+<span id="cb1796-5"><a href="exploratory-data-analysis-in-r.html#cb1796-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(lifeExp))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   `mean(lifeExp)` `sd(lifeExp)`
+##             &lt;dbl&gt;         &lt;dbl&gt;
+## 1            73.6          4.44</code></pre>
+<div class="sourceCode" id="cb1798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1798-1"><a href="exploratory-data-analysis-in-r.html#cb1798-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The distribution of country populations across the entire gap2007 dataset.</span></span>
+<span id="cb1798-2"><a href="exploratory-data-analysis-in-r.html#cb1798-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1798-3"><a href="exploratory-data-analysis-in-r.html#cb1798-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pop)) <span class="sc">+</span></span>
+<span id="cb1798-4"><a href="exploratory-data-analysis-in-r.html#cb1798-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-626-1.png" width="672" /></p>
 <p>median and IQR measure the central tendency and spread, respectively, but are robust to outliers and non-normal data.</p>
-<div class="sourceCode" id="cb1540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1540-1"><a href="exploratory-data-analysis-in-r.html#cb1540-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute stats for population</span></span>
-<span id="cb1540-2"><a href="exploratory-data-analysis-in-r.html#cb1540-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1540-3"><a href="exploratory-data-analysis-in-r.html#cb1540-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">median</span>(pop),</span>
-<span id="cb1540-4"><a href="exploratory-data-analysis-in-r.html#cb1540-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">IQR</span>(pop))</span></code></pre></div>
+<div class="sourceCode" id="cb1799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1799-1"><a href="exploratory-data-analysis-in-r.html#cb1799-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute stats for population</span></span>
+<span id="cb1799-2"><a href="exploratory-data-analysis-in-r.html#cb1799-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1799-3"><a href="exploratory-data-analysis-in-r.html#cb1799-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">median</span>(pop),</span>
+<span id="cb1799-4"><a href="exploratory-data-analysis-in-r.html#cb1799-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">IQR</span>(pop))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   `median(pop)` `IQR(pop)`
+##           &lt;dbl&gt;      &lt;dbl&gt;
+## 1      10517531  26702008.</code></pre>
 </div>
 </div>
 <div id="shape-transformations" class="section level3 hasAnchor" number="13.3.3">
@@ -1406,25 +1455,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="transformations" class="section level4 hasAnchor" number="13.3.3.1">
 <h4><span class="header-section-number">13.3.3.1</span> Transformations<a href="exploratory-data-analysis-in-r.html#transformations" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Highly skewed distributions can make it very difficult to learn anything from a visualization. Transformations can be helpful in revealing the more subtle structure.</p>
-<div class="sourceCode" id="cb1541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1541-1"><a href="exploratory-data-analysis-in-r.html#cb1541-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original pop shape</span></span>
-<span id="cb1541-2"><a href="exploratory-data-analysis-in-r.html#cb1541-2" aria-hidden="true" tabindex="-1"></a>pop_nontrans_plot <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1541-3"><a href="exploratory-data-analysis-in-r.html#cb1541-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pop)) <span class="sc">+</span></span>
-<span id="cb1541-4"><a href="exploratory-data-analysis-in-r.html#cb1541-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb1541-5"><a href="exploratory-data-analysis-in-r.html#cb1541-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;population without transform&quot;</span>)</span>
-<span id="cb1541-6"><a href="exploratory-data-analysis-in-r.html#cb1541-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1541-7"><a href="exploratory-data-analysis-in-r.html#cb1541-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the skewed pop variable</span></span>
-<span id="cb1541-8"><a href="exploratory-data-analysis-in-r.html#cb1541-8" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1541-9"><a href="exploratory-data-analysis-in-r.html#cb1541-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_pop =</span> <span class="fu">log</span>(pop))</span>
-<span id="cb1541-10"><a href="exploratory-data-analysis-in-r.html#cb1541-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1541-11"><a href="exploratory-data-analysis-in-r.html#cb1541-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create density plot of new variable</span></span>
-<span id="cb1541-12"><a href="exploratory-data-analysis-in-r.html#cb1541-12" aria-hidden="true" tabindex="-1"></a>pop_trans_plot <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1541-13"><a href="exploratory-data-analysis-in-r.html#cb1541-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_pop)) <span class="sc">+</span></span>
-<span id="cb1541-14"><a href="exploratory-data-analysis-in-r.html#cb1541-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb1541-15"><a href="exploratory-data-analysis-in-r.html#cb1541-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;population with log transform&quot;</span>)</span>
-<span id="cb1541-16"><a href="exploratory-data-analysis-in-r.html#cb1541-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1541-17"><a href="exploratory-data-analysis-in-r.html#cb1541-17" aria-hidden="true" tabindex="-1"></a><span class="co"># compare transforming</span></span>
-<span id="cb1541-18"><a href="exploratory-data-analysis-in-r.html#cb1541-18" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(pop_nontrans_plot, pop_trans_plot, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-633-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1801-1"><a href="exploratory-data-analysis-in-r.html#cb1801-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original pop shape</span></span>
+<span id="cb1801-2"><a href="exploratory-data-analysis-in-r.html#cb1801-2" aria-hidden="true" tabindex="-1"></a>pop_nontrans_plot <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1801-3"><a href="exploratory-data-analysis-in-r.html#cb1801-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pop)) <span class="sc">+</span></span>
+<span id="cb1801-4"><a href="exploratory-data-analysis-in-r.html#cb1801-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb1801-5"><a href="exploratory-data-analysis-in-r.html#cb1801-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;population without transform&quot;</span>)</span>
+<span id="cb1801-6"><a href="exploratory-data-analysis-in-r.html#cb1801-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1801-7"><a href="exploratory-data-analysis-in-r.html#cb1801-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the skewed pop variable</span></span>
+<span id="cb1801-8"><a href="exploratory-data-analysis-in-r.html#cb1801-8" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1801-9"><a href="exploratory-data-analysis-in-r.html#cb1801-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_pop =</span> <span class="fu">log</span>(pop))</span>
+<span id="cb1801-10"><a href="exploratory-data-analysis-in-r.html#cb1801-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1801-11"><a href="exploratory-data-analysis-in-r.html#cb1801-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create density plot of new variable</span></span>
+<span id="cb1801-12"><a href="exploratory-data-analysis-in-r.html#cb1801-12" aria-hidden="true" tabindex="-1"></a>pop_trans_plot <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1801-13"><a href="exploratory-data-analysis-in-r.html#cb1801-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_pop)) <span class="sc">+</span></span>
+<span id="cb1801-14"><a href="exploratory-data-analysis-in-r.html#cb1801-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb1801-15"><a href="exploratory-data-analysis-in-r.html#cb1801-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;population with log transform&quot;</span>)</span>
+<span id="cb1801-16"><a href="exploratory-data-analysis-in-r.html#cb1801-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1801-17"><a href="exploratory-data-analysis-in-r.html#cb1801-17" aria-hidden="true" tabindex="-1"></a><span class="co"># compare transforming</span></span>
+<span id="cb1801-18"><a href="exploratory-data-analysis-in-r.html#cb1801-18" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(pop_nontrans_plot, pop_trans_plot, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-628-1.png" width="672" /></p>
 </div>
 </div>
 <div id="outliers" class="section level3 hasAnchor" number="13.3.4">
@@ -1432,26 +1481,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="identify-outliers" class="section level4 hasAnchor" number="13.3.4.1">
 <h4><span class="header-section-number">13.3.4.1</span> Identify outliers<a href="exploratory-data-analysis-in-r.html#identify-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Consider the distribution, shown here, of the life expectancies of the countries in Asia. The box plot identifies one clear outlier: a country with a notably low life expectancy.</p>
-<div class="sourceCode" id="cb1542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1542-1"><a href="exploratory-data-analysis-in-r.html#cb1542-1" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot for Asia lifeExp</span></span>
-<span id="cb1542-2"><a href="exploratory-data-analysis-in-r.html#cb1542-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1542-3"><a href="exploratory-data-analysis-in-r.html#cb1542-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1542-4"><a href="exploratory-data-analysis-in-r.html#cb1542-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb1542-5"><a href="exploratory-data-analysis-in-r.html#cb1542-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-634-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1543-1"><a href="exploratory-data-analysis-in-r.html#cb1543-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which country with lowest lifeExp</span></span>
-<span id="cb1543-2"><a href="exploratory-data-analysis-in-r.html#cb1543-2" aria-hidden="true" tabindex="-1"></a>gap2007[<span class="fu">which.min</span>(gap2007<span class="sc">$</span>lifeExp), <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb1802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1802-1"><a href="exploratory-data-analysis-in-r.html#cb1802-1" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot for Asia lifeExp</span></span>
+<span id="cb1802-2"><a href="exploratory-data-analysis-in-r.html#cb1802-2" aria-hidden="true" tabindex="-1"></a>gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1802-3"><a href="exploratory-data-analysis-in-r.html#cb1802-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1802-4"><a href="exploratory-data-analysis-in-r.html#cb1802-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb1802-5"><a href="exploratory-data-analysis-in-r.html#cb1802-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-629-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1803-1"><a href="exploratory-data-analysis-in-r.html#cb1803-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which country with lowest lifeExp</span></span>
+<span id="cb1803-2"><a href="exploratory-data-analysis-in-r.html#cb1803-2" aria-hidden="true" tabindex="-1"></a>gap2007[<span class="fu">which.min</span>(gap2007<span class="sc">$</span>lifeExp), <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)]</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   country   lifeExp
+##   &lt;fct&gt;       &lt;dbl&gt;
+## 1 Swaziland    39.6</code></pre>
 <p>Building a plot with that country removed.</p>
-<div class="sourceCode" id="cb1544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1544-1"><a href="exploratory-data-analysis-in-r.html#cb1544-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for Asia, add column indicating outliers</span></span>
-<span id="cb1544-2"><a href="exploratory-data-analysis-in-r.html#cb1544-2" aria-hidden="true" tabindex="-1"></a>gap_asia <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
-<span id="cb1544-3"><a href="exploratory-data-analysis-in-r.html#cb1544-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1544-4"><a href="exploratory-data-analysis-in-r.html#cb1544-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_outliner =</span> lifeExp <span class="sc">&lt;</span> <span class="dv">50</span>)</span>
-<span id="cb1544-5"><a href="exploratory-data-analysis-in-r.html#cb1544-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1544-6"><a href="exploratory-data-analysis-in-r.html#cb1544-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove outliers, create box plot of lifeExp</span></span>
-<span id="cb1544-7"><a href="exploratory-data-analysis-in-r.html#cb1544-7" aria-hidden="true" tabindex="-1"></a>gap_asia <span class="sc">%&gt;%</span></span>
-<span id="cb1544-8"><a href="exploratory-data-analysis-in-r.html#cb1544-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_outliner) <span class="sc">%&gt;%</span></span>
-<span id="cb1544-9"><a href="exploratory-data-analysis-in-r.html#cb1544-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb1544-10"><a href="exploratory-data-analysis-in-r.html#cb1544-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-635-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1805-1"><a href="exploratory-data-analysis-in-r.html#cb1805-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for Asia, add column indicating outliers</span></span>
+<span id="cb1805-2"><a href="exploratory-data-analysis-in-r.html#cb1805-2" aria-hidden="true" tabindex="-1"></a>gap_asia <span class="ot">&lt;-</span> gap2007 <span class="sc">%&gt;%</span></span>
+<span id="cb1805-3"><a href="exploratory-data-analysis-in-r.html#cb1805-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1805-4"><a href="exploratory-data-analysis-in-r.html#cb1805-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_outliner =</span> lifeExp <span class="sc">&lt;</span> <span class="dv">50</span>)</span>
+<span id="cb1805-5"><a href="exploratory-data-analysis-in-r.html#cb1805-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1805-6"><a href="exploratory-data-analysis-in-r.html#cb1805-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove outliers, create box plot of lifeExp</span></span>
+<span id="cb1805-7"><a href="exploratory-data-analysis-in-r.html#cb1805-7" aria-hidden="true" tabindex="-1"></a>gap_asia <span class="sc">%&gt;%</span></span>
+<span id="cb1805-8"><a href="exploratory-data-analysis-in-r.html#cb1805-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_outliner) <span class="sc">%&gt;%</span></span>
+<span id="cb1805-9"><a href="exploratory-data-analysis-in-r.html#cb1805-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb1805-10"><a href="exploratory-data-analysis-in-r.html#cb1805-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-630-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -1461,55 +1514,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">13.4.1</span> New data<a href="exploratory-data-analysis-in-r.html#new-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What characteristics of an email are associated with it being spam?</p>
 <p>Here, you’ll use the <code>email</code> dataset to settle that question.</p>
-<div class="sourceCode" id="cb1545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1545-1"><a href="exploratory-data-analysis-in-r.html#cb1545-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span>
-<span id="cb1545-2"><a href="exploratory-data-analysis-in-r.html#cb1545-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1545-3"><a href="exploratory-data-analysis-in-r.html#cb1545-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(email)</span></code></pre></div>
-<pre><code>## tibble [3,921 × 21] (S3: tbl_df/tbl/data.frame)
-##  $ spam        : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ to_multiple : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 2 2 1 1 ...
-##  $ from        : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 2 2 2 2 2 2 2 2 ...
-##  $ cc          : int [1:3921] 0 0 0 0 0 0 0 1 0 0 ...
-##  $ sent_email  : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 2 2 1 1 ...
-##  $ time        : POSIXct[1:3921], format: &quot;2012-01-01 14:16:41&quot; &quot;2012-01-01 15:03:59&quot; ...
-##  $ image       : num [1:3921] 0 0 0 0 0 0 0 1 0 0 ...
-##  $ attach      : num [1:3921] 0 0 0 0 0 0 0 1 0 0 ...
-##  $ dollar      : num [1:3921] 0 0 4 0 0 0 0 0 0 0 ...
-##  $ winner      : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ inherit     : num [1:3921] 0 0 1 0 0 0 0 0 0 0 ...
-##  $ viagra      : num [1:3921] 0 0 0 0 0 0 0 0 0 0 ...
-##  $ password    : num [1:3921] 0 0 0 0 2 2 0 0 0 0 ...
-##  $ num_char    : num [1:3921] 11.37 10.5 7.77 13.26 1.23 ...
-##  $ line_breaks : int [1:3921] 202 202 192 255 29 25 193 237 69 68 ...
-##  $ format      : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 2 2 1 1 2 2 1 2 ...
-##  $ re_subj     : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ exclaim_subj: num [1:3921] 0 0 0 0 0 0 0 0 0 0 ...
-##  $ urgent_subj : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ exclaim_mess: num [1:3921] 0 1 6 48 1 1 1 18 1 0 ...
-##  $ number      : Factor w/ 3 levels &quot;none&quot;,&quot;small&quot;,..: 3 2 2 2 1 1 3 2 2 2 ...</code></pre>
-<div class="sourceCode" id="cb1547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1547-1"><a href="exploratory-data-analysis-in-r.html#cb1547-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label factor for easier to read</span></span>
-<span id="cb1547-2"><a href="exploratory-data-analysis-in-r.html#cb1547-2" aria-hidden="true" tabindex="-1"></a>email<span class="sc">$</span>spam <span class="ot">&lt;-</span> <span class="fu">factor</span>(email<span class="sc">$</span>spam, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;non-spam&quot;</span>, <span class="st">&quot;spam&quot;</span>))</span>
-<span id="cb1547-3"><a href="exploratory-data-analysis-in-r.html#cb1547-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(email<span class="sc">$</span>spam)</span></code></pre></div>
+<div class="sourceCode" id="cb1806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1806-1"><a href="exploratory-data-analysis-in-r.html#cb1806-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span></code></pre></div>
+<pre><code>## Loading required package: airports</code></pre>
+<pre><code>## Loading required package: cherryblossom</code></pre>
+<pre><code>## Loading required package: usdata</code></pre>
+<pre><code>## 
+## Attaching package: &#39;openintro&#39;</code></pre>
+<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
+## 
+##     email</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lattice&#39;:
+## 
+##     ethanol, lsegments</code></pre>
+<pre><code>## The following object is masked from &#39;package:babynames&#39;:
+## 
+##     births</code></pre>
+<div class="sourceCode" id="cb1814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1814-1"><a href="exploratory-data-analysis-in-r.html#cb1814-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(email)</span></code></pre></div>
+<pre><code>## tibble [3,921 × 22] (S3: tbl_df/tbl/data.frame)
+##  $ spam            : Factor w/ 2 levels &quot;non-spam&quot;,&quot;spam&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ to_multiple     : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 2 2 1 1 ...
+##  $ from            : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ cc              : int [1:3921] 0 0 0 0 0 0 0 1 0 0 ...
+##  $ sent_email      : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 2 2 1 1 ...
+##  $ time            : POSIXct[1:3921], format: &quot;2012-01-01 14:16:41&quot; &quot;2012-01-01 15:03:59&quot; ...
+##  $ image           : num [1:3921] 0 0 0 0 0 0 0 1 0 0 ...
+##  $ attach          : num [1:3921] 0 0 0 0 0 0 0 1 0 0 ...
+##  $ dollar          : num [1:3921] 0 0 4 0 0 0 0 0 0 0 ...
+##  $ winner          : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ inherit         : num [1:3921] 0 0 1 0 0 0 0 0 0 0 ...
+##  $ viagra          : num [1:3921] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ password        : num [1:3921] 0 0 0 0 2 2 0 0 0 0 ...
+##  $ num_char        : num [1:3921] 11.37 10.5 7.77 13.26 1.23 ...
+##  $ line_breaks     : int [1:3921] 202 202 192 255 29 25 193 237 69 68 ...
+##  $ format          : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 2 2 1 1 2 2 1 2 ...
+##  $ re_subj         : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ exclaim_subj    : num [1:3921] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ urgent_subj     : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ exclaim_mess    : num [1:3921] 0 1 6 48 1 1 1 18 1 0 ...
+##  $ number          : Factor w/ 3 levels &quot;none&quot;,&quot;small&quot;,..: 3 2 2 2 1 1 3 2 2 2 ...
+##  $ number_reordered: Factor w/ 3 levels &quot;none&quot;,&quot;small&quot;,..: 3 2 2 2 1 1 3 2 2 2 ...</code></pre>
+<div class="sourceCode" id="cb1816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1816-1"><a href="exploratory-data-analysis-in-r.html#cb1816-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label factor for easier to read</span></span>
+<span id="cb1816-2"><a href="exploratory-data-analysis-in-r.html#cb1816-2" aria-hidden="true" tabindex="-1"></a>email<span class="sc">$</span>spam <span class="ot">&lt;-</span> <span class="fu">factor</span>(email<span class="sc">$</span>spam, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;non-spam&quot;</span>, <span class="st">&quot;spam&quot;</span>))</span>
+<span id="cb1816-3"><a href="exploratory-data-analysis-in-r.html#cb1816-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(email<span class="sc">$</span>spam)</span></code></pre></div>
 <pre><code>##  Factor w/ 2 levels &quot;non-spam&quot;,&quot;spam&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <div id="spam-and-num_char" class="section level4 hasAnchor" number="13.4.1.1">
 <h4><span class="header-section-number">13.4.1.1</span> Spam and num_char<a href="exploratory-data-analysis-in-r.html#spam-and-num_char" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Is there an association between spam and the length of an email?</p>
-<div class="sourceCode" id="cb1549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1549-1"><a href="exploratory-data-analysis-in-r.html#cb1549-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of num_char</span></span>
-<span id="cb1549-2"><a href="exploratory-data-analysis-in-r.html#cb1549-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email, <span class="fu">aes</span>(<span class="at">x =</span> num_char)) <span class="sc">+</span></span>
-<span id="cb1549-3"><a href="exploratory-data-analysis-in-r.html#cb1549-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-638-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1818-1"><a href="exploratory-data-analysis-in-r.html#cb1818-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of num_char</span></span>
+<span id="cb1818-2"><a href="exploratory-data-analysis-in-r.html#cb1818-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email, <span class="fu">aes</span>(<span class="at">x =</span> num_char)) <span class="sc">+</span></span>
+<span id="cb1818-3"><a href="exploratory-data-analysis-in-r.html#cb1818-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-633-1.png" width="672" /></p>
 <p>Compute appropriate measures of the center and spread of <code>num_char</code> for both spam and not-spam.</p>
-<div class="sourceCode" id="cb1550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1550-1"><a href="exploratory-data-analysis-in-r.html#cb1550-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute summary statistics</span></span>
-<span id="cb1550-2"><a href="exploratory-data-analysis-in-r.html#cb1550-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1550-3"><a href="exploratory-data-analysis-in-r.html#cb1550-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(spam) <span class="sc">%&gt;%</span></span>
-<span id="cb1550-4"><a href="exploratory-data-analysis-in-r.html#cb1550-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">median</span>(num_char),</span>
-<span id="cb1550-5"><a href="exploratory-data-analysis-in-r.html#cb1550-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">IQR</span>(num_char))</span></code></pre></div>
+<div class="sourceCode" id="cb1819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1819-1"><a href="exploratory-data-analysis-in-r.html#cb1819-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute summary statistics</span></span>
+<span id="cb1819-2"><a href="exploratory-data-analysis-in-r.html#cb1819-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1819-3"><a href="exploratory-data-analysis-in-r.html#cb1819-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(spam) <span class="sc">%&gt;%</span></span>
+<span id="cb1819-4"><a href="exploratory-data-analysis-in-r.html#cb1819-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">median</span>(num_char),</span>
+<span id="cb1819-5"><a href="exploratory-data-analysis-in-r.html#cb1819-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">IQR</span>(num_char))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##   spam     `median(num_char)` `IQR(num_char)`
+##   &lt;fct&gt;                 &lt;dbl&gt;           &lt;dbl&gt;
+## 1 non-spam               6.83           13.6 
+## 2 spam                   1.05            2.82</code></pre>
 <p>Construct side-by-side box plots to visualize the association between the same two variables.</p>
-<div class="sourceCode" id="cb1551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1551-1"><a href="exploratory-data-analysis-in-r.html#cb1551-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot</span></span>
-<span id="cb1551-2"><a href="exploratory-data-analysis-in-r.html#cb1551-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1551-3"><a href="exploratory-data-analysis-in-r.html#cb1551-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_num_char =</span> <span class="fu">log</span>(num_char)) <span class="sc">%&gt;%</span></span>
-<span id="cb1551-4"><a href="exploratory-data-analysis-in-r.html#cb1551-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> spam, <span class="at">y =</span> log_num_char)) <span class="sc">+</span></span>
-<span id="cb1551-5"><a href="exploratory-data-analysis-in-r.html#cb1551-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-640-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1821-1"><a href="exploratory-data-analysis-in-r.html#cb1821-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot</span></span>
+<span id="cb1821-2"><a href="exploratory-data-analysis-in-r.html#cb1821-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1821-3"><a href="exploratory-data-analysis-in-r.html#cb1821-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_num_char =</span> <span class="fu">log</span>(num_char)) <span class="sc">%&gt;%</span></span>
+<span id="cb1821-4"><a href="exploratory-data-analysis-in-r.html#cb1821-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> spam, <span class="at">y =</span> log_num_char)) <span class="sc">+</span></span>
+<span id="cb1821-5"><a href="exploratory-data-analysis-in-r.html#cb1821-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-635-1.png" width="672" /></p>
 <p>Interpretation: the median length of not-spam emails is greater than that of spam emails.</p>
 </div>
 <div id="spam-and" class="section level4 hasAnchor" number="13.4.1.2">
@@ -1521,28 +1593,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Faceted histograms</p></li>
 <li><p>Overlaid density plots</p></li>
 </ul>
-<div class="sourceCode" id="cb1552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1552-1"><a href="exploratory-data-analysis-in-r.html#cb1552-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of exclaim_mess</span></span>
-<span id="cb1552-2"><a href="exploratory-data-analysis-in-r.html#cb1552-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email, <span class="fu">aes</span>(<span class="at">x =</span> exclaim_mess)) <span class="sc">+</span></span>
-<span id="cb1552-3"><a href="exploratory-data-analysis-in-r.html#cb1552-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb1552-4"><a href="exploratory-data-analysis-in-r.html#cb1552-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> spam)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-641-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1822-1"><a href="exploratory-data-analysis-in-r.html#cb1822-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of exclaim_mess</span></span>
+<span id="cb1822-2"><a href="exploratory-data-analysis-in-r.html#cb1822-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email, <span class="fu">aes</span>(<span class="at">x =</span> exclaim_mess)) <span class="sc">+</span></span>
+<span id="cb1822-3"><a href="exploratory-data-analysis-in-r.html#cb1822-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1822-4"><a href="exploratory-data-analysis-in-r.html#cb1822-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> spam)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-636-1.png" width="672" /></p>
 <p>Calculate appropriate measures of the center and spread of <code>exclaim_mess</code> for both spam and not-spam.</p>
-<div class="sourceCode" id="cb1554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1554-1"><a href="exploratory-data-analysis-in-r.html#cb1554-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute center and spread for exclaim_mess by spam</span></span>
-<span id="cb1554-2"><a href="exploratory-data-analysis-in-r.html#cb1554-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1554-3"><a href="exploratory-data-analysis-in-r.html#cb1554-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(spam) <span class="sc">%&gt;%</span></span>
-<span id="cb1554-4"><a href="exploratory-data-analysis-in-r.html#cb1554-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">median</span>(exclaim_mess),</span>
-<span id="cb1554-5"><a href="exploratory-data-analysis-in-r.html#cb1554-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">IQR</span>(exclaim_mess))</span></code></pre></div>
+<div class="sourceCode" id="cb1824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1824-1"><a href="exploratory-data-analysis-in-r.html#cb1824-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute center and spread for exclaim_mess by spam</span></span>
+<span id="cb1824-2"><a href="exploratory-data-analysis-in-r.html#cb1824-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1824-3"><a href="exploratory-data-analysis-in-r.html#cb1824-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(spam) <span class="sc">%&gt;%</span></span>
+<span id="cb1824-4"><a href="exploratory-data-analysis-in-r.html#cb1824-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">median</span>(exclaim_mess),</span>
+<span id="cb1824-5"><a href="exploratory-data-analysis-in-r.html#cb1824-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">IQR</span>(exclaim_mess))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##   spam     `median(exclaim_mess)` `IQR(exclaim_mess)`
+##   &lt;fct&gt;                     &lt;dbl&gt;               &lt;dbl&gt;
+## 1 non-spam                      1                   5
+## 2 spam                          0                   1</code></pre>
 <p>Construct an appropriate plot to visualize the association between the same two variables, adding in a log-transformation step if necessary.</p>
 <p><code>log(0)</code> is <code>-Inf</code> in R, which isn’t a very useful value! You can get around this by adding a small number (like <code>0.01</code>) to the quantity inside the <code>log()</code> function.</p>
-<div class="sourceCode" id="cb1555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1555-1"><a href="exploratory-data-analysis-in-r.html#cb1555-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot for spam and exclaim_mess</span></span>
-<span id="cb1555-2"><a href="exploratory-data-analysis-in-r.html#cb1555-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1555-3"><a href="exploratory-data-analysis-in-r.html#cb1555-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">log_exclaim_mess =</span> <span class="fu">log</span>(<span class="fl">0.01</span> <span class="sc">+</span> exclaim_mess)) <span class="sc">%&gt;%</span></span>
-<span id="cb1555-4"><a href="exploratory-data-analysis-in-r.html#cb1555-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_exclaim_mess)) <span class="sc">+</span></span>
-<span id="cb1555-5"><a href="exploratory-data-analysis-in-r.html#cb1555-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb1555-6"><a href="exploratory-data-analysis-in-r.html#cb1555-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> spam)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-643-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1826-1"><a href="exploratory-data-analysis-in-r.html#cb1826-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot for spam and exclaim_mess</span></span>
+<span id="cb1826-2"><a href="exploratory-data-analysis-in-r.html#cb1826-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1826-3"><a href="exploratory-data-analysis-in-r.html#cb1826-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">log_exclaim_mess =</span> <span class="fu">log</span>(<span class="fl">0.01</span> <span class="sc">+</span> exclaim_mess)) <span class="sc">%&gt;%</span></span>
+<span id="cb1826-4"><a href="exploratory-data-analysis-in-r.html#cb1826-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_exclaim_mess)) <span class="sc">+</span></span>
+<span id="cb1826-5"><a href="exploratory-data-analysis-in-r.html#cb1826-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1826-6"><a href="exploratory-data-analysis-in-r.html#cb1826-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> spam)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-638-1.png" width="672" /></p>
 <p>The dominant feature of the exclaim mess variable, though, is the large proportion of cases that report zero or on this log scale, -4 (point) 6 exclamation marks. This is a common occurrence in data analysis that is often termed “zero-inflation”.</p>
 </div>
 </div>
@@ -1556,26 +1635,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="collapsing-levels" class="section level4 hasAnchor" number="13.4.2.1">
 <h4><span class="header-section-number">13.4.2.1</span> Collapsing levels<a href="exploratory-data-analysis-in-r.html#collapsing-levels" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The number of images attached to each email (<code>image</code>) poses even more of a challenge.</p>
-<div class="sourceCode" id="cb1557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1557-1"><a href="exploratory-data-analysis-in-r.html#cb1557-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get a sense of image&#39;s distribution</span></span>
-<span id="cb1557-2"><a href="exploratory-data-analysis-in-r.html#cb1557-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(email<span class="sc">$</span>image)</span></code></pre></div>
+<div class="sourceCode" id="cb1828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1828-1"><a href="exploratory-data-analysis-in-r.html#cb1828-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get a sense of image&#39;s distribution</span></span>
+<span id="cb1828-2"><a href="exploratory-data-analysis-in-r.html#cb1828-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(email<span class="sc">$</span>image)</span></code></pre></div>
 <pre><code>## 
 ##    0    1    2    3    4    5    9   20 
 ## 3811   76   17   11    2    2    1    1</code></pre>
 <p>Given the very low counts at the higher number of images, let’s collapse image into a categorical variable that indicates whether or not the email had at least one image.</p>
-<div class="sourceCode" id="cb1559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1559-1"><a href="exploratory-data-analysis-in-r.html#cb1559-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of proportion of spam by image</span></span>
-<span id="cb1559-2"><a href="exploratory-data-analysis-in-r.html#cb1559-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1559-3"><a href="exploratory-data-analysis-in-r.html#cb1559-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">has_image =</span> image <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1559-4"><a href="exploratory-data-analysis-in-r.html#cb1559-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> has_image, <span class="at">fill =</span> spam)) <span class="sc">+</span></span>
-<span id="cb1559-5"><a href="exploratory-data-analysis-in-r.html#cb1559-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-645-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1830-1"><a href="exploratory-data-analysis-in-r.html#cb1830-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot of proportion of spam by image</span></span>
+<span id="cb1830-2"><a href="exploratory-data-analysis-in-r.html#cb1830-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1830-3"><a href="exploratory-data-analysis-in-r.html#cb1830-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">has_image =</span> image <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1830-4"><a href="exploratory-data-analysis-in-r.html#cb1830-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> has_image, <span class="at">fill =</span> spam)) <span class="sc">+</span></span>
+<span id="cb1830-5"><a href="exploratory-data-analysis-in-r.html#cb1830-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-640-1.png" width="672" /></p>
 <p>An email without an image is more likely to be not-spam than spam.</p>
 </div>
 <div id="data-integrity" class="section level4 hasAnchor" number="13.4.2.2">
 <h4><span class="header-section-number">13.4.2.2</span> Data Integrity<a href="exploratory-data-analysis-in-r.html#data-integrity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In the process of exploring a dataset, you’ll sometimes come across something that will lead you to question how the data were compiled.</p>
 <p>Consider the variables <code>image</code> and <code>attach</code>. Do attached images count as attached files in this dataset?</p>
-<div class="sourceCode" id="cb1560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1560-1"><a href="exploratory-data-analysis-in-r.html#cb1560-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test if images count as attachments</span></span>
-<span id="cb1560-2"><a href="exploratory-data-analysis-in-r.html#cb1560-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(email<span class="sc">$</span>image <span class="sc">&gt;</span> email<span class="sc">$</span>attach)</span></code></pre></div>
+<div class="sourceCode" id="cb1831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1831-1"><a href="exploratory-data-analysis-in-r.html#cb1831-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test if images count as attachments</span></span>
+<span id="cb1831-2"><a href="exploratory-data-analysis-in-r.html#cb1831-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(email<span class="sc">$</span>image <span class="sc">&gt;</span> email<span class="sc">$</span>attach)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Since <code>image</code> is never greater than <code>attach</code>, we can infer that images are counted as attachments.</p>
 </div>
@@ -1583,18 +1662,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">13.4.2.3</span> Answer questions with chains<a href="exploratory-data-analysis-in-r.html#answer-questions-with-chains" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Build a chain to answer each of the following questions, both about the variable <code>dollar</code>.</p>
 <p>For emails containing the word “dollar”, does the typical spam email contain a greater number of occurrences of the word than the typical non-spam email?</p>
-<div class="sourceCode" id="cb1562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1562-1"><a href="exploratory-data-analysis-in-r.html#cb1562-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 1</span></span>
-<span id="cb1562-2"><a href="exploratory-data-analysis-in-r.html#cb1562-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1562-3"><a href="exploratory-data-analysis-in-r.html#cb1562-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dollar <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1562-4"><a href="exploratory-data-analysis-in-r.html#cb1562-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(spam) <span class="sc">%&gt;%</span></span>
-<span id="cb1562-5"><a href="exploratory-data-analysis-in-r.html#cb1562-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">median</span>(num_char))</span></code></pre></div>
+<div class="sourceCode" id="cb1833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1833-1"><a href="exploratory-data-analysis-in-r.html#cb1833-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 1</span></span>
+<span id="cb1833-2"><a href="exploratory-data-analysis-in-r.html#cb1833-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1833-3"><a href="exploratory-data-analysis-in-r.html#cb1833-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dollar <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1833-4"><a href="exploratory-data-analysis-in-r.html#cb1833-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(spam) <span class="sc">%&gt;%</span></span>
+<span id="cb1833-5"><a href="exploratory-data-analysis-in-r.html#cb1833-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">median</span>(num_char))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   spam     `median(num_char)`
+##   &lt;fct&gt;                 &lt;dbl&gt;
+## 1 non-spam              12.3 
+## 2 spam                   1.41</code></pre>
 <p>If you encounter an email with greater than 10 occurrences of the word dollar, is it more likely to be <code>spam</code> or n<code>ot-spam</code>?</p>
-<div class="sourceCode" id="cb1563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1563-1"><a href="exploratory-data-analysis-in-r.html#cb1563-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 2</span></span>
-<span id="cb1563-2"><a href="exploratory-data-analysis-in-r.html#cb1563-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
-<span id="cb1563-3"><a href="exploratory-data-analysis-in-r.html#cb1563-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dollar <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1563-4"><a href="exploratory-data-analysis-in-r.html#cb1563-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> spam)) <span class="sc">+</span></span>
-<span id="cb1563-5"><a href="exploratory-data-analysis-in-r.html#cb1563-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-648-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1835-1"><a href="exploratory-data-analysis-in-r.html#cb1835-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 2</span></span>
+<span id="cb1835-2"><a href="exploratory-data-analysis-in-r.html#cb1835-2" aria-hidden="true" tabindex="-1"></a>email <span class="sc">%&gt;%</span></span>
+<span id="cb1835-3"><a href="exploratory-data-analysis-in-r.html#cb1835-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dollar <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1835-4"><a href="exploratory-data-analysis-in-r.html#cb1835-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> spam)) <span class="sc">+</span></span>
+<span id="cb1835-5"><a href="exploratory-data-analysis-in-r.html#cb1835-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-643-1.png" width="672" /></p>
 </div>
 </div>
 <div id="check-in-2" class="section level3 hasAnchor" number="13.4.3">
@@ -1608,14 +1692,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Side-by-side bar charts</p></li>
 <li><p>Stacked and normalized bar charts.</p></li>
 </ul>
-<div class="sourceCode" id="cb1564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1564-1"><a href="exploratory-data-analysis-in-r.html#cb1564-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder the levels of number so that they preserve the natural ordering.</span></span>
-<span id="cb1564-2"><a href="exploratory-data-analysis-in-r.html#cb1564-2" aria-hidden="true" tabindex="-1"></a>email<span class="sc">$</span>number_reordered <span class="ot">&lt;-</span> <span class="fu">factor</span>(email<span class="sc">$</span>number, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;small&quot;</span>, <span class="st">&quot;big&quot;</span>))</span>
-<span id="cb1564-3"><a href="exploratory-data-analysis-in-r.html#cb1564-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1564-4"><a href="exploratory-data-analysis-in-r.html#cb1564-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct a faceted bar chart of the association between number_reordered and spam.</span></span>
-<span id="cb1564-5"><a href="exploratory-data-analysis-in-r.html#cb1564-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email, <span class="fu">aes</span>(<span class="at">x =</span> number_reordered)) <span class="sc">+</span></span>
-<span id="cb1564-6"><a href="exploratory-data-analysis-in-r.html#cb1564-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb1564-7"><a href="exploratory-data-analysis-in-r.html#cb1564-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> spam)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-649-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1836-1"><a href="exploratory-data-analysis-in-r.html#cb1836-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder the levels of number so that they preserve the natural ordering.</span></span>
+<span id="cb1836-2"><a href="exploratory-data-analysis-in-r.html#cb1836-2" aria-hidden="true" tabindex="-1"></a>email<span class="sc">$</span>number_reordered <span class="ot">&lt;-</span> <span class="fu">factor</span>(email<span class="sc">$</span>number, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;small&quot;</span>, <span class="st">&quot;big&quot;</span>))</span>
+<span id="cb1836-3"><a href="exploratory-data-analysis-in-r.html#cb1836-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1836-4"><a href="exploratory-data-analysis-in-r.html#cb1836-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct a faceted bar chart of the association between number_reordered and spam.</span></span>
+<span id="cb1836-5"><a href="exploratory-data-analysis-in-r.html#cb1836-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email, <span class="fu">aes</span>(<span class="at">x =</span> number_reordered)) <span class="sc">+</span></span>
+<span id="cb1836-6"><a href="exploratory-data-analysis-in-r.html#cb1836-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb1836-7"><a href="exploratory-data-analysis-in-r.html#cb1836-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> spam)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-644-1.png" width="672" /></p>
 
 </div>
 </div>

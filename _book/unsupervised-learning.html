@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 21 Unsupervised Learning | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -952,11 +952,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="k-means-clustering-1" class="section level4 hasAnchor" number="21.1.2.1">
 <h4><span class="header-section-number">21.1.2.1</span> k-means clustering<a href="unsupervised-learning.html#k-means-clustering-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2497-1"><a href="unsupervised-learning.html#cb2497-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2497-2"><a href="unsupervised-learning.html#cb2497-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2497-3"><a href="unsupervised-learning.html#cb2497-3" aria-hidden="true" tabindex="-1"></a><span class="co"># str(x): num [1:300, 1:2]</span></span>
-<span id="cb2497-4"><a href="unsupervised-learning.html#cb2497-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/x_k_means.txt&quot;</span>, <span class="at">col_select =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
-<span id="cb2497-5"><a href="unsupervised-learning.html#cb2497-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb2954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2954-1"><a href="unsupervised-learning.html#cb2954-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2954-2"><a href="unsupervised-learning.html#cb2954-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2954-3"><a href="unsupervised-learning.html#cb2954-3" aria-hidden="true" tabindex="-1"></a><span class="co"># str(x): num [1:300, 1:2]</span></span>
+<span id="cb2954-4"><a href="unsupervised-learning.html#cb2954-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/x_k_means.txt&quot;</span>, <span class="at">col_select =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb2954-5"><a href="unsupervised-learning.html#cb2954-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,] 3.37 2.00
 ## [2,] 1.44 2.76
@@ -965,13 +965,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [5,] 2.40 1.85
 ## [6,] 1.89 1.94</code></pre>
 <p>Plot to see possible centers.</p>
-<div class="sourceCode" id="cb2499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2499-1"><a href="unsupervised-learning.html#cb2499-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[,<span class="dv">1</span>], x[,<span class="dv">2</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1148-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2500-1"><a href="unsupervised-learning.html#cb2500-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the k-means model: km.out</span></span>
-<span id="cb2500-2"><a href="unsupervised-learning.html#cb2500-2" aria-hidden="true" tabindex="-1"></a>km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb2500-3"><a href="unsupervised-learning.html#cb2500-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2500-4"><a href="unsupervised-learning.html#cb2500-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the result</span></span>
-<span id="cb2500-5"><a href="unsupervised-learning.html#cb2500-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(km.out)</span></code></pre></div>
+<div class="sourceCode" id="cb2956"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2956-1"><a href="unsupervised-learning.html#cb2956-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[,<span class="dv">1</span>], x[,<span class="dv">2</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1143-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2957"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2957-1"><a href="unsupervised-learning.html#cb2957-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the k-means model: km.out</span></span>
+<span id="cb2957-2"><a href="unsupervised-learning.html#cb2957-2" aria-hidden="true" tabindex="-1"></a>km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb2957-3"><a href="unsupervised-learning.html#cb2957-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2957-4"><a href="unsupervised-learning.html#cb2957-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the result</span></span>
+<span id="cb2957-5"><a href="unsupervised-learning.html#cb2957-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(km.out)</span></code></pre></div>
 <pre><code>##              Length Class  Mode   
 ## cluster      300    -none- numeric
 ## centers        6    -none- numeric
@@ -983,20 +983,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## iter           1    -none- numeric
 ## ifault         1    -none- numeric</code></pre>
 <p>Access the cluster component directly. This is useful anytime you need the cluster membership for each observation of the data used to build the clustering model.</p>
-<div class="sourceCode" id="cb2502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2502-1"><a href="unsupervised-learning.html#cb2502-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the cluster membership component of the model</span></span>
-<span id="cb2502-2"><a href="unsupervised-learning.html#cb2502-2" aria-hidden="true" tabindex="-1"></a>km.out<span class="sc">$</span>cluster</span></code></pre></div>
-<pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##  [36] 1 3 3 3 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1
-##  [71] 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2
-## [106] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [141] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [176] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [211] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [246] 2 2 2 2 2 3 3 3 3 1 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 3 3 1
-## [281] 3 3 3 3 3 3 1 3 3 3 3 3 3 1 3 3 3 1 3 3</code></pre>
+<div class="sourceCode" id="cb2959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2959-1"><a href="unsupervised-learning.html#cb2959-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the cluster membership component of the model</span></span>
+<span id="cb2959-2"><a href="unsupervised-learning.html#cb2959-2" aria-hidden="true" tabindex="-1"></a>km.out<span class="sc">$</span>cluster</span></code></pre></div>
+<pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3
+##  [38] 3 3 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3
+##  [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+## [112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [149] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [186] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [223] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 1 3 3 3 3
+## [260] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 3 3 1 3 3 3 3 3 3 1 3 3 3 3 3 3 1 3 3
+## [297] 3 1 3 3</code></pre>
 <p>Human friendly output of basic modeling results.</p>
-<div class="sourceCode" id="cb2504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2504-1"><a href="unsupervised-learning.html#cb2504-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the km.out object</span></span>
-<span id="cb2504-2"><a href="unsupervised-learning.html#cb2504-2" aria-hidden="true" tabindex="-1"></a>km.out</span></code></pre></div>
+<div class="sourceCode" id="cb2961"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2961-1"><a href="unsupervised-learning.html#cb2961-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the km.out object</span></span>
+<span id="cb2961-2"><a href="unsupervised-learning.html#cb2961-2" aria-hidden="true" tabindex="-1"></a>km.out</span></code></pre></div>
 <pre><code>## K-means clustering with 3 clusters of sizes 98, 150, 52
 ## 
 ## Cluster means:
@@ -1006,15 +1006,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3  0.664 -0.0913
 ## 
 ## Clustering vector:
-##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##  [36] 1 3 3 3 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1
-##  [71] 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2
-## [106] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [141] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [176] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [211] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-## [246] 2 2 2 2 2 3 3 3 3 1 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 3 3 1
-## [281] 3 3 3 3 3 3 1 3 3 3 3 3 3 1 3 3 3 1 3 3
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3
+##  [38] 3 3 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3
+##  [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+## [112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [149] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [186] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [223] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 1 3 3 3 3
+## [260] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 3 3 1 3 3 3 3 3 3 1 3 3 3 3 3 3 1 3 3
+## [297] 3 1 3 3
 ## 
 ## Within cluster sum of squares by cluster:
 ## [1] 148.6 295.2  95.5
@@ -1022,19 +1022,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Available components:
 ## 
-## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
-## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
-## [9] &quot;ifault&quot;</code></pre>
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;     &quot;tot.withinss&quot;
+## [6] &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;         &quot;ifault&quot;</code></pre>
 </div>
 <div id="visualizing-and-interpreting" class="section level4 hasAnchor" number="21.1.2.2">
 <h4><span class="header-section-number">21.1.2.2</span> Visualizing and interpreting<a href="unsupervised-learning.html#visualizing-and-interpreting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>One of the more intuitive ways to interpret the results of k-means models is by plotting the data as a scatter plot and using color to label the samples’ cluster membership (<code>col = km.out$cluster</code>).</p>
-<div class="sourceCode" id="cb2506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2506-1"><a href="unsupervised-learning.html#cb2506-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of x</span></span>
-<span id="cb2506-2"><a href="unsupervised-learning.html#cb2506-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">col =</span> km.out<span class="sc">$</span>cluster,</span>
-<span id="cb2506-3"><a href="unsupervised-learning.html#cb2506-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;k-means with 3 clusters&quot;</span>,</span>
-<span id="cb2506-4"><a href="unsupervised-learning.html#cb2506-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb2506-5"><a href="unsupervised-learning.html#cb2506-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1152-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2963"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2963-1"><a href="unsupervised-learning.html#cb2963-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of x</span></span>
+<span id="cb2963-2"><a href="unsupervised-learning.html#cb2963-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">col =</span> km.out<span class="sc">$</span>cluster,</span>
+<span id="cb2963-3"><a href="unsupervised-learning.html#cb2963-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;k-means with 3 clusters&quot;</span>,</span>
+<span id="cb2963-4"><a href="unsupervised-learning.html#cb2963-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb2963-5"><a href="unsupervised-learning.html#cb2963-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1147-1.png" width="672" /></p>
 </div>
 </div>
 <div id="model-selection" class="section level3 hasAnchor" number="21.1.3">
@@ -1056,48 +1055,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This random initialization can result in assigning observations to different cluster labels. Also, the random initialization can result in finding different <em>local minima</em> for the k-means algorithm.</p>
 <p>At the top of each plot, the measure of model quality—total within cluster sum of squares error—will be plotted. Look for the model(s) with the lowest error to find models with the better model results.</p>
 <p>Your task is to generate six <code>kmeans()</code> models on the data, plotting the results of each, in order to see the impact of random initializations on model results.</p>
-<div class="sourceCode" id="cb2507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2507-1"><a href="unsupervised-learning.html#cb2507-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up 2 x 3 plotting grid</span></span>
-<span id="cb2507-2"><a href="unsupervised-learning.html#cb2507-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb2507-3"><a href="unsupervised-learning.html#cb2507-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2507-4"><a href="unsupervised-learning.html#cb2507-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed</span></span>
-<span id="cb2507-5"><a href="unsupervised-learning.html#cb2507-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb2507-6"><a href="unsupervised-learning.html#cb2507-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2507-7"><a href="unsupervised-learning.html#cb2507-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
-<span id="cb2507-8"><a href="unsupervised-learning.html#cb2507-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Run kmeans() on x with three clusters and one start</span></span>
-<span id="cb2507-9"><a href="unsupervised-learning.html#cb2507-9" aria-hidden="true" tabindex="-1"></a>  km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">1</span>)</span>
-<span id="cb2507-10"><a href="unsupervised-learning.html#cb2507-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2507-11"><a href="unsupervised-learning.html#cb2507-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot clusters</span></span>
-<span id="cb2507-12"><a href="unsupervised-learning.html#cb2507-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">col =</span> km.out<span class="sc">$</span>cluster, </span>
-<span id="cb2507-13"><a href="unsupervised-learning.html#cb2507-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> km.out<span class="sc">$</span>tot.withinss, <span class="co"># total within cluster sum of squares error</span></span>
-<span id="cb2507-14"><a href="unsupervised-learning.html#cb2507-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb2507-15"><a href="unsupervised-learning.html#cb2507-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1153-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2964-1"><a href="unsupervised-learning.html#cb2964-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up 2 x 3 plotting grid</span></span>
+<span id="cb2964-2"><a href="unsupervised-learning.html#cb2964-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb2964-3"><a href="unsupervised-learning.html#cb2964-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2964-4"><a href="unsupervised-learning.html#cb2964-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed</span></span>
+<span id="cb2964-5"><a href="unsupervised-learning.html#cb2964-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb2964-6"><a href="unsupervised-learning.html#cb2964-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2964-7"><a href="unsupervised-learning.html#cb2964-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb2964-8"><a href="unsupervised-learning.html#cb2964-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Run kmeans() on x with three clusters and one start</span></span>
+<span id="cb2964-9"><a href="unsupervised-learning.html#cb2964-9" aria-hidden="true" tabindex="-1"></a>  km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">1</span>)</span>
+<span id="cb2964-10"><a href="unsupervised-learning.html#cb2964-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2964-11"><a href="unsupervised-learning.html#cb2964-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot clusters</span></span>
+<span id="cb2964-12"><a href="unsupervised-learning.html#cb2964-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">col =</span> km.out<span class="sc">$</span>cluster, </span>
+<span id="cb2964-13"><a href="unsupervised-learning.html#cb2964-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> km.out<span class="sc">$</span>tot.withinss, <span class="co"># total within cluster sum of squares error</span></span>
+<span id="cb2964-14"><a href="unsupervised-learning.html#cb2964-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb2964-15"><a href="unsupervised-learning.html#cb2964-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1148-1.png" width="672" /></p>
 <p>Because of the random initialization of the k-means algorithm, there’s quite some variation in cluster assignments among the six models.</p>
 </div>
 <div id="selecting-number-of-clusters" class="section level4 hasAnchor" number="21.1.3.2">
 <h4><span class="header-section-number">21.1.3.2</span> Selecting number of clusters<a href="unsupervised-learning.html#selecting-number-of-clusters" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>If you do not know the number of clusters and need to determine it, you will need to run the algorithm multiple times, each time with a different number of clusters. From this, you can observe how a measure of model quality changes with the number of clusters.</p>
 <p>Plots displaying this information help to determine the number of clusters and are often referred to as <em>scree plots</em>. The <em>elbow</em> indicates the number of clusters inherent in the data.</p>
-<div class="sourceCode" id="cb2508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2508-1"><a href="unsupervised-learning.html#cb2508-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize total within sum of squares error: wss</span></span>
-<span id="cb2508-2"><a href="unsupervised-learning.html#cb2508-2" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb2508-3"><a href="unsupervised-learning.html#cb2508-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2508-4"><a href="unsupervised-learning.html#cb2508-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For 1 to 15 cluster centers</span></span>
-<span id="cb2508-5"><a href="unsupervised-learning.html#cb2508-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) {</span>
-<span id="cb2508-6"><a href="unsupervised-learning.html#cb2508-6" aria-hidden="true" tabindex="-1"></a>  km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> i, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb2508-7"><a href="unsupervised-learning.html#cb2508-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save total within sum of squares to wss variable</span></span>
-<span id="cb2508-8"><a href="unsupervised-learning.html#cb2508-8" aria-hidden="true" tabindex="-1"></a>  wss[i] <span class="ot">&lt;-</span> km.out<span class="sc">$</span>tot.withinss</span>
-<span id="cb2508-9"><a href="unsupervised-learning.html#cb2508-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2508-10"><a href="unsupervised-learning.html#cb2508-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2508-11"><a href="unsupervised-learning.html#cb2508-11" aria-hidden="true" tabindex="-1"></a>wss</span></code></pre></div>
-<pre><code>##  [1] 4211  777  539  432  369  309  263  230  202  180  161  150  139  129
-## [15]  121</code></pre>
-<div class="sourceCode" id="cb2510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2510-1"><a href="unsupervised-learning.html#cb2510-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot total within sum of squares vs. number of clusters</span></span>
-<span id="cb2510-2"><a href="unsupervised-learning.html#cb2510-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, wss, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
-<span id="cb2510-3"><a href="unsupervised-learning.html#cb2510-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Clusters&quot;</span>, </span>
-<span id="cb2510-4"><a href="unsupervised-learning.html#cb2510-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Within groups sum of squares&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1155-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2511-1"><a href="unsupervised-learning.html#cb2511-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set k equal to the number of clusters corresponding to the elbow location</span></span>
-<span id="cb2511-2"><a href="unsupervised-learning.html#cb2511-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb2965"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2965-1"><a href="unsupervised-learning.html#cb2965-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize total within sum of squares error: wss</span></span>
+<span id="cb2965-2"><a href="unsupervised-learning.html#cb2965-2" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2965-3"><a href="unsupervised-learning.html#cb2965-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2965-4"><a href="unsupervised-learning.html#cb2965-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For 1 to 15 cluster centers</span></span>
+<span id="cb2965-5"><a href="unsupervised-learning.html#cb2965-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) {</span>
+<span id="cb2965-6"><a href="unsupervised-learning.html#cb2965-6" aria-hidden="true" tabindex="-1"></a>  km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> i, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb2965-7"><a href="unsupervised-learning.html#cb2965-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save total within sum of squares to wss variable</span></span>
+<span id="cb2965-8"><a href="unsupervised-learning.html#cb2965-8" aria-hidden="true" tabindex="-1"></a>  wss[i] <span class="ot">&lt;-</span> km.out<span class="sc">$</span>tot.withinss</span>
+<span id="cb2965-9"><a href="unsupervised-learning.html#cb2965-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2965-10"><a href="unsupervised-learning.html#cb2965-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2965-11"><a href="unsupervised-learning.html#cb2965-11" aria-hidden="true" tabindex="-1"></a>wss</span></code></pre></div>
+<pre><code>##  [1] 4211  777  539  432  369  309  263  230  202  180  161  150  139  129  121</code></pre>
+<div class="sourceCode" id="cb2967"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2967-1"><a href="unsupervised-learning.html#cb2967-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot total within sum of squares vs. number of clusters</span></span>
+<span id="cb2967-2"><a href="unsupervised-learning.html#cb2967-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, wss, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb2967-3"><a href="unsupervised-learning.html#cb2967-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb2967-4"><a href="unsupervised-learning.html#cb2967-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Within groups sum of squares&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1150-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2968-1"><a href="unsupervised-learning.html#cb2968-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set k equal to the number of clusters corresponding to the elbow location</span></span>
+<span id="cb2968-2"><a href="unsupervised-learning.html#cb2968-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
 </div>
 </div>
 <div id="pokemon-data" class="section level3 hasAnchor" number="21.1.4">
@@ -1116,12 +1114,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="real-world-data" class="section level4 hasAnchor" number="21.1.4.1">
 <h4><span class="header-section-number">21.1.4.1</span> Real world data<a href="unsupervised-learning.html#real-world-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The first challenge with the Pokemon data is that there is no pre-determined number of clusters. You will determine the appropriate number of clusters, keeping in mind that in real data the elbow in the scree plot might be less of a sharp elbow. Use your judgment on making the determination of the number of clusters.</p>
-<div class="sourceCode" id="cb2512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2512-1"><a href="unsupervised-learning.html#cb2512-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert df to matrix, dim: 800*6</span></span>
-<span id="cb2512-2"><a href="unsupervised-learning.html#cb2512-2" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Pokemon.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2512-3"><a href="unsupervised-learning.html#cb2512-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">11</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2512-4"><a href="unsupervised-learning.html#cb2512-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>()</span>
-<span id="cb2512-5"><a href="unsupervised-learning.html#cb2512-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2512-6"><a href="unsupervised-learning.html#cb2512-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb2969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2969-1"><a href="unsupervised-learning.html#cb2969-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert df to matrix, dim: 800*6</span></span>
+<span id="cb2969-2"><a href="unsupervised-learning.html#cb2969-2" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Pokemon.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2969-3"><a href="unsupervised-learning.html#cb2969-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">11</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2969-4"><a href="unsupervised-learning.html#cb2969-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>()</span>
+<span id="cb2969-5"><a href="unsupervised-learning.html#cb2969-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2969-6"><a href="unsupervised-learning.html#cb2969-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pokemon)</span></code></pre></div>
 <pre><code>##      HitPoints Attack Defense SpecialAttack SpecialDefense Speed
 ## [1,]        45     49      49            65             65    45
 ## [2,]        60     62      63            80             80    60
@@ -1130,30 +1128,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [5,]        39     52      43            60             50    65
 ## [6,]        58     64      58            80             65    80</code></pre>
 <p>Find appropriate number of clusters.</p>
-<div class="sourceCode" id="cb2514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2514-1"><a href="unsupervised-learning.html#cb2514-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize total within sum of squares error: wss</span></span>
-<span id="cb2514-2"><a href="unsupervised-learning.html#cb2514-2" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb2514-3"><a href="unsupervised-learning.html#cb2514-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2514-4"><a href="unsupervised-learning.html#cb2514-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look over 1 to 15 possible clusters</span></span>
-<span id="cb2514-5"><a href="unsupervised-learning.html#cb2514-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) {</span>
-<span id="cb2514-6"><a href="unsupervised-learning.html#cb2514-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fit the model: km.out</span></span>
-<span id="cb2514-7"><a href="unsupervised-learning.html#cb2514-7" aria-hidden="true" tabindex="-1"></a>  km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(pokemon, <span class="at">centers =</span> i, <span class="at">nstart =</span> <span class="dv">20</span>, <span class="at">iter.max =</span> <span class="dv">50</span>)</span>
-<span id="cb2514-8"><a href="unsupervised-learning.html#cb2514-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save the within cluster sum of squares</span></span>
-<span id="cb2514-9"><a href="unsupervised-learning.html#cb2514-9" aria-hidden="true" tabindex="-1"></a>  wss[i] <span class="ot">&lt;-</span> km.out<span class="sc">$</span>tot.withinss</span>
-<span id="cb2514-10"><a href="unsupervised-learning.html#cb2514-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2514-11"><a href="unsupervised-learning.html#cb2514-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2514-12"><a href="unsupervised-learning.html#cb2514-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Produce a scree plot</span></span>
-<span id="cb2514-13"><a href="unsupervised-learning.html#cb2514-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, wss, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, </span>
-<span id="cb2514-14"><a href="unsupervised-learning.html#cb2514-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Clusters&quot;</span>, </span>
-<span id="cb2514-15"><a href="unsupervised-learning.html#cb2514-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Within groups sum of squares&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1157-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2515-1"><a href="unsupervised-learning.html#cb2515-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select number of clusters</span></span>
-<span id="cb2515-2"><a href="unsupervised-learning.html#cb2515-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb2515-3"><a href="unsupervised-learning.html#cb2515-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2515-4"><a href="unsupervised-learning.html#cb2515-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build model with k clusters: km.out</span></span>
-<span id="cb2515-5"><a href="unsupervised-learning.html#cb2515-5" aria-hidden="true" tabindex="-1"></a>km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(pokemon, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">20</span>, <span class="at">iter.max =</span> <span class="dv">50</span>)</span>
-<span id="cb2515-6"><a href="unsupervised-learning.html#cb2515-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2515-7"><a href="unsupervised-learning.html#cb2515-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View the resulting model</span></span>
-<span id="cb2515-8"><a href="unsupervised-learning.html#cb2515-8" aria-hidden="true" tabindex="-1"></a>km.out</span></code></pre></div>
+<div class="sourceCode" id="cb2971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2971-1"><a href="unsupervised-learning.html#cb2971-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize total within sum of squares error: wss</span></span>
+<span id="cb2971-2"><a href="unsupervised-learning.html#cb2971-2" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2971-3"><a href="unsupervised-learning.html#cb2971-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2971-4"><a href="unsupervised-learning.html#cb2971-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look over 1 to 15 possible clusters</span></span>
+<span id="cb2971-5"><a href="unsupervised-learning.html#cb2971-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) {</span>
+<span id="cb2971-6"><a href="unsupervised-learning.html#cb2971-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fit the model: km.out</span></span>
+<span id="cb2971-7"><a href="unsupervised-learning.html#cb2971-7" aria-hidden="true" tabindex="-1"></a>  km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(pokemon, <span class="at">centers =</span> i, <span class="at">nstart =</span> <span class="dv">20</span>, <span class="at">iter.max =</span> <span class="dv">50</span>)</span>
+<span id="cb2971-8"><a href="unsupervised-learning.html#cb2971-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save the within cluster sum of squares</span></span>
+<span id="cb2971-9"><a href="unsupervised-learning.html#cb2971-9" aria-hidden="true" tabindex="-1"></a>  wss[i] <span class="ot">&lt;-</span> km.out<span class="sc">$</span>tot.withinss</span>
+<span id="cb2971-10"><a href="unsupervised-learning.html#cb2971-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2971-11"><a href="unsupervised-learning.html#cb2971-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2971-12"><a href="unsupervised-learning.html#cb2971-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Produce a scree plot</span></span>
+<span id="cb2971-13"><a href="unsupervised-learning.html#cb2971-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, wss, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, </span>
+<span id="cb2971-14"><a href="unsupervised-learning.html#cb2971-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb2971-15"><a href="unsupervised-learning.html#cb2971-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Within groups sum of squares&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1152-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2972-1"><a href="unsupervised-learning.html#cb2972-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select number of clusters</span></span>
+<span id="cb2972-2"><a href="unsupervised-learning.html#cb2972-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb2972-3"><a href="unsupervised-learning.html#cb2972-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2972-4"><a href="unsupervised-learning.html#cb2972-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build model with k clusters: km.out</span></span>
+<span id="cb2972-5"><a href="unsupervised-learning.html#cb2972-5" aria-hidden="true" tabindex="-1"></a>km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(pokemon, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">20</span>, <span class="at">iter.max =</span> <span class="dv">50</span>)</span>
+<span id="cb2972-6"><a href="unsupervised-learning.html#cb2972-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2972-7"><a href="unsupervised-learning.html#cb2972-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View the resulting model</span></span>
+<span id="cb2972-8"><a href="unsupervised-learning.html#cb2972-8" aria-hidden="true" tabindex="-1"></a>km.out</span></code></pre></div>
 <pre><code>## K-means clustering with 3 clusters of sizes 270, 175, 355
 ## 
 ## Cluster means:
@@ -1163,29 +1161,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3      54.7   56.9    53.6          52.0           53.0  53.6
 ## 
 ## Clustering vector:
-##   [1] 3 3 1 1 3 3 1 1 1 3 3 2 1 3 3 3 3 3 3 1 3 3 1 1 3 3 3 1 3 1 3 1 3 2 3
-##  [36] 3 2 3 3 1 3 1 3 1 3 3 3 1 3 3 1 3 2 3 1 3 3 3 1 3 1 3 1 3 1 3 3 2 3 1
-##  [71] 1 1 3 2 2 3 3 1 3 1 3 2 2 3 1 3 2 2 3 1 3 3 1 3 2 3 2 3 2 3 1 1 1 2 3
-## [106] 2 3 2 3 1 3 1 3 2 2 2 3 3 2 3 2 3 2 2 2 3 1 3 2 3 1 1 1 1 1 1 2 2 2 3
-## [141] 2 2 2 3 3 1 1 1 3 3 2 3 2 1 1 2 1 1 1 3 3 1 1 1 1 1 3 3 2 3 3 1 3 3 2
-## [176] 3 3 3 1 3 3 3 3 1 3 1 3 3 3 3 3 3 1 3 3 1 1 2 3 3 2 1 3 3 1 3 3 3 3 3
-## [211] 2 1 2 3 2 1 3 3 1 3 2 3 2 2 2 3 2 3 2 2 2 2 2 3 3 2 3 2 3 2 3 3 1 3 1
-## [246] 2 3 1 1 1 3 2 1 1 3 3 2 3 3 3 2 1 1 1 2 3 3 2 2 1 1 1 3 3 1 1 3 3 1 1
-## [281] 3 3 2 2 3 3 3 3 3 3 3 3 3 3 3 1 3 3 1 3 3 3 2 3 3 1 1 3 3 3 2 3 3 1 3
-## [316] 1 3 3 3 1 3 2 3 2 3 3 3 2 3 2 3 2 2 2 3 3 1 3 1 1 3 3 3 3 3 3 2 3 1 1
-## [351] 3 1 3 1 2 2 3 1 3 3 3 1 3 1 3 2 1 1 1 1 2 3 2 3 2 3 2 3 2 3 2 3 1 3 2
-## [386] 3 1 1 3 2 2 3 1 1 3 3 1 1 3 3 1 3 2 2 2 3 3 2 1 1 3 2 2 1 2 2 2 1 1 1
-## [421] 1 1 1 2 1 1 1 1 1 1 2 1 3 2 2 3 3 1 3 3 1 3 3 1 3 3 3 3 3 3 1 3 1 3 2
-## [456] 3 2 3 2 2 2 1 3 2 3 3 1 3 1 3 2 1 3 1 3 1 1 1 1 3 1 3 3 1 3 2 3 3 3 3
-## [491] 2 3 3 1 1 3 3 1 1 3 2 3 2 3 1 2 3 1 3 3 1 2 1 1 2 2 2 1 1 1 1 2 1 2 1
-## [526] 1 1 1 2 2 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 3 3 1 3 3 1
-## [561] 3 3 1 3 3 3 3 2 3 1 3 1 3 1 3 1 3 2 3 3 1 3 1 3 2 2 3 1 3 1 2 2 3 2 2
-## [596] 3 3 1 2 2 3 3 1 3 3 1 3 1 3 1 1 3 3 1 3 2 1 1 3 2 3 2 1 3 2 3 2 3 1 3
-## [631] 2 3 1 3 1 3 3 2 3 3 1 3 1 3 3 1 3 1 1 3 2 3 2 3 1 2 3 1 3 2 3 2 2 3 3
-## [666] 1 3 1 3 3 1 3 2 2 3 2 1 3 1 2 3 1 2 3 2 3 2 2 3 2 3 2 1 2 3 3 1 3 1 1
-## [701] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 2 2 3 3 1 3 3 1 3 3 3 3 1 3 3 3
-## [736] 3 1 3 3 1 3 1 3 2 1 3 1 1 3 2 1 2 3 2 3 1 3 2 3 2 3 2 3 1 3 1 3 2 3 1
-## [771] 1 1 1 2 3 1 1 2 3 2 3 3 3 3 2 2 2 2 3 2 3 1 1 1 2 2 1 1 1 1
+##   [1] 3 3 1 1 3 3 1 1 1 3 3 2 1 3 3 3 3 3 3 1 3 3 1 1 3 3 3 1 3 1 3 1 3 2 3 3 2
+##  [38] 3 3 1 3 1 3 1 3 3 3 1 3 3 1 3 2 3 1 3 3 3 1 3 1 3 1 3 1 3 3 2 3 1 1 1 3 2
+##  [75] 2 3 3 1 3 1 3 2 2 3 1 3 2 2 3 1 3 3 1 3 2 3 2 3 2 3 1 1 1 2 3 2 3 2 3 1 3
+## [112] 1 3 2 2 2 3 3 2 3 2 3 2 2 2 3 1 3 2 3 1 1 1 1 1 1 2 2 2 3 2 2 2 3 3 1 1 1
+## [149] 3 3 2 3 2 1 1 2 1 1 1 3 3 1 1 1 1 1 3 3 2 3 3 1 3 3 2 3 3 3 1 3 3 3 3 1 3
+## [186] 1 3 3 3 3 3 3 1 3 3 1 1 2 3 3 2 1 3 3 1 3 3 3 3 3 2 1 2 3 2 1 3 3 1 3 2 3
+## [223] 2 2 2 3 2 3 2 2 2 2 2 3 3 2 3 2 3 2 3 3 1 3 1 2 3 1 1 1 3 2 1 1 3 3 2 3 3
+## [260] 3 2 1 1 1 2 3 3 2 2 1 1 1 3 3 1 1 3 3 1 1 3 3 2 2 3 3 3 3 3 3 3 3 3 3 3 1
+## [297] 3 3 1 3 3 3 2 3 3 1 1 3 3 3 2 3 3 1 3 1 3 3 3 1 3 2 3 2 3 3 3 2 3 2 3 2 2
+## [334] 2 3 3 1 3 1 1 3 3 3 3 3 3 2 3 1 1 3 1 3 1 2 2 3 1 3 3 3 1 3 1 3 2 1 1 1 1
+## [371] 2 3 2 3 2 3 2 3 2 3 2 3 1 3 2 3 1 1 3 2 2 3 1 1 3 3 1 1 3 3 1 3 2 2 2 3 3
+## [408] 2 1 1 3 2 2 1 2 2 2 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 3 2 2 3 3 1 3 3 1 3 3 1
+## [445] 3 3 3 3 3 3 1 3 1 3 2 3 2 3 2 2 2 1 3 2 3 3 1 3 1 3 2 1 3 1 3 1 1 1 1 3 1
+## [482] 3 3 1 3 2 3 3 3 3 2 3 3 1 1 3 3 1 1 3 2 3 2 3 1 2 3 1 3 3 1 2 1 1 2 2 2 1
+## [519] 1 1 1 2 1 2 1 1 1 1 2 2 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 3
+## [556] 3 1 3 3 1 3 3 1 3 3 3 3 2 3 1 3 1 3 1 3 1 3 2 3 3 1 3 1 3 2 2 3 1 3 1 2 2
+## [593] 3 2 2 3 3 1 2 2 3 3 1 3 3 1 3 1 3 1 1 3 3 1 3 2 1 1 3 2 3 2 1 3 2 3 2 3 1
+## [630] 3 2 3 1 3 1 3 3 2 3 3 1 3 1 3 3 1 3 1 1 3 2 3 2 3 1 2 3 1 3 2 3 2 2 3 3 1
+## [667] 3 1 3 3 1 3 2 2 3 2 1 3 1 2 3 1 2 3 2 3 2 2 3 2 3 2 1 2 3 3 1 3 1 1 1 1 1
+## [704] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 2 2 3 3 1 3 3 1 3 3 3 3 1 3 3 3 3 1 3 3 1
+## [741] 3 1 3 2 1 3 1 1 3 2 1 2 3 2 3 1 3 2 3 2 3 2 3 1 3 1 3 2 3 1 1 1 1 2 3 1 1
+## [778] 2 3 2 3 3 3 3 2 2 2 2 3 2 3 1 1 1 2 2 1 1 1 1
 ## 
 ## Within cluster sum of squares by cluster:
 ## [1] 1018348  709021  812080
@@ -1193,15 +1190,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Available components:
 ## 
-## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
-## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
-## [9] &quot;ifault&quot;</code></pre>
-<div class="sourceCode" id="cb2517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2517-1"><a href="unsupervised-learning.html#cb2517-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of Defense vs. Speed by cluster membership</span></span>
-<span id="cb2517-2"><a href="unsupervised-learning.html#cb2517-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pokemon[, <span class="fu">c</span>(<span class="st">&quot;Defense&quot;</span>, <span class="st">&quot;Speed&quot;</span>)],</span>
-<span id="cb2517-3"><a href="unsupervised-learning.html#cb2517-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> km.out<span class="sc">$</span>cluster,</span>
-<span id="cb2517-4"><a href="unsupervised-learning.html#cb2517-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;k-means clustering of Pokemon with&quot;</span>, k, <span class="st">&quot;clusters&quot;</span>),</span>
-<span id="cb2517-5"><a href="unsupervised-learning.html#cb2517-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Defense&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Speed&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1159-1.png" width="672" /></p>
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;     &quot;tot.withinss&quot;
+## [6] &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;         &quot;ifault&quot;</code></pre>
+<div class="sourceCode" id="cb2974"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2974-1"><a href="unsupervised-learning.html#cb2974-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of Defense vs. Speed by cluster membership</span></span>
+<span id="cb2974-2"><a href="unsupervised-learning.html#cb2974-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pokemon[, <span class="fu">c</span>(<span class="st">&quot;Defense&quot;</span>, <span class="st">&quot;Speed&quot;</span>)],</span>
+<span id="cb2974-3"><a href="unsupervised-learning.html#cb2974-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> km.out<span class="sc">$</span>cluster,</span>
+<span id="cb2974-4"><a href="unsupervised-learning.html#cb2974-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;k-means clustering of Pokemon with&quot;</span>, k, <span class="st">&quot;clusters&quot;</span>),</span>
+<span id="cb2974-5"><a href="unsupervised-learning.html#cb2974-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Defense&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Speed&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1154-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -1219,19 +1215,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <p><strong>Hierarchical clustering in R</strong></p>
-<div class="sourceCode" id="cb2518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2518-1"><a href="unsupervised-learning.html#cb2518-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates similarity as Euclidean distance</span></span>
-<span id="cb2518-2"><a href="unsupervised-learning.html#cb2518-2" aria-hidden="true" tabindex="-1"></a><span class="co"># between observations</span></span>
-<span id="cb2518-3"><a href="unsupervised-learning.html#cb2518-3" aria-hidden="true" tabindex="-1"></a>dist_matrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(x)</span>
-<span id="cb2518-4"><a href="unsupervised-learning.html#cb2518-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2518-5"><a href="unsupervised-learning.html#cb2518-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns hierarchical clustering model</span></span>
-<span id="cb2518-6"><a href="unsupervised-learning.html#cb2518-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hclust</span>(<span class="at">d =</span> dist_matrix)</span></code></pre></div>
+<div class="sourceCode" id="cb2975"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2975-1"><a href="unsupervised-learning.html#cb2975-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates similarity as Euclidean distance</span></span>
+<span id="cb2975-2"><a href="unsupervised-learning.html#cb2975-2" aria-hidden="true" tabindex="-1"></a><span class="co"># between observations</span></span>
+<span id="cb2975-3"><a href="unsupervised-learning.html#cb2975-3" aria-hidden="true" tabindex="-1"></a>dist_matrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(x)</span>
+<span id="cb2975-4"><a href="unsupervised-learning.html#cb2975-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2975-5"><a href="unsupervised-learning.html#cb2975-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns hierarchical clustering model</span></span>
+<span id="cb2975-6"><a href="unsupervised-learning.html#cb2975-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hclust</span>(<span class="at">d =</span> dist_matrix)</span></code></pre></div>
 <div id="hierarchical-clustering-results" class="section level4 hasAnchor" number="21.2.1.1">
 <h4><span class="header-section-number">21.2.1.1</span> Hierarchical clustering results<a href="unsupervised-learning.html#hierarchical-clustering-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In this exercise, you will create your first hierarchical clustering model using the <code>hclust()</code> function. Your task is to create a hierarchical clustering model of <code>x</code>.</p>
 <p>Remember the first step to hierarchical clustering is determining the similarity between observations, which you will do with the <code>dist()</code> function.</p>
-<div class="sourceCode" id="cb2519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2519-1"><a href="unsupervised-learning.html#cb2519-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str: num [1:50, 1:2]</span></span>
-<span id="cb2519-2"><a href="unsupervised-learning.html#cb2519-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, ]</span>
-<span id="cb2519-3"><a href="unsupervised-learning.html#cb2519-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb2976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2976-1"><a href="unsupervised-learning.html#cb2976-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str: num [1:50, 1:2]</span></span>
+<span id="cb2976-2"><a href="unsupervised-learning.html#cb2976-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, ]</span>
+<span id="cb2976-3"><a href="unsupervised-learning.html#cb2976-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,] 3.37 2.00
 ## [2,] 1.44 2.76
@@ -1239,11 +1235,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [4,] 2.63 2.74
 ## [5,] 2.40 1.85
 ## [6,] 1.89 1.94</code></pre>
-<div class="sourceCode" id="cb2521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2521-1"><a href="unsupervised-learning.html#cb2521-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hierarchical clustering model: hclust.out</span></span>
-<span id="cb2521-2"><a href="unsupervised-learning.html#cb2521-2" aria-hidden="true" tabindex="-1"></a>hclust.out <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="at">d =</span> <span class="fu">dist</span>(x))</span>
-<span id="cb2521-3"><a href="unsupervised-learning.html#cb2521-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2521-4"><a href="unsupervised-learning.html#cb2521-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the result</span></span>
-<span id="cb2521-5"><a href="unsupervised-learning.html#cb2521-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hclust.out)</span></code></pre></div>
+<div class="sourceCode" id="cb2978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2978-1"><a href="unsupervised-learning.html#cb2978-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hierarchical clustering model: hclust.out</span></span>
+<span id="cb2978-2"><a href="unsupervised-learning.html#cb2978-2" aria-hidden="true" tabindex="-1"></a>hclust.out <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="at">d =</span> <span class="fu">dist</span>(x))</span>
+<span id="cb2978-3"><a href="unsupervised-learning.html#cb2978-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2978-4"><a href="unsupervised-learning.html#cb2978-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the result</span></span>
+<span id="cb2978-5"><a href="unsupervised-learning.html#cb2978-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hclust.out)</span></code></pre></div>
 <pre><code>##             Length Class  Mode     
 ## merge       98     -none- numeric  
 ## height      49     -none- numeric  
@@ -1261,19 +1257,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Tree shaped structure used to interpret hierarchical clustering models.</p></li>
 <li><p>The distance between the clusters is represented as the height of the horizontal line on the dendrogram.</p></li>
 <li><p>Dendrogram plotting in R:</p>
-<div class="sourceCode" id="cb2523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2523-1"><a href="unsupervised-learning.html#cb2523-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draws a dendrogram</span></span>
-<span id="cb2523-2"><a href="unsupervised-learning.html#cb2523-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.out)</span>
-<span id="cb2523-3"><a href="unsupervised-learning.html#cb2523-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2523-4"><a href="unsupervised-learning.html#cb2523-4" aria-hidden="true" tabindex="-1"></a><span class="co"># determine the number of clusters</span></span>
-<span id="cb2523-5"><a href="unsupervised-learning.html#cb2523-5" aria-hidden="true" tabindex="-1"></a><span class="co"># drawing a cut line at a particular &#39;height&#39; or &#39;distance&#39;</span></span>
-<span id="cb2523-6"><a href="unsupervised-learning.html#cb2523-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">6</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb2523-7"><a href="unsupervised-learning.html#cb2523-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2523-8"><a href="unsupervised-learning.html#cb2523-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tree &quot;cutting&quot;</span></span>
-<span id="cb2523-9"><a href="unsupervised-learning.html#cb2523-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by height h</span></span>
-<span id="cb2523-10"><a href="unsupervised-learning.html#cb2523-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">h =</span> <span class="dv">6</span>)</span>
-<span id="cb2523-11"><a href="unsupervised-learning.html#cb2523-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2523-12"><a href="unsupervised-learning.html#cb2523-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by number of clusters k</span></span>
-<span id="cb2523-13"><a href="unsupervised-learning.html#cb2523-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">k =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2980-1"><a href="unsupervised-learning.html#cb2980-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draws a dendrogram</span></span>
+<span id="cb2980-2"><a href="unsupervised-learning.html#cb2980-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.out)</span>
+<span id="cb2980-3"><a href="unsupervised-learning.html#cb2980-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2980-4"><a href="unsupervised-learning.html#cb2980-4" aria-hidden="true" tabindex="-1"></a><span class="co"># determine the number of clusters</span></span>
+<span id="cb2980-5"><a href="unsupervised-learning.html#cb2980-5" aria-hidden="true" tabindex="-1"></a><span class="co"># drawing a cut line at a particular &#39;height&#39; or &#39;distance&#39;</span></span>
+<span id="cb2980-6"><a href="unsupervised-learning.html#cb2980-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">6</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb2980-7"><a href="unsupervised-learning.html#cb2980-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2980-8"><a href="unsupervised-learning.html#cb2980-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tree &quot;cutting&quot;</span></span>
+<span id="cb2980-9"><a href="unsupervised-learning.html#cb2980-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by height h</span></span>
+<span id="cb2980-10"><a href="unsupervised-learning.html#cb2980-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">h =</span> <span class="dv">6</span>)</span>
+<span id="cb2980-11"><a href="unsupervised-learning.html#cb2980-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2980-12"><a href="unsupervised-learning.html#cb2980-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by number of clusters k</span></span>
+<span id="cb2980-13"><a href="unsupervised-learning.html#cb2980-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">k =</span> <span class="dv">2</span>)</span></code></pre></div>
 <ul>
 <li>Specifying height of the line, <code>h</code>, is the equivalent of specifying that you want clusters that are no further apart than that height.</li>
 </ul></li>
@@ -1281,20 +1277,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="cutting-the-tree" class="section level4 hasAnchor" number="21.2.2.1">
 <h4><span class="header-section-number">21.2.2.1</span> Cutting the tree<a href="unsupervised-learning.html#cutting-the-tree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>cutree()</code> is the R function that cuts a hierarchical model. The <code>h</code> and <code>k</code> arguments to <code>cutree()</code> allow you to cut the tree based on a certain height <code>h</code> or a certain number of clusters <code>k</code>.</p>
-<div class="sourceCode" id="cb2524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2524-1"><a href="unsupervised-learning.html#cb2524-1" aria-hidden="true" tabindex="-1"></a><span class="co"># draw dendrogram</span></span>
-<span id="cb2524-2"><a href="unsupervised-learning.html#cb2524-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.out)</span>
-<span id="cb2524-3"><a href="unsupervised-learning.html#cb2524-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2524-4"><a href="unsupervised-learning.html#cb2524-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cut 3 cluster</span></span>
-<span id="cb2524-5"><a href="unsupervised-learning.html#cb2524-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">3.4</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1162-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2525-1"><a href="unsupervised-learning.html#cb2525-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by height</span></span>
-<span id="cb2525-2"><a href="unsupervised-learning.html#cb2525-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">h =</span> <span class="fl">3.4</span>)</span></code></pre></div>
-<pre><code>##  [1] 1 2 3 1 3 2 1 2 3 2 1 3 2 2 2 3 2 2 2 1 2 2 2 1 1 2 2 2 3 2 1 3 3 2 1
-## [36] 2 2 2 2 2 3 2 3 2 2 3 2 3 2 1</code></pre>
-<div class="sourceCode" id="cb2527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2527-1"><a href="unsupervised-learning.html#cb2527-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by number of clusters</span></span>
-<span id="cb2527-2"><a href="unsupervised-learning.html#cb2527-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">k =</span> <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##  [1] 1 2 3 1 3 2 1 2 3 2 1 3 2 2 2 3 2 2 2 1 2 2 2 1 1 2 2 2 3 2 1 3 3 2 1
-## [36] 2 2 2 2 2 3 2 3 2 2 3 2 3 2 1</code></pre>
+<div class="sourceCode" id="cb2981"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2981-1"><a href="unsupervised-learning.html#cb2981-1" aria-hidden="true" tabindex="-1"></a><span class="co"># draw dendrogram</span></span>
+<span id="cb2981-2"><a href="unsupervised-learning.html#cb2981-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.out)</span>
+<span id="cb2981-3"><a href="unsupervised-learning.html#cb2981-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2981-4"><a href="unsupervised-learning.html#cb2981-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cut 3 cluster</span></span>
+<span id="cb2981-5"><a href="unsupervised-learning.html#cb2981-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">3.4</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1157-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2982"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2982-1"><a href="unsupervised-learning.html#cb2982-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by height</span></span>
+<span id="cb2982-2"><a href="unsupervised-learning.html#cb2982-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">h =</span> <span class="fl">3.4</span>)</span></code></pre></div>
+<pre><code>##  [1] 1 2 3 1 3 2 1 2 3 2 1 3 2 2 2 3 2 2 2 1 2 2 2 1 1 2 2 2 3 2 1 3 3 2 1 2 2 2
+## [39] 2 2 3 2 3 2 2 3 2 3 2 1</code></pre>
+<div class="sourceCode" id="cb2984"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2984-1"><a href="unsupervised-learning.html#cb2984-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut by number of clusters</span></span>
+<span id="cb2984-2"><a href="unsupervised-learning.html#cb2984-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hclust.out, <span class="at">k =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##  [1] 1 2 3 1 3 2 1 2 3 2 1 3 2 2 2 3 2 2 2 1 2 2 2 1 1 2 2 2 3 2 1 3 3 2 1 2 2 2
+## [39] 2 2 3 2 3 2 2 3 2 3 2 1</code></pre>
 <p>The output of each <code>cutree()</code> call represents the cluster assignments for each observation in the original dataset.</p>
 </div>
 </div>
@@ -1323,24 +1319,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="linkage-methods" class="section level4 hasAnchor" number="21.2.3.1">
 <h4><span class="header-section-number">21.2.3.1</span> Linkage methods<a href="unsupervised-learning.html#linkage-methods" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You will produce hierarchical clustering models using different linkages and plot the dendrogram for each, observing the overall structure of the trees.</p>
-<div class="sourceCode" id="cb2529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2529-1"><a href="unsupervised-learning.html#cb2529-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster using complete linkage: hclust.complete</span></span>
-<span id="cb2529-2"><a href="unsupervised-learning.html#cb2529-2" aria-hidden="true" tabindex="-1"></a>hclust.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
-<span id="cb2529-3"><a href="unsupervised-learning.html#cb2529-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2529-4"><a href="unsupervised-learning.html#cb2529-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster using average linkage: hclust.average</span></span>
-<span id="cb2529-5"><a href="unsupervised-learning.html#cb2529-5" aria-hidden="true" tabindex="-1"></a>hclust.average <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
-<span id="cb2529-6"><a href="unsupervised-learning.html#cb2529-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2529-7"><a href="unsupervised-learning.html#cb2529-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster using single linkage: hclust.single</span></span>
-<span id="cb2529-8"><a href="unsupervised-learning.html#cb2529-8" aria-hidden="true" tabindex="-1"></a>hclust.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
-<span id="cb2529-9"><a href="unsupervised-learning.html#cb2529-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2529-10"><a href="unsupervised-learning.html#cb2529-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dendrogram of hclust.complete</span></span>
-<span id="cb2529-11"><a href="unsupervised-learning.html#cb2529-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.complete, <span class="at">main =</span> <span class="st">&quot;Complete&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1164-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2530-1"><a href="unsupervised-learning.html#cb2530-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dendrogram of hclust.average</span></span>
-<span id="cb2530-2"><a href="unsupervised-learning.html#cb2530-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.average, <span class="at">main =</span> <span class="st">&quot;Average&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1164-2.png" width="672" /></p>
-<div class="sourceCode" id="cb2531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2531-1"><a href="unsupervised-learning.html#cb2531-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dendrogram of hclust.single</span></span>
-<span id="cb2531-2"><a href="unsupervised-learning.html#cb2531-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.single, <span class="at">main =</span> <span class="st">&quot;Single&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1164-3.png" width="672" /></p>
+<div class="sourceCode" id="cb2986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2986-1"><a href="unsupervised-learning.html#cb2986-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster using complete linkage: hclust.complete</span></span>
+<span id="cb2986-2"><a href="unsupervised-learning.html#cb2986-2" aria-hidden="true" tabindex="-1"></a>hclust.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb2986-3"><a href="unsupervised-learning.html#cb2986-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2986-4"><a href="unsupervised-learning.html#cb2986-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster using average linkage: hclust.average</span></span>
+<span id="cb2986-5"><a href="unsupervised-learning.html#cb2986-5" aria-hidden="true" tabindex="-1"></a>hclust.average <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb2986-6"><a href="unsupervised-learning.html#cb2986-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2986-7"><a href="unsupervised-learning.html#cb2986-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster using single linkage: hclust.single</span></span>
+<span id="cb2986-8"><a href="unsupervised-learning.html#cb2986-8" aria-hidden="true" tabindex="-1"></a>hclust.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb2986-9"><a href="unsupervised-learning.html#cb2986-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2986-10"><a href="unsupervised-learning.html#cb2986-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dendrogram of hclust.complete</span></span>
+<span id="cb2986-11"><a href="unsupervised-learning.html#cb2986-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.complete, <span class="at">main =</span> <span class="st">&quot;Complete&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1159-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2987"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2987-1"><a href="unsupervised-learning.html#cb2987-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dendrogram of hclust.average</span></span>
+<span id="cb2987-2"><a href="unsupervised-learning.html#cb2987-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.average, <span class="at">main =</span> <span class="st">&quot;Average&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1159-2.png" width="672" /></p>
+<div class="sourceCode" id="cb2988"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2988-1"><a href="unsupervised-learning.html#cb2988-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dendrogram of hclust.single</span></span>
+<span id="cb2988-2"><a href="unsupervised-learning.html#cb2988-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hclust.single, <span class="at">main =</span> <span class="st">&quot;Single&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1159-3.png" width="672" /></p>
 <p>Whether you want balanced or unbalanced trees for your hierarchical clustering model depends on the context of the problem you’re trying to solve.</p>
 <p>Balanced trees (complete, average) are essential if you want an even number of observations assigned to each cluster.</p>
 <p>On the other hand, if you want to detect outliers, for example, an unbalanced tree is more desirable because pruning an unbalanced tree can result in most observations assigned to one cluster and only a few observations assigned to other clusters.</p>
@@ -1352,31 +1348,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Normalized features: mean = 0, sd = 1</li>
 </ul>
 <p>You will observe the <code>pokemon</code> dataset, its distribution (mean and standard deviation) of each feature, scale the data accordingly, then produce a hierarchical clustering model using the complete linkage method.</p>
-<div class="sourceCode" id="cb2532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2532-1"><a href="unsupervised-learning.html#cb2532-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View column means</span></span>
-<span id="cb2532-2"><a href="unsupervised-learning.html#cb2532-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb2989"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2989-1"><a href="unsupervised-learning.html#cb2989-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View column means</span></span>
+<span id="cb2989-2"><a href="unsupervised-learning.html#cb2989-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(pokemon)</span></code></pre></div>
 <pre><code>##      HitPoints         Attack        Defense  SpecialAttack SpecialDefense 
 ##           69.3           79.0           73.8           72.8           71.9 
 ##          Speed 
 ##           68.3</code></pre>
 <p>Since the variables are the columns of your matrix, use <code>apply(X, MARGIN, FUN)</code> to calculate sd. Where, <code>x</code>: array or matrix; <code>MARGIN</code>: for a matrix <code>1</code> indicates rows, <code>2</code> indicates columns.</p>
-<div class="sourceCode" id="cb2534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2534-1"><a href="unsupervised-learning.html#cb2534-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View column standard deviations</span></span>
-<span id="cb2534-2"><a href="unsupervised-learning.html#cb2534-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pokemon, <span class="dv">2</span>, sd)</span></code></pre></div>
+<div class="sourceCode" id="cb2991"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2991-1"><a href="unsupervised-learning.html#cb2991-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View column standard deviations</span></span>
+<span id="cb2991-2"><a href="unsupervised-learning.html#cb2991-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pokemon, <span class="dv">2</span>, sd)</span></code></pre></div>
 <pre><code>##      HitPoints         Attack        Defense  SpecialAttack SpecialDefense 
 ##           25.5           32.5           31.2           32.7           27.8 
 ##          Speed 
 ##           29.1</code></pre>
 <p>Use <code>scale()</code> to normalized.</p>
-<div class="sourceCode" id="cb2536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2536-1"><a href="unsupervised-learning.html#cb2536-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the data</span></span>
-<span id="cb2536-2"><a href="unsupervised-learning.html#cb2536-2" aria-hidden="true" tabindex="-1"></a>pokemon.scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(pokemon)</span>
-<span id="cb2536-3"><a href="unsupervised-learning.html#cb2536-3" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pokemon.scaled, <span class="dv">2</span>, sd)</span></code></pre></div>
+<div class="sourceCode" id="cb2993"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2993-1"><a href="unsupervised-learning.html#cb2993-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the data</span></span>
+<span id="cb2993-2"><a href="unsupervised-learning.html#cb2993-2" aria-hidden="true" tabindex="-1"></a>pokemon.scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(pokemon)</span>
+<span id="cb2993-3"><a href="unsupervised-learning.html#cb2993-3" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pokemon.scaled, <span class="dv">2</span>, sd)</span></code></pre></div>
 <pre><code>##      HitPoints         Attack        Defense  SpecialAttack SpecialDefense 
 ##              1              1              1              1              1 
 ##          Speed 
 ##              1</code></pre>
-<div class="sourceCode" id="cb2538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2538-1"><a href="unsupervised-learning.html#cb2538-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hierarchical clustering model: hclust.pokemon</span></span>
-<span id="cb2538-2"><a href="unsupervised-learning.html#cb2538-2" aria-hidden="true" tabindex="-1"></a>hclust.pokemon <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(pokemon.scaled), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
-<span id="cb2538-3"><a href="unsupervised-learning.html#cb2538-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2538-4"><a href="unsupervised-learning.html#cb2538-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hclust.pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb2995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2995-1"><a href="unsupervised-learning.html#cb2995-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hierarchical clustering model: hclust.pokemon</span></span>
+<span id="cb2995-2"><a href="unsupervised-learning.html#cb2995-2" aria-hidden="true" tabindex="-1"></a>hclust.pokemon <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(pokemon.scaled), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb2995-3"><a href="unsupervised-learning.html#cb2995-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2995-4"><a href="unsupervised-learning.html#cb2995-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hclust.pokemon)</span></code></pre></div>
 <pre><code>##             Length Class  Mode     
 ## merge       1598   -none- numeric  
 ## height       799   -none- numeric  
@@ -1389,11 +1385,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="compare-kmeans-and-hclust" class="section level4 hasAnchor" number="21.2.3.3">
 <h4><span class="header-section-number">21.2.3.3</span> Compare kmeans() and hclust()<a href="unsupervised-learning.html#compare-kmeans-and-hclust" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Comparing k-means and hierarchical clustering, you’ll see the two methods produce different cluster memberships. This is because the two algorithms make different assumptions about how the data is generated.</p>
-<div class="sourceCode" id="cb2540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2540-1"><a href="unsupervised-learning.html#cb2540-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply cutree() to hclust.pokemon: cut.pokemon</span></span>
-<span id="cb2540-2"><a href="unsupervised-learning.html#cb2540-2" aria-hidden="true" tabindex="-1"></a>cut.pokemon <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hclust.pokemon, <span class="at">k =</span> <span class="dv">3</span>)</span>
-<span id="cb2540-3"><a href="unsupervised-learning.html#cb2540-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2540-4"><a href="unsupervised-learning.html#cb2540-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare methods</span></span>
-<span id="cb2540-5"><a href="unsupervised-learning.html#cb2540-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km.out<span class="sc">$</span>cluster, cut.pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb2997"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2997-1"><a href="unsupervised-learning.html#cb2997-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply cutree() to hclust.pokemon: cut.pokemon</span></span>
+<span id="cb2997-2"><a href="unsupervised-learning.html#cb2997-2" aria-hidden="true" tabindex="-1"></a>cut.pokemon <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hclust.pokemon, <span class="at">k =</span> <span class="dv">3</span>)</span>
+<span id="cb2997-3"><a href="unsupervised-learning.html#cb2997-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2997-4"><a href="unsupervised-learning.html#cb2997-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare methods</span></span>
+<span id="cb2997-5"><a href="unsupervised-learning.html#cb2997-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km.out<span class="sc">$</span>cluster, cut.pokemon)</span></code></pre></div>
 <pre><code>##    cut.pokemon
 ##       1   2   3
 ##   1 267   3   0
@@ -1424,16 +1420,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div id="pca-using-prcomp" class="section level4 hasAnchor" number="21.3.1.1">
 <h4><span class="header-section-number">21.3.1.1</span> PCA using prcomp()<a href="unsupervised-learning.html#pca-using-prcomp" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2542-1"><a href="unsupervised-learning.html#cb2542-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prcomp</span>(<span class="at">x =</span> data,</span>
-<span id="cb2542-2"><a href="unsupervised-learning.html#cb2542-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">scale =</span> <span class="cn">FALSE</span> <span class="sc">/</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2542-3"><a href="unsupervised-learning.html#cb2542-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">center =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2999-1"><a href="unsupervised-learning.html#cb2999-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prcomp</span>(<span class="at">x =</span> data,</span>
+<span id="cb2999-2"><a href="unsupervised-learning.html#cb2999-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">scale =</span> <span class="cn">FALSE</span> <span class="sc">/</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2999-3"><a href="unsupervised-learning.html#cb2999-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">center =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Your task is to create a PCA model of the <code>pokemon</code>, which has four dimensions, then to inspect the resulting model.</p>
-<div class="sourceCode" id="cb2543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2543-1"><a href="unsupervised-learning.html#cb2543-1" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/pokemon_pca.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;,&quot;</span>)</span>
-<span id="cb2543-2"><a href="unsupervised-learning.html#cb2543-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2543-3"><a href="unsupervised-learning.html#cb2543-3" aria-hidden="true" tabindex="-1"></a>rowname <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(pokemon)[,<span class="dv">1</span>]</span>
-<span id="cb2543-4"><a href="unsupervised-learning.html#cb2543-4" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(pokemon)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb2543-5"><a href="unsupervised-learning.html#cb2543-5" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(pokemon) <span class="ot">&lt;-</span> rowname</span>
-<span id="cb2543-6"><a href="unsupervised-learning.html#cb2543-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb3000"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3000-1"><a href="unsupervised-learning.html#cb3000-1" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/pokemon_pca.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb3000-2"><a href="unsupervised-learning.html#cb3000-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3000-3"><a href="unsupervised-learning.html#cb3000-3" aria-hidden="true" tabindex="-1"></a>rowname <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(pokemon)[,<span class="dv">1</span>]</span>
+<span id="cb3000-4"><a href="unsupervised-learning.html#cb3000-4" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(pokemon)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb3000-5"><a href="unsupervised-learning.html#cb3000-5" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(pokemon) <span class="ot">&lt;-</span> rowname</span>
+<span id="cb3000-6"><a href="unsupervised-learning.html#cb3000-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pokemon)</span></code></pre></div>
 <pre><code>##            HitPoints Attack Defense Speed
 ## Stunfisk         109     66      84    32
 ## Mewtwo           106    110      90   130
@@ -1441,11 +1437,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Grimer            80     80      50    25
 ## Roggenrola        55     75      85    15
 ## Larvesta          55     85      55    60</code></pre>
-<div class="sourceCode" id="cb2545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2545-1"><a href="unsupervised-learning.html#cb2545-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform scaled PCA: pr.out</span></span>
-<span id="cb2545-2"><a href="unsupervised-learning.html#cb2545-2" aria-hidden="true" tabindex="-1"></a>pr.out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pokemon, <span class="at">scale =</span> <span class="cn">TRUE</span>, <span class="at">center =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2545-3"><a href="unsupervised-learning.html#cb2545-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2545-4"><a href="unsupervised-learning.html#cb2545-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect model output</span></span>
-<span id="cb2545-5"><a href="unsupervised-learning.html#cb2545-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pr.out)</span></code></pre></div>
+<div class="sourceCode" id="cb3002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3002-1"><a href="unsupervised-learning.html#cb3002-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform scaled PCA: pr.out</span></span>
+<span id="cb3002-2"><a href="unsupervised-learning.html#cb3002-2" aria-hidden="true" tabindex="-1"></a>pr.out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pokemon, <span class="at">scale =</span> <span class="cn">TRUE</span>, <span class="at">center =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3002-3"><a href="unsupervised-learning.html#cb3002-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3002-4"><a href="unsupervised-learning.html#cb3002-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect model output</span></span>
+<span id="cb3002-5"><a href="unsupervised-learning.html#cb3002-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pr.out)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                          PC1   PC2   PC3    PC4
 ## Standard deviation     1.445 0.994 0.845 0.4566
@@ -1463,19 +1459,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>x</code>: the value of each observation in the original dataset projected to the principal components</p></li>
 </ul>
 <p>You can access these the same as other model components. For example, use <code>pr.out$rotation</code> to access the <code>rotation</code> component.</p>
-<div class="sourceCode" id="cb2547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2547-1"><a href="unsupervised-learning.html#cb2547-1" aria-hidden="true" tabindex="-1"></a>pr.out<span class="sc">$</span>rotation</span></code></pre></div>
+<div class="sourceCode" id="cb3004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3004-1"><a href="unsupervised-learning.html#cb3004-1" aria-hidden="true" tabindex="-1"></a>pr.out<span class="sc">$</span>rotation</span></code></pre></div>
 <pre><code>##              PC1     PC2     PC3    PC4
 ## HitPoints -0.487 -0.3198 -0.7256 -0.366
 ## Attack    -0.648  0.0529  0.0276  0.760
 ## Defense   -0.522 -0.2343  0.6829 -0.454
 ## Speed     -0.266  0.9165 -0.0802 -0.288</code></pre>
-<div class="sourceCode" id="cb2549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2549-1"><a href="unsupervised-learning.html#cb2549-1" aria-hidden="true" tabindex="-1"></a>pr.out<span class="sc">$</span>center</span></code></pre></div>
+<div class="sourceCode" id="cb3006"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3006-1"><a href="unsupervised-learning.html#cb3006-1" aria-hidden="true" tabindex="-1"></a>pr.out<span class="sc">$</span>center</span></code></pre></div>
 <pre><code>## HitPoints    Attack   Defense     Speed 
 ##      68.4      76.5      73.1      64.2</code></pre>
-<div class="sourceCode" id="cb2551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2551-1"><a href="unsupervised-learning.html#cb2551-1" aria-hidden="true" tabindex="-1"></a>pr.out<span class="sc">$</span>scale</span></code></pre></div>
+<div class="sourceCode" id="cb3008"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3008-1"><a href="unsupervised-learning.html#cb3008-1" aria-hidden="true" tabindex="-1"></a>pr.out<span class="sc">$</span>scale</span></code></pre></div>
 <pre><code>## HitPoints    Attack   Defense     Speed 
 ##      25.7      28.0      30.1      33.7</code></pre>
-<div class="sourceCode" id="cb2553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2553-1"><a href="unsupervised-learning.html#cb2553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">dim =</span> <span class="fu">dim</span>(pr.out<span class="sc">$</span>x), <span class="at">head =</span> <span class="fu">head</span>(pr.out<span class="sc">$</span>x))</span></code></pre></div>
+<div class="sourceCode" id="cb3010"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3010-1"><a href="unsupervised-learning.html#cb3010-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">dim =</span> <span class="fu">dim</span>(pr.out<span class="sc">$</span>x), <span class="at">head =</span> <span class="fu">head</span>(pr.out<span class="sc">$</span>x))</span></code></pre></div>
 <pre><code>## $dim
 ## [1] 50  4
 ## 
@@ -1498,50 +1494,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Scree plots</li>
 </ul>
-<div class="sourceCode" id="cb2555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2555-1"><a href="unsupervised-learning.html#cb2555-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting proportion of variance for a scree plot</span></span>
-<span id="cb2555-2"><a href="unsupervised-learning.html#cb2555-2" aria-hidden="true" tabindex="-1"></a>pr.var <span class="ot">&lt;-</span> pr.iris<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb2555-3"><a href="unsupervised-learning.html#cb2555-3" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> pr.var <span class="sc">/</span> <span class="fu">sum</span>(pr.var)</span>
-<span id="cb2555-4"><a href="unsupervised-learning.html#cb2555-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2555-5"><a href="unsupervised-learning.html#cb2555-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance explained for each principal component</span></span>
-<span id="cb2555-6"><a href="unsupervised-learning.html#cb2555-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pve, <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,</span>
-<span id="cb2555-7"><a href="unsupervised-learning.html#cb2555-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,</span>
-<span id="cb2555-8"><a href="unsupervised-learning.html#cb2555-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3012"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3012-1"><a href="unsupervised-learning.html#cb3012-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting proportion of variance for a scree plot</span></span>
+<span id="cb3012-2"><a href="unsupervised-learning.html#cb3012-2" aria-hidden="true" tabindex="-1"></a>pr.var <span class="ot">&lt;-</span> pr.iris<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3012-3"><a href="unsupervised-learning.html#cb3012-3" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> pr.var <span class="sc">/</span> <span class="fu">sum</span>(pr.var)</span>
+<span id="cb3012-4"><a href="unsupervised-learning.html#cb3012-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3012-5"><a href="unsupervised-learning.html#cb3012-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance explained for each principal component</span></span>
+<span id="cb3012-6"><a href="unsupervised-learning.html#cb3012-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pve, <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,</span>
+<span id="cb3012-7"><a href="unsupervised-learning.html#cb3012-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,</span>
+<span id="cb3012-8"><a href="unsupervised-learning.html#cb3012-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
 <div id="interpreting-biplots" class="section level4 hasAnchor" number="21.3.2.1">
 <h4><span class="header-section-number">21.3.2.1</span> Interpreting biplots<a href="unsupervised-learning.html#interpreting-biplots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>HitPoints</code> and <code>Defense</code> have approximately the same loadings in the first two principal components.</p>
 <p>Aerodactyl and Avalugg, this two Pokemon are the least similar in terms of the second principal component.</p>
-<div class="sourceCode" id="cb2556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2556-1"><a href="unsupervised-learning.html#cb2556-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pr.out)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1176-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3013-1"><a href="unsupervised-learning.html#cb3013-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pr.out)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1171-1.png" width="672" /></p>
 </div>
 <div id="variance-explained" class="section level4 hasAnchor" number="21.3.2.2">
 <h4><span class="header-section-number">21.3.2.2</span> Variance explained<a href="unsupervised-learning.html#variance-explained" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The second common plot type for understanding PCA models is a <em>scree plot</em>. A scree plot shows the variance explained as the number of principal components increases. Sometimes the cumulative variance explained is plotted as well.</p>
 <p>Square of the standard deviations of the principal components (i.e., the variance), is available in the <code>sdev</code> component of the PCA model object.</p>
-<div class="sourceCode" id="cb2557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2557-1"><a href="unsupervised-learning.html#cb2557-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variability of each principal component: pr.var</span></span>
-<span id="cb2557-2"><a href="unsupervised-learning.html#cb2557-2" aria-hidden="true" tabindex="-1"></a>pr.var <span class="ot">&lt;-</span> pr.out<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb2557-3"><a href="unsupervised-learning.html#cb2557-3" aria-hidden="true" tabindex="-1"></a>pr.var</span></code></pre></div>
+<div class="sourceCode" id="cb3014"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3014-1"><a href="unsupervised-learning.html#cb3014-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variability of each principal component: pr.var</span></span>
+<span id="cb3014-2"><a href="unsupervised-learning.html#cb3014-2" aria-hidden="true" tabindex="-1"></a>pr.var <span class="ot">&lt;-</span> pr.out<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3014-3"><a href="unsupervised-learning.html#cb3014-3" aria-hidden="true" tabindex="-1"></a>pr.var</span></code></pre></div>
 <pre><code>## [1] 2.089 0.988 0.714 0.209</code></pre>
 <p>The proportion of the variance explained, calculated by dividing <code>pr.var</code> by the total variance explained by all principal components.</p>
-<div class="sourceCode" id="cb2559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2559-1"><a href="unsupervised-learning.html#cb2559-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance explained by each principal component: pve</span></span>
-<span id="cb2559-2"><a href="unsupervised-learning.html#cb2559-2" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> pr.var <span class="sc">/</span> <span class="fu">sum</span>(pr.var)</span>
-<span id="cb2559-3"><a href="unsupervised-learning.html#cb2559-3" aria-hidden="true" tabindex="-1"></a>pve</span></code></pre></div>
+<div class="sourceCode" id="cb3016"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3016-1"><a href="unsupervised-learning.html#cb3016-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance explained by each principal component: pve</span></span>
+<span id="cb3016-2"><a href="unsupervised-learning.html#cb3016-2" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> pr.var <span class="sc">/</span> <span class="fu">sum</span>(pr.var)</span>
+<span id="cb3016-3"><a href="unsupervised-learning.html#cb3016-3" aria-hidden="true" tabindex="-1"></a>pve</span></code></pre></div>
 <pre><code>## [1] 0.5222 0.2471 0.1785 0.0521</code></pre>
 </div>
 <div id="visualize-variance-explained" class="section level4 hasAnchor" number="21.3.2.3">
 <h4><span class="header-section-number">21.3.2.3</span> Visualize variance explained<a href="unsupervised-learning.html#visualize-variance-explained" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now you will create a scree plot showing the proportion of variance explained by each principal component, as well as the cumulative proportion of variance explained.</p>
 <p>One way to determine the number of principal components to retain is by looking for an elbow in the scree plot showing that as the number of principal components increases, the rate at which variance is explained decreases substantially.</p>
-<div class="sourceCode" id="cb2561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2561-1"><a href="unsupervised-learning.html#cb2561-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance explained for each principal component</span></span>
-<span id="cb2561-2"><a href="unsupervised-learning.html#cb2561-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pve, <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,</span>
-<span id="cb2561-3"><a href="unsupervised-learning.html#cb2561-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,</span>
-<span id="cb2561-4"><a href="unsupervised-learning.html#cb2561-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1179-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3018-1"><a href="unsupervised-learning.html#cb3018-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance explained for each principal component</span></span>
+<span id="cb3018-2"><a href="unsupervised-learning.html#cb3018-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pve, <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,</span>
+<span id="cb3018-3"><a href="unsupervised-learning.html#cb3018-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,</span>
+<span id="cb3018-4"><a href="unsupervised-learning.html#cb3018-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1174-1.png" width="672" /></p>
 <p><code>cumsum()</code> for cumulative proportion of variance.</p>
-<div class="sourceCode" id="cb2562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2562-1"><a href="unsupervised-learning.html#cb2562-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cumulative proportion of variance explained</span></span>
-<span id="cb2562-2"><a href="unsupervised-learning.html#cb2562-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(pve), <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,</span>
-<span id="cb2562-3"><a href="unsupervised-learning.html#cb2562-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>,</span>
-<span id="cb2562-4"><a href="unsupervised-learning.html#cb2562-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1180-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3019-1"><a href="unsupervised-learning.html#cb3019-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cumulative proportion of variance explained</span></span>
+<span id="cb3019-2"><a href="unsupervised-learning.html#cb3019-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(pve), <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,</span>
+<span id="cb3019-3"><a href="unsupervised-learning.html#cb3019-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>,</span>
+<span id="cb3019-4"><a href="unsupervised-learning.html#cb3019-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1175-1.png" width="672" /></p>
 <p>Notice that when the number of principal components is equal to the number of original features in the data, the cumulative proportion of variance explained is 1.</p>
 </div>
 </div>
@@ -1551,14 +1547,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">21.3.3.1</span> Scaling<a href="unsupervised-learning.html#scaling-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Scaling your data before doing PCA changes the results of the PCA modeling. Here, you will perform PCA with and without scaling, then visualize the results using biplots.</p>
 <p>Sometimes scaling is appropriate when the variances of the variables are substantially different. This is commonly the case when variables have different units of measurement.</p>
-<div class="sourceCode" id="cb2563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2563-1"><a href="unsupervised-learning.html#cb2563-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add new variable &quot;Total&quot; for pokemon data</span></span>
-<span id="cb2563-2"><a href="unsupervised-learning.html#cb2563-2" aria-hidden="true" tabindex="-1"></a>pokemon_total <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/pokemon_add_total.txt&quot;</span>)</span>
-<span id="cb2563-3"><a href="unsupervised-learning.html#cb2563-3" aria-hidden="true" tabindex="-1"></a>pokemon_total</span></code></pre></div>
-<div class="sourceCode" id="cb2564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2564-1"><a href="unsupervised-learning.html#cb2564-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up pokemon</span></span>
-<span id="cb2564-2"><a href="unsupervised-learning.html#cb2564-2" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> pokemon_total <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
-<span id="cb2564-3"><a href="unsupervised-learning.html#cb2564-3" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(pokemon) <span class="ot">&lt;-</span> pokemon_total<span class="sc">$</span>...<span class="dv">1</span></span>
-<span id="cb2564-4"><a href="unsupervised-learning.html#cb2564-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2564-5"><a href="unsupervised-learning.html#cb2564-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb3020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3020-1"><a href="unsupervised-learning.html#cb3020-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add new variable &quot;Total&quot; for pokemon data</span></span>
+<span id="cb3020-2"><a href="unsupervised-learning.html#cb3020-2" aria-hidden="true" tabindex="-1"></a>pokemon_total <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/pokemon_add_total.txt&quot;</span>)</span>
+<span id="cb3020-3"><a href="unsupervised-learning.html#cb3020-3" aria-hidden="true" tabindex="-1"></a>pokemon_total</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 6
+##    ...1       Total HitPoints Attack Defense Speed
+##    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 Stunfisk     471       109     66      84    32
+##  2 Mewtwo       680       106    110      90   130
+##  3 Charmander   309        39     52      43    65
+##  4 Grimer       325        80     80      50    25
+##  5 Roggenrola   280        55     75      85    15
+##  6 Larvesta     360        55     85      55    60
+##  7 Metagross    600        80    135     130    70
+##  8 Delcatty     380        70     65      65    70
+##  9 Avalugg      514        95    117     184    28
+## 10 Marowak      425        60     80     110    45
+## # ℹ 40 more rows</code></pre>
+<div class="sourceCode" id="cb3022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3022-1"><a href="unsupervised-learning.html#cb3022-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up pokemon</span></span>
+<span id="cb3022-2"><a href="unsupervised-learning.html#cb3022-2" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> pokemon_total <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb3022-3"><a href="unsupervised-learning.html#cb3022-3" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(pokemon) <span class="ot">&lt;-</span> pokemon_total<span class="sc">$</span>...<span class="dv">1</span></span>
+<span id="cb3022-4"><a href="unsupervised-learning.html#cb3022-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3022-5"><a href="unsupervised-learning.html#cb3022-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pokemon)</span></code></pre></div>
 <pre><code>##            Total HitPoints Attack Defense Speed
 ## Stunfisk     471       109     66      84    32
 ## Mewtwo       680       106    110      90   130
@@ -1567,25 +1577,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Roggenrola   280        55     75      85    15
 ## Larvesta     360        55     85      55    60</code></pre>
 <p>See how the scale of the variables differs. You can see that <code>Total</code> column has larger mean and sd.</p>
-<div class="sourceCode" id="cb2566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2566-1"><a href="unsupervised-learning.html#cb2566-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean of each variable</span></span>
-<span id="cb2566-2"><a href="unsupervised-learning.html#cb2566-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(pokemon)</span></code></pre></div>
+<div class="sourceCode" id="cb3024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3024-1"><a href="unsupervised-learning.html#cb3024-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean of each variable</span></span>
+<span id="cb3024-2"><a href="unsupervised-learning.html#cb3024-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(pokemon)</span></code></pre></div>
 <pre><code>##     Total HitPoints    Attack   Defense     Speed 
 ##     419.3      68.4      76.5      73.1      64.2</code></pre>
-<div class="sourceCode" id="cb2568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2568-1"><a href="unsupervised-learning.html#cb2568-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard deviation of each variable</span></span>
-<span id="cb2568-2"><a href="unsupervised-learning.html#cb2568-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pokemon, <span class="dv">2</span>, sd)</span></code></pre></div>
+<div class="sourceCode" id="cb3026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3026-1"><a href="unsupervised-learning.html#cb3026-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard deviation of each variable</span></span>
+<span id="cb3026-2"><a href="unsupervised-learning.html#cb3026-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pokemon, <span class="dv">2</span>, sd)</span></code></pre></div>
 <pre><code>##     Total HitPoints    Attack   Defense     Speed 
 ##     119.0      25.7      28.0      30.1      33.7</code></pre>
-<div class="sourceCode" id="cb2570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2570-1"><a href="unsupervised-learning.html#cb2570-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA model with scaling: pr.with.scaling</span></span>
-<span id="cb2570-2"><a href="unsupervised-learning.html#cb2570-2" aria-hidden="true" tabindex="-1"></a>pr.with.scaling <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pokemon, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2570-3"><a href="unsupervised-learning.html#cb2570-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2570-4"><a href="unsupervised-learning.html#cb2570-4" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA model without scaling: pr.without.scaling</span></span>
-<span id="cb2570-5"><a href="unsupervised-learning.html#cb2570-5" aria-hidden="true" tabindex="-1"></a>pr.without.scaling <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pokemon, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2570-6"><a href="unsupervised-learning.html#cb2570-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2570-7"><a href="unsupervised-learning.html#cb2570-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create biplots of both for comparison</span></span>
-<span id="cb2570-8"><a href="unsupervised-learning.html#cb2570-8" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pr.with.scaling)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1184-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2571-1"><a href="unsupervised-learning.html#cb2571-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pr.without.scaling)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1184-2.png" width="672" /></p>
+<div class="sourceCode" id="cb3028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3028-1"><a href="unsupervised-learning.html#cb3028-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA model with scaling: pr.with.scaling</span></span>
+<span id="cb3028-2"><a href="unsupervised-learning.html#cb3028-2" aria-hidden="true" tabindex="-1"></a>pr.with.scaling <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pokemon, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3028-3"><a href="unsupervised-learning.html#cb3028-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3028-4"><a href="unsupervised-learning.html#cb3028-4" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA model without scaling: pr.without.scaling</span></span>
+<span id="cb3028-5"><a href="unsupervised-learning.html#cb3028-5" aria-hidden="true" tabindex="-1"></a>pr.without.scaling <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(pokemon, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3028-6"><a href="unsupervised-learning.html#cb3028-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3028-7"><a href="unsupervised-learning.html#cb3028-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create biplots of both for comparison</span></span>
+<span id="cb3028-8"><a href="unsupervised-learning.html#cb3028-8" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pr.with.scaling)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1179-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3029-1"><a href="unsupervised-learning.html#cb3029-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pr.without.scaling)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1179-2.png" width="672" /></p>
 <p>The new <code>Total</code> column contains much more variation, on average, than the other four columns, so it has a disproportionate effect on the PCA model when scaling is not performed. After scaling the data, there’s a much more even distribution of the loading vectors.</p>
 </div>
 </div>
@@ -1614,47 +1624,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="preparing-the-data" class="section level4 hasAnchor" number="21.4.1.1">
 <h4><span class="header-section-number">21.4.1.1</span> Preparing the data<a href="unsupervised-learning.html#preparing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2572-1"><a href="unsupervised-learning.html#cb2572-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset</span></span>
-<span id="cb2572-2"><a href="unsupervised-learning.html#cb2572-2" aria-hidden="true" tabindex="-1"></a>wisc.df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/WisconsinCancer.csv&quot;</span>)</span>
-<span id="cb2572-3"><a href="unsupervised-learning.html#cb2572-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(wisc.df)</span></code></pre></div>
+<div class="sourceCode" id="cb3030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3030-1"><a href="unsupervised-learning.html#cb3030-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset</span></span>
+<span id="cb3030-2"><a href="unsupervised-learning.html#cb3030-2" aria-hidden="true" tabindex="-1"></a>wisc.df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/WisconsinCancer.csv&quot;</span>)</span>
+<span id="cb3030-3"><a href="unsupervised-learning.html#cb3030-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(wisc.df)</span></code></pre></div>
 <pre><code>## Rows: 569
 ## Columns: 33
-## $ id                      &lt;int&gt; 842302, 842517, 84300903, 84348301, 84358…
-## $ diagnosis               &lt;chr&gt; &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;…
-## $ radius_mean             &lt;dbl&gt; 18.0, 20.6, 19.7, 11.4, 20.3, 12.4, 18.2,…
-## $ texture_mean            &lt;dbl&gt; 10.4, 17.8, 21.2, 20.4, 14.3, 15.7, 20.0,…
-## $ perimeter_mean          &lt;dbl&gt; 122.8, 132.9, 130.0, 77.6, 135.1, 82.6, 1…
-## $ area_mean               &lt;dbl&gt; 1001, 1326, 1203, 386, 1297, 477, 1040, 5…
-## $ smoothness_mean         &lt;dbl&gt; 0.1184, 0.0847, 0.1096, 0.1425, 0.1003, 0…
-## $ compactness_mean        &lt;dbl&gt; 0.2776, 0.0786, 0.1599, 0.2839, 0.1328, 0…
-## $ concavity_mean          &lt;dbl&gt; 0.3001, 0.0869, 0.1974, 0.2414, 0.1980, 0…
-## $ concave.points_mean     &lt;dbl&gt; 0.1471, 0.0702, 0.1279, 0.1052, 0.1043, 0…
-## $ symmetry_mean           &lt;dbl&gt; 0.242, 0.181, 0.207, 0.260, 0.181, 0.209,…
-## $ fractal_dimension_mean  &lt;dbl&gt; 0.0787, 0.0567, 0.0600, 0.0974, 0.0588, 0…
-## $ radius_se               &lt;dbl&gt; 1.095, 0.543, 0.746, 0.496, 0.757, 0.335,…
-## $ texture_se              &lt;dbl&gt; 0.905, 0.734, 0.787, 1.156, 0.781, 0.890,…
-## $ perimeter_se            &lt;dbl&gt; 8.59, 3.40, 4.58, 3.44, 5.44, 2.22, 3.18,…
-## $ area_se                 &lt;dbl&gt; 153.4, 74.1, 94.0, 27.2, 94.4, 27.2, 53.9…
-## $ smoothness_se           &lt;dbl&gt; 0.00640, 0.00522, 0.00615, 0.00911, 0.011…
-## $ compactness_se          &lt;dbl&gt; 0.04904, 0.01308, 0.04006, 0.07458, 0.024…
-## $ concavity_se            &lt;dbl&gt; 0.0537, 0.0186, 0.0383, 0.0566, 0.0569, 0…
-## $ concave.points_se       &lt;dbl&gt; 0.01587, 0.01340, 0.02058, 0.01867, 0.018…
-## $ symmetry_se             &lt;dbl&gt; 0.0300, 0.0139, 0.0225, 0.0596, 0.0176, 0…
-## $ fractal_dimension_se    &lt;dbl&gt; 0.00619, 0.00353, 0.00457, 0.00921, 0.005…
-## $ radius_worst            &lt;dbl&gt; 25.4, 25.0, 23.6, 14.9, 22.5, 15.5, 22.9,…
-## $ texture_worst           &lt;dbl&gt; 17.3, 23.4, 25.5, 26.5, 16.7, 23.8, 27.7,…
-## $ perimeter_worst         &lt;dbl&gt; 184.6, 158.8, 152.5, 98.9, 152.2, 103.4, …
-## $ area_worst              &lt;dbl&gt; 2019, 1956, 1709, 568, 1575, 742, 1606, 8…
-## $ smoothness_worst        &lt;dbl&gt; 0.162, 0.124, 0.144, 0.210, 0.137, 0.179,…
-## $ compactness_worst       &lt;dbl&gt; 0.666, 0.187, 0.424, 0.866, 0.205, 0.525,…
-## $ concavity_worst         &lt;dbl&gt; 0.7119, 0.2416, 0.4504, 0.6869, 0.4000, 0…
-## $ concave.points_worst    &lt;dbl&gt; 0.2654, 0.1860, 0.2430, 0.2575, 0.1625, 0…
-## $ symmetry_worst          &lt;dbl&gt; 0.460, 0.275, 0.361, 0.664, 0.236, 0.399,…
-## $ fractal_dimension_worst &lt;dbl&gt; 0.1189, 0.0890, 0.0876, 0.1730, 0.0768, 0…
-## $ X                       &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
-<div class="sourceCode" id="cb2574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2574-1"><a href="unsupervised-learning.html#cb2574-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the features of the data: wisc.data</span></span>
-<span id="cb2574-2"><a href="unsupervised-learning.html#cb2574-2" aria-hidden="true" tabindex="-1"></a>wisc.data <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(wisc.df[, <span class="dv">3</span><span class="sc">:</span><span class="dv">32</span>])</span>
-<span id="cb2574-3"><a href="unsupervised-learning.html#cb2574-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wisc.data, <span class="dv">2</span>)</span></code></pre></div>
+## $ id                      &lt;int&gt; 842302, 842517, 84300903, 84348301, 84358402, …
+## $ diagnosis               &lt;chr&gt; &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;…
+## $ radius_mean             &lt;dbl&gt; 18.0, 20.6, 19.7, 11.4, 20.3, 12.4, 18.2, 13.7…
+## $ texture_mean            &lt;dbl&gt; 10.4, 17.8, 21.2, 20.4, 14.3, 15.7, 20.0, 20.8…
+## $ perimeter_mean          &lt;dbl&gt; 122.8, 132.9, 130.0, 77.6, 135.1, 82.6, 119.6,…
+## $ area_mean               &lt;dbl&gt; 1001, 1326, 1203, 386, 1297, 477, 1040, 578, 5…
+## $ smoothness_mean         &lt;dbl&gt; 0.1184, 0.0847, 0.1096, 0.1425, 0.1003, 0.1278…
+## $ compactness_mean        &lt;dbl&gt; 0.2776, 0.0786, 0.1599, 0.2839, 0.1328, 0.1700…
+## $ concavity_mean          &lt;dbl&gt; 0.3001, 0.0869, 0.1974, 0.2414, 0.1980, 0.1578…
+## $ concave.points_mean     &lt;dbl&gt; 0.1471, 0.0702, 0.1279, 0.1052, 0.1043, 0.0809…
+## $ symmetry_mean           &lt;dbl&gt; 0.242, 0.181, 0.207, 0.260, 0.181, 0.209, 0.17…
+## $ fractal_dimension_mean  &lt;dbl&gt; 0.0787, 0.0567, 0.0600, 0.0974, 0.0588, 0.0761…
+## $ radius_se               &lt;dbl&gt; 1.095, 0.543, 0.746, 0.496, 0.757, 0.335, 0.44…
+## $ texture_se              &lt;dbl&gt; 0.905, 0.734, 0.787, 1.156, 0.781, 0.890, 0.77…
+## $ perimeter_se            &lt;dbl&gt; 8.59, 3.40, 4.58, 3.44, 5.44, 2.22, 3.18, 3.86…
+## $ area_se                 &lt;dbl&gt; 153.4, 74.1, 94.0, 27.2, 94.4, 27.2, 53.9, 51.…
+## $ smoothness_se           &lt;dbl&gt; 0.00640, 0.00522, 0.00615, 0.00911, 0.01149, 0…
+## $ compactness_se          &lt;dbl&gt; 0.04904, 0.01308, 0.04006, 0.07458, 0.02461, 0…
+## $ concavity_se            &lt;dbl&gt; 0.0537, 0.0186, 0.0383, 0.0566, 0.0569, 0.0367…
+## $ concave.points_se       &lt;dbl&gt; 0.01587, 0.01340, 0.02058, 0.01867, 0.01885, 0…
+## $ symmetry_se             &lt;dbl&gt; 0.0300, 0.0139, 0.0225, 0.0596, 0.0176, 0.0216…
+## $ fractal_dimension_se    &lt;dbl&gt; 0.00619, 0.00353, 0.00457, 0.00921, 0.00511, 0…
+## $ radius_worst            &lt;dbl&gt; 25.4, 25.0, 23.6, 14.9, 22.5, 15.5, 22.9, 17.1…
+## $ texture_worst           &lt;dbl&gt; 17.3, 23.4, 25.5, 26.5, 16.7, 23.8, 27.7, 28.1…
+## $ perimeter_worst         &lt;dbl&gt; 184.6, 158.8, 152.5, 98.9, 152.2, 103.4, 153.2…
+## $ area_worst              &lt;dbl&gt; 2019, 1956, 1709, 568, 1575, 742, 1606, 897, 7…
+## $ smoothness_worst        &lt;dbl&gt; 0.162, 0.124, 0.144, 0.210, 0.137, 0.179, 0.14…
+## $ compactness_worst       &lt;dbl&gt; 0.666, 0.187, 0.424, 0.866, 0.205, 0.525, 0.25…
+## $ concavity_worst         &lt;dbl&gt; 0.7119, 0.2416, 0.4504, 0.6869, 0.4000, 0.5355…
+## $ concave.points_worst    &lt;dbl&gt; 0.2654, 0.1860, 0.2430, 0.2575, 0.1625, 0.1741…
+## $ symmetry_worst          &lt;dbl&gt; 0.460, 0.275, 0.361, 0.664, 0.236, 0.399, 0.30…
+## $ fractal_dimension_worst &lt;dbl&gt; 0.1189, 0.0890, 0.0876, 0.1730, 0.0768, 0.1244…
+## $ X                       &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+<div class="sourceCode" id="cb3032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3032-1"><a href="unsupervised-learning.html#cb3032-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the features of the data: wisc.data</span></span>
+<span id="cb3032-2"><a href="unsupervised-learning.html#cb3032-2" aria-hidden="true" tabindex="-1"></a>wisc.data <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(wisc.df[, <span class="dv">3</span><span class="sc">:</span><span class="dv">32</span>])</span>
+<span id="cb3032-3"><a href="unsupervised-learning.html#cb3032-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wisc.data, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      radius_mean texture_mean perimeter_mean area_mean smoothness_mean
 ## [1,]        18.0         10.4            123      1001          0.1184
 ## [2,]        20.6         17.8            133      1326          0.0847
@@ -1664,24 +1674,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##      fractal_dimension_mean radius_se texture_se perimeter_se area_se
 ## [1,]                 0.0787     1.095      0.905         8.59   153.4
 ## [2,]                 0.0567     0.543      0.734         3.40    74.1
-##      smoothness_se compactness_se concavity_se concave.points_se
-## [1,]       0.00640         0.0490       0.0537            0.0159
-## [2,]       0.00522         0.0131       0.0186            0.0134
-##      symmetry_se fractal_dimension_se radius_worst texture_worst
-## [1,]      0.0300              0.00619         25.4          17.3
-## [2,]      0.0139              0.00353         25.0          23.4
-##      perimeter_worst area_worst smoothness_worst compactness_worst
-## [1,]             185       2019            0.162             0.666
-## [2,]             159       1956            0.124             0.187
-##      concavity_worst concave.points_worst symmetry_worst
-## [1,]           0.712                0.265          0.460
-## [2,]           0.242                0.186          0.275
-##      fractal_dimension_worst
-## [1,]                   0.119
-## [2,]                   0.089</code></pre>
-<div class="sourceCode" id="cb2576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2576-1"><a href="unsupervised-learning.html#cb2576-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the row names of wisc.data</span></span>
-<span id="cb2576-2"><a href="unsupervised-learning.html#cb2576-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(wisc.data) <span class="ot">&lt;-</span> wisc.df<span class="sc">$</span>id</span>
-<span id="cb2576-3"><a href="unsupervised-learning.html#cb2576-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wisc.data, <span class="dv">2</span>)</span></code></pre></div>
+##      smoothness_se compactness_se concavity_se concave.points_se symmetry_se
+## [1,]       0.00640         0.0490       0.0537            0.0159      0.0300
+## [2,]       0.00522         0.0131       0.0186            0.0134      0.0139
+##      fractal_dimension_se radius_worst texture_worst perimeter_worst area_worst
+## [1,]              0.00619         25.4          17.3             185       2019
+## [2,]              0.00353         25.0          23.4             159       1956
+##      smoothness_worst compactness_worst concavity_worst concave.points_worst
+## [1,]            0.162             0.666           0.712                0.265
+## [2,]            0.124             0.187           0.242                0.186
+##      symmetry_worst fractal_dimension_worst
+## [1,]          0.460                   0.119
+## [2,]          0.275                   0.089</code></pre>
+<div class="sourceCode" id="cb3034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3034-1"><a href="unsupervised-learning.html#cb3034-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the row names of wisc.data</span></span>
+<span id="cb3034-2"><a href="unsupervised-learning.html#cb3034-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(wisc.data) <span class="ot">&lt;-</span> wisc.df<span class="sc">$</span>id</span>
+<span id="cb3034-3"><a href="unsupervised-learning.html#cb3034-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wisc.data, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##        radius_mean texture_mean perimeter_mean area_mean smoothness_mean
 ## 842302        18.0         10.4            123      1001          0.1184
 ## 842517        20.6         17.8            133      1326          0.0847
@@ -1691,39 +1698,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##        fractal_dimension_mean radius_se texture_se perimeter_se area_se
 ## 842302                 0.0787     1.095      0.905         8.59   153.4
 ## 842517                 0.0567     0.543      0.734         3.40    74.1
-##        smoothness_se compactness_se concavity_se concave.points_se
-## 842302       0.00640         0.0490       0.0537            0.0159
-## 842517       0.00522         0.0131       0.0186            0.0134
-##        symmetry_se fractal_dimension_se radius_worst texture_worst
-## 842302      0.0300              0.00619         25.4          17.3
-## 842517      0.0139              0.00353         25.0          23.4
-##        perimeter_worst area_worst smoothness_worst compactness_worst
-## 842302             185       2019            0.162             0.666
-## 842517             159       1956            0.124             0.187
-##        concavity_worst concave.points_worst symmetry_worst
-## 842302           0.712                0.265          0.460
-## 842517           0.242                0.186          0.275
-##        fractal_dimension_worst
-## 842302                   0.119
-## 842517                   0.089</code></pre>
-<div class="sourceCode" id="cb2578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2578-1"><a href="unsupervised-learning.html#cb2578-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create diagnosis vector, 1 = malignant (&quot;M&quot;), 0</span></span>
-<span id="cb2578-2"><a href="unsupervised-learning.html#cb2578-2" aria-hidden="true" tabindex="-1"></a>diagnosis <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(wisc.df<span class="sc">$</span>diagnosis <span class="sc">==</span> <span class="st">&quot;M&quot;</span>)</span>
-<span id="cb2578-3"><a href="unsupervised-learning.html#cb2578-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(diagnosis)</span></code></pre></div>
+##        smoothness_se compactness_se concavity_se concave.points_se symmetry_se
+## 842302       0.00640         0.0490       0.0537            0.0159      0.0300
+## 842517       0.00522         0.0131       0.0186            0.0134      0.0139
+##        fractal_dimension_se radius_worst texture_worst perimeter_worst
+## 842302              0.00619         25.4          17.3             185
+## 842517              0.00353         25.0          23.4             159
+##        area_worst smoothness_worst compactness_worst concavity_worst
+## 842302       2019            0.162             0.666           0.712
+## 842517       1956            0.124             0.187           0.242
+##        concave.points_worst symmetry_worst fractal_dimension_worst
+## 842302                0.265          0.460                   0.119
+## 842517                0.186          0.275                   0.089</code></pre>
+<div class="sourceCode" id="cb3036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3036-1"><a href="unsupervised-learning.html#cb3036-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create diagnosis vector, 1 = malignant (&quot;M&quot;), 0</span></span>
+<span id="cb3036-2"><a href="unsupervised-learning.html#cb3036-2" aria-hidden="true" tabindex="-1"></a>diagnosis <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(wisc.df<span class="sc">$</span>diagnosis <span class="sc">==</span> <span class="st">&quot;M&quot;</span>)</span>
+<span id="cb3036-3"><a href="unsupervised-learning.html#cb3036-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(diagnosis)</span></code></pre></div>
 <pre><code>##  num [1:569] 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 </div>
 <div id="exploratory-data-analysis" class="section level4 hasAnchor" number="21.4.1.2">
 <h4><span class="header-section-number">21.4.1.2</span> Exploratory data analysis<a href="unsupervised-learning.html#exploratory-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>How many observations are in this dataset?</p>
-<div class="sourceCode" id="cb2580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2580-1"><a href="unsupervised-learning.html#cb2580-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ans: 569</span></span>
-<span id="cb2580-2"><a href="unsupervised-learning.html#cb2580-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(wisc.data)</span></code></pre></div>
+<div class="sourceCode" id="cb3038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3038-1"><a href="unsupervised-learning.html#cb3038-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ans: 569</span></span>
+<span id="cb3038-2"><a href="unsupervised-learning.html#cb3038-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(wisc.data)</span></code></pre></div>
 <pre><code>## [1] 569  30</code></pre>
 <p>How many variables/features in the data are suffixed with <code>_mean</code>?</p>
-<div class="sourceCode" id="cb2582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2582-1"><a href="unsupervised-learning.html#cb2582-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect string pattern</span></span>
-<span id="cb2582-2"><a href="unsupervised-learning.html#cb2582-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="fu">colnames</span>(wisc.data), <span class="st">&quot;_mean&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3040-1"><a href="unsupervised-learning.html#cb3040-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect string pattern</span></span>
+<span id="cb3040-2"><a href="unsupervised-learning.html#cb3040-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="fu">colnames</span>(wisc.data), <span class="st">&quot;_mean&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>How many of the observations have a malignant diagnosis?</p>
-<div class="sourceCode" id="cb2584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2584-1"><a href="unsupervised-learning.html#cb2584-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  malignant diagnosis = 1</span></span>
-<span id="cb2584-2"><a href="unsupervised-learning.html#cb2584-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(diagnosis)</span></code></pre></div>
+<div class="sourceCode" id="cb3042"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3042-1"><a href="unsupervised-learning.html#cb3042-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  malignant diagnosis = 1</span></span>
+<span id="cb3042-2"><a href="unsupervised-learning.html#cb3042-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(diagnosis)</span></code></pre></div>
 <pre><code>## [1] 212</code></pre>
 </div>
 <div id="performing-pca" class="section level4 hasAnchor" number="21.4.1.3">
@@ -1734,8 +1738,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The input variables use different units of measurement.</p></li>
 <li><p>The input variables have significantly different variances.</p></li>
 </ol>
-<div class="sourceCode" id="cb2586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2586-1"><a href="unsupervised-learning.html#cb2586-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check column means</span></span>
-<span id="cb2586-2"><a href="unsupervised-learning.html#cb2586-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(wisc.data)</span></code></pre></div>
+<div class="sourceCode" id="cb3044"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3044-1"><a href="unsupervised-learning.html#cb3044-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check column means</span></span>
+<span id="cb3044-2"><a href="unsupervised-learning.html#cb3044-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(wisc.data)</span></code></pre></div>
 <pre><code>##             radius_mean            texture_mean          perimeter_mean 
 ##                14.12729                19.28965                91.96903 
 ##               area_mean         smoothness_mean        compactness_mean 
@@ -1756,8 +1760,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                 0.13237                 0.25427                 0.27219 
 ##    concave.points_worst          symmetry_worst fractal_dimension_worst 
 ##                 0.11461                 0.29008                 0.08395</code></pre>
-<div class="sourceCode" id="cb2588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2588-1"><a href="unsupervised-learning.html#cb2588-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check standard deviations</span></span>
-<span id="cb2588-2"><a href="unsupervised-learning.html#cb2588-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(wisc.data, <span class="dv">2</span>, sd)</span></code></pre></div>
+<div class="sourceCode" id="cb3046"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3046-1"><a href="unsupervised-learning.html#cb3046-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check standard deviations</span></span>
+<span id="cb3046-2"><a href="unsupervised-learning.html#cb3046-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(wisc.data, <span class="dv">2</span>, sd)</span></code></pre></div>
 <pre><code>##             radius_mean            texture_mean          perimeter_mean 
 ##                 3.52405                 4.30104                24.29898 
 ##               area_mean         smoothness_mean        compactness_mean 
@@ -1778,74 +1782,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                 0.02283                 0.15734                 0.20862 
 ##    concave.points_worst          symmetry_worst fractal_dimension_worst 
 ##                 0.06573                 0.06187                 0.01806</code></pre>
-<div class="sourceCode" id="cb2590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2590-1"><a href="unsupervised-learning.html#cb2590-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute PCA, scaling if appropriate: wisc.pr</span></span>
-<span id="cb2590-2"><a href="unsupervised-learning.html#cb2590-2" aria-hidden="true" tabindex="-1"></a>wisc.pr <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(wisc.data, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2590-3"><a href="unsupervised-learning.html#cb2590-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2590-4"><a href="unsupervised-learning.html#cb2590-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at summary of results</span></span>
-<span id="cb2590-5"><a href="unsupervised-learning.html#cb2590-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wisc.pr)</span></code></pre></div>
+<div class="sourceCode" id="cb3048"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3048-1"><a href="unsupervised-learning.html#cb3048-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute PCA, scaling if appropriate: wisc.pr</span></span>
+<span id="cb3048-2"><a href="unsupervised-learning.html#cb3048-2" aria-hidden="true" tabindex="-1"></a>wisc.pr <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(wisc.data, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3048-3"><a href="unsupervised-learning.html#cb3048-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3048-4"><a href="unsupervised-learning.html#cb3048-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at summary of results</span></span>
+<span id="cb3048-5"><a href="unsupervised-learning.html#cb3048-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wisc.pr)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                          PC1   PC2    PC3   PC4   PC5    PC6    PC7    PC8
 ## Standard deviation     3.644 2.386 1.6787 1.407 1.284 1.0988 0.8217 0.6904
 ## Proportion of Variance 0.443 0.190 0.0939 0.066 0.055 0.0403 0.0225 0.0159
 ## Cumulative Proportion  0.443 0.632 0.7264 0.792 0.847 0.8876 0.9101 0.9260
-##                           PC9   PC10   PC11    PC12    PC13    PC14
-## Standard deviation     0.6457 0.5922 0.5421 0.51104 0.49128 0.39624
-## Proportion of Variance 0.0139 0.0117 0.0098 0.00871 0.00805 0.00523
-## Cumulative Proportion  0.9399 0.9516 0.9614 0.97007 0.97812 0.98335
-##                           PC15    PC16    PC17    PC18    PC19    PC20
-## Standard deviation     0.30681 0.28260 0.24372 0.22939 0.22244 0.17652
-## Proportion of Variance 0.00314 0.00266 0.00198 0.00175 0.00165 0.00104
-## Cumulative Proportion  0.98649 0.98915 0.99113 0.99288 0.99453 0.99557
-##                         PC21    PC22    PC23   PC24    PC25    PC26
-## Standard deviation     0.173 0.16565 0.15602 0.1344 0.12442 0.09043
-## Proportion of Variance 0.001 0.00091 0.00081 0.0006 0.00052 0.00027
-## Cumulative Proportion  0.997 0.99749 0.99830 0.9989 0.99942 0.99969
-##                           PC27    PC28    PC29   PC30
-## Standard deviation     0.08307 0.03987 0.02736 0.0115
-## Proportion of Variance 0.00023 0.00005 0.00002 0.0000
-## Cumulative Proportion  0.99992 0.99997 1.00000 1.0000</code></pre>
+##                           PC9   PC10   PC11    PC12    PC13    PC14    PC15
+## Standard deviation     0.6457 0.5922 0.5421 0.51104 0.49128 0.39624 0.30681
+## Proportion of Variance 0.0139 0.0117 0.0098 0.00871 0.00805 0.00523 0.00314
+## Cumulative Proportion  0.9399 0.9516 0.9614 0.97007 0.97812 0.98335 0.98649
+##                           PC16    PC17    PC18    PC19    PC20  PC21    PC22
+## Standard deviation     0.28260 0.24372 0.22939 0.22244 0.17652 0.173 0.16565
+## Proportion of Variance 0.00266 0.00198 0.00175 0.00165 0.00104 0.001 0.00091
+## Cumulative Proportion  0.98915 0.99113 0.99288 0.99453 0.99557 0.997 0.99749
+##                           PC23   PC24    PC25    PC26    PC27    PC28    PC29
+## Standard deviation     0.15602 0.1344 0.12442 0.09043 0.08307 0.03987 0.02736
+## Proportion of Variance 0.00081 0.0006 0.00052 0.00027 0.00023 0.00005 0.00002
+## Cumulative Proportion  0.99830 0.9989 0.99942 0.99969 0.99992 0.99997 1.00000
+##                          PC30
+## Standard deviation     0.0115
+## Proportion of Variance 0.0000
+## Cumulative Proportion  1.0000</code></pre>
 </div>
 <div id="interpreting-pca-results" class="section level4 hasAnchor" number="21.4.1.4">
 <h4><span class="header-section-number">21.4.1.4</span> Interpreting PCA results<a href="unsupervised-learning.html#interpreting-pca-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now you’ll use some visualizations to better understand your PCA model.</p>
 <p>What stands out to you about this plot? Is it easy or difficult to understand?</p>
-<div class="sourceCode" id="cb2592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2592-1"><a href="unsupervised-learning.html#cb2592-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a biplot of wisc.pr</span></span>
-<span id="cb2592-2"><a href="unsupervised-learning.html#cb2592-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(wisc.pr)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1195-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3050"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3050-1"><a href="unsupervised-learning.html#cb3050-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a biplot of wisc.pr</span></span>
+<span id="cb3050-2"><a href="unsupervised-learning.html#cb3050-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(wisc.pr)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1190-1.png" width="672" /></p>
 <p>Scatter plot each observation by principal components 1 and 2, coloring the points by the diagnosis.</p>
-<div class="sourceCode" id="cb2593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2593-1"><a href="unsupervised-learning.html#cb2593-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot observations by components 1 and 2</span></span>
-<span id="cb2593-2"><a href="unsupervised-learning.html#cb2593-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wisc.pr<span class="sc">$</span>x[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], <span class="at">col =</span> (diagnosis <span class="sc">+</span> <span class="dv">1</span>), </span>
-<span id="cb2593-3"><a href="unsupervised-learning.html#cb2593-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1196-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3051"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3051-1"><a href="unsupervised-learning.html#cb3051-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot observations by components 1 and 2</span></span>
+<span id="cb3051-2"><a href="unsupervised-learning.html#cb3051-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wisc.pr<span class="sc">$</span>x[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], <span class="at">col =</span> (diagnosis <span class="sc">+</span> <span class="dv">1</span>), </span>
+<span id="cb3051-3"><a href="unsupervised-learning.html#cb3051-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1191-1.png" width="672" /></p>
 <p>Repeat the same for principal components 1 and 3. What do you notice about these plots?</p>
-<div class="sourceCode" id="cb2594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2594-1"><a href="unsupervised-learning.html#cb2594-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat for components 1 and 3</span></span>
-<span id="cb2594-2"><a href="unsupervised-learning.html#cb2594-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wisc.pr<span class="sc">$</span>x[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)], <span class="at">col =</span> (diagnosis <span class="sc">+</span> <span class="dv">1</span>), </span>
-<span id="cb2594-3"><a href="unsupervised-learning.html#cb2594-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC3&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1197-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3052"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3052-1"><a href="unsupervised-learning.html#cb3052-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat for components 1 and 3</span></span>
+<span id="cb3052-2"><a href="unsupervised-learning.html#cb3052-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wisc.pr<span class="sc">$</span>x[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)], <span class="at">col =</span> (diagnosis <span class="sc">+</span> <span class="dv">1</span>), </span>
+<span id="cb3052-3"><a href="unsupervised-learning.html#cb3052-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC3&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1192-1.png" width="672" /></p>
 <p>Because principal component 2 explains more variance in the original data than principal component 3, you can see that the first plot has a cleaner cut separating the two subgroups.</p>
 </div>
 <div id="variance-explained-1" class="section level4 hasAnchor" number="21.4.1.5">
 <h4><span class="header-section-number">21.4.1.5</span> Variance explained<a href="unsupervised-learning.html#variance-explained-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You will produce scree plots showing the proportion of variance explained as the number of principal components increases.</p>
-<div class="sourceCode" id="cb2595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2595-1"><a href="unsupervised-learning.html#cb2595-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up 1 x 2 plotting grid</span></span>
-<span id="cb2595-2"><a href="unsupervised-learning.html#cb2595-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2595-3"><a href="unsupervised-learning.html#cb2595-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2595-4"><a href="unsupervised-learning.html#cb2595-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variability of each component</span></span>
-<span id="cb2595-5"><a href="unsupervised-learning.html#cb2595-5" aria-hidden="true" tabindex="-1"></a>pr.var <span class="ot">&lt;-</span> wisc.pr<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb2595-6"><a href="unsupervised-learning.html#cb2595-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2595-7"><a href="unsupervised-learning.html#cb2595-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance explained by each principal component: pve</span></span>
-<span id="cb2595-8"><a href="unsupervised-learning.html#cb2595-8" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> pr.var <span class="sc">/</span> <span class="fu">sum</span>(pr.var)</span>
-<span id="cb2595-9"><a href="unsupervised-learning.html#cb2595-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2595-10"><a href="unsupervised-learning.html#cb2595-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance explained for each principal component</span></span>
-<span id="cb2595-11"><a href="unsupervised-learning.html#cb2595-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pve, <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>, </span>
-<span id="cb2595-12"><a href="unsupervised-learning.html#cb2595-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>, </span>
-<span id="cb2595-13"><a href="unsupervised-learning.html#cb2595-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
-<span id="cb2595-14"><a href="unsupervised-learning.html#cb2595-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2595-15"><a href="unsupervised-learning.html#cb2595-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cumulative proportion of variance explained</span></span>
-<span id="cb2595-16"><a href="unsupervised-learning.html#cb2595-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(pve), <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>, </span>
-<span id="cb2595-17"><a href="unsupervised-learning.html#cb2595-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>, </span>
-<span id="cb2595-18"><a href="unsupervised-learning.html#cb2595-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1198-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3053"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3053-1"><a href="unsupervised-learning.html#cb3053-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up 1 x 2 plotting grid</span></span>
+<span id="cb3053-2"><a href="unsupervised-learning.html#cb3053-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb3053-3"><a href="unsupervised-learning.html#cb3053-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3053-4"><a href="unsupervised-learning.html#cb3053-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variability of each component</span></span>
+<span id="cb3053-5"><a href="unsupervised-learning.html#cb3053-5" aria-hidden="true" tabindex="-1"></a>pr.var <span class="ot">&lt;-</span> wisc.pr<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3053-6"><a href="unsupervised-learning.html#cb3053-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3053-7"><a href="unsupervised-learning.html#cb3053-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance explained by each principal component: pve</span></span>
+<span id="cb3053-8"><a href="unsupervised-learning.html#cb3053-8" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> pr.var <span class="sc">/</span> <span class="fu">sum</span>(pr.var)</span>
+<span id="cb3053-9"><a href="unsupervised-learning.html#cb3053-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3053-10"><a href="unsupervised-learning.html#cb3053-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance explained for each principal component</span></span>
+<span id="cb3053-11"><a href="unsupervised-learning.html#cb3053-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pve, <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>, </span>
+<span id="cb3053-12"><a href="unsupervised-learning.html#cb3053-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>, </span>
+<span id="cb3053-13"><a href="unsupervised-learning.html#cb3053-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
+<span id="cb3053-14"><a href="unsupervised-learning.html#cb3053-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3053-15"><a href="unsupervised-learning.html#cb3053-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cumulative proportion of variance explained</span></span>
+<span id="cb3053-16"><a href="unsupervised-learning.html#cb3053-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(pve), <span class="at">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>, </span>
+<span id="cb3053-17"><a href="unsupervised-learning.html#cb3053-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>, </span>
+<span id="cb3053-18"><a href="unsupervised-learning.html#cb3053-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1193-1.png" width="672" /></p>
 <p>What is the minimum number of principal components needed to explain 80% of the variance in the data?</p>
 </div>
 </div>
@@ -1863,8 +1867,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">21.4.2.1</span> Communicating PCA results<a href="unsupervised-learning.html#communicating-pca-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The loadings, represented as vectors, explain the mapping from the original features to the principal components. The principal components are naturally ordered from the most variance explained to the least variance explained.</p>
 <p>For the first principal component, what is the component of the loading vector for the feature <code>concave.points_mean</code>?</p>
-<div class="sourceCode" id="cb2596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2596-1"><a href="unsupervised-learning.html#cb2596-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -0.26085376</span></span>
-<span id="cb2596-2"><a href="unsupervised-learning.html#cb2596-2" aria-hidden="true" tabindex="-1"></a>wisc.pr<span class="sc">$</span>rotation[,<span class="st">&quot;PC1&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb3054"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3054-1"><a href="unsupervised-learning.html#cb3054-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -0.26085376</span></span>
+<span id="cb3054-2"><a href="unsupervised-learning.html#cb3054-2" aria-hidden="true" tabindex="-1"></a>wisc.pr<span class="sc">$</span>rotation[,<span class="st">&quot;PC1&quot;</span>]</span></code></pre></div>
 <pre><code>##             radius_mean            texture_mean          perimeter_mean 
 ##                 -0.2189                 -0.1037                 -0.2275 
 ##               area_mean         smoothness_mean        compactness_mean 
@@ -1886,55 +1890,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##    concave.points_worst          symmetry_worst fractal_dimension_worst 
 ##                 -0.2509                 -0.1229                 -0.1318</code></pre>
 <p>What is the minimum number of principal components required to explain 80% of the variance of the data?</p>
-<div class="sourceCode" id="cb2598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2598-1"><a href="unsupervised-learning.html#cb2598-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PC5 Cumulative Proportion = 0.84734 &amp; screen plot</span></span>
-<span id="cb2598-2"><a href="unsupervised-learning.html#cb2598-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wisc.pr)</span></code></pre></div>
+<div class="sourceCode" id="cb3056"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3056-1"><a href="unsupervised-learning.html#cb3056-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PC5 Cumulative Proportion = 0.84734 &amp; screen plot</span></span>
+<span id="cb3056-2"><a href="unsupervised-learning.html#cb3056-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wisc.pr)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                          PC1   PC2    PC3   PC4   PC5    PC6    PC7    PC8
 ## Standard deviation     3.644 2.386 1.6787 1.407 1.284 1.0988 0.8217 0.6904
 ## Proportion of Variance 0.443 0.190 0.0939 0.066 0.055 0.0403 0.0225 0.0159
 ## Cumulative Proportion  0.443 0.632 0.7264 0.792 0.847 0.8876 0.9101 0.9260
-##                           PC9   PC10   PC11    PC12    PC13    PC14
-## Standard deviation     0.6457 0.5922 0.5421 0.51104 0.49128 0.39624
-## Proportion of Variance 0.0139 0.0117 0.0098 0.00871 0.00805 0.00523
-## Cumulative Proportion  0.9399 0.9516 0.9614 0.97007 0.97812 0.98335
-##                           PC15    PC16    PC17    PC18    PC19    PC20
-## Standard deviation     0.30681 0.28260 0.24372 0.22939 0.22244 0.17652
-## Proportion of Variance 0.00314 0.00266 0.00198 0.00175 0.00165 0.00104
-## Cumulative Proportion  0.98649 0.98915 0.99113 0.99288 0.99453 0.99557
-##                         PC21    PC22    PC23   PC24    PC25    PC26
-## Standard deviation     0.173 0.16565 0.15602 0.1344 0.12442 0.09043
-## Proportion of Variance 0.001 0.00091 0.00081 0.0006 0.00052 0.00027
-## Cumulative Proportion  0.997 0.99749 0.99830 0.9989 0.99942 0.99969
-##                           PC27    PC28    PC29   PC30
-## Standard deviation     0.08307 0.03987 0.02736 0.0115
-## Proportion of Variance 0.00023 0.00005 0.00002 0.0000
-## Cumulative Proportion  0.99992 0.99997 1.00000 1.0000</code></pre>
+##                           PC9   PC10   PC11    PC12    PC13    PC14    PC15
+## Standard deviation     0.6457 0.5922 0.5421 0.51104 0.49128 0.39624 0.30681
+## Proportion of Variance 0.0139 0.0117 0.0098 0.00871 0.00805 0.00523 0.00314
+## Cumulative Proportion  0.9399 0.9516 0.9614 0.97007 0.97812 0.98335 0.98649
+##                           PC16    PC17    PC18    PC19    PC20  PC21    PC22
+## Standard deviation     0.28260 0.24372 0.22939 0.22244 0.17652 0.173 0.16565
+## Proportion of Variance 0.00266 0.00198 0.00175 0.00165 0.00104 0.001 0.00091
+## Cumulative Proportion  0.98915 0.99113 0.99288 0.99453 0.99557 0.997 0.99749
+##                           PC23   PC24    PC25    PC26    PC27    PC28    PC29
+## Standard deviation     0.15602 0.1344 0.12442 0.09043 0.08307 0.03987 0.02736
+## Proportion of Variance 0.00081 0.0006 0.00052 0.00027 0.00023 0.00005 0.00002
+## Cumulative Proportion  0.99830 0.9989 0.99942 0.99969 0.99992 0.99997 1.00000
+##                          PC30
+## Standard deviation     0.0115
+## Proportion of Variance 0.0000
+## Cumulative Proportion  1.0000</code></pre>
 </div>
 <div id="hierarchical-clustering-1" class="section level4 hasAnchor" number="21.4.2.2">
 <h4><span class="header-section-number">21.4.2.2</span> Hierarchical clustering<a href="unsupervised-learning.html#hierarchical-clustering-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2600-1"><a href="unsupervised-learning.html#cb2600-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the wisc.data data: data.scaled</span></span>
-<span id="cb2600-2"><a href="unsupervised-learning.html#cb2600-2" aria-hidden="true" tabindex="-1"></a>data.scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(wisc.data)</span>
-<span id="cb2600-3"><a href="unsupervised-learning.html#cb2600-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2600-4"><a href="unsupervised-learning.html#cb2600-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the (Euclidean) distances: data.dist</span></span>
-<span id="cb2600-5"><a href="unsupervised-learning.html#cb2600-5" aria-hidden="true" tabindex="-1"></a>data.dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(data.scaled)</span>
-<span id="cb2600-6"><a href="unsupervised-learning.html#cb2600-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2600-7"><a href="unsupervised-learning.html#cb2600-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a hierarchical clustering model: wisc.hclust</span></span>
-<span id="cb2600-8"><a href="unsupervised-learning.html#cb2600-8" aria-hidden="true" tabindex="-1"></a>wisc.hclust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(data.dist, <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
-<span id="cb2600-9"><a href="unsupervised-learning.html#cb2600-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2600-10"><a href="unsupervised-learning.html#cb2600-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
-<span id="cb2600-11"><a href="unsupervised-learning.html#cb2600-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wisc.hclust)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1201-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3058"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3058-1"><a href="unsupervised-learning.html#cb3058-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the wisc.data data: data.scaled</span></span>
+<span id="cb3058-2"><a href="unsupervised-learning.html#cb3058-2" aria-hidden="true" tabindex="-1"></a>data.scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(wisc.data)</span>
+<span id="cb3058-3"><a href="unsupervised-learning.html#cb3058-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3058-4"><a href="unsupervised-learning.html#cb3058-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the (Euclidean) distances: data.dist</span></span>
+<span id="cb3058-5"><a href="unsupervised-learning.html#cb3058-5" aria-hidden="true" tabindex="-1"></a>data.dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(data.scaled)</span>
+<span id="cb3058-6"><a href="unsupervised-learning.html#cb3058-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3058-7"><a href="unsupervised-learning.html#cb3058-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a hierarchical clustering model: wisc.hclust</span></span>
+<span id="cb3058-8"><a href="unsupervised-learning.html#cb3058-8" aria-hidden="true" tabindex="-1"></a>wisc.hclust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(data.dist, <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb3058-9"><a href="unsupervised-learning.html#cb3058-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3058-10"><a href="unsupervised-learning.html#cb3058-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb3058-11"><a href="unsupervised-learning.html#cb3058-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wisc.hclust)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1196-1.png" width="672" /></p>
 <p>What is the height at which the clustering model has 4 clusters? ANS: 20</p>
 </div>
 <div id="selecting-number-of-clusters-2" class="section level4 hasAnchor" number="21.4.2.3">
 <h4><span class="header-section-number">21.4.2.3</span> Selecting number of clusters<a href="unsupervised-learning.html#selecting-number-of-clusters-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You will compare the outputs from your hierarchical clustering model to the actual diagnoses. Normally when performing unsupervised learning like this, a target variable isn’t available. We do have it with this dataset, however, so it can be used to check the performance of the clustering model.</p>
 <p>When performing supervised learning, using clustering to create new features may or may not improve the performance of the final model. This exercise will help you determine if, in this case, hierarchical clustering provides a promising new feature.</p>
-<div class="sourceCode" id="cb2601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2601-1"><a href="unsupervised-learning.html#cb2601-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut tree so that it has 4 clusters: wisc.hclust.clusters</span></span>
-<span id="cb2601-2"><a href="unsupervised-learning.html#cb2601-2" aria-hidden="true" tabindex="-1"></a>wisc.hclust.clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(wisc.hclust, <span class="at">k =</span> <span class="dv">4</span>)</span>
-<span id="cb2601-3"><a href="unsupervised-learning.html#cb2601-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2601-4"><a href="unsupervised-learning.html#cb2601-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare cluster membership to actual diagnoses</span></span>
-<span id="cb2601-5"><a href="unsupervised-learning.html#cb2601-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.hclust.clusters, diagnosis)</span></code></pre></div>
+<div class="sourceCode" id="cb3059"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3059-1"><a href="unsupervised-learning.html#cb3059-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut tree so that it has 4 clusters: wisc.hclust.clusters</span></span>
+<span id="cb3059-2"><a href="unsupervised-learning.html#cb3059-2" aria-hidden="true" tabindex="-1"></a>wisc.hclust.clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(wisc.hclust, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb3059-3"><a href="unsupervised-learning.html#cb3059-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3059-4"><a href="unsupervised-learning.html#cb3059-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare cluster membership to actual diagnoses</span></span>
+<span id="cb3059-5"><a href="unsupervised-learning.html#cb3059-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.hclust.clusters, diagnosis)</span></code></pre></div>
 <pre><code>##                     diagnosis
 ## wisc.hclust.clusters   0   1
 ##                    1  12 165
@@ -1945,17 +1949,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="k-means-clustering-compare" class="section level4 hasAnchor" number="21.4.2.4">
 <h4><span class="header-section-number">21.4.2.4</span> k-means clustering &amp; compare<a href="unsupervised-learning.html#k-means-clustering-compare" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You will create a k-means clustering model on the Wisconsin breast cancer data and compare the results to the actual diagnoses and the results of your hierarchical clustering model.</p>
-<div class="sourceCode" id="cb2603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2603-1"><a href="unsupervised-learning.html#cb2603-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a k-means model on wisc.data: wisc.km</span></span>
-<span id="cb2603-2"><a href="unsupervised-learning.html#cb2603-2" aria-hidden="true" tabindex="-1"></a>wisc.km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="fu">scale</span>(wisc.data), <span class="at">centers =</span> <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb2603-3"><a href="unsupervised-learning.html#cb2603-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2603-4"><a href="unsupervised-learning.html#cb2603-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare k-means to actual diagnoses</span></span>
-<span id="cb2603-5"><a href="unsupervised-learning.html#cb2603-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.km<span class="sc">$</span>cluster, diagnosis)</span></code></pre></div>
+<div class="sourceCode" id="cb3061"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3061-1"><a href="unsupervised-learning.html#cb3061-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a k-means model on wisc.data: wisc.km</span></span>
+<span id="cb3061-2"><a href="unsupervised-learning.html#cb3061-2" aria-hidden="true" tabindex="-1"></a>wisc.km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="fu">scale</span>(wisc.data), <span class="at">centers =</span> <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb3061-3"><a href="unsupervised-learning.html#cb3061-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3061-4"><a href="unsupervised-learning.html#cb3061-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare k-means to actual diagnoses</span></span>
+<span id="cb3061-5"><a href="unsupervised-learning.html#cb3061-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.km<span class="sc">$</span>cluster, diagnosis)</span></code></pre></div>
 <pre><code>##    diagnosis
 ##       0   1
 ##   1 343  37
 ##   2  14 175</code></pre>
-<div class="sourceCode" id="cb2605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2605-1"><a href="unsupervised-learning.html#cb2605-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare k-means to hierarchical clustering</span></span>
-<span id="cb2605-2"><a href="unsupervised-learning.html#cb2605-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.km<span class="sc">$</span>cluster, wisc.hclust.clusters)</span></code></pre></div>
+<div class="sourceCode" id="cb3063"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3063-1"><a href="unsupervised-learning.html#cb3063-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare k-means to hierarchical clustering</span></span>
+<span id="cb3063-2"><a href="unsupervised-learning.html#cb3063-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.km<span class="sc">$</span>cluster, wisc.hclust.clusters)</span></code></pre></div>
 <pre><code>##    wisc.hclust.clusters
 ##       1   2   3   4
 ##   1  17   0 363   0
@@ -1967,53 +1971,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You will put together several steps you used earlier and, in doing so, you will experience some of the creativity that is typical in unsupervised learning.</p>
 <p>Recall from earlier exercises that the PCA model required significantly fewer features to describe 80% and 95% of the variability of the data. In addition to normalizing data and potentially avoiding overfitting, PCA also uncorrelates the variables, sometimes improving the performance of other modeling techniques.</p>
 <p>Let’s see if PCA improves or degrades the performance of hierarchical clustering.</p>
-<div class="sourceCode" id="cb2607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2607-1"><a href="unsupervised-learning.html#cb2607-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the minimum number of principal components required to describe at least 90% of the variability in the data</span></span>
-<span id="cb2607-2"><a href="unsupervised-learning.html#cb2607-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PC7 = 0.91</span></span>
-<span id="cb2607-3"><a href="unsupervised-learning.html#cb2607-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wisc.pr)</span></code></pre></div>
+<div class="sourceCode" id="cb3065"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3065-1"><a href="unsupervised-learning.html#cb3065-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the minimum number of principal components required to describe at least 90% of the variability in the data</span></span>
+<span id="cb3065-2"><a href="unsupervised-learning.html#cb3065-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PC7 = 0.91</span></span>
+<span id="cb3065-3"><a href="unsupervised-learning.html#cb3065-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wisc.pr)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                          PC1   PC2    PC3   PC4   PC5    PC6    PC7    PC8
 ## Standard deviation     3.644 2.386 1.6787 1.407 1.284 1.0988 0.8217 0.6904
 ## Proportion of Variance 0.443 0.190 0.0939 0.066 0.055 0.0403 0.0225 0.0159
 ## Cumulative Proportion  0.443 0.632 0.7264 0.792 0.847 0.8876 0.9101 0.9260
-##                           PC9   PC10   PC11    PC12    PC13    PC14
-## Standard deviation     0.6457 0.5922 0.5421 0.51104 0.49128 0.39624
-## Proportion of Variance 0.0139 0.0117 0.0098 0.00871 0.00805 0.00523
-## Cumulative Proportion  0.9399 0.9516 0.9614 0.97007 0.97812 0.98335
-##                           PC15    PC16    PC17    PC18    PC19    PC20
-## Standard deviation     0.30681 0.28260 0.24372 0.22939 0.22244 0.17652
-## Proportion of Variance 0.00314 0.00266 0.00198 0.00175 0.00165 0.00104
-## Cumulative Proportion  0.98649 0.98915 0.99113 0.99288 0.99453 0.99557
-##                         PC21    PC22    PC23   PC24    PC25    PC26
-## Standard deviation     0.173 0.16565 0.15602 0.1344 0.12442 0.09043
-## Proportion of Variance 0.001 0.00091 0.00081 0.0006 0.00052 0.00027
-## Cumulative Proportion  0.997 0.99749 0.99830 0.9989 0.99942 0.99969
-##                           PC27    PC28    PC29   PC30
-## Standard deviation     0.08307 0.03987 0.02736 0.0115
-## Proportion of Variance 0.00023 0.00005 0.00002 0.0000
-## Cumulative Proportion  0.99992 0.99997 1.00000 1.0000</code></pre>
+##                           PC9   PC10   PC11    PC12    PC13    PC14    PC15
+## Standard deviation     0.6457 0.5922 0.5421 0.51104 0.49128 0.39624 0.30681
+## Proportion of Variance 0.0139 0.0117 0.0098 0.00871 0.00805 0.00523 0.00314
+## Cumulative Proportion  0.9399 0.9516 0.9614 0.97007 0.97812 0.98335 0.98649
+##                           PC16    PC17    PC18    PC19    PC20  PC21    PC22
+## Standard deviation     0.28260 0.24372 0.22939 0.22244 0.17652 0.173 0.16565
+## Proportion of Variance 0.00266 0.00198 0.00175 0.00165 0.00104 0.001 0.00091
+## Cumulative Proportion  0.98915 0.99113 0.99288 0.99453 0.99557 0.997 0.99749
+##                           PC23   PC24    PC25    PC26    PC27    PC28    PC29
+## Standard deviation     0.15602 0.1344 0.12442 0.09043 0.08307 0.03987 0.02736
+## Proportion of Variance 0.00081 0.0006 0.00052 0.00027 0.00023 0.00005 0.00002
+## Cumulative Proportion  0.99830 0.9989 0.99942 0.99969 0.99992 0.99997 1.00000
+##                          PC30
+## Standard deviation     0.0115
+## Proportion of Variance 0.0000
+## Cumulative Proportion  1.0000</code></pre>
 <p>Create a hierarchical clustering model with complete linkage.</p>
-<div class="sourceCode" id="cb2609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2609-1"><a href="unsupervised-learning.html#cb2609-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a hierarchical clustering model: wisc.pr.hclust</span></span>
-<span id="cb2609-2"><a href="unsupervised-learning.html#cb2609-2" aria-hidden="true" tabindex="-1"></a>wisc.pr.hclust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(wisc.pr<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
-<span id="cb2609-3"><a href="unsupervised-learning.html#cb2609-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2609-4"><a href="unsupervised-learning.html#cb2609-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut model into 4 clusters: wisc.pr.hclust.clusters</span></span>
-<span id="cb2609-5"><a href="unsupervised-learning.html#cb2609-5" aria-hidden="true" tabindex="-1"></a>wisc.pr.hclust.clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(wisc.pr.hclust, <span class="at">k =</span> <span class="dv">4</span>)</span>
-<span id="cb2609-6"><a href="unsupervised-learning.html#cb2609-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2609-7"><a href="unsupervised-learning.html#cb2609-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to actual diagnoses</span></span>
-<span id="cb2609-8"><a href="unsupervised-learning.html#cb2609-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.pr.hclust.clusters, diagnosis)</span></code></pre></div>
+<div class="sourceCode" id="cb3067"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3067-1"><a href="unsupervised-learning.html#cb3067-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a hierarchical clustering model: wisc.pr.hclust</span></span>
+<span id="cb3067-2"><a href="unsupervised-learning.html#cb3067-2" aria-hidden="true" tabindex="-1"></a>wisc.pr.hclust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(wisc.pr<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb3067-3"><a href="unsupervised-learning.html#cb3067-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3067-4"><a href="unsupervised-learning.html#cb3067-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut model into 4 clusters: wisc.pr.hclust.clusters</span></span>
+<span id="cb3067-5"><a href="unsupervised-learning.html#cb3067-5" aria-hidden="true" tabindex="-1"></a>wisc.pr.hclust.clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(wisc.pr.hclust, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb3067-6"><a href="unsupervised-learning.html#cb3067-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3067-7"><a href="unsupervised-learning.html#cb3067-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to actual diagnoses</span></span>
+<span id="cb3067-8"><a href="unsupervised-learning.html#cb3067-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.pr.hclust.clusters, diagnosis)</span></code></pre></div>
 <pre><code>##                        diagnosis
 ## wisc.pr.hclust.clusters   0   1
 ##                       1   5 113
 ##                       2 350  97
 ##                       3   2   0
 ##                       4   0   2</code></pre>
-<div class="sourceCode" id="cb2611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2611-1"><a href="unsupervised-learning.html#cb2611-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare previous k-means and actual diagnosis</span></span>
-<span id="cb2611-2"><a href="unsupervised-learning.html#cb2611-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.km<span class="sc">$</span>cluster, diagnosis)</span></code></pre></div>
+<div class="sourceCode" id="cb3069"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3069-1"><a href="unsupervised-learning.html#cb3069-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare previous k-means and actual diagnosis</span></span>
+<span id="cb3069-2"><a href="unsupervised-learning.html#cb3069-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.km<span class="sc">$</span>cluster, diagnosis)</span></code></pre></div>
 <pre><code>##    diagnosis
 ##       0   1
 ##   1 343  37
 ##   2  14 175</code></pre>
-<div class="sourceCode" id="cb2613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2613-1"><a href="unsupervised-learning.html#cb2613-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare previous hierarchical and actual diagnosis</span></span>
-<span id="cb2613-2"><a href="unsupervised-learning.html#cb2613-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.hclust.clusters, diagnosis)</span></code></pre></div>
+<div class="sourceCode" id="cb3071"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3071-1"><a href="unsupervised-learning.html#cb3071-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare previous hierarchical and actual diagnosis</span></span>
+<span id="cb3071-2"><a href="unsupervised-learning.html#cb3071-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wisc.hclust.clusters, diagnosis)</span></code></pre></div>
 <pre><code>##                     diagnosis
 ## wisc.hclust.clusters   0   1
 ##                    1  12 165

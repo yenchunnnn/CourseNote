@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 24 Intermediate SQL | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -917,30 +917,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="querying-a-database" class="section level3 hasAnchor" number="24.1.1">
 <h3><span class="header-section-number">24.1.1</span> Querying a database<a href="intermediate-sql.html#querying-a-database" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Setup films database</strong></p>
-<div class="sourceCode" id="cb2725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2725-1"><a href="intermediate-sql.html#cb2725-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a new database</span></span>
-<span id="cb2725-2"><a href="intermediate-sql.html#cb2725-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to the default postgres database</span></span>
-<span id="cb2725-3"><a href="intermediate-sql.html#cb2725-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb2725-4"><a href="intermediate-sql.html#cb2725-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">&quot;&quot;</span>)</span>
-<span id="cb2725-5"><a href="intermediate-sql.html#cb2725-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">connection =</span> <span class="st">&quot;con&quot;</span>)</span>
-<span id="cb2725-6"><a href="intermediate-sql.html#cb2725-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2725-7"><a href="intermediate-sql.html#cb2725-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading data</span></span>
-<span id="cb2725-8"><a href="intermediate-sql.html#cb2725-8" aria-hidden="true" tabindex="-1"></a>films <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/films.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb2725-9"><a href="intermediate-sql.html#cb2725-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(films) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;title&quot;</span>, <span class="st">&quot;release_year&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;duration&quot;</span>, <span class="st">&quot;language&quot;</span>, <span class="st">&quot;certification&quot;</span>, <span class="st">&quot;gross&quot;</span>, <span class="st">&quot;budget&quot;</span>)</span>
-<span id="cb2725-10"><a href="intermediate-sql.html#cb2725-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2725-11"><a href="intermediate-sql.html#cb2725-11" aria-hidden="true" tabindex="-1"></a>people <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/people.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;name&quot;</span>, <span class="st">&quot;birthdate&quot;</span>, <span class="st">&quot;deathdate&quot;</span>), <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>) </span>
-<span id="cb2725-12"><a href="intermediate-sql.html#cb2725-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2725-13"><a href="intermediate-sql.html#cb2725-13" aria-hidden="true" tabindex="-1"></a>reviews <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/reviews.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;film_id&quot;</span>,<span class="st">&quot;num_user&quot;</span>, <span class="st">&quot;num_critic&quot;</span>, <span class="st">&quot;imdb_score&quot;</span>, <span class="st">&quot;num_votes&quot;</span>, <span class="st">&quot;facebook_likes&quot;</span>), <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb2725-14"><a href="intermediate-sql.html#cb2725-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2725-15"><a href="intermediate-sql.html#cb2725-15" aria-hidden="true" tabindex="-1"></a>roles <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/roles.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;film_id&quot;</span>, <span class="st">&quot;person_id&quot;</span>, <span class="st">&quot;role&quot;</span>), <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb2725-16"><a href="intermediate-sql.html#cb2725-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2725-17"><a href="intermediate-sql.html#cb2725-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create database tables</span></span>
-<span id="cb2725-18"><a href="intermediate-sql.html#cb2725-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;films&quot;</span>, films)</span>
-<span id="cb2725-19"><a href="intermediate-sql.html#cb2725-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;people&quot;</span>, people)</span>
-<span id="cb2725-20"><a href="intermediate-sql.html#cb2725-20" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;reviews&quot;</span>, reviews)</span>
-<span id="cb2725-21"><a href="intermediate-sql.html#cb2725-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;roles&quot;</span>, roles)</span>
-<span id="cb2725-22"><a href="intermediate-sql.html#cb2725-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2725-23"><a href="intermediate-sql.html#cb2725-23" aria-hidden="true" tabindex="-1"></a><span class="co"># List database tables</span></span>
-<span id="cb2725-24"><a href="intermediate-sql.html#cb2725-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb3207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3207-1"><a href="intermediate-sql.html#cb3207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a new database</span></span>
+<span id="cb3207-2"><a href="intermediate-sql.html#cb3207-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to the default postgres database</span></span>
+<span id="cb3207-3"><a href="intermediate-sql.html#cb3207-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb3207-4"><a href="intermediate-sql.html#cb3207-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">&quot;&quot;</span>)</span>
+<span id="cb3207-5"><a href="intermediate-sql.html#cb3207-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">connection =</span> <span class="st">&quot;con&quot;</span>)</span>
+<span id="cb3207-6"><a href="intermediate-sql.html#cb3207-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3207-7"><a href="intermediate-sql.html#cb3207-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading data</span></span>
+<span id="cb3207-8"><a href="intermediate-sql.html#cb3207-8" aria-hidden="true" tabindex="-1"></a>films <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/films.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb3207-9"><a href="intermediate-sql.html#cb3207-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(films) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;title&quot;</span>, <span class="st">&quot;release_year&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;duration&quot;</span>, <span class="st">&quot;language&quot;</span>, <span class="st">&quot;certification&quot;</span>, <span class="st">&quot;gross&quot;</span>, <span class="st">&quot;budget&quot;</span>)</span>
+<span id="cb3207-10"><a href="intermediate-sql.html#cb3207-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3207-11"><a href="intermediate-sql.html#cb3207-11" aria-hidden="true" tabindex="-1"></a>people <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/people.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;name&quot;</span>, <span class="st">&quot;birthdate&quot;</span>, <span class="st">&quot;deathdate&quot;</span>), <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>) </span>
+<span id="cb3207-12"><a href="intermediate-sql.html#cb3207-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3207-13"><a href="intermediate-sql.html#cb3207-13" aria-hidden="true" tabindex="-1"></a>reviews <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/reviews.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;film_id&quot;</span>,<span class="st">&quot;num_user&quot;</span>, <span class="st">&quot;num_critic&quot;</span>, <span class="st">&quot;imdb_score&quot;</span>, <span class="st">&quot;num_votes&quot;</span>, <span class="st">&quot;facebook_likes&quot;</span>), <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb3207-14"><a href="intermediate-sql.html#cb3207-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3207-15"><a href="intermediate-sql.html#cb3207-15" aria-hidden="true" tabindex="-1"></a>roles <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/roles.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;film_id&quot;</span>, <span class="st">&quot;person_id&quot;</span>, <span class="st">&quot;role&quot;</span>), <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb3207-16"><a href="intermediate-sql.html#cb3207-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3207-17"><a href="intermediate-sql.html#cb3207-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create database tables</span></span>
+<span id="cb3207-18"><a href="intermediate-sql.html#cb3207-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;films&quot;</span>, films)</span>
+<span id="cb3207-19"><a href="intermediate-sql.html#cb3207-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;people&quot;</span>, people)</span>
+<span id="cb3207-20"><a href="intermediate-sql.html#cb3207-20" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;reviews&quot;</span>, reviews)</span>
+<span id="cb3207-21"><a href="intermediate-sql.html#cb3207-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;roles&quot;</span>, roles)</span>
+<span id="cb3207-22"><a href="intermediate-sql.html#cb3207-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3207-23"><a href="intermediate-sql.html#cb3207-23" aria-hidden="true" tabindex="-1"></a><span class="co"># List database tables</span></span>
+<span id="cb3207-24"><a href="intermediate-sql.html#cb3207-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(con)</span></code></pre></div>
 <pre><code>## [1] &quot;films&quot;   &quot;people&quot;  &quot;reviews&quot; &quot;roles&quot;</code></pre>
 <div id="count-distinct" class="section level4 hasAnchor" number="24.1.1.1">
 <h4><span class="header-section-number">24.1.1.1</span> COUNT &amp; DISTINCT<a href="intermediate-sql.html#count-distinct" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -959,12 +959,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>DISTINCT</code> removes duplicates to return only unique values</p></li>
 <li><p>Combine <code>COUNT()</code> with <code>DISTINCT</code> to count unique values</p></li>
 </ul>
-<div class="sourceCode" id="cb2727"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2727-1"><a href="intermediate-sql.html#cb2727-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the number of records in the people table</span></span>
-<span id="cb2727-2"><a href="intermediate-sql.html#cb2727-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> count_records</span>
-<span id="cb2727-3"><a href="intermediate-sql.html#cb2727-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people;</span></code></pre></div>
+<div class="sourceCode" id="cb3209"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3209-1"><a href="intermediate-sql.html#cb3209-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the number of records in the people table</span></span>
+<span id="cb3209-2"><a href="intermediate-sql.html#cb3209-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> count_records</span>
+<span id="cb3209-3"><a href="intermediate-sql.html#cb3209-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1260">Table 24.1: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1255">Table 24.1: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_records</th>
@@ -977,12 +977,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2728"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2728-1"><a href="intermediate-sql.html#cb2728-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the number of birthdates in the people table</span></span>
-<span id="cb2728-2"><a href="intermediate-sql.html#cb2728-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(birthdate) <span class="kw">AS</span> count_birthdate</span>
-<span id="cb2728-3"><a href="intermediate-sql.html#cb2728-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people;</span></code></pre></div>
+<div class="sourceCode" id="cb3210"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3210-1"><a href="intermediate-sql.html#cb3210-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the number of birthdates in the people table</span></span>
+<span id="cb3210-2"><a href="intermediate-sql.html#cb3210-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(birthdate) <span class="kw">AS</span> count_birthdate</span>
+<span id="cb3210-3"><a href="intermediate-sql.html#cb3210-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1261">Table 24.2: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1256">Table 24.2: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_birthdate</th>
@@ -995,12 +995,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2729"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2729-1"><a href="intermediate-sql.html#cb2729-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the records for languages and countries represented in the films table</span></span>
-<span id="cb2729-2"><a href="intermediate-sql.html#cb2729-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(language) <span class="kw">AS</span> count_languages, <span class="fu">COUNT</span>(country) <span class="kw">AS</span> count_countries</span>
-<span id="cb2729-3"><a href="intermediate-sql.html#cb2729-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3211"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3211-1"><a href="intermediate-sql.html#cb3211-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the records for languages and countries represented in the films table</span></span>
+<span id="cb3211-2"><a href="intermediate-sql.html#cb3211-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(language) <span class="kw">AS</span> count_languages, <span class="fu">COUNT</span>(country) <span class="kw">AS</span> count_countries</span>
+<span id="cb3211-3"><a href="intermediate-sql.html#cb3211-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1262">Table 24.3: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1257">Table 24.3: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_languages</th>
@@ -1016,12 +1016,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <p><strong>SELECT DISTINCT</strong></p>
-<div class="sourceCode" id="cb2730"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2730-1"><a href="intermediate-sql.html#cb2730-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Return the unique countries from the films table</span></span>
-<span id="cb2730-2"><a href="intermediate-sql.html#cb2730-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> country</span>
-<span id="cb2730-3"><a href="intermediate-sql.html#cb2730-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3212"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3212-1"><a href="intermediate-sql.html#cb3212-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Return the unique countries from the films table</span></span>
+<span id="cb3212-2"><a href="intermediate-sql.html#cb3212-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> country</span>
+<span id="cb3212-3"><a href="intermediate-sql.html#cb3212-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1263">Table 24.4: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1258">Table 24.4: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -1061,12 +1061,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2731"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2731-1"><a href="intermediate-sql.html#cb2731-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the distinct countries from the films table</span></span>
-<span id="cb2731-2"><a href="intermediate-sql.html#cb2731-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> country) <span class="kw">AS</span> count_distinct_countries</span>
-<span id="cb2731-3"><a href="intermediate-sql.html#cb2731-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span></code></pre></div>
+<div class="sourceCode" id="cb3213"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3213-1"><a href="intermediate-sql.html#cb3213-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the distinct countries from the films table</span></span>
+<span id="cb3213-2"><a href="intermediate-sql.html#cb3213-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> country) <span class="kw">AS</span> count_distinct_countries</span>
+<span id="cb3213-3"><a href="intermediate-sql.html#cb3213-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1264">Table 24.5: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1259">Table 24.5: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_distinct_countries</th>
@@ -1140,13 +1140,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">24.2.1.1</span> WHERE<a href="intermediate-sql.html#where" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Using WHERE with numbers</strong></p>
 <p>In this case, you’ll want to filter your data to a specific <code>budget</code> range.</p>
-<div class="sourceCode" id="cb2732"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2732-1"><a href="intermediate-sql.html#cb2732-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select film_ids and imdb_score with an imdb_score over 7.0</span></span>
-<span id="cb2732-2"><a href="intermediate-sql.html#cb2732-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> film_id, imdb_score</span>
-<span id="cb2732-3"><a href="intermediate-sql.html#cb2732-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
-<span id="cb2732-4"><a href="intermediate-sql.html#cb2732-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> imdb_score <span class="op">&gt;</span> <span class="dv">7</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3214"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3214-1"><a href="intermediate-sql.html#cb3214-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select film_ids and imdb_score with an imdb_score over 7.0</span></span>
+<span id="cb3214-2"><a href="intermediate-sql.html#cb3214-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> film_id, imdb_score</span>
+<span id="cb3214-3"><a href="intermediate-sql.html#cb3214-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
+<span id="cb3214-4"><a href="intermediate-sql.html#cb3214-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> imdb_score <span class="op">&gt;</span> <span class="dv">7</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1265">Table 24.6: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1260">Table 24.6: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="right">film_id</th>
@@ -1197,13 +1197,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2733"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2733-1"><a href="intermediate-sql.html#cb2733-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select imdb_score with an imdb_score over 7.0</span></span>
-<span id="cb2733-2"><a href="intermediate-sql.html#cb2733-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(imdb_score)</span>
-<span id="cb2733-3"><a href="intermediate-sql.html#cb2733-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
-<span id="cb2733-4"><a href="intermediate-sql.html#cb2733-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> imdb_score <span class="op">&gt;</span> <span class="dv">7</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3215"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3215-1"><a href="intermediate-sql.html#cb3215-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select imdb_score with an imdb_score over 7.0</span></span>
+<span id="cb3215-2"><a href="intermediate-sql.html#cb3215-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(imdb_score)</span>
+<span id="cb3215-3"><a href="intermediate-sql.html#cb3215-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
+<span id="cb3215-4"><a href="intermediate-sql.html#cb3215-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> imdb_score <span class="op">&gt;</span> <span class="dv">7</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1266">Table 24.7: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1261">Table 24.7: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">COUNT(imdb_score)</th>
@@ -1216,14 +1216,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2734"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2734-1"><a href="intermediate-sql.html#cb2734-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select film_ids and facebook_likes for ten records with less than 1000 likes</span></span>
-<span id="cb2734-2"><a href="intermediate-sql.html#cb2734-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> film_id, facebook_likes</span>
-<span id="cb2734-3"><a href="intermediate-sql.html#cb2734-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
-<span id="cb2734-4"><a href="intermediate-sql.html#cb2734-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> facebook_likes <span class="op">&lt;</span> <span class="dv">1000</span></span>
-<span id="cb2734-5"><a href="intermediate-sql.html#cb2734-5" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3216"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3216-1"><a href="intermediate-sql.html#cb3216-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select film_ids and facebook_likes for ten records with less than 1000 likes</span></span>
+<span id="cb3216-2"><a href="intermediate-sql.html#cb3216-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> film_id, facebook_likes</span>
+<span id="cb3216-3"><a href="intermediate-sql.html#cb3216-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
+<span id="cb3216-4"><a href="intermediate-sql.html#cb3216-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> facebook_likes <span class="op">&lt;</span> <span class="dv">1000</span></span>
+<span id="cb3216-5"><a href="intermediate-sql.html#cb3216-5" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1267">Table 24.8: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1262">Table 24.8: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="right">film_id</th>
@@ -1274,13 +1274,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2735"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2735-1"><a href="intermediate-sql.html#cb2735-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the records with at least 100,000 votes</span></span>
-<span id="cb2735-2"><a href="intermediate-sql.html#cb2735-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(num_votes) <span class="kw">AS</span> films_over_100K_votes</span>
-<span id="cb2735-3"><a href="intermediate-sql.html#cb2735-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
-<span id="cb2735-4"><a href="intermediate-sql.html#cb2735-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> num_votes <span class="op">&gt;=</span> <span class="dv">100000</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3217"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3217-1"><a href="intermediate-sql.html#cb3217-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the records with at least 100,000 votes</span></span>
+<span id="cb3217-2"><a href="intermediate-sql.html#cb3217-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(num_votes) <span class="kw">AS</span> films_over_100K_votes</span>
+<span id="cb3217-3"><a href="intermediate-sql.html#cb3217-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews</span>
+<span id="cb3217-4"><a href="intermediate-sql.html#cb3217-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> num_votes <span class="op">&gt;=</span> <span class="dv">100000</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1268">Table 24.9: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1263">Table 24.9: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">films_over_100K_votes</th>
@@ -1295,13 +1295,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><strong>Using WHERE with text</strong></p>
 <p><code>WHERE</code> can also filter string values.</p>
-<div class="sourceCode" id="cb2736"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2736-1"><a href="intermediate-sql.html#cb2736-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the Spanish-language films</span></span>
-<span id="cb2736-2"><a href="intermediate-sql.html#cb2736-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(language) <span class="kw">AS</span> count_spanish</span>
-<span id="cb2736-3"><a href="intermediate-sql.html#cb2736-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2736-4"><a href="intermediate-sql.html#cb2736-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3218"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3218-1"><a href="intermediate-sql.html#cb3218-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the Spanish-language films</span></span>
+<span id="cb3218-2"><a href="intermediate-sql.html#cb3218-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(language) <span class="kw">AS</span> count_spanish</span>
+<span id="cb3218-3"><a href="intermediate-sql.html#cb3218-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3218-4"><a href="intermediate-sql.html#cb3218-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1269">Table 24.10: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1264">Table 24.10: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_spanish</th>
@@ -1323,44 +1323,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>OR</code> , <code>AND</code> , <code>BETWEEN</code></li>
 </ul>
-<div class="sourceCode" id="cb2737"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2737-1"><a href="intermediate-sql.html#cb2737-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- OR</span></span>
-<span id="cb2737-2"><a href="intermediate-sql.html#cb2737-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb2737-3"><a href="intermediate-sql.html#cb2737-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> coats</span>
-<span id="cb2737-4"><a href="intermediate-sql.html#cb2737-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> color <span class="op">=</span> <span class="st">&#39;yellow&#39;</span> <span class="kw">OR</span> <span class="fu">length</span> <span class="op">=</span> <span class="st">&#39;short&#39;</span>;</span>
-<span id="cb2737-5"><a href="intermediate-sql.html#cb2737-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2737-6"><a href="intermediate-sql.html#cb2737-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- AND</span></span>
-<span id="cb2737-7"><a href="intermediate-sql.html#cb2737-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb2737-8"><a href="intermediate-sql.html#cb2737-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> coats</span>
-<span id="cb2737-9"><a href="intermediate-sql.html#cb2737-9" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> color <span class="op">=</span> <span class="st">&#39;yellow&#39;</span> <span class="kw">AND</span> <span class="fu">length</span> <span class="op">=</span> <span class="st">&#39;short&#39;</span>;</span>
-<span id="cb2737-10"><a href="intermediate-sql.html#cb2737-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2737-11"><a href="intermediate-sql.html#cb2737-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- BETWEEN, AND: BETWEEN 上下界都包含(1,5也算) 👈</span></span>
-<span id="cb2737-12"><a href="intermediate-sql.html#cb2737-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb2737-13"><a href="intermediate-sql.html#cb2737-13" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> coats</span>
-<span id="cb2737-14"><a href="intermediate-sql.html#cb2737-14" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> buttons <span class="kw">BETWEEN</span> <span class="dv">1</span> <span class="kw">AND</span> <span class="dv">5</span>;</span>
-<span id="cb2737-15"><a href="intermediate-sql.html#cb2737-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2737-16"><a href="intermediate-sql.html#cb2737-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- AND, OR: Enclose individual clauses in parentheses👈</span></span>
-<span id="cb2737-17"><a href="intermediate-sql.html#cb2737-17" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
-<span id="cb2737-18"><a href="intermediate-sql.html#cb2737-18" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2737-19"><a href="intermediate-sql.html#cb2737-19" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="op">=</span> <span class="dv">1994</span> <span class="kw">OR</span> release_year <span class="op">=</span> <span class="dv">1995</span>)</span>
-<span id="cb2737-20"><a href="intermediate-sql.html#cb2737-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (certification <span class="op">=</span> <span class="st">&#39;PG&#39;</span> <span class="kw">OR</span> certification <span class="op">=</span> <span class="st">&#39;R&#39;</span>);</span>
-<span id="cb2737-21"><a href="intermediate-sql.html#cb2737-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2737-22"><a href="intermediate-sql.html#cb2737-22" aria-hidden="true" tabindex="-1"></a><span class="co">-- BETWEEN, AND, OR</span></span>
-<span id="cb2737-23"><a href="intermediate-sql.html#cb2737-23" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
-<span id="cb2737-24"><a href="intermediate-sql.html#cb2737-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2737-25"><a href="intermediate-sql.html#cb2737-25" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year</span>
-<span id="cb2737-26"><a href="intermediate-sql.html#cb2737-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">BETWEEN</span> <span class="dv">1994</span> <span class="kw">AND</span> <span class="dv">2000</span> <span class="kw">AND</span> country<span class="op">=</span><span class="st">&#39;UK&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3219"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3219-1"><a href="intermediate-sql.html#cb3219-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- OR</span></span>
+<span id="cb3219-2"><a href="intermediate-sql.html#cb3219-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3219-3"><a href="intermediate-sql.html#cb3219-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> coats</span>
+<span id="cb3219-4"><a href="intermediate-sql.html#cb3219-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> color <span class="op">=</span> <span class="st">&#39;yellow&#39;</span> <span class="kw">OR</span> <span class="fu">length</span> <span class="op">=</span> <span class="st">&#39;short&#39;</span>;</span>
+<span id="cb3219-5"><a href="intermediate-sql.html#cb3219-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3219-6"><a href="intermediate-sql.html#cb3219-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- AND</span></span>
+<span id="cb3219-7"><a href="intermediate-sql.html#cb3219-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3219-8"><a href="intermediate-sql.html#cb3219-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> coats</span>
+<span id="cb3219-9"><a href="intermediate-sql.html#cb3219-9" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> color <span class="op">=</span> <span class="st">&#39;yellow&#39;</span> <span class="kw">AND</span> <span class="fu">length</span> <span class="op">=</span> <span class="st">&#39;short&#39;</span>;</span>
+<span id="cb3219-10"><a href="intermediate-sql.html#cb3219-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3219-11"><a href="intermediate-sql.html#cb3219-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- BETWEEN, AND: BETWEEN 上下界都包含(1,5也算) 👈</span></span>
+<span id="cb3219-12"><a href="intermediate-sql.html#cb3219-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3219-13"><a href="intermediate-sql.html#cb3219-13" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> coats</span>
+<span id="cb3219-14"><a href="intermediate-sql.html#cb3219-14" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> buttons <span class="kw">BETWEEN</span> <span class="dv">1</span> <span class="kw">AND</span> <span class="dv">5</span>;</span>
+<span id="cb3219-15"><a href="intermediate-sql.html#cb3219-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3219-16"><a href="intermediate-sql.html#cb3219-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- AND, OR: Enclose individual clauses in parentheses👈</span></span>
+<span id="cb3219-17"><a href="intermediate-sql.html#cb3219-17" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
+<span id="cb3219-18"><a href="intermediate-sql.html#cb3219-18" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3219-19"><a href="intermediate-sql.html#cb3219-19" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="op">=</span> <span class="dv">1994</span> <span class="kw">OR</span> release_year <span class="op">=</span> <span class="dv">1995</span>)</span>
+<span id="cb3219-20"><a href="intermediate-sql.html#cb3219-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (certification <span class="op">=</span> <span class="st">&#39;PG&#39;</span> <span class="kw">OR</span> certification <span class="op">=</span> <span class="st">&#39;R&#39;</span>);</span>
+<span id="cb3219-21"><a href="intermediate-sql.html#cb3219-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3219-22"><a href="intermediate-sql.html#cb3219-22" aria-hidden="true" tabindex="-1"></a><span class="co">-- BETWEEN, AND, OR</span></span>
+<span id="cb3219-23"><a href="intermediate-sql.html#cb3219-23" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
+<span id="cb3219-24"><a href="intermediate-sql.html#cb3219-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3219-25"><a href="intermediate-sql.html#cb3219-25" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year</span>
+<span id="cb3219-26"><a href="intermediate-sql.html#cb3219-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">BETWEEN</span> <span class="dv">1994</span> <span class="kw">AND</span> <span class="dv">2000</span> <span class="kw">AND</span> country<span class="op">=</span><span class="st">&#39;UK&#39;</span>;</span></code></pre></div>
 <div id="and-1" class="section level4 hasAnchor" number="24.2.2.1">
 <h4><span class="header-section-number">24.2.2.1</span> AND<a href="intermediate-sql.html#and-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The following exercises combine <code>AND</code> and <code>OR</code> with the <code>WHERE</code> clause.</p>
 <p>Combining conditions with <code>AND</code> will prove to be very useful when we want our query to return a specific subset of records.</p>
-<div class="sourceCode" id="cb2738"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2738-1"><a href="intermediate-sql.html#cb2738-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the title and release_year for all German-language films released before 2000</span></span>
-<span id="cb2738-2"><a href="intermediate-sql.html#cb2738-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
-<span id="cb2738-3"><a href="intermediate-sql.html#cb2738-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2738-4"><a href="intermediate-sql.html#cb2738-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (language <span class="op">=</span> <span class="st">&#39;German&#39;</span>)</span>
-<span id="cb2738-5"><a href="intermediate-sql.html#cb2738-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (release_year <span class="op">&lt;</span> <span class="dv">2000</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3220"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3220-1"><a href="intermediate-sql.html#cb3220-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the title and release_year for all German-language films released before 2000</span></span>
+<span id="cb3220-2"><a href="intermediate-sql.html#cb3220-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
+<span id="cb3220-3"><a href="intermediate-sql.html#cb3220-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3220-4"><a href="intermediate-sql.html#cb3220-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (language <span class="op">=</span> <span class="st">&#39;German&#39;</span>)</span>
+<span id="cb3220-5"><a href="intermediate-sql.html#cb3220-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (release_year <span class="op">&lt;</span> <span class="dv">2000</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1270">Table 24.11: </span>6 records</caption>
+<caption><span id="tab:unnamed-chunk-1265">Table 24.11: </span>6 records</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -1395,14 +1395,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2739"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2739-1"><a href="intermediate-sql.html#cb2739-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Update the query to see all German-language films released after 2000</span></span>
-<span id="cb2739-2"><a href="intermediate-sql.html#cb2739-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
-<span id="cb2739-3"><a href="intermediate-sql.html#cb2739-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2739-4"><a href="intermediate-sql.html#cb2739-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="op">&gt;</span> <span class="dv">2000</span>)</span>
-<span id="cb2739-5"><a href="intermediate-sql.html#cb2739-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;German&#39;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3221"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3221-1"><a href="intermediate-sql.html#cb3221-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Update the query to see all German-language films released after 2000</span></span>
+<span id="cb3221-2"><a href="intermediate-sql.html#cb3221-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
+<span id="cb3221-3"><a href="intermediate-sql.html#cb3221-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3221-4"><a href="intermediate-sql.html#cb3221-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="op">&gt;</span> <span class="dv">2000</span>)</span>
+<span id="cb3221-5"><a href="intermediate-sql.html#cb3221-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;German&#39;</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1271">Table 24.12: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1266">Table 24.12: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -1454,14 +1454,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <p>Select all details for German-language films released after 2000 but before 2010 using only <code>WHERE</code> and <code>AND</code>.</p>
-<div class="sourceCode" id="cb2740"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2740-1"><a href="intermediate-sql.html#cb2740-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all records for German-language films released after 2000 and before 2010</span></span>
-<span id="cb2740-2"><a href="intermediate-sql.html#cb2740-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb2740-3"><a href="intermediate-sql.html#cb2740-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2740-4"><a href="intermediate-sql.html#cb2740-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (language <span class="op">=</span> <span class="st">&#39;German&#39;</span>)</span>
-<span id="cb2740-5"><a href="intermediate-sql.html#cb2740-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (release_year <span class="op">&gt;</span> <span class="dv">2000</span> <span class="kw">AND</span> release_year <span class="op">&lt;</span> <span class="dv">2010</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3222"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3222-1"><a href="intermediate-sql.html#cb3222-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all records for German-language films released after 2000 and before 2010</span></span>
+<span id="cb3222-2"><a href="intermediate-sql.html#cb3222-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3222-3"><a href="intermediate-sql.html#cb3222-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3222-4"><a href="intermediate-sql.html#cb3222-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (language <span class="op">=</span> <span class="st">&#39;German&#39;</span>)</span>
+<span id="cb3222-5"><a href="intermediate-sql.html#cb3222-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (release_year <span class="op">&gt;</span> <span class="dv">2000</span> <span class="kw">AND</span> release_year <span class="op">&lt;</span> <span class="dv">2010</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1272">Table 24.13: </span>9 records</caption>
+<caption><span id="tab:unnamed-chunk-1267">Table 24.13: </span>9 records</caption>
 <colgroup>
 <col width="4%" />
 <col width="25%" />
@@ -1593,17 +1593,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="or" class="section level4 hasAnchor" number="24.2.2.2">
 <h4><span class="header-section-number">24.2.2.2</span> OR<a href="intermediate-sql.html#or" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This time you’ll write a query to get the <code>title</code> and <code>release_year</code> of <code>films</code> released in 1990 or 1999, which were in English or Spanish and took in more than $2,000,000 <code>gross</code>.</p>
-<div class="sourceCode" id="cb2741"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2741-1"><a href="intermediate-sql.html#cb2741-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title and year of films from the 1990 or 1999</span></span>
-<span id="cb2741-2"><a href="intermediate-sql.html#cb2741-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
-<span id="cb2741-3"><a href="intermediate-sql.html#cb2741-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2741-4"><a href="intermediate-sql.html#cb2741-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="op">=</span> <span class="dv">1990</span> <span class="kw">OR</span> release_year <span class="op">=</span> <span class="dv">1999</span>)</span>
-<span id="cb2741-5"><a href="intermediate-sql.html#cb2741-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Add a filter to see only English or Spanish-language films</span></span>
-<span id="cb2741-6"><a href="intermediate-sql.html#cb2741-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;English&#39;</span> <span class="kw">OR</span> language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span>)</span>
-<span id="cb2741-7"><a href="intermediate-sql.html#cb2741-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Filter films with more than $2,000,000 gross</span></span>
-<span id="cb2741-8"><a href="intermediate-sql.html#cb2741-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (gross <span class="op">&gt;</span> <span class="dv">2000000</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3223"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3223-1"><a href="intermediate-sql.html#cb3223-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title and year of films from the 1990 or 1999</span></span>
+<span id="cb3223-2"><a href="intermediate-sql.html#cb3223-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
+<span id="cb3223-3"><a href="intermediate-sql.html#cb3223-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3223-4"><a href="intermediate-sql.html#cb3223-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="op">=</span> <span class="dv">1990</span> <span class="kw">OR</span> release_year <span class="op">=</span> <span class="dv">1999</span>)</span>
+<span id="cb3223-5"><a href="intermediate-sql.html#cb3223-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Add a filter to see only English or Spanish-language films</span></span>
+<span id="cb3223-6"><a href="intermediate-sql.html#cb3223-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;English&#39;</span> <span class="kw">OR</span> language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span>)</span>
+<span id="cb3223-7"><a href="intermediate-sql.html#cb3223-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Filter films with more than $2,000,000 gross</span></span>
+<span id="cb3223-8"><a href="intermediate-sql.html#cb3223-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (gross <span class="op">&gt;</span> <span class="dv">2000000</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1273">Table 24.14: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1268">Table 24.14: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -1658,17 +1658,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="between" class="section level4 hasAnchor" number="24.2.2.3">
 <h4><span class="header-section-number">24.2.2.3</span> BETWEEN<a href="intermediate-sql.html#between" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s use <code>BETWEEN</code> with <code>AND</code> on the <code>films</code> database to get the <code>title</code> and <code>release_year</code> of all Spanish-language films released between 1990 and 2000 (inclusive) with <code>budgets</code> over $100 million.</p>
-<div class="sourceCode" id="cb2742"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2742-1"><a href="intermediate-sql.html#cb2742-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the title and release_year for films released between 1990 and 2000</span></span>
-<span id="cb2742-2"><a href="intermediate-sql.html#cb2742-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
-<span id="cb2742-3"><a href="intermediate-sql.html#cb2742-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2742-4"><a href="intermediate-sql.html#cb2742-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="kw">BETWEEN</span> <span class="dv">1990</span> <span class="kw">AND</span> <span class="dv">2000</span>)</span>
-<span id="cb2742-5"><a href="intermediate-sql.html#cb2742-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Narrow down your query to films with budgets &gt; $100 million</span></span>
-<span id="cb2742-6"><a href="intermediate-sql.html#cb2742-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (budget <span class="op">&gt;</span> <span class="dv">100000000</span>)</span>
-<span id="cb2742-7"><a href="intermediate-sql.html#cb2742-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Restrict the query to only Spanish-language films</span></span>
-<span id="cb2742-8"><a href="intermediate-sql.html#cb2742-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3224"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3224-1"><a href="intermediate-sql.html#cb3224-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the title and release_year for films released between 1990 and 2000</span></span>
+<span id="cb3224-2"><a href="intermediate-sql.html#cb3224-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
+<span id="cb3224-3"><a href="intermediate-sql.html#cb3224-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3224-4"><a href="intermediate-sql.html#cb3224-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="kw">BETWEEN</span> <span class="dv">1990</span> <span class="kw">AND</span> <span class="dv">2000</span>)</span>
+<span id="cb3224-5"><a href="intermediate-sql.html#cb3224-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Narrow down your query to films with budgets &gt; $100 million</span></span>
+<span id="cb3224-6"><a href="intermediate-sql.html#cb3224-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (budget <span class="op">&gt;</span> <span class="dv">100000000</span>)</span>
+<span id="cb3224-7"><a href="intermediate-sql.html#cb3224-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Restrict the query to only Spanish-language films</span></span>
+<span id="cb3224-8"><a href="intermediate-sql.html#cb3224-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1274">Table 24.15: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1269">Table 24.15: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -1683,15 +1683,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2743"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2743-1"><a href="intermediate-sql.html#cb2743-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
-<span id="cb2743-2"><a href="intermediate-sql.html#cb2743-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2743-3"><a href="intermediate-sql.html#cb2743-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">BETWEEN</span> <span class="dv">1990</span> <span class="kw">AND</span> <span class="dv">2000</span></span>
-<span id="cb2743-4"><a href="intermediate-sql.html#cb2743-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> budget <span class="op">&gt;</span> <span class="dv">100000000</span></span>
-<span id="cb2743-5"><a href="intermediate-sql.html#cb2743-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Amend the query to include Spanish or French-language films</span></span>
-<span id="cb2743-6"><a href="intermediate-sql.html#cb2743-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span> <span class="kw">OR</span> language <span class="op">=</span> <span class="st">&#39;French&#39;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3225"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3225-1"><a href="intermediate-sql.html#cb3225-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
+<span id="cb3225-2"><a href="intermediate-sql.html#cb3225-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3225-3"><a href="intermediate-sql.html#cb3225-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">BETWEEN</span> <span class="dv">1990</span> <span class="kw">AND</span> <span class="dv">2000</span></span>
+<span id="cb3225-4"><a href="intermediate-sql.html#cb3225-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> budget <span class="op">&gt;</span> <span class="dv">100000000</span></span>
+<span id="cb3225-5"><a href="intermediate-sql.html#cb3225-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Amend the query to include Spanish or French-language films</span></span>
+<span id="cb3225-6"><a href="intermediate-sql.html#cb3225-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span> <span class="kw">OR</span> language <span class="op">=</span> <span class="st">&#39;French&#39;</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1275">Table 24.16: </span>2 records</caption>
+<caption><span id="tab:unnamed-chunk-1270">Table 24.16: </span>2 records</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -1733,13 +1733,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">24.2.3.1</span> LIKE &amp; NOT LIKE<a href="intermediate-sql.html#like-not-like" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>LIKE</code> and <code>NOT LIKE</code> operators can be used to find records that either match or do not match a specified pattern, respectively. They can be coupled with the wildcards <code>%</code> and <code>_</code>.</p>
 <p>This is useful when you want to filter text, but not to an exact word.</p>
-<div class="sourceCode" id="cb2744"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2744-1"><a href="intermediate-sql.html#cb2744-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the names that start with B</span></span>
-<span id="cb2744-2"><a href="intermediate-sql.html#cb2744-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
-<span id="cb2744-3"><a href="intermediate-sql.html#cb2744-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
-<span id="cb2744-4"><a href="intermediate-sql.html#cb2744-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">&#39;B%&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3226"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3226-1"><a href="intermediate-sql.html#cb3226-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the names that start with B</span></span>
+<span id="cb3226-2"><a href="intermediate-sql.html#cb3226-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb3226-3"><a href="intermediate-sql.html#cb3226-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
+<span id="cb3226-4"><a href="intermediate-sql.html#cb3226-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">&#39;B%&#39;</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1276">Table 24.17: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1271">Table 24.17: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">name</th>
@@ -1779,13 +1779,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2745"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2745-1"><a href="intermediate-sql.html#cb2745-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
-<span id="cb2745-2"><a href="intermediate-sql.html#cb2745-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
-<span id="cb2745-3"><a href="intermediate-sql.html#cb2745-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the names that have r as the second letter</span></span>
-<span id="cb2745-4"><a href="intermediate-sql.html#cb2745-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">&#39;_r%&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3227"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3227-1"><a href="intermediate-sql.html#cb3227-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb3227-2"><a href="intermediate-sql.html#cb3227-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
+<span id="cb3227-3"><a href="intermediate-sql.html#cb3227-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the names that have r as the second letter</span></span>
+<span id="cb3227-4"><a href="intermediate-sql.html#cb3227-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">&#39;_r%&#39;</span></span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1277">Table 24.18: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1272">Table 24.18: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">name</th>
@@ -1825,13 +1825,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2746"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2746-1"><a href="intermediate-sql.html#cb2746-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
-<span id="cb2746-2"><a href="intermediate-sql.html#cb2746-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
-<span id="cb2746-3"><a href="intermediate-sql.html#cb2746-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select names that don&#39;t start with A</span></span>
-<span id="cb2746-4"><a href="intermediate-sql.html#cb2746-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="st">&#39;A%&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3228"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3228-1"><a href="intermediate-sql.html#cb3228-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb3228-2"><a href="intermediate-sql.html#cb3228-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
+<span id="cb3228-3"><a href="intermediate-sql.html#cb3228-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select names that don&#39;t start with A</span></span>
+<span id="cb3228-4"><a href="intermediate-sql.html#cb3228-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="st">&#39;A%&#39;</span></span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1278">Table 24.19: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1273">Table 24.19: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">name</th>
@@ -1871,13 +1871,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2747"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2747-1"><a href="intermediate-sql.html#cb2747-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(name) <span class="kw">AS</span> count_name_beginA</span>
-<span id="cb2747-2"><a href="intermediate-sql.html#cb2747-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
-<span id="cb2747-3"><a href="intermediate-sql.html#cb2747-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select names that don&#39;t start with A</span></span>
-<span id="cb2747-4"><a href="intermediate-sql.html#cb2747-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="st">&#39;A%&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3229"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3229-1"><a href="intermediate-sql.html#cb3229-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(name) <span class="kw">AS</span> count_name_beginA</span>
+<span id="cb3229-2"><a href="intermediate-sql.html#cb3229-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
+<span id="cb3229-3"><a href="intermediate-sql.html#cb3229-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select names that don&#39;t start with A</span></span>
+<span id="cb3229-4"><a href="intermediate-sql.html#cb3229-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="st">&#39;A%&#39;</span></span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1279">Table 24.20: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1274">Table 24.20: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_name_beginA</th>
@@ -1894,14 +1894,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="where-in" class="section level4 hasAnchor" number="24.2.3.2">
 <h4><span class="header-section-number">24.2.3.2</span> WHERE IN<a href="intermediate-sql.html#where-in" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You can query multiple conditions using the <code>IN</code> operator and a set of parentheses. It is a valuable piece of code that helps us keep our queries clean and concise.</p>
-<div class="sourceCode" id="cb2748"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2748-1"><a href="intermediate-sql.html#cb2748-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title and release_year for all films over two hours in length released in 1990 and 2000</span></span>
-<span id="cb2748-2"><a href="intermediate-sql.html#cb2748-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
-<span id="cb2748-3"><a href="intermediate-sql.html#cb2748-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2748-4"><a href="intermediate-sql.html#cb2748-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (duration <span class="op">&gt;</span> <span class="dv">120</span>)</span>
-<span id="cb2748-5"><a href="intermediate-sql.html#cb2748-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (release_year <span class="kw">IN</span> (<span class="dv">1990</span>, <span class="dv">2000</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb3230"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3230-1"><a href="intermediate-sql.html#cb3230-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title and release_year for all films over two hours in length released in 1990 and 2000</span></span>
+<span id="cb3230-2"><a href="intermediate-sql.html#cb3230-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, release_year</span>
+<span id="cb3230-3"><a href="intermediate-sql.html#cb3230-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3230-4"><a href="intermediate-sql.html#cb3230-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (duration <span class="op">&gt;</span> <span class="dv">120</span>)</span>
+<span id="cb3230-5"><a href="intermediate-sql.html#cb3230-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (release_year <span class="kw">IN</span> (<span class="dv">1990</span>, <span class="dv">2000</span>));</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1280">Table 24.21: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1275">Table 24.21: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -1952,13 +1952,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2749"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2749-1"><a href="intermediate-sql.html#cb2749-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title and language of all films in English, Spanish, and French</span></span>
-<span id="cb2749-2"><a href="intermediate-sql.html#cb2749-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, language</span>
-<span id="cb2749-3"><a href="intermediate-sql.html#cb2749-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2749-4"><a href="intermediate-sql.html#cb2749-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="kw">IN</span> (<span class="st">&#39;English&#39;</span>, <span class="st">&#39;Spanish&#39;</span>, <span class="st">&#39;French&#39;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3231"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3231-1"><a href="intermediate-sql.html#cb3231-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title and language of all films in English, Spanish, and French</span></span>
+<span id="cb3231-2"><a href="intermediate-sql.html#cb3231-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, language</span>
+<span id="cb3231-3"><a href="intermediate-sql.html#cb3231-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3231-4"><a href="intermediate-sql.html#cb3231-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="kw">IN</span> (<span class="st">&#39;English&#39;</span>, <span class="st">&#39;Spanish&#39;</span>, <span class="st">&#39;French&#39;</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1281">Table 24.22: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1276">Table 24.22: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -2009,14 +2009,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2750"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2750-1"><a href="intermediate-sql.html#cb2750-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title, certification, and language all films certified NC-17 or R that are in English, Italian, or Greek</span></span>
-<span id="cb2750-2"><a href="intermediate-sql.html#cb2750-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, certification, language</span>
-<span id="cb2750-3"><a href="intermediate-sql.html#cb2750-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2750-4"><a href="intermediate-sql.html#cb2750-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (certification <span class="kw">IN</span> (<span class="st">&#39;NC-17&#39;</span>, <span class="st">&#39;R&#39;</span>))</span>
-<span id="cb2750-5"><a href="intermediate-sql.html#cb2750-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="kw">IN</span> (<span class="st">&#39;English&#39;</span>, <span class="st">&#39;Italian&#39;</span>, <span class="st">&#39;Greek&#39;</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb3232"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3232-1"><a href="intermediate-sql.html#cb3232-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the title, certification, and language all films certified NC-17 or R that are in English, Italian, or Greek</span></span>
+<span id="cb3232-2"><a href="intermediate-sql.html#cb3232-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, certification, language</span>
+<span id="cb3232-3"><a href="intermediate-sql.html#cb3232-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3232-4"><a href="intermediate-sql.html#cb3232-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (certification <span class="kw">IN</span> (<span class="st">&#39;NC-17&#39;</span>, <span class="st">&#39;R&#39;</span>))</span>
+<span id="cb3232-5"><a href="intermediate-sql.html#cb3232-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="kw">IN</span> (<span class="st">&#39;English&#39;</span>, <span class="st">&#39;Italian&#39;</span>, <span class="st">&#39;Greek&#39;</span>));</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1282">Table 24.23: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1277">Table 24.23: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -2083,18 +2083,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">24.2.3.3</span> Combine filtering &amp; selecting<a href="intermediate-sql.html#combine-filtering-selecting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>How many 90’s films we have in our dataset that would be suitable for English-speaking teens?</p>
 <p>(You will be using <code>DISTINCT</code> here too because, surprise, there are two movies named ‘Hamlet’ in this dataset.)</p>
-<div class="sourceCode" id="cb2751"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2751-1"><a href="intermediate-sql.html#cb2751-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the unique titles</span></span>
-<span id="cb2751-2"><a href="intermediate-sql.html#cb2751-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> title) <span class="kw">AS</span> nineties_english_films_for_teens</span>
-<span id="cb2751-3"><a href="intermediate-sql.html#cb2751-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2751-4"><a href="intermediate-sql.html#cb2751-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter to release_years to between 1990 and 1999</span></span>
-<span id="cb2751-5"><a href="intermediate-sql.html#cb2751-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="kw">BETWEEN</span> <span class="dv">1990</span> <span class="kw">AND</span> <span class="dv">1999</span>)</span>
-<span id="cb2751-6"><a href="intermediate-sql.html#cb2751-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter to English-language films</span></span>
-<span id="cb2751-7"><a href="intermediate-sql.html#cb2751-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;English&#39;</span>)</span>
-<span id="cb2751-8"><a href="intermediate-sql.html#cb2751-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Narrow it down to G, PG, and PG-13 certifications</span></span>
-<span id="cb2751-9"><a href="intermediate-sql.html#cb2751-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (certification <span class="kw">IN</span> (<span class="st">&#39;G&#39;</span>, <span class="st">&#39;PG&#39;</span>, <span class="st">&#39;PG-13&#39;</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb3233"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3233-1"><a href="intermediate-sql.html#cb3233-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the unique titles</span></span>
+<span id="cb3233-2"><a href="intermediate-sql.html#cb3233-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> title) <span class="kw">AS</span> nineties_english_films_for_teens</span>
+<span id="cb3233-3"><a href="intermediate-sql.html#cb3233-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3233-4"><a href="intermediate-sql.html#cb3233-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter to release_years to between 1990 and 1999</span></span>
+<span id="cb3233-5"><a href="intermediate-sql.html#cb3233-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (release_year <span class="kw">BETWEEN</span> <span class="dv">1990</span> <span class="kw">AND</span> <span class="dv">1999</span>)</span>
+<span id="cb3233-6"><a href="intermediate-sql.html#cb3233-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter to English-language films</span></span>
+<span id="cb3233-7"><a href="intermediate-sql.html#cb3233-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (language <span class="op">=</span> <span class="st">&#39;English&#39;</span>)</span>
+<span id="cb3233-8"><a href="intermediate-sql.html#cb3233-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Narrow it down to G, PG, and PG-13 certifications</span></span>
+<span id="cb3233-9"><a href="intermediate-sql.html#cb3233-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (certification <span class="kw">IN</span> (<span class="st">&#39;G&#39;</span>, <span class="st">&#39;PG&#39;</span>, <span class="st">&#39;PG-13&#39;</span>));</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1283">Table 24.24: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1278">Table 24.24: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">nineties_english_films_for_teens</th>
@@ -2122,13 +2122,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Select missing values</p></li>
 <li><p>Exclude missing values</p></li>
 </ul>
-<div class="sourceCode" id="cb2752"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2752-1"><a href="intermediate-sql.html#cb2752-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- List all film titles with missing budgets</span></span>
-<span id="cb2752-2"><a href="intermediate-sql.html#cb2752-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title <span class="kw">AS</span> no_budget_info</span>
-<span id="cb2752-3"><a href="intermediate-sql.html#cb2752-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2752-4"><a href="intermediate-sql.html#cb2752-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> budget <span class="kw">IS</span> <span class="kw">NULL</span> </span></code></pre></div>
+<div class="sourceCode" id="cb3234"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3234-1"><a href="intermediate-sql.html#cb3234-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- List all film titles with missing budgets</span></span>
+<span id="cb3234-2"><a href="intermediate-sql.html#cb3234-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title <span class="kw">AS</span> no_budget_info</span>
+<span id="cb3234-3"><a href="intermediate-sql.html#cb3234-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3234-4"><a href="intermediate-sql.html#cb3234-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> budget <span class="kw">IS</span> <span class="kw">NULL</span> </span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1284">Table 24.25: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1279">Table 24.25: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">no_budget_info</th>
@@ -2168,13 +2168,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2753"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2753-1"><a href="intermediate-sql.html#cb2753-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the number of films we have language data for</span></span>
-<span id="cb2753-2"><a href="intermediate-sql.html#cb2753-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(title) <span class="kw">AS</span> count_language_known</span>
-<span id="cb2753-3"><a href="intermediate-sql.html#cb2753-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2753-4"><a href="intermediate-sql.html#cb2753-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3235"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3235-1"><a href="intermediate-sql.html#cb3235-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Count the number of films we have language data for</span></span>
+<span id="cb3235-2"><a href="intermediate-sql.html#cb3235-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(title) <span class="kw">AS</span> count_language_known</span>
+<span id="cb3235-3"><a href="intermediate-sql.html#cb3235-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3235-4"><a href="intermediate-sql.html#cb3235-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1285">Table 24.26: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1280">Table 24.26: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">count_language_known</th>
@@ -2212,12 +2212,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Aliasing when summarizing</p></li>
 </ul>
 <p>Perhaps you’d like to know how old the oldest film in the films table is, what the most expensive film is, or how many films you have listed.</p>
-<div class="sourceCode" id="cb2754"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2754-1"><a href="intermediate-sql.html#cb2754-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Query the sum of film durations</span></span>
-<span id="cb2754-2"><a href="intermediate-sql.html#cb2754-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(duration) <span class="kw">AS</span> total_duration</span>
-<span id="cb2754-3"><a href="intermediate-sql.html#cb2754-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3236"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3236-1"><a href="intermediate-sql.html#cb3236-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Query the sum of film durations</span></span>
+<span id="cb3236-2"><a href="intermediate-sql.html#cb3236-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(duration) <span class="kw">AS</span> total_duration</span>
+<span id="cb3236-3"><a href="intermediate-sql.html#cb3236-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1286">Table 24.27: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1281">Table 24.27: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">total_duration</th>
@@ -2230,12 +2230,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2755"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2755-1"><a href="intermediate-sql.html#cb2755-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the average duration of all films</span></span>
-<span id="cb2755-2"><a href="intermediate-sql.html#cb2755-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">AVG</span>(duration) <span class="kw">AS</span> average_duration</span>
-<span id="cb2755-3"><a href="intermediate-sql.html#cb2755-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3237"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3237-1"><a href="intermediate-sql.html#cb3237-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the average duration of all films</span></span>
+<span id="cb3237-2"><a href="intermediate-sql.html#cb3237-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">AVG</span>(duration) <span class="kw">AS</span> average_duration</span>
+<span id="cb3237-3"><a href="intermediate-sql.html#cb3237-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1287">Table 24.28: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1282">Table 24.28: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">average_duration</th>
@@ -2248,12 +2248,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2756"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2756-1"><a href="intermediate-sql.html#cb2756-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the latest release_year</span></span>
-<span id="cb2756-2"><a href="intermediate-sql.html#cb2756-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(release_year) <span class="kw">AS</span> latest_year</span>
-<span id="cb2756-3"><a href="intermediate-sql.html#cb2756-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3238"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3238-1"><a href="intermediate-sql.html#cb3238-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the latest release_year</span></span>
+<span id="cb3238-2"><a href="intermediate-sql.html#cb3238-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(release_year) <span class="kw">AS</span> latest_year</span>
+<span id="cb3238-3"><a href="intermediate-sql.html#cb3238-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1288">Table 24.29: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1283">Table 24.29: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">latest_year</th>
@@ -2266,12 +2266,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2757"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2757-1"><a href="intermediate-sql.html#cb2757-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the duration of the shortest film</span></span>
-<span id="cb2757-2"><a href="intermediate-sql.html#cb2757-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(duration) <span class="kw">AS</span> shortest_film</span>
-<span id="cb2757-3"><a href="intermediate-sql.html#cb2757-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3239"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3239-1"><a href="intermediate-sql.html#cb3239-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the duration of the shortest film</span></span>
+<span id="cb3239-2"><a href="intermediate-sql.html#cb3239-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(duration) <span class="kw">AS</span> shortest_film</span>
+<span id="cb3239-3"><a href="intermediate-sql.html#cb3239-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1289">Table 24.30: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1284">Table 24.30: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">shortest_film</th>
@@ -2303,13 +2303,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="aggregate-functions-where" class="section level4 hasAnchor" number="24.3.2.1">
 <h4><span class="header-section-number">24.3.2.1</span> Aggregate functions &amp; WHERE<a href="intermediate-sql.html#aggregate-functions-where" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In your film-industry role, as an example, you may like to summarize each certification category to compare how they each perform or if one certification has a higher average budget than another.</p>
-<div class="sourceCode" id="cb2758"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2758-1"><a href="intermediate-sql.html#cb2758-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the sum of gross from the year 2000 or later</span></span>
-<span id="cb2758-2"><a href="intermediate-sql.html#cb2758-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(gross) <span class="kw">AS</span> total_gross</span>
-<span id="cb2758-3"><a href="intermediate-sql.html#cb2758-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2758-4"><a href="intermediate-sql.html#cb2758-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">&gt;=</span> <span class="dv">2000</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3240"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3240-1"><a href="intermediate-sql.html#cb3240-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the sum of gross from the year 2000 or later</span></span>
+<span id="cb3240-2"><a href="intermediate-sql.html#cb3240-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(gross) <span class="kw">AS</span> total_gross</span>
+<span id="cb3240-3"><a href="intermediate-sql.html#cb3240-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3240-4"><a href="intermediate-sql.html#cb3240-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">&gt;=</span> <span class="dv">2000</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1290">Table 24.31: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1285">Table 24.31: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">total_gross</th>
@@ -2322,13 +2322,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2759"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2759-1"><a href="intermediate-sql.html#cb2759-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the average gross of films that start with A</span></span>
-<span id="cb2759-2"><a href="intermediate-sql.html#cb2759-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">AVG</span>(gross) <span class="kw">AS</span> avg_gross_A</span>
-<span id="cb2759-3"><a href="intermediate-sql.html#cb2759-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2759-4"><a href="intermediate-sql.html#cb2759-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> title <span class="kw">LIKE</span> <span class="st">&#39;A%&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3241"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3241-1"><a href="intermediate-sql.html#cb3241-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the average gross of films that start with A</span></span>
+<span id="cb3241-2"><a href="intermediate-sql.html#cb3241-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">AVG</span>(gross) <span class="kw">AS</span> avg_gross_A</span>
+<span id="cb3241-3"><a href="intermediate-sql.html#cb3241-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3241-4"><a href="intermediate-sql.html#cb3241-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> title <span class="kw">LIKE</span> <span class="st">&#39;A%&#39;</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1291">Table 24.32: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1286">Table 24.32: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">avg_gross_A</th>
@@ -2341,13 +2341,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2760"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2760-1"><a href="intermediate-sql.html#cb2760-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the lowest gross film in 1994</span></span>
-<span id="cb2760-2"><a href="intermediate-sql.html#cb2760-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(gross) <span class="kw">AS</span> lowest_gross</span>
-<span id="cb2760-3"><a href="intermediate-sql.html#cb2760-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2760-4"><a href="intermediate-sql.html#cb2760-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">=</span> <span class="dv">1994</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3242"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3242-1"><a href="intermediate-sql.html#cb3242-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the lowest gross film in 1994</span></span>
+<span id="cb3242-2"><a href="intermediate-sql.html#cb3242-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(gross) <span class="kw">AS</span> lowest_gross</span>
+<span id="cb3242-3"><a href="intermediate-sql.html#cb3242-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3242-4"><a href="intermediate-sql.html#cb3242-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">=</span> <span class="dv">1994</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1292">Table 24.33: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1287">Table 24.33: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">lowest_gross</th>
@@ -2360,13 +2360,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2761"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2761-1"><a href="intermediate-sql.html#cb2761-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the highest gross film released between 2000-2012</span></span>
-<span id="cb2761-2"><a href="intermediate-sql.html#cb2761-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(gross) <span class="kw">AS</span> highest_gross</span>
-<span id="cb2761-3"><a href="intermediate-sql.html#cb2761-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2761-4"><a href="intermediate-sql.html#cb2761-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">BETWEEN</span> <span class="dv">2000</span> <span class="kw">AND</span> <span class="dv">2012</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3243"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3243-1"><a href="intermediate-sql.html#cb3243-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the highest gross film released between 2000-2012</span></span>
+<span id="cb3243-2"><a href="intermediate-sql.html#cb3243-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(gross) <span class="kw">AS</span> highest_gross</span>
+<span id="cb3243-3"><a href="intermediate-sql.html#cb3243-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3243-4"><a href="intermediate-sql.html#cb3243-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">BETWEEN</span> <span class="dv">2000</span> <span class="kw">AND</span> <span class="dv">2012</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1293">Table 24.34: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1288">Table 24.34: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">highest_gross</th>
@@ -2383,12 +2383,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="round" class="section level4 hasAnchor" number="24.3.2.2">
 <h4><span class="header-section-number">24.3.2.2</span> ROUND()<a href="intermediate-sql.html#round" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Aggregate functions work great with numerical values; however, these results can sometimes get unwieldy when dealing with long decimal values. SQL provides you with the <code>ROUND()</code> function to tame these long decimals.</p>
-<div class="sourceCode" id="cb2762"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2762-1"><a href="intermediate-sql.html#cb2762-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Round the average number of facebook_likes to one decimal place</span></span>
-<span id="cb2762-2"><a href="intermediate-sql.html#cb2762-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">ROUND</span>(<span class="fu">AVG</span>(facebook_likes), <span class="dv">1</span>) <span class="kw">AS</span> avg_facebook_likes</span>
-<span id="cb2762-3"><a href="intermediate-sql.html#cb2762-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews;</span></code></pre></div>
+<div class="sourceCode" id="cb3244"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3244-1"><a href="intermediate-sql.html#cb3244-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Round the average number of facebook_likes to one decimal place</span></span>
+<span id="cb3244-2"><a href="intermediate-sql.html#cb3244-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">ROUND</span>(<span class="fu">AVG</span>(facebook_likes), <span class="dv">1</span>) <span class="kw">AS</span> avg_facebook_likes</span>
+<span id="cb3244-3"><a href="intermediate-sql.html#cb3244-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> reviews;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1294">Table 24.35: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1289">Table 24.35: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">avg_facebook_likes</th>
@@ -2402,12 +2402,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <p>A useful thing you can do with <code>ROUND()</code> is have a negative number as the decimal place parameter. This can come in handy if your manager only needs to know the average number of <code>facebook_likes</code> to the hundreds since granularity below one hundred likes won’t impact decision making.</p>
-<div class="sourceCode" id="cb2763"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2763-1"><a href="intermediate-sql.html#cb2763-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the average budget rounded to the thousands, 39902000</span></span>
-<span id="cb2763-2"><a href="intermediate-sql.html#cb2763-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">ROUND</span>(<span class="fu">AVG</span>(budget), <span class="op">-</span><span class="dv">3</span>) <span class="kw">AS</span> avg_budget_thousands</span>
-<span id="cb2763-3"><a href="intermediate-sql.html#cb2763-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3245"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3245-1"><a href="intermediate-sql.html#cb3245-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the average budget rounded to the thousands, 39902000</span></span>
+<span id="cb3245-2"><a href="intermediate-sql.html#cb3245-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">ROUND</span>(<span class="fu">AVG</span>(budget), <span class="op">-</span><span class="dv">3</span>) <span class="kw">AS</span> avg_budget_thousands</span>
+<span id="cb3245-3"><a href="intermediate-sql.html#cb3245-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1295">Table 24.36: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1290">Table 24.36: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">avg_budget_thousands</th>
@@ -2440,11 +2440,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>aggregate functions: perform their operations on the fields vertically</p></li>
 <li><p>arithmetic: adds up the records horizontally</p></li>
 </ul>
-<div class="sourceCode" id="cb2764"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2764-1"><a href="intermediate-sql.html#cb2764-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- default</span></span>
-<span id="cb2764-2"><a href="intermediate-sql.html#cb2764-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="dv">2</span> <span class="op">/</span> <span class="dv">10</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3246"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3246-1"><a href="intermediate-sql.html#cb3246-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- default</span></span>
+<span id="cb3246-2"><a href="intermediate-sql.html#cb3246-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="dv">2</span> <span class="op">/</span> <span class="dv">10</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1296">Table 24.37: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1291">Table 24.37: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">(2 / 10)</th>
@@ -2457,11 +2457,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2765"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2765-1"><a href="intermediate-sql.html#cb2765-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- add decimal</span></span>
-<span id="cb2765-2"><a href="intermediate-sql.html#cb2765-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="fl">2.0</span> <span class="op">/</span> <span class="fl">10.0</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb3247"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3247-1"><a href="intermediate-sql.html#cb3247-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- add decimal</span></span>
+<span id="cb3247-2"><a href="intermediate-sql.html#cb3247-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="fl">2.0</span> <span class="op">/</span> <span class="fl">10.0</span>);</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1297">Table 24.38: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1292">Table 24.38: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">(2.0 / 10.0)</th>
@@ -2478,12 +2478,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">24.3.3.1</span> Aliasing with functions<a href="intermediate-sql.html#aliasing-with-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Aliasing can be a lifesaver, especially as we start to do more complex SQL queries with multiple criteria. Aliases help you keep your code clean and readable.</p>
 <p>For example, if you want to find the <code>MAX()</code> value of several fields without aliasing, you’ll end up with the result with several columns called <code>max</code> and no idea which is which. You can fix this with aliasing.</p>
-<div class="sourceCode" id="cb2766"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2766-1"><a href="intermediate-sql.html#cb2766-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the title and duration_hours from films</span></span>
-<span id="cb2766-2"><a href="intermediate-sql.html#cb2766-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, (duration <span class="op">/</span> <span class="fl">60.0</span>) <span class="kw">AS</span> duration_hours</span>
-<span id="cb2766-3"><a href="intermediate-sql.html#cb2766-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3248"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3248-1"><a href="intermediate-sql.html#cb3248-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the title and duration_hours from films</span></span>
+<span id="cb3248-2"><a href="intermediate-sql.html#cb3248-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, (duration <span class="op">/</span> <span class="fl">60.0</span>) <span class="kw">AS</span> duration_hours</span>
+<span id="cb3248-3"><a href="intermediate-sql.html#cb3248-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1298">Table 24.39: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1293">Table 24.39: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -2534,12 +2534,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2767"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2767-1"><a href="intermediate-sql.html#cb2767-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the percentage of people who are no longer alive</span></span>
-<span id="cb2767-2"><a href="intermediate-sql.html#cb2767-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(deathdate) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">/</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> percentage_dead</span>
-<span id="cb2767-3"><a href="intermediate-sql.html#cb2767-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people;</span></code></pre></div>
+<div class="sourceCode" id="cb3249"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3249-1"><a href="intermediate-sql.html#cb3249-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calculate the percentage of people who are no longer alive</span></span>
+<span id="cb3249-2"><a href="intermediate-sql.html#cb3249-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(deathdate) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">/</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> percentage_dead</span>
+<span id="cb3249-3"><a href="intermediate-sql.html#cb3249-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1299">Table 24.40: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1294">Table 24.40: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">percentage_dead</th>
@@ -2552,12 +2552,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2768"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2768-1"><a href="intermediate-sql.html#cb2768-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the number of decades in the films table</span></span>
-<span id="cb2768-2"><a href="intermediate-sql.html#cb2768-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="fu">MAX</span>(release_year) <span class="op">-</span> <span class="fu">MIN</span>(release_year)) <span class="op">/</span> <span class="fl">10.0</span> <span class="kw">AS</span> number_of_decades</span>
-<span id="cb2768-3"><a href="intermediate-sql.html#cb2768-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3250"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3250-1"><a href="intermediate-sql.html#cb3250-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the number of decades in the films table</span></span>
+<span id="cb3250-2"><a href="intermediate-sql.html#cb3250-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="fu">MAX</span>(release_year) <span class="op">-</span> <span class="fu">MIN</span>(release_year)) <span class="op">/</span> <span class="fl">10.0</span> <span class="kw">AS</span> number_of_decades</span>
+<span id="cb3250-3"><a href="intermediate-sql.html#cb3250-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1300">Table 24.41: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1295">Table 24.41: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">number_of_decades</th>
@@ -2575,12 +2575,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rounding-results" class="section level4 hasAnchor" number="24.3.3.2">
 <h4><span class="header-section-number">24.3.3.2</span> Rounding results<a href="intermediate-sql.html#rounding-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In the previous exercise, many of the results were inconveniently long. Update the query by adding ROUND()` around the calculation.</p>
-<div class="sourceCode" id="cb2769"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2769-1"><a href="intermediate-sql.html#cb2769-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Round duration_hours to two decimal places</span></span>
-<span id="cb2769-2"><a href="intermediate-sql.html#cb2769-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, <span class="fu">ROUND</span>((duration <span class="op">/</span> <span class="fl">60.0</span>), <span class="dv">2</span>) <span class="kw">AS</span> duration_hours</span>
-<span id="cb2769-3"><a href="intermediate-sql.html#cb2769-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
+<div class="sourceCode" id="cb3251"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3251-1"><a href="intermediate-sql.html#cb3251-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Round duration_hours to two decimal places</span></span>
+<span id="cb3251-2"><a href="intermediate-sql.html#cb3251-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, <span class="fu">ROUND</span>((duration <span class="op">/</span> <span class="fl">60.0</span>), <span class="dv">2</span>) <span class="kw">AS</span> duration_hours</span>
+<span id="cb3251-3"><a href="intermediate-sql.html#cb3251-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1301">Table 24.42: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1296">Table 24.42: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -2647,13 +2647,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="order-by" class="section level4 hasAnchor" number="24.4.1.1">
 <h4><span class="header-section-number">24.4.1.1</span> ORDER BY<a href="intermediate-sql.html#order-by" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Sorting single fields</strong></p>
-<div class="sourceCode" id="cb2770"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2770-1"><a href="intermediate-sql.html#cb2770-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select name from people and sort alphabetically</span></span>
-<span id="cb2770-2"><a href="intermediate-sql.html#cb2770-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
-<span id="cb2770-3"><a href="intermediate-sql.html#cb2770-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
-<span id="cb2770-4"><a href="intermediate-sql.html#cb2770-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> name <span class="kw">ASC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3252"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3252-1"><a href="intermediate-sql.html#cb3252-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select name from people and sort alphabetically</span></span>
+<span id="cb3252-2"><a href="intermediate-sql.html#cb3252-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb3252-3"><a href="intermediate-sql.html#cb3252-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> people</span>
+<span id="cb3252-4"><a href="intermediate-sql.html#cb3252-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> name <span class="kw">ASC</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1302">Table 24.43: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1297">Table 24.43: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">name</th>
@@ -2693,13 +2693,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2771"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2771-1"><a href="intermediate-sql.html#cb2771-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the title and duration from longest to shortest film</span></span>
-<span id="cb2771-2"><a href="intermediate-sql.html#cb2771-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, duration</span>
-<span id="cb2771-3"><a href="intermediate-sql.html#cb2771-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2771-4"><a href="intermediate-sql.html#cb2771-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> duration <span class="kw">DESC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3253"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3253-1"><a href="intermediate-sql.html#cb3253-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the title and duration from longest to shortest film</span></span>
+<span id="cb3253-2"><a href="intermediate-sql.html#cb3253-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, duration</span>
+<span id="cb3253-3"><a href="intermediate-sql.html#cb3253-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3253-4"><a href="intermediate-sql.html#cb3253-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> duration <span class="kw">DESC</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1303">Table 24.44: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1298">Table 24.44: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -2752,14 +2752,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><strong>Sorting multiple fields</strong></p>
 <p>It will sort by the first field specified, then sort by the next, and so on.</p>
-<div class="sourceCode" id="cb2772"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2772-1"><a href="intermediate-sql.html#cb2772-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the release year, duration, and title sorted by release year and duration</span></span>
-<span id="cb2772-2"><a href="intermediate-sql.html#cb2772-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, duration, title</span>
-<span id="cb2772-3"><a href="intermediate-sql.html#cb2772-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2772-4"><a href="intermediate-sql.html#cb2772-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
-<span id="cb2772-5"><a href="intermediate-sql.html#cb2772-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> release_year, duration;</span></code></pre></div>
+<div class="sourceCode" id="cb3254"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3254-1"><a href="intermediate-sql.html#cb3254-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the release year, duration, and title sorted by release year and duration</span></span>
+<span id="cb3254-2"><a href="intermediate-sql.html#cb3254-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, duration, title</span>
+<span id="cb3254-3"><a href="intermediate-sql.html#cb3254-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3254-4"><a href="intermediate-sql.html#cb3254-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3254-5"><a href="intermediate-sql.html#cb3254-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> release_year, duration;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1304">Table 24.45: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1299">Table 24.45: </span>Displaying records 1 - 10</caption>
 <colgroup>
 <col width="18%" />
 <col width="12%" />
@@ -2826,15 +2826,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2773"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2773-1"><a href="intermediate-sql.html#cb2773-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the certification, release year, and title sorted by certification and release year</span></span>
-<span id="cb2773-2"><a href="intermediate-sql.html#cb2773-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Ordered first by certification (alphabetically) and second by release year, starting with the most recent year</span></span>
-<span id="cb2773-3"><a href="intermediate-sql.html#cb2773-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> certification, release_year, title</span>
-<span id="cb2773-4"><a href="intermediate-sql.html#cb2773-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2773-5"><a href="intermediate-sql.html#cb2773-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> certification <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
-<span id="cb2773-6"><a href="intermediate-sql.html#cb2773-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> certification <span class="kw">ASC</span>, release_year <span class="kw">DESC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3255"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3255-1"><a href="intermediate-sql.html#cb3255-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the certification, release year, and title sorted by certification and release year</span></span>
+<span id="cb3255-2"><a href="intermediate-sql.html#cb3255-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Ordered first by certification (alphabetically) and second by release year, starting with the most recent year</span></span>
+<span id="cb3255-3"><a href="intermediate-sql.html#cb3255-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> certification, release_year, title</span>
+<span id="cb3255-4"><a href="intermediate-sql.html#cb3255-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3255-5"><a href="intermediate-sql.html#cb3255-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> certification <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3255-6"><a href="intermediate-sql.html#cb3255-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> certification <span class="kw">ASC</span>, release_year <span class="kw">DESC</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1305">Table 24.46: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1300">Table 24.46: </span>Displaying records 1 - 10</caption>
 <colgroup>
 <col width="18%" />
 <col width="17%" />
@@ -2911,14 +2911,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>GROUP BY</code> multiple fields: <code>GROUP BY certification, language</code></li>
 </ul>
 <p><strong>GROUP BY single fields</strong></p>
-<div class="sourceCode" id="cb2774"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2774-1"><a href="intermediate-sql.html#cb2774-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the release_year and film_count of each year</span></span>
-<span id="cb2774-2"><a href="intermediate-sql.html#cb2774-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> film_count</span>
-<span id="cb2774-3"><a href="intermediate-sql.html#cb2774-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2774-4"><a href="intermediate-sql.html#cb2774-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
-<span id="cb2774-5"><a href="intermediate-sql.html#cb2774-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year;</span></code></pre></div>
+<div class="sourceCode" id="cb3256"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3256-1"><a href="intermediate-sql.html#cb3256-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the release_year and film_count of each year</span></span>
+<span id="cb3256-2"><a href="intermediate-sql.html#cb3256-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> film_count</span>
+<span id="cb3256-3"><a href="intermediate-sql.html#cb3256-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3256-4"><a href="intermediate-sql.html#cb3256-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3256-5"><a href="intermediate-sql.html#cb3256-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1306">Table 24.47: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1301">Table 24.47: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="right">release_year</th>
@@ -2969,14 +2969,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2775"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2775-1"><a href="intermediate-sql.html#cb2775-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the release_year and average duration of films for each year</span></span>
-<span id="cb2775-2"><a href="intermediate-sql.html#cb2775-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">AVG</span>(duration) <span class="kw">AS</span> avg_duration</span>
-<span id="cb2775-3"><a href="intermediate-sql.html#cb2775-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2775-4"><a href="intermediate-sql.html#cb2775-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
-<span id="cb2775-5"><a href="intermediate-sql.html#cb2775-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year;</span></code></pre></div>
+<div class="sourceCode" id="cb3257"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3257-1"><a href="intermediate-sql.html#cb3257-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the release_year and average duration of films for each year</span></span>
+<span id="cb3257-2"><a href="intermediate-sql.html#cb3257-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">AVG</span>(duration) <span class="kw">AS</span> avg_duration</span>
+<span id="cb3257-3"><a href="intermediate-sql.html#cb3257-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3257-4"><a href="intermediate-sql.html#cb3257-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3257-5"><a href="intermediate-sql.html#cb3257-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1307">Table 24.48: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1302">Table 24.48: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="right">release_year</th>
@@ -3030,15 +3030,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using GROUP BY with a time or date field such as <code>release_year</code> can help us identify trends such as a period of time where movies were really short!</p>
 <p><strong>GROUP BY multiple fields</strong></p>
 <p>Look at the maximum budget for each country in each year</p>
-<div class="sourceCode" id="cb2776"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2776-1"><a href="intermediate-sql.html#cb2776-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the release_year, country, and max_budget, then group and order by release_year and country</span></span>
-<span id="cb2776-2"><a href="intermediate-sql.html#cb2776-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, country, <span class="fu">MAX</span>(budget) <span class="kw">AS</span> max_budget</span>
-<span id="cb2776-3"><a href="intermediate-sql.html#cb2776-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2776-4"><a href="intermediate-sql.html#cb2776-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
-<span id="cb2776-5"><a href="intermediate-sql.html#cb2776-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year, country</span>
-<span id="cb2776-6"><a href="intermediate-sql.html#cb2776-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> release_year, country;</span></code></pre></div>
+<div class="sourceCode" id="cb3258"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3258-1"><a href="intermediate-sql.html#cb3258-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find the release_year, country, and max_budget, then group and order by release_year and country</span></span>
+<span id="cb3258-2"><a href="intermediate-sql.html#cb3258-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, country, <span class="fu">MAX</span>(budget) <span class="kw">AS</span> max_budget</span>
+<span id="cb3258-3"><a href="intermediate-sql.html#cb3258-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3258-4"><a href="intermediate-sql.html#cb3258-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3258-5"><a href="intermediate-sql.html#cb3258-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year, country</span>
+<span id="cb3258-6"><a href="intermediate-sql.html#cb3258-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> release_year, country;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1308">Table 24.49: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1303">Table 24.49: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="right">release_year</th>
@@ -3102,13 +3102,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><strong>Answering business questions</strong></p>
 <p>Which <code>release_year</code> had the most language diversity?</p>
-<div class="sourceCode" id="cb2777"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2777-1"><a href="intermediate-sql.html#cb2777-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> language) <span class="kw">AS</span> num_language</span>
-<span id="cb2777-2"><a href="intermediate-sql.html#cb2777-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2777-3"><a href="intermediate-sql.html#cb2777-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year</span>
-<span id="cb2777-4"><a href="intermediate-sql.html#cb2777-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> num_language <span class="kw">DESC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3259"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3259-1"><a href="intermediate-sql.html#cb3259-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> language) <span class="kw">AS</span> num_language</span>
+<span id="cb3259-2"><a href="intermediate-sql.html#cb3259-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3259-3"><a href="intermediate-sql.html#cb3259-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year</span>
+<span id="cb3259-4"><a href="intermediate-sql.html#cb3259-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> num_language <span class="kw">DESC</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1309">Table 24.50: </span>Displaying records 1 - 10</caption>
+<caption><span id="tab:unnamed-chunk-1304">Table 24.50: </span>Displaying records 1 - 10</caption>
 <thead>
 <tr class="header">
 <th align="right">release_year</th>
@@ -3185,13 +3185,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>What films were released in the year 2000?</td>
 </tr>
 <tr class="odd">
-<td><div class="sourceCode" id="cb2778"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2778-1"><a href="intermediate-sql.html#cb2778-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year</span>
-<span id="cb2778-2"><a href="intermediate-sql.html#cb2778-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2778-3"><a href="intermediate-sql.html#cb2778-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year</span>
-<span id="cb2778-4"><a href="intermediate-sql.html#cb2778-4" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(duration) <span class="op">&gt;</span> <span class="dv">120</span>;</span></code></pre></div></td>
-<td><div class="sourceCode" id="cb2779"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2779-1"><a href="intermediate-sql.html#cb2779-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
-<span id="cb2779-2"><a href="intermediate-sql.html#cb2779-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2779-3"><a href="intermediate-sql.html#cb2779-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">=</span> <span class="dv">2000</span>;</span></code></pre></div></td>
+<td><div class="sourceCode" id="cb3260"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3260-1"><a href="intermediate-sql.html#cb3260-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year</span>
+<span id="cb3260-2"><a href="intermediate-sql.html#cb3260-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3260-3"><a href="intermediate-sql.html#cb3260-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year</span>
+<span id="cb3260-4"><a href="intermediate-sql.html#cb3260-4" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(duration) <span class="op">&gt;</span> <span class="dv">120</span>;</span></code></pre></div></td>
+<td><div class="sourceCode" id="cb3261"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3261-1"><a href="intermediate-sql.html#cb3261-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
+<span id="cb3261-2"><a href="intermediate-sql.html#cb3261-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3261-3"><a href="intermediate-sql.html#cb3261-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">=</span> <span class="dv">2000</span>;</span></code></pre></div></td>
 </tr>
 </tbody>
 </table>
@@ -3199,16 +3199,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">24.4.3.1</span> HAVING<a href="intermediate-sql.html#having" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Filtering grouped data can be especially handy when working with a large dataset. When working with thousands or even millions of rows, <code>HAVING</code> will allow you to filter for just the group of data you want</p>
 <p>Find out which countries (or country) have the most varied film certifications.</p>
-<div class="sourceCode" id="cb2780"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2780-1"><a href="intermediate-sql.html#cb2780-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the country and distinct count of certification as certification_count</span></span>
-<span id="cb2780-2"><a href="intermediate-sql.html#cb2780-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> country, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> certification) <span class="kw">AS</span> certification_count</span>
-<span id="cb2780-3"><a href="intermediate-sql.html#cb2780-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2780-4"><a href="intermediate-sql.html#cb2780-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Group by country</span></span>
-<span id="cb2780-5"><a href="intermediate-sql.html#cb2780-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> country</span>
-<span id="cb2780-6"><a href="intermediate-sql.html#cb2780-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter results to countries with more than 10 different certifications</span></span>
-<span id="cb2780-7"><a href="intermediate-sql.html#cb2780-7" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> certification) <span class="op">&gt;</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3262"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3262-1"><a href="intermediate-sql.html#cb3262-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the country and distinct count of certification as certification_count</span></span>
+<span id="cb3262-2"><a href="intermediate-sql.html#cb3262-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> country, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> certification) <span class="kw">AS</span> certification_count</span>
+<span id="cb3262-3"><a href="intermediate-sql.html#cb3262-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3262-4"><a href="intermediate-sql.html#cb3262-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Group by country</span></span>
+<span id="cb3262-5"><a href="intermediate-sql.html#cb3262-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> country</span>
+<span id="cb3262-6"><a href="intermediate-sql.html#cb3262-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter results to countries with more than 10 different certifications</span></span>
+<span id="cb3262-7"><a href="intermediate-sql.html#cb3262-7" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> certification) <span class="op">&gt;</span> <span class="dv">10</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1310">Table 24.51: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1305">Table 24.51: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -3227,18 +3227,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="having-and-sorting" class="section level4 hasAnchor" number="24.4.3.2">
 <h4><span class="header-section-number">24.4.3.2</span> HAVING and sorting<a href="intermediate-sql.html#having-and-sorting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Writing a query showing what countries have the highest average film budgets.</p>
-<div class="sourceCode" id="cb2781"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2781-1"><a href="intermediate-sql.html#cb2781-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the country and average_budget from films</span></span>
-<span id="cb2781-2"><a href="intermediate-sql.html#cb2781-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> country, <span class="fu">AVG</span>(budget) <span class="kw">AS</span> average_budget</span>
-<span id="cb2781-3"><a href="intermediate-sql.html#cb2781-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2781-4"><a href="intermediate-sql.html#cb2781-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Group by country</span></span>
-<span id="cb2781-5"><a href="intermediate-sql.html#cb2781-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> country</span>
-<span id="cb2781-6"><a href="intermediate-sql.html#cb2781-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter to countries with an average_budget of more than one billion</span></span>
-<span id="cb2781-7"><a href="intermediate-sql.html#cb2781-7" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(budget) <span class="op">&gt;</span> <span class="dv">1000000000</span></span>
-<span id="cb2781-8"><a href="intermediate-sql.html#cb2781-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Order by descending order of the aggregated budget</span></span>
-<span id="cb2781-9"><a href="intermediate-sql.html#cb2781-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> average_budget <span class="kw">DESC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3263"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3263-1"><a href="intermediate-sql.html#cb3263-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the country and average_budget from films</span></span>
+<span id="cb3263-2"><a href="intermediate-sql.html#cb3263-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> country, <span class="fu">AVG</span>(budget) <span class="kw">AS</span> average_budget</span>
+<span id="cb3263-3"><a href="intermediate-sql.html#cb3263-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3263-4"><a href="intermediate-sql.html#cb3263-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Group by country</span></span>
+<span id="cb3263-5"><a href="intermediate-sql.html#cb3263-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> country</span>
+<span id="cb3263-6"><a href="intermediate-sql.html#cb3263-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Filter to countries with an average_budget of more than one billion</span></span>
+<span id="cb3263-7"><a href="intermediate-sql.html#cb3263-7" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(budget) <span class="op">&gt;</span> <span class="dv">1000000000</span></span>
+<span id="cb3263-8"><a href="intermediate-sql.html#cb3263-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Order by descending order of the aggregated budget</span></span>
+<span id="cb3263-9"><a href="intermediate-sql.html#cb3263-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> average_budget <span class="kw">DESC</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1311">Table 24.52: </span>2 records</caption>
+<caption><span id="tab:unnamed-chunk-1306">Table 24.52: </span>2 records</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -3262,20 +3262,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="all-together" class="section level4 hasAnchor" number="24.4.3.3">
 <h4><span class="header-section-number">24.4.3.3</span> All together<a href="intermediate-sql.html#all-together" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You’ll write a query that returns the average budget and gross earnings for films each year after 1990 if the average budget is greater than 60 million.</p>
-<div class="sourceCode" id="cb2782"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2782-1"><a href="intermediate-sql.html#cb2782-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the release_year, average budget and average gross</span></span>
-<span id="cb2782-2"><a href="intermediate-sql.html#cb2782-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- for films released after 1990 grouped by year</span></span>
-<span id="cb2782-3"><a href="intermediate-sql.html#cb2782-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">AVG</span>(budget) <span class="kw">AS</span> avg_budget, <span class="fu">AVG</span>(gross) <span class="kw">AS</span> avg_gross</span>
-<span id="cb2782-4"><a href="intermediate-sql.html#cb2782-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
-<span id="cb2782-5"><a href="intermediate-sql.html#cb2782-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">&gt;</span> <span class="dv">1990</span></span>
-<span id="cb2782-6"><a href="intermediate-sql.html#cb2782-6" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year</span>
-<span id="cb2782-7"><a href="intermediate-sql.html#cb2782-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Only years with an avg_budget of more than 60 million</span></span>
-<span id="cb2782-8"><a href="intermediate-sql.html#cb2782-8" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(budget) <span class="op">&gt;</span> <span class="dv">60000000</span></span>
-<span id="cb2782-9"><a href="intermediate-sql.html#cb2782-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Order the results from highest to lowest average gross and limit to one</span></span>
-<span id="cb2782-10"><a href="intermediate-sql.html#cb2782-10" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> avg_gross <span class="kw">DESC</span></span>
-<span id="cb2782-11"><a href="intermediate-sql.html#cb2782-11" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">1</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3264"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3264-1"><a href="intermediate-sql.html#cb3264-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the release_year, average budget and average gross</span></span>
+<span id="cb3264-2"><a href="intermediate-sql.html#cb3264-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- for films released after 1990 grouped by year</span></span>
+<span id="cb3264-3"><a href="intermediate-sql.html#cb3264-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> release_year, <span class="fu">AVG</span>(budget) <span class="kw">AS</span> avg_budget, <span class="fu">AVG</span>(gross) <span class="kw">AS</span> avg_gross</span>
+<span id="cb3264-4"><a href="intermediate-sql.html#cb3264-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> films</span>
+<span id="cb3264-5"><a href="intermediate-sql.html#cb3264-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> release_year <span class="op">&gt;</span> <span class="dv">1990</span></span>
+<span id="cb3264-6"><a href="intermediate-sql.html#cb3264-6" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> release_year</span>
+<span id="cb3264-7"><a href="intermediate-sql.html#cb3264-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Only years with an avg_budget of more than 60 million</span></span>
+<span id="cb3264-8"><a href="intermediate-sql.html#cb3264-8" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(budget) <span class="op">&gt;</span> <span class="dv">60000000</span></span>
+<span id="cb3264-9"><a href="intermediate-sql.html#cb3264-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Order the results from highest to lowest average gross and limit to one</span></span>
+<span id="cb3264-10"><a href="intermediate-sql.html#cb3264-10" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> avg_gross <span class="kw">DESC</span></span>
+<span id="cb3264-11"><a href="intermediate-sql.html#cb3264-11" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">1</span>;</span></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-1312">Table 24.53: </span>1 records</caption>
+<caption><span id="tab:unnamed-chunk-1307">Table 24.53: </span>1 records</caption>
 <thead>
 <tr class="header">
 <th align="right">release_year</th>
@@ -3292,8 +3292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb2783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2783-1"><a href="intermediate-sql.html#cb2783-1" aria-hidden="true" tabindex="-1"></a><span class="co"># disconnect the sql connection</span></span>
-<span id="cb2783-2"><a href="intermediate-sql.html#cb2783-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb3265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3265-1"><a href="intermediate-sql.html#cb3265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># disconnect the sql connection</span></span>
+<span id="cb3265-2"><a href="intermediate-sql.html#cb3265-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 
 </div>
 </div>

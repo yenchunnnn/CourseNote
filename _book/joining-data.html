@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 5 Joining Data | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -961,68 +961,156 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Load datasets from <a href="https://rebrickable.com/downloads/">Rebrickable</a>. And library package.</p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="joining-data.html#cb525-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb525-2"><a href="joining-data.html#cb525-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb525-3"><a href="joining-data.html#cb525-3" aria-hidden="true" tabindex="-1"></a>sets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/sets.csv&quot;</span>)</span>
-<span id="cb525-4"><a href="joining-data.html#cb525-4" aria-hidden="true" tabindex="-1"></a>themes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/themes.csv&quot;</span>)</span>
-<span id="cb525-5"><a href="joining-data.html#cb525-5" aria-hidden="true" tabindex="-1"></a>parts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/parts.csv&quot;</span>)</span>
-<span id="cb525-6"><a href="joining-data.html#cb525-6" aria-hidden="true" tabindex="-1"></a>part_categories <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/part_categories.csv&quot;</span>)</span>
-<span id="cb525-7"><a href="joining-data.html#cb525-7" aria-hidden="true" tabindex="-1"></a>inventories <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/inventories.csv&quot;</span>)</span>
-<span id="cb525-8"><a href="joining-data.html#cb525-8" aria-hidden="true" tabindex="-1"></a>inventory_parts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/inventory_parts.csv&quot;</span>)</span>
-<span id="cb525-9"><a href="joining-data.html#cb525-9" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/colors.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="joining-data.html#cb589-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb589-2"><a href="joining-data.html#cb589-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb589-3"><a href="joining-data.html#cb589-3" aria-hidden="true" tabindex="-1"></a>sets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/sets.csv&quot;</span>)</span>
+<span id="cb589-4"><a href="joining-data.html#cb589-4" aria-hidden="true" tabindex="-1"></a>themes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/themes.csv&quot;</span>)</span>
+<span id="cb589-5"><a href="joining-data.html#cb589-5" aria-hidden="true" tabindex="-1"></a>parts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/parts.csv&quot;</span>)</span>
+<span id="cb589-6"><a href="joining-data.html#cb589-6" aria-hidden="true" tabindex="-1"></a>part_categories <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/part_categories.csv&quot;</span>)</span>
+<span id="cb589-7"><a href="joining-data.html#cb589-7" aria-hidden="true" tabindex="-1"></a>inventories <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/inventories.csv&quot;</span>)</span>
+<span id="cb589-8"><a href="joining-data.html#cb589-8" aria-hidden="true" tabindex="-1"></a>inventory_parts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/inventory_parts.csv&quot;</span>)</span>
+<span id="cb589-9"><a href="joining-data.html#cb589-9" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/lego/colors.csv&quot;</span>)</span></code></pre></div>
 <div id="inner-join" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Inner join<a href="joining-data.html#inner-join" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="image/5-1-1.inner%20join.png" width="226" /></p>
 <p>An inner join keeps an observation only if it has an exact match between the first and the second tables.</p>
 <p><code>by</code> argument tells inner join how to match the tables. If there are same variables name in each table, <code>suffix</code> argument can change variable name by adding characters you assign.</p>
 <p>Syntax:</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="joining-data.html#cb526-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span></span>
-<span id="cb526-2"><a href="joining-data.html#cb526-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(table2, <span class="at">by =</span> <span class="fu">c</span>(<span class="at">table2_key =</span> table1_key), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_chr1&quot;</span>, <span class="st">&quot;_chr2&quot;</span>))</span>
-<span id="cb526-3"><a href="joining-data.html#cb526-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb526-4"><a href="joining-data.html#cb526-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb526-5"><a href="joining-data.html#cb526-5" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
-<span id="cb526-6"><a href="joining-data.html#cb526-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;theme_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_theme&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="joining-data.html#cb590-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span></span>
+<span id="cb590-2"><a href="joining-data.html#cb590-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(table2, <span class="at">by =</span> <span class="fu">c</span>(<span class="at">table2_key =</span> table1_key), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_chr1&quot;</span>, <span class="st">&quot;_chr2&quot;</span>))</span>
+<span id="cb590-3"><a href="joining-data.html#cb590-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb590-4"><a href="joining-data.html#cb590-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb590-5"><a href="joining-data.html#cb590-5" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
+<span id="cb590-6"><a href="joining-data.html#cb590-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;theme_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_theme&quot;</span>))</span></code></pre></div>
 <div id="join-by-keys" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Join by keys<a href="joining-data.html#join-by-keys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="joining-data.html#cb527-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the correct verb, table, and joining column</span></span>
-<span id="cb527-2"><a href="joining-data.html#cb527-2" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span> </span>
-<span id="cb527-3"><a href="joining-data.html#cb527-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(part_categories, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_cat_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="joining-data.html#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the suffix argument to replace .x and .y suffixes</span></span>
-<span id="cb528-2"><a href="joining-data.html#cb528-2" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span> </span>
-<span id="cb528-3"><a href="joining-data.html#cb528-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(part_categories, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_cat_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), </span>
-<span id="cb528-4"><a href="joining-data.html#cb528-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_part&quot;</span>, <span class="st">&quot;_category&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="joining-data.html#cb591-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the correct verb, table, and joining column</span></span>
+<span id="cb591-2"><a href="joining-data.html#cb591-2" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span> </span>
+<span id="cb591-3"><a href="joining-data.html#cb591-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(part_categories, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_cat_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 52,600 × 5
+##    part_num name.x                              part_cat_id part_material name.y
+##    &lt;chr&gt;    &lt;chr&gt;                                     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt; 
+##  1 003381   Sticker Sheet for Set 663-1                  58 Plastic       Stick…
+##  2 003383   Sticker Sheet for Sets 618-1, 628-2          58 Plastic       Stick…
+##  3 003402   Sticker Sheet for Sets 310-3, 311-…          58 Plastic       Stick…
+##  4 003429   Sticker Sheet for Set 1550-1                 58 Plastic       Stick…
+##  5 003432   Sticker Sheet for Sets 357-1, 355-…          58 Plastic       Stick…
+##  6 003434   Sticker Sheet for Set 575-2, 653-1…          58 Plastic       Stick…
+##  7 003435   Sticker Sheet for Set 687-1                  58 Plastic       Stick…
+##  8 003436   Sticker Sheet for Set 180-1                  58 Plastic       Stick…
+##  9 003437   Sticker Sheet for Set 181-1                  58 Plastic       Stick…
+## 10 003438   Sticker Sheet for Set 131-1                  58 Plastic       Stick…
+## # ℹ 52,590 more rows</code></pre>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="joining-data.html#cb593-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the suffix argument to replace .x and .y suffixes</span></span>
+<span id="cb593-2"><a href="joining-data.html#cb593-2" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span> </span>
+<span id="cb593-3"><a href="joining-data.html#cb593-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(part_categories, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_cat_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), </span>
+<span id="cb593-4"><a href="joining-data.html#cb593-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_part&quot;</span>, <span class="st">&quot;_category&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 52,600 × 5
+##    part_num name_part                    part_cat_id part_material name_category
+##    &lt;chr&gt;    &lt;chr&gt;                              &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;        
+##  1 003381   Sticker Sheet for Set 663-1           58 Plastic       Stickers     
+##  2 003383   Sticker Sheet for Sets 618-…          58 Plastic       Stickers     
+##  3 003402   Sticker Sheet for Sets 310-…          58 Plastic       Stickers     
+##  4 003429   Sticker Sheet for Set 1550-1          58 Plastic       Stickers     
+##  5 003432   Sticker Sheet for Sets 357-…          58 Plastic       Stickers     
+##  6 003434   Sticker Sheet for Set 575-2…          58 Plastic       Stickers     
+##  7 003435   Sticker Sheet for Set 687-1           58 Plastic       Stickers     
+##  8 003436   Sticker Sheet for Set 180-1           58 Plastic       Stickers     
+##  9 003437   Sticker Sheet for Set 181-1           58 Plastic       Stickers     
+## 10 003438   Sticker Sheet for Set 131-1           58 Plastic       Stickers     
+## # ℹ 52,590 more rows</code></pre>
 </div>
 <div id="join-with-a-one-to-many-relationship" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Join with a one-to-many relationship<a href="joining-data.html#join-with-a-one-to-many-relationship" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is an example of a <strong>one-to-many</strong> relationship. And <code>by</code> the same variable. Notice that the table increased in the number of rows after the join.</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="joining-data.html#cb529-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the parts and inventory_parts tables</span></span>
-<span id="cb529-2"><a href="joining-data.html#cb529-2" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span></span>
-<span id="cb529-3"><a href="joining-data.html#cb529-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="joining-data.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the parts and inventory_parts tables</span></span>
+<span id="cb595-2"><a href="joining-data.html#cb595-2" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span></span>
+<span id="cb595-3"><a href="joining-data.html#cb595-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1,179,869 × 9
+##    part_num name        part_cat_id part_material inventory_id color_id quantity
+##    &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 003381   Sticker Sh…          58 Plastic              15865     9999        1
+##  2 003383   Sticker Sh…          58 Plastic               8376     9999        1
+##  3 003383   Sticker Sh…          58 Plastic              11738     9999        1
+##  4 003402   Sticker Sh…          58 Plastic                470     9999        1
+##  5 003402   Sticker Sh…          58 Plastic                885     9999        1
+##  6 003402   Sticker Sh…          58 Plastic              12659     9999        1
+##  7 003429   Sticker Sh…          58 Plastic               3993     9999        1
+##  8 003432   Sticker Sh…          58 Plastic               8191     9999        1
+##  9 003434   Sticker Sh…          58 Plastic               8756     9999        1
+## 10 003434   Sticker Sh…          58 Plastic              12826     9999        1
+## # ℹ 1,179,859 more rows
+## # ℹ 2 more variables: is_spare &lt;lgl&gt;, img_url &lt;chr&gt;</code></pre>
 </div>
 <div id="join-in-either-direction" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Join in either direction<a href="joining-data.html#join-in-either-direction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An <code>inner_join</code> works the same way with either table in either position. The table that is specified first is arbitrary, since you will end up with the same information in the resulting table either way.(table先後順序不同所得結果一樣)</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="joining-data.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the parts and inventory_parts tables</span></span>
-<span id="cb530-2"><a href="joining-data.html#cb530-2" aria-hidden="true" tabindex="-1"></a>inventory_parts <span class="sc">%&gt;%</span></span>
-<span id="cb530-3"><a href="joining-data.html#cb530-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(parts, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="joining-data.html#cb597-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the parts and inventory_parts tables</span></span>
+<span id="cb597-2"><a href="joining-data.html#cb597-2" aria-hidden="true" tabindex="-1"></a>inventory_parts <span class="sc">%&gt;%</span></span>
+<span id="cb597-3"><a href="joining-data.html#cb597-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(parts, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1,179,869 × 9
+##    inventory_id part_num    color_id quantity is_spare img_url name  part_cat_id
+##           &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1            1 48379c01          72        1 FALSE    https:… Larg…          41
+##  2            1 48395              7        1 FALSE    https:… Spor…          27
+##  3            1 stickerupn…     9999        1 FALSE    &lt;NA&gt;    Stic…          58
+##  4            1 upn0342            0        1 FALSE    &lt;NA&gt;    Spor…          27
+##  5            1 upn0350           25        1 FALSE    &lt;NA&gt;    Spor…          13
+##  6            3 2343              47        1 FALSE    https:… Equi…          27
+##  7            3 3003              29        1 FALSE    https:… Bric…          11
+##  8            3 30176              2        1 FALSE    https:… Plan…          28
+##  9            3 3020              15        1 FALSE    https:… Plat…          14
+## 10            3 3022              15        2 FALSE    https:… Plat…          14
+## # ℹ 1,179,859 more rows
+## # ℹ 1 more variable: part_material &lt;chr&gt;</code></pre>
 <p>This is the same join as the last exercise, but the order of the tables is reversed. For an <code>inner_join</code>, either direction will yield a table that contains the same information! Note that the columns will appear in a different order depending on which table comes first.</p>
 </div>
 <div id="join-three-or-more-tables" class="section level3 hasAnchor" number="5.1.4">
 <h3><span class="header-section-number">5.1.4</span> Join three or more tables<a href="joining-data.html#join-three-or-more-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="image/5-1-4.table%20relationship.png" width="470" /></p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="joining-data.html#cb531-1" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
-<span id="cb531-2"><a href="joining-data.html#cb531-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add inventories using an inner join </span></span>
-<span id="cb531-3"><a href="joining-data.html#cb531-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventories, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb531-4"><a href="joining-data.html#cb531-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add inventory_parts using an inner join </span></span>
-<span id="cb531-5"><a href="joining-data.html#cb531-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="joining-data.html#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of colors and sort</span></span>
-<span id="cb532-2"><a href="joining-data.html#cb532-2" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
-<span id="cb532-3"><a href="joining-data.html#cb532-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventories, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb532-4"><a href="joining-data.html#cb532-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb532-5"><a href="joining-data.html#cb532-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), </span>
-<span id="cb532-6"><a href="joining-data.html#cb532-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_color&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb532-7"><a href="joining-data.html#cb532-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(name_color) <span class="sc">%&gt;%</span></span>
-<span id="cb532-8"><a href="joining-data.html#cb532-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="joining-data.html#cb599-1" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
+<span id="cb599-2"><a href="joining-data.html#cb599-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add inventories using an inner join </span></span>
+<span id="cb599-3"><a href="joining-data.html#cb599-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventories, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb599-4"><a href="joining-data.html#cb599-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add inventory_parts using an inner join </span></span>
+<span id="cb599-5"><a href="joining-data.html#cb599-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1,113,729 × 13
+##    set_num name   year theme_id num_parts img_url.x          id version part_num
+##    &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
+##  1 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 132a    
+##  2 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 3020    
+##  3 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 3062c   
+##  4 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 3404bc01
+##  5 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 36      
+##  6 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 7039    
+##  7 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 7049bc01
+##  8 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 715     
+##  9 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 741     
+## 10 001-1   Gears  1965        1        43 https://cdn.re… 24696       1 742     
+## # ℹ 1,113,719 more rows
+## # ℹ 4 more variables: color_id &lt;dbl&gt;, quantity &lt;dbl&gt;, is_spare &lt;lgl&gt;,
+## #   img_url.y &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="joining-data.html#cb601-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of colors and sort</span></span>
+<span id="cb601-2"><a href="joining-data.html#cb601-2" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
+<span id="cb601-3"><a href="joining-data.html#cb601-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventories, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb601-4"><a href="joining-data.html#cb601-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb601-5"><a href="joining-data.html#cb601-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), </span>
+<span id="cb601-6"><a href="joining-data.html#cb601-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_color&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb601-7"><a href="joining-data.html#cb601-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(name_color) <span class="sc">%&gt;%</span></span>
+<span id="cb601-8"><a href="joining-data.html#cb601-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 250 × 2
+##    name_color             n
+##    &lt;chr&gt;              &lt;int&gt;
+##  1 Black             198156
+##  2 White             126555
+##  3 Light Bluish Gray 121453
+##  4 Dark Bluish Gray   89669
+##  5 Red                84521
+##  6 Yellow             57755
+##  7 Blue               45305
+##  8 Reddish Brown      37606
+##  9 Tan                34831
+## 10 Light Gray         28104
+## # ℹ 240 more rows</code></pre>
 </div>
 </div>
 <div id="left-right-joins" class="section level2 hasAnchor" number="5.2">
@@ -1032,99 +1120,180 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="image/5-2-1.left%20join.png" width="237" /></p>
 <p><strong>Left joining two sets by part and color</strong></p>
 <p>Each of these observations isn’t just a part, but a <em>combination of a part and a color</em>. Notice, you can specify this with <code>by = c("var1", "var2")</code>. That specifies we want to join on both columns.</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="joining-data.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare tables</span></span>
-<span id="cb533-2"><a href="joining-data.html#cb533-2" aria-hidden="true" tabindex="-1"></a>inventory_parts_joined <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
-<span id="cb533-3"><a href="joining-data.html#cb533-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb533-4"><a href="joining-data.html#cb533-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>version) <span class="sc">%&gt;%</span></span>
-<span id="cb533-5"><a href="joining-data.html#cb533-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(quantity))</span>
-<span id="cb533-6"><a href="joining-data.html#cb533-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb533-7"><a href="joining-data.html#cb533-7" aria-hidden="true" tabindex="-1"></a>millennium_falcon <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
-<span id="cb533-8"><a href="joining-data.html#cb533-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;7965-1&quot;</span>)</span>
-<span id="cb533-9"><a href="joining-data.html#cb533-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb533-10"><a href="joining-data.html#cb533-10" aria-hidden="true" tabindex="-1"></a>star_destroyer <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
-<span id="cb533-11"><a href="joining-data.html#cb533-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;75190-1&quot;</span>)</span>
-<span id="cb533-12"><a href="joining-data.html#cb533-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb533-13"><a href="joining-data.html#cb533-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the star_destroyer and millennium_falcon tables</span></span>
-<span id="cb533-14"><a href="joining-data.html#cb533-14" aria-hidden="true" tabindex="-1"></a>millennium_falcon <span class="sc">%&gt;%</span></span>
-<span id="cb533-15"><a href="joining-data.html#cb533-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(star_destroyer, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_num&quot;</span>, <span class="st">&quot;color_id&quot;</span>), </span>
-<span id="cb533-16"><a href="joining-data.html#cb533-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_falcon&quot;</span>, <span class="st">&quot;_star_destroyer&quot;</span>))</span></code></pre></div>
-<pre><code>## Warning in left_join(., star_destroyer, by = c(&quot;part_num&quot;, &quot;color_id&quot;), : Detected an unexpected many-to-many relationship between `x` and `y`.
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="joining-data.html#cb603-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare tables</span></span>
+<span id="cb603-2"><a href="joining-data.html#cb603-2" aria-hidden="true" tabindex="-1"></a>inventory_parts_joined <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
+<span id="cb603-3"><a href="joining-data.html#cb603-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb603-4"><a href="joining-data.html#cb603-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>version) <span class="sc">%&gt;%</span></span>
+<span id="cb603-5"><a href="joining-data.html#cb603-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(quantity))</span>
+<span id="cb603-6"><a href="joining-data.html#cb603-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb603-7"><a href="joining-data.html#cb603-7" aria-hidden="true" tabindex="-1"></a>millennium_falcon <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
+<span id="cb603-8"><a href="joining-data.html#cb603-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;7965-1&quot;</span>)</span>
+<span id="cb603-9"><a href="joining-data.html#cb603-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb603-10"><a href="joining-data.html#cb603-10" aria-hidden="true" tabindex="-1"></a>star_destroyer <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
+<span id="cb603-11"><a href="joining-data.html#cb603-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;75190-1&quot;</span>)</span>
+<span id="cb603-12"><a href="joining-data.html#cb603-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb603-13"><a href="joining-data.html#cb603-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the star_destroyer and millennium_falcon tables</span></span>
+<span id="cb603-14"><a href="joining-data.html#cb603-14" aria-hidden="true" tabindex="-1"></a>millennium_falcon <span class="sc">%&gt;%</span></span>
+<span id="cb603-15"><a href="joining-data.html#cb603-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(star_destroyer, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_num&quot;</span>, <span class="st">&quot;color_id&quot;</span>), </span>
+<span id="cb603-16"><a href="joining-data.html#cb603-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_falcon&quot;</span>, <span class="st">&quot;_star_destroyer&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning in left_join(., star_destroyer, by = c(&quot;part_num&quot;, &quot;color_id&quot;), : Detected an unexpected many-to-many
+## relationship between `x` and `y`.
 ## ℹ Row 4 of `x` matches multiple rows in `y`.
 ## ℹ Row 3 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ If a many-to-many relationship is expected,
+##   set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
+<pre><code>## # A tibble: 247 × 10
+##    set_num_falcon part_num color_id quantity_falcon is_spare_falcon
+##    &lt;chr&gt;          &lt;chr&gt;       &lt;dbl&gt;           &lt;dbl&gt; &lt;lgl&gt;          
+##  1 7965-1         63868          71              62 FALSE          
+##  2 7965-1         3023            0              60 FALSE          
+##  3 7965-1         3021           72              46 FALSE          
+##  4 7965-1         2780            0              37 FALSE          
+##  5 7965-1         2780            0              37 FALSE          
+##  6 7965-1         60478          72              36 FALSE          
+##  7 7965-1         6636           71              34 FALSE          
+##  8 7965-1         3009           71              28 FALSE          
+##  9 7965-1         3665           71              22 FALSE          
+## 10 7965-1         2412b          72              20 FALSE          
+## # ℹ 237 more rows
+## # ℹ 5 more variables: img_url_falcon &lt;chr&gt;, set_num_star_destroyer &lt;chr&gt;,
+## #   quantity_star_destroyer &lt;dbl&gt;, is_spare_star_destroyer &lt;lgl&gt;,
+## #   img_url_star_destroyer &lt;chr&gt;</code></pre>
 <p><strong>Left joining two sets by color</strong></p>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="joining-data.html#cb535-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate Millennium Falcon for the total quantity in each part</span></span>
-<span id="cb535-2"><a href="joining-data.html#cb535-2" aria-hidden="true" tabindex="-1"></a>millennium_falcon_colors <span class="ot">&lt;-</span> millennium_falcon <span class="sc">%&gt;%</span></span>
-<span id="cb535-3"><a href="joining-data.html#cb535-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
-<span id="cb535-4"><a href="joining-data.html#cb535-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_quantity =</span> <span class="fu">sum</span>(quantity))</span>
-<span id="cb535-5"><a href="joining-data.html#cb535-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb535-6"><a href="joining-data.html#cb535-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate Star Destroyer for the total quantity in each part</span></span>
-<span id="cb535-7"><a href="joining-data.html#cb535-7" aria-hidden="true" tabindex="-1"></a>star_destroyer_colors <span class="ot">&lt;-</span> star_destroyer <span class="sc">%&gt;%</span></span>
-<span id="cb535-8"><a href="joining-data.html#cb535-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
-<span id="cb535-9"><a href="joining-data.html#cb535-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_quantity =</span> <span class="fu">sum</span>(quantity))</span>
-<span id="cb535-10"><a href="joining-data.html#cb535-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb535-11"><a href="joining-data.html#cb535-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Left join the Millennium Falcon colors to the Star Destroyer colors</span></span>
-<span id="cb535-12"><a href="joining-data.html#cb535-12" aria-hidden="true" tabindex="-1"></a>millennium_falcon_colors <span class="sc">%&gt;%</span></span>
-<span id="cb535-13"><a href="joining-data.html#cb535-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(star_destroyer_colors, <span class="at">by =</span> <span class="st">&quot;color_id&quot;</span>, </span>
-<span id="cb535-14"><a href="joining-data.html#cb535-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_falcon&quot;</span>, <span class="st">&quot;_star_destroyer&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="joining-data.html#cb606-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate Millennium Falcon for the total quantity in each part</span></span>
+<span id="cb606-2"><a href="joining-data.html#cb606-2" aria-hidden="true" tabindex="-1"></a>millennium_falcon_colors <span class="ot">&lt;-</span> millennium_falcon <span class="sc">%&gt;%</span></span>
+<span id="cb606-3"><a href="joining-data.html#cb606-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
+<span id="cb606-4"><a href="joining-data.html#cb606-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_quantity =</span> <span class="fu">sum</span>(quantity))</span>
+<span id="cb606-5"><a href="joining-data.html#cb606-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb606-6"><a href="joining-data.html#cb606-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate Star Destroyer for the total quantity in each part</span></span>
+<span id="cb606-7"><a href="joining-data.html#cb606-7" aria-hidden="true" tabindex="-1"></a>star_destroyer_colors <span class="ot">&lt;-</span> star_destroyer <span class="sc">%&gt;%</span></span>
+<span id="cb606-8"><a href="joining-data.html#cb606-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
+<span id="cb606-9"><a href="joining-data.html#cb606-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_quantity =</span> <span class="fu">sum</span>(quantity))</span>
+<span id="cb606-10"><a href="joining-data.html#cb606-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb606-11"><a href="joining-data.html#cb606-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Left join the Millennium Falcon colors to the Star Destroyer colors</span></span>
+<span id="cb606-12"><a href="joining-data.html#cb606-12" aria-hidden="true" tabindex="-1"></a>millennium_falcon_colors <span class="sc">%&gt;%</span></span>
+<span id="cb606-13"><a href="joining-data.html#cb606-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(star_destroyer_colors, <span class="at">by =</span> <span class="st">&quot;color_id&quot;</span>, </span>
+<span id="cb606-14"><a href="joining-data.html#cb606-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_falcon&quot;</span>, <span class="st">&quot;_star_destroyer&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 19 × 3
+##    color_id total_quantity_falcon total_quantity_star_destroyer
+##       &lt;dbl&gt;                 &lt;dbl&gt;                         &lt;dbl&gt;
+##  1        0                   196                           327
+##  2        1                    15                            24
+##  3        4                    17                            56
+##  4       14                     3                             5
+##  5       15                    12                            13
+##  6       19                    91                            13
+##  7       28                     3                            16
+##  8       33                     5                            NA
+##  9       36                     1                            14
+## 10       41                     6                            16
+## 11       47                     5                            NA
+## 12       70                     6                             1
+## 13       71                   586                           533
+## 14       72                   282                           373
+## 15       80                     3                            NA
+## 16      179                     2                            NA
+## 17      320                    12                             2
+## 18     1103                     1                            NA
+## 19     9999                     1                             1</code></pre>
 <p><strong>Finding an observation that doesn’t have a match</strong></p>
 <p>For example, the inventories table has a version column, for when a LEGO kit gets some kind of change or upgrade. It would be fair to assume that all sets (which joins well with inventories) would have at least a version 1.</p>
 <p>And use the <code>replace_na</code>, which takes a list of column names and the values with which <code>NAs</code> should be replaced, to clean up our table.</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="joining-data.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">colname =</span> replace_value))</span></code></pre></div>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="joining-data.html#cb537-1" aria-hidden="true" tabindex="-1"></a>inventory_version_1 <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
-<span id="cb537-2"><a href="joining-data.html#cb537-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(version <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb537-3"><a href="joining-data.html#cb537-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb537-4"><a href="joining-data.html#cb537-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(inventory_version_1)</span></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="joining-data.html#cb608-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">colname =</span> replace_value))</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="joining-data.html#cb609-1" aria-hidden="true" tabindex="-1"></a>inventory_version_1 <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
+<span id="cb609-2"><a href="joining-data.html#cb609-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(version <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb609-3"><a href="joining-data.html#cb609-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb609-4"><a href="joining-data.html#cb609-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(inventory_version_1)</span></code></pre></div>
 <pre><code>## [1] &quot;id&quot;      &quot;version&quot; &quot;set_num&quot;</code></pre>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="joining-data.html#cb539-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sets)</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="joining-data.html#cb611-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sets)</span></code></pre></div>
 <pre><code>## [1] &quot;set_num&quot;   &quot;name&quot;      &quot;year&quot;      &quot;theme_id&quot;  &quot;num_parts&quot; &quot;img_url&quot;</code></pre>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="joining-data.html#cb541-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join versions to sets</span></span>
-<span id="cb541-2"><a href="joining-data.html#cb541-2" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
-<span id="cb541-3"><a href="joining-data.html#cb541-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(inventory_version_1, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb541-4"><a href="joining-data.html#cb541-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for where version is na</span></span>
-<span id="cb541-5"><a href="joining-data.html#cb541-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(version)) <span class="sc">%&gt;%</span></span>
-<span id="cb541-6"><a href="joining-data.html#cb541-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use replace_na to replace missing values in the version column</span></span>
-<span id="cb541-7"><a href="joining-data.html#cb541-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">version =</span> <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="joining-data.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join versions to sets</span></span>
+<span id="cb613-2"><a href="joining-data.html#cb613-2" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
+<span id="cb613-3"><a href="joining-data.html#cb613-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(inventory_version_1, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb613-4"><a href="joining-data.html#cb613-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for where version is na</span></span>
+<span id="cb613-5"><a href="joining-data.html#cb613-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(version)) <span class="sc">%&gt;%</span></span>
+<span id="cb613-6"><a href="joining-data.html#cb613-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use replace_na to replace missing values in the version column</span></span>
+<span id="cb613-7"><a href="joining-data.html#cb613-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">version =</span> <span class="dv">0</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 8
+##   set_num name                     year theme_id num_parts img_url    id version
+##   &lt;chr&gt;   &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 10875-1 Cargo Train              2018      634       105 https:…    NA       0
+## 2 76081-1 The Milano vs. The Abi…  2017      704       462 https:…    NA       0
+## 3 S1-1    Baseplate with steerin…  1970      453         1 https:…    NA       0</code></pre>
 </div>
 <div id="right-join" class="section level3 hasAnchor" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Right join<a href="joining-data.html#right-join" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="image/5-2-2.right%20join.png" width="238" /></p>
 <p>In this exercise, we’ll count the <code>part_cat_id</code> from <code>parts</code>, before using a <code>right_join</code> to join with <code>part_categories</code>. The reason we do this is because we don’t only want to know the count of <code>part_cat_id</code> in <code>parts</code>, but we also want to know if there are any <code>part_cat_id</code>s <em>not</em> present in <code>parts</code>.</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="joining-data.html#cb542-1" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span></span>
-<span id="cb542-2"><a href="joining-data.html#cb542-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count the part_cat_id</span></span>
-<span id="cb542-3"><a href="joining-data.html#cb542-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(part_cat_id) <span class="sc">%&gt;%</span></span>
-<span id="cb542-4"><a href="joining-data.html#cb542-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Right join part_categories</span></span>
-<span id="cb542-5"><a href="joining-data.html#cb542-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(part_categories, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_cat_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb542-6"><a href="joining-data.html#cb542-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for NA</span></span>
-<span id="cb542-7"><a href="joining-data.html#cb542-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="joining-data.html#cb615-1" aria-hidden="true" tabindex="-1"></a>parts <span class="sc">%&gt;%</span></span>
+<span id="cb615-2"><a href="joining-data.html#cb615-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count the part_cat_id</span></span>
+<span id="cb615-3"><a href="joining-data.html#cb615-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(part_cat_id) <span class="sc">%&gt;%</span></span>
+<span id="cb615-4"><a href="joining-data.html#cb615-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Right join part_categories</span></span>
+<span id="cb615-5"><a href="joining-data.html#cb615-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(part_categories, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_cat_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb615-6"><a href="joining-data.html#cb615-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for NA</span></span>
+<span id="cb615-7"><a href="joining-data.html#cb615-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 0 × 3
+## # ℹ 3 variables: part_cat_id &lt;dbl&gt;, n &lt;int&gt;, name &lt;chr&gt;</code></pre>
 <p><strong>Joining tables to themselves</strong></p>
 <p>In the <code>themes</code> table, you’ll notice there is both an <code>id</code> column and a <code>parent_id</code> column. Keeping that in mind, you can join the <code>themes</code> table to itself to determine the <em>parent-child relationships</em> that exist for different themes.</p>
 <ul>
 <li>Joining themes to their children</li>
 </ul>
 <p>In this exercise, you’ll try a similar approach of joining themes to their own <em>children</em>, which is similar but reversed.</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="joining-data.html#cb543-1" aria-hidden="true" tabindex="-1"></a>themes <span class="sc">%&gt;%</span> </span>
-<span id="cb543-2"><a href="joining-data.html#cb543-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inner join the themes table</span></span>
-<span id="cb543-3"><a href="joining-data.html#cb543-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_child&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb543-4"><a href="joining-data.html#cb543-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for the &quot;Harry Potter&quot; parent name </span></span>
-<span id="cb543-5"><a href="joining-data.html#cb543-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_parent <span class="sc">==</span> <span class="st">&quot;Harry Potter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="joining-data.html#cb617-1" aria-hidden="true" tabindex="-1"></a>themes <span class="sc">%&gt;%</span> </span>
+<span id="cb617-2"><a href="joining-data.html#cb617-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inner join the themes table</span></span>
+<span id="cb617-3"><a href="joining-data.html#cb617-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_child&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb617-4"><a href="joining-data.html#cb617-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for the &quot;Harry Potter&quot; parent name </span></span>
+<span id="cb617-5"><a href="joining-data.html#cb617-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_parent <span class="sc">==</span> <span class="st">&quot;Harry Potter&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##      id name_parent  parent_id id_child name_child      
+##   &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;           
+## 1   246 Harry Potter        NA      667 Fantastic Beasts</code></pre>
 <ul>
 <li>Joining themes to their grandchildren</li>
 </ul>
 <p>Some themes actually have grandchildren: their children’s children. Here, we can inner join <code>themes</code> to a filtered version of itself again to establish a connection between our last join’s children and their children.</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="joining-data.html#cb544-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join themes to itself again to find the grandchild relationships</span></span>
-<span id="cb544-2"><a href="joining-data.html#cb544-2" aria-hidden="true" tabindex="-1"></a>themes <span class="sc">%&gt;%</span> </span>
-<span id="cb544-3"><a href="joining-data.html#cb544-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_child&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb544-4"><a href="joining-data.html#cb544-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id_child&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_grandchild&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="joining-data.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join themes to itself again to find the grandchild relationships</span></span>
+<span id="cb619-2"><a href="joining-data.html#cb619-2" aria-hidden="true" tabindex="-1"></a>themes <span class="sc">%&gt;%</span> </span>
+<span id="cb619-3"><a href="joining-data.html#cb619-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_child&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb619-4"><a href="joining-data.html#cb619-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id_child&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_grandchild&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 7
+##    id_parent name_parent parent_id id_child name_child id_grandchild name       
+##        &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;      
+##  1       206 Seasonal           NA      207 Advent               208 City       
+##  2       206 Seasonal           NA      207 Advent               209 Star Wars  
+##  3       206 Seasonal           NA      207 Advent               210 Belville   
+##  4       206 Seasonal           NA      207 Advent               211 Castle     
+##  5       206 Seasonal           NA      207 Advent               212 Classic Ba…
+##  6       206 Seasonal           NA      207 Advent               213 Clikits    
+##  7       206 Seasonal           NA      207 Advent               214 Creator    
+##  8       206 Seasonal           NA      207 Advent               215 Pirates    
+##  9       206 Seasonal           NA      207 Advent               216 Friends    
+## 10       206 Seasonal           NA      207 Advent               710 Harry Pott…
+## # ℹ 13 more rows</code></pre>
 <ul>
 <li>Left joining a table to itself</li>
 </ul>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="joining-data.html#cb545-1" aria-hidden="true" tabindex="-1"></a>themes <span class="sc">%&gt;%</span> </span>
-<span id="cb545-2"><a href="joining-data.html#cb545-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Left join the themes table to its own children</span></span>
-<span id="cb545-3"><a href="joining-data.html#cb545-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_child&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb545-4"><a href="joining-data.html#cb545-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for themes that have no child themes</span></span>
-<span id="cb545-5"><a href="joining-data.html#cb545-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(name_child))</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="joining-data.html#cb621-1" aria-hidden="true" tabindex="-1"></a>themes <span class="sc">%&gt;%</span> </span>
+<span id="cb621-2"><a href="joining-data.html#cb621-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Left join the themes table to its own children</span></span>
+<span id="cb621-3"><a href="joining-data.html#cb621-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;parent_id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_parent&quot;</span>, <span class="st">&quot;_child&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb621-4"><a href="joining-data.html#cb621-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for themes that have no child themes</span></span>
+<span id="cb621-5"><a href="joining-data.html#cb621-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(name_child))</span></code></pre></div>
+<pre><code>## # A tibble: 412 × 5
+##       id name_parent            parent_id id_child name_child
+##    &lt;dbl&gt; &lt;chr&gt;                      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     
+##  1     3 Competition                    1       NA &lt;NA&gt;      
+##  2     4 Expert Builder                 1       NA &lt;NA&gt;      
+##  3    16 RoboRiders                     1       NA &lt;NA&gt;      
+##  4    17 Speed Slammers                 1       NA &lt;NA&gt;      
+##  5    18 Star Wars                      1       NA &lt;NA&gt;      
+##  6    19 Supplemental                   1       NA &lt;NA&gt;      
+##  7    20 Throwbot Slizer                1       NA &lt;NA&gt;      
+##  8    21 Universal Building Set         1       NA &lt;NA&gt;      
+##  9    23 Basic Model                   22       NA &lt;NA&gt;      
+## 10    35 Bricks &amp; More                 34       NA &lt;NA&gt;      
+## # ℹ 402 more rows</code></pre>
 </div>
 </div>
 <div id="full-semi-anti-joins" class="section level2 hasAnchor" number="5.3">
@@ -1132,93 +1301,225 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="full-join" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Full join<a href="joining-data.html#full-join" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="image/5-3-1.full%20join.png" width="248" /></p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="joining-data.html#cb546-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keep all both</span></span>
-<span id="cb546-2"><a href="joining-data.html#cb546-2" aria-hidden="true" tabindex="-1"></a>batmobile <span class="sc">%&gt;%</span></span>
-<span id="cb546-3"><a href="joining-data.html#cb546-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(batwing, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_num&quot;</span>, <span class="st">&quot;color_id&quot;</span>), </span>
-<span id="cb546-4"><a href="joining-data.html#cb546-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batmobile&quot;</span>, <span class="st">&quot;_batwing&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="joining-data.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keep all both</span></span>
+<span id="cb623-2"><a href="joining-data.html#cb623-2" aria-hidden="true" tabindex="-1"></a>batmobile <span class="sc">%&gt;%</span></span>
+<span id="cb623-3"><a href="joining-data.html#cb623-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(batwing, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_num&quot;</span>, <span class="st">&quot;color_id&quot;</span>), </span>
+<span id="cb623-4"><a href="joining-data.html#cb623-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batmobile&quot;</span>, <span class="st">&quot;_batwing&quot;</span>))</span></code></pre></div>
 <p><strong>Differences between Batman and Star Wars</strong></p>
 <p>Now, you’ll compare two themes, each of which is made up of many sets. Since each theme is made up of many sets, combining these tables is the first step towards being able to compare different themes.</p>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="joining-data.html#cb547-1" aria-hidden="true" tabindex="-1"></a>inventory_parts_joined <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
-<span id="cb547-2"><a href="joining-data.html#cb547-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb547-3"><a href="joining-data.html#cb547-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(quantity)) <span class="sc">%&gt;%</span></span>
-<span id="cb547-4"><a href="joining-data.html#cb547-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>version)</span></code></pre></div>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="joining-data.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start with inventory_parts_joined table</span></span>
-<span id="cb548-2"><a href="joining-data.html#cb548-2" aria-hidden="true" tabindex="-1"></a>inventory_sets_themes <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
-<span id="cb548-3"><a href="joining-data.html#cb548-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine with the sets table </span></span>
-<span id="cb548-4"><a href="joining-data.html#cb548-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(sets, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb548-5"><a href="joining-data.html#cb548-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine with the themes table </span></span>
-<span id="cb548-6"><a href="joining-data.html#cb548-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;theme_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_theme&quot;</span>))</span>
-<span id="cb548-7"><a href="joining-data.html#cb548-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb548-8"><a href="joining-data.html#cb548-8" aria-hidden="true" tabindex="-1"></a>inventory_sets_themes</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="joining-data.html#cb624-1" aria-hidden="true" tabindex="-1"></a>inventory_parts_joined <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
+<span id="cb624-2"><a href="joining-data.html#cb624-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb624-3"><a href="joining-data.html#cb624-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(quantity)) <span class="sc">%&gt;%</span></span>
+<span id="cb624-4"><a href="joining-data.html#cb624-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>version)</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="joining-data.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start with inventory_parts_joined table</span></span>
+<span id="cb625-2"><a href="joining-data.html#cb625-2" aria-hidden="true" tabindex="-1"></a>inventory_sets_themes <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
+<span id="cb625-3"><a href="joining-data.html#cb625-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine with the sets table </span></span>
+<span id="cb625-4"><a href="joining-data.html#cb625-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(sets, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb625-5"><a href="joining-data.html#cb625-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine with the themes table </span></span>
+<span id="cb625-6"><a href="joining-data.html#cb625-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;theme_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_theme&quot;</span>))</span>
+<span id="cb625-7"><a href="joining-data.html#cb625-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-8"><a href="joining-data.html#cb625-8" aria-hidden="true" tabindex="-1"></a>inventory_sets_themes</span></code></pre></div>
+<pre><code>## # A tibble: 1,113,729 × 13
+##    set_num part_num color_id quantity is_spare img_url.x name_set  year theme_id
+##    &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 31203-1 6141           15     3064 FALSE    https://… World M…  2021      709
+##  2 31203-1 98138           3     1879 FALSE    https://… World M…  2021      709
+##  3 31203-1 98138         322     1607 FALSE    https://… World M…  2021      709
+##  4 k34432… 3024           15     1440 FALSE    https://… Lego Mo…  2003      277
+##  5 k34433… 3024           15     1170 FALSE    https://… Lego Mo…  2003      277
+##  6 31203-1 98138          27     1060 FALSE    https://… World M…  2021      709
+##  7 40179-1 3024           14      900 FALSE    https://… Persona…  2016      277
+##  8 40179-1 3024           71      900 FALSE    https://… Persona…  2016      277
+##  9 40179-1 3024           72      900 FALSE    https://… Persona…  2016      277
+## 10 40179-1 3024           15      900 FALSE    https://… Persona…  2016      277
+## # ℹ 1,113,719 more rows
+## # ℹ 4 more variables: num_parts &lt;dbl&gt;, img_url.y &lt;chr&gt;, name_theme &lt;chr&gt;,
+## #   parent_id &lt;dbl&gt;</code></pre>
 <p><strong>Aggregating each theme</strong></p>
 <p>Before doing this comparison, you’ll want to aggregate the data to learn more about the pieces that are a part of each theme, as well as the colors of those pieces.</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="joining-data.html#cb549-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtered for each theme</span></span>
-<span id="cb549-2"><a href="joining-data.html#cb549-2" aria-hidden="true" tabindex="-1"></a>batman <span class="ot">&lt;-</span> inventory_sets_themes <span class="sc">%&gt;%</span></span>
-<span id="cb549-3"><a href="joining-data.html#cb549-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Batman&quot;</span>)</span>
-<span id="cb549-4"><a href="joining-data.html#cb549-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb549-5"><a href="joining-data.html#cb549-5" aria-hidden="true" tabindex="-1"></a>star_wars <span class="ot">&lt;-</span> inventory_sets_themes <span class="sc">%&gt;%</span></span>
-<span id="cb549-6"><a href="joining-data.html#cb549-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Star Wars&quot;</span>)</span>
-<span id="cb549-7"><a href="joining-data.html#cb549-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb549-8"><a href="joining-data.html#cb549-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the part number and color id, weight by quantity</span></span>
-<span id="cb549-9"><a href="joining-data.html#cb549-9" aria-hidden="true" tabindex="-1"></a>batman_parts <span class="ot">&lt;-</span> batman <span class="sc">%&gt;%</span></span>
-<span id="cb549-10"><a href="joining-data.html#cb549-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(part_num, color_id, <span class="at">wt =</span> quantity); batman_parts</span>
-<span id="cb549-11"><a href="joining-data.html#cb549-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb549-12"><a href="joining-data.html#cb549-12" aria-hidden="true" tabindex="-1"></a>star_wars_parts <span class="ot">&lt;-</span> star_wars <span class="sc">%&gt;%</span></span>
-<span id="cb549-13"><a href="joining-data.html#cb549-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(part_num, color_id, <span class="at">wt =</span> quantity); star_wars_parts</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="joining-data.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtered for each theme</span></span>
+<span id="cb627-2"><a href="joining-data.html#cb627-2" aria-hidden="true" tabindex="-1"></a>batman <span class="ot">&lt;-</span> inventory_sets_themes <span class="sc">%&gt;%</span></span>
+<span id="cb627-3"><a href="joining-data.html#cb627-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Batman&quot;</span>)</span>
+<span id="cb627-4"><a href="joining-data.html#cb627-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb627-5"><a href="joining-data.html#cb627-5" aria-hidden="true" tabindex="-1"></a>star_wars <span class="ot">&lt;-</span> inventory_sets_themes <span class="sc">%&gt;%</span></span>
+<span id="cb627-6"><a href="joining-data.html#cb627-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Star Wars&quot;</span>)</span>
+<span id="cb627-7"><a href="joining-data.html#cb627-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb627-8"><a href="joining-data.html#cb627-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the part number and color id, weight by quantity</span></span>
+<span id="cb627-9"><a href="joining-data.html#cb627-9" aria-hidden="true" tabindex="-1"></a>batman_parts <span class="ot">&lt;-</span> batman <span class="sc">%&gt;%</span></span>
+<span id="cb627-10"><a href="joining-data.html#cb627-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(part_num, color_id, <span class="at">wt =</span> quantity); batman_parts</span></code></pre></div>
+<pre><code>## # A tibble: 3,455 × 3
+##    part_num color_id     n
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 10100596     9999     1
+##  2 10104735     9999     1
+##  3 10104995     9999     1
+##  4 10172         179     1
+##  5 10172         297     1
+##  6 10187         179     3
+##  7 10187         297     3
+##  8 10190           0     8
+##  9 10201           4     3
+## 10 10201          14     5
+## # ℹ 3,445 more rows</code></pre>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="joining-data.html#cb629-1" aria-hidden="true" tabindex="-1"></a>star_wars_parts <span class="ot">&lt;-</span> star_wars <span class="sc">%&gt;%</span></span>
+<span id="cb629-2"><a href="joining-data.html#cb629-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(part_num, color_id, <span class="at">wt =</span> quantity); star_wars_parts</span></code></pre></div>
+<pre><code>## # A tibble: 9,081 × 3
+##    part_num color_id     n
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 01571        9999     1
+##  2 01709        9999     1
+##  3 01832        9999     1
+##  4 10001722     9999     1
+##  5 10001831     9999     1
+##  6 10050        1063     4
+##  7 10050        1103     1
+##  8 10100101     9999     1
+##  9 10100763     9999     1
+## 10 10100764     9999     1
+## # ℹ 9,071 more rows</code></pre>
 <p><strong>Full joining Batman and Star Wars LEGO parts</strong></p>
 <p>Now that you’ve got separate tables for the pieces in the <code>batman</code> and <code>star_wars</code> themes, you’ll want to be able to combine them to see any similarities or differences between the two themes.</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="joining-data.html#cb550-1" aria-hidden="true" tabindex="-1"></a>parts_joined <span class="ot">&lt;-</span> batman_parts <span class="sc">%&gt;%</span></span>
-<span id="cb550-2"><a href="joining-data.html#cb550-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine the star_wars_parts table </span></span>
-<span id="cb550-3"><a href="joining-data.html#cb550-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(star_wars_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_num&quot;</span>, <span class="st">&quot;color_id&quot;</span>), </span>
-<span id="cb550-4"><a href="joining-data.html#cb550-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batman&quot;</span>, <span class="st">&quot;_star_wars&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb550-5"><a href="joining-data.html#cb550-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace NAs with 0s in the n_batman and n_star_wars columns </span></span>
-<span id="cb550-6"><a href="joining-data.html#cb550-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">n_batman =</span> <span class="dv">0</span>,</span>
-<span id="cb550-7"><a href="joining-data.html#cb550-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n_star_wars =</span> <span class="dv">0</span>))</span>
-<span id="cb550-8"><a href="joining-data.html#cb550-8" aria-hidden="true" tabindex="-1"></a>parts_joined</span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="joining-data.html#cb631-1" aria-hidden="true" tabindex="-1"></a>parts_joined <span class="ot">&lt;-</span> batman_parts <span class="sc">%&gt;%</span></span>
+<span id="cb631-2"><a href="joining-data.html#cb631-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine the star_wars_parts table </span></span>
+<span id="cb631-3"><a href="joining-data.html#cb631-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(star_wars_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;part_num&quot;</span>, <span class="st">&quot;color_id&quot;</span>), </span>
+<span id="cb631-4"><a href="joining-data.html#cb631-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batman&quot;</span>, <span class="st">&quot;_star_wars&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb631-5"><a href="joining-data.html#cb631-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace NAs with 0s in the n_batman and n_star_wars columns </span></span>
+<span id="cb631-6"><a href="joining-data.html#cb631-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">n_batman =</span> <span class="dv">0</span>,</span>
+<span id="cb631-7"><a href="joining-data.html#cb631-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n_star_wars =</span> <span class="dv">0</span>))</span>
+<span id="cb631-8"><a href="joining-data.html#cb631-8" aria-hidden="true" tabindex="-1"></a>parts_joined</span></code></pre></div>
+<pre><code>## # A tibble: 9,964 × 4
+##    part_num color_id n_batman n_star_wars
+##    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+##  1 10100596     9999        1           0
+##  2 10104735     9999        1           0
+##  3 10104995     9999        1           0
+##  4 10172         179        1           0
+##  5 10172         297        1           0
+##  6 10187         179        3           0
+##  7 10187         297        3           3
+##  8 10190           0        8           3
+##  9 10201           4        3           7
+## 10 10201          14        5           2
+## # ℹ 9,954 more rows</code></pre>
 <p><strong>Comparing Batman and Star Wars LEGO parts</strong></p>
 <p>However, we have more information about each of these parts that we can gain by combining this table with some of the information we have in other tables.</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="joining-data.html#cb551-1" aria-hidden="true" tabindex="-1"></a>parts_joined <span class="sc">%&gt;%</span></span>
-<span id="cb551-2"><a href="joining-data.html#cb551-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort the number of star wars pieces in descending order </span></span>
-<span id="cb551-3"><a href="joining-data.html#cb551-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_star_wars)) <span class="sc">%&gt;%</span></span>
-<span id="cb551-4"><a href="joining-data.html#cb551-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the colors table to the parts_joined table</span></span>
-<span id="cb551-5"><a href="joining-data.html#cb551-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb551-6"><a href="joining-data.html#cb551-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the parts table to the previous join </span></span>
-<span id="cb551-7"><a href="joining-data.html#cb551-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(parts, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_color&quot;</span>, <span class="st">&quot;_part&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="joining-data.html#cb633-1" aria-hidden="true" tabindex="-1"></a>parts_joined <span class="sc">%&gt;%</span></span>
+<span id="cb633-2"><a href="joining-data.html#cb633-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort the number of star wars pieces in descending order </span></span>
+<span id="cb633-3"><a href="joining-data.html#cb633-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_star_wars)) <span class="sc">%&gt;%</span></span>
+<span id="cb633-4"><a href="joining-data.html#cb633-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the colors table to the parts_joined table</span></span>
+<span id="cb633-5"><a href="joining-data.html#cb633-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb633-6"><a href="joining-data.html#cb633-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the parts table to the previous join </span></span>
+<span id="cb633-7"><a href="joining-data.html#cb633-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(parts, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_color&quot;</span>, <span class="st">&quot;_part&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 9,964 × 10
+##    part_num color_id n_batman n_star_wars name_color    rgb   is_trans name_part
+##    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt; &lt;lgl&gt;    &lt;chr&gt;    
+##  1 2780            0      377        5200 Black         0513… FALSE    Technic …
+##  2 4274            1      166        2052 Blue          0055… FALSE    Technic …
+##  3 3023           71      101        1923 Light Bluish… A0A5… FALSE    Plate 1 …
+##  4 3023           72      170        1724 Dark Bluish … 6C6E… FALSE    Plate 1 …
+##  5 3023            0      240        1457 Black         0513… FALSE    Plate 1 …
+##  6 43093           1       95        1394 Blue          0055… FALSE    Technic …
+##  7 6141           36       86        1246 Trans-Red     C91A… TRUE     Plate Ro…
+##  8 2412b          72       83        1245 Dark Bluish … 6C6E… FALSE    Tile Spe…
+##  9 6141           72       94        1178 Dark Bluish … 6C6E… FALSE    Plate Ro…
+## 10 6558            1       33        1133 Blue          0055… FALSE    Technic …
+## # ℹ 9,954 more rows
+## # ℹ 2 more variables: part_cat_id &lt;dbl&gt;, part_material &lt;chr&gt;</code></pre>
 </div>
 <div id="semi-anti-joins" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Semi &amp; Anti joins<a href="joining-data.html#semi-anti-joins" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Something within one set but not another</strong></p>
 <p>Determine which parts are in both the <code>batwing</code> and <code>batmobile</code> sets, and which sets are in one, but not the other.</p>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="joining-data.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two sets</span></span>
-<span id="cb552-2"><a href="joining-data.html#cb552-2" aria-hidden="true" tabindex="-1"></a>batmobile <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
-<span id="cb552-3"><a href="joining-data.html#cb552-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;7784-1&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb552-4"><a href="joining-data.html#cb552-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>set_num)</span>
-<span id="cb552-5"><a href="joining-data.html#cb552-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb552-6"><a href="joining-data.html#cb552-6" aria-hidden="true" tabindex="-1"></a>batwing <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
-<span id="cb552-7"><a href="joining-data.html#cb552-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;70916-1&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb552-8"><a href="joining-data.html#cb552-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>set_num)</span>
-<span id="cb552-9"><a href="joining-data.html#cb552-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb552-10"><a href="joining-data.html#cb552-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the batwing set for parts that are also in the batmobile set</span></span>
-<span id="cb552-11"><a href="joining-data.html#cb552-11" aria-hidden="true" tabindex="-1"></a>batwing <span class="sc">%&gt;%</span></span>
-<span id="cb552-12"><a href="joining-data.html#cb552-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(batmobile, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span>
-<span id="cb552-13"><a href="joining-data.html#cb552-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb552-14"><a href="joining-data.html#cb552-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the batwing set for parts that aren&#39;t in the batmobile set</span></span>
-<span id="cb552-15"><a href="joining-data.html#cb552-15" aria-hidden="true" tabindex="-1"></a>batwing <span class="sc">%&gt;%</span></span>
-<span id="cb552-16"><a href="joining-data.html#cb552-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(batmobile, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="joining-data.html#cb635-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two sets</span></span>
+<span id="cb635-2"><a href="joining-data.html#cb635-2" aria-hidden="true" tabindex="-1"></a>batmobile <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
+<span id="cb635-3"><a href="joining-data.html#cb635-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;7784-1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb635-4"><a href="joining-data.html#cb635-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>set_num)</span>
+<span id="cb635-5"><a href="joining-data.html#cb635-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb635-6"><a href="joining-data.html#cb635-6" aria-hidden="true" tabindex="-1"></a>batwing <span class="ot">&lt;-</span> inventory_parts_joined <span class="sc">%&gt;%</span></span>
+<span id="cb635-7"><a href="joining-data.html#cb635-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_num <span class="sc">==</span> <span class="st">&quot;70916-1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb635-8"><a href="joining-data.html#cb635-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>set_num)</span>
+<span id="cb635-9"><a href="joining-data.html#cb635-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb635-10"><a href="joining-data.html#cb635-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the batwing set for parts that are also in the batmobile set</span></span>
+<span id="cb635-11"><a href="joining-data.html#cb635-11" aria-hidden="true" tabindex="-1"></a>batwing <span class="sc">%&gt;%</span></span>
+<span id="cb635-12"><a href="joining-data.html#cb635-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(batmobile, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 142 × 5
+##    part_num color_id quantity is_spare img_url                                  
+##    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;    &lt;chr&gt;                                    
+##  1 3023            0       22 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  2 3024            0       22 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  3 3623            0       20 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  4 2780            0       17 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  5 3666            0       16 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  6 3710            0       14 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  7 6141            4       12 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  8 2412b          71       10 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  9 6141           72       10 FALSE    https://cdn.rebrickable.com/media/parts/…
+## 10 6558            1        9 FALSE    https://cdn.rebrickable.com/media/parts/…
+## # ℹ 132 more rows</code></pre>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="joining-data.html#cb637-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the batwing set for parts that aren&#39;t in the batmobile set</span></span>
+<span id="cb637-2"><a href="joining-data.html#cb637-2" aria-hidden="true" tabindex="-1"></a>batwing <span class="sc">%&gt;%</span></span>
+<span id="cb637-3"><a href="joining-data.html#cb637-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(batmobile, <span class="at">by =</span> <span class="st">&quot;part_num&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 181 × 5
+##    part_num color_id quantity is_spare img_url                                  
+##    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;    &lt;chr&gt;                                    
+##  1 11477           0       18 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  2 99207          71       18 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  3 22385           0       14 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  4 99563           0       13 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  5 10247          72       12 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  6 2877           72       12 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  7 61409          72       12 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  8 11153           0       10 FALSE    https://cdn.rebrickable.com/media/parts/…
+##  9 98138          46       10 FALSE    https://cdn.rebrickable.com/media/parts/…
+## 10 2419           72        9 FALSE    https://cdn.rebrickable.com/media/parts/…
+## # ℹ 171 more rows</code></pre>
 <p><strong>What colors are included in at least one set?</strong></p>
 <p>you could also use a filtering join like <code>semi_join</code> to find out which colors ever appear in any inventory part.</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="joining-data.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use inventory_parts to find colors included in at least one set</span></span>
-<span id="cb553-2"><a href="joining-data.html#cb553-2" aria-hidden="true" tabindex="-1"></a>colors <span class="sc">%&gt;%</span></span>
-<span id="cb553-3"><a href="joining-data.html#cb553-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;color_id&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="joining-data.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use inventory_parts to find colors included in at least one set</span></span>
+<span id="cb639-2"><a href="joining-data.html#cb639-2" aria-hidden="true" tabindex="-1"></a>colors <span class="sc">%&gt;%</span></span>
+<span id="cb639-3"><a href="joining-data.html#cb639-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;color_id&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 250 × 4
+##       id name           rgb    is_trans
+##    &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;lgl&gt;   
+##  1    -1 [Unknown]      0033B2 FALSE   
+##  2     0 Black          05131D FALSE   
+##  3     1 Blue           0055BF FALSE   
+##  4     2 Green          237841 FALSE   
+##  5     3 Dark Turquoise 008F9B FALSE   
+##  6     4 Red            C91A09 FALSE   
+##  7     5 Dark Pink      C870A0 FALSE   
+##  8     6 Brown          583927 FALSE   
+##  9     7 Light Gray     9BA19D FALSE   
+## 10     8 Dark Gray      6D6E5C FALSE   
+## # ℹ 240 more rows</code></pre>
 <p><strong>Which set is missing version 1?</strong></p>
 <p>Let’s start by looking at the first version of each set to see if there are any sets that don’t include a first version.</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="joining-data.html#cb554-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use filter() to extract version 1 </span></span>
-<span id="cb554-2"><a href="joining-data.html#cb554-2" aria-hidden="true" tabindex="-1"></a>version_1_inventories <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
-<span id="cb554-3"><a href="joining-data.html#cb554-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(version <span class="sc">==</span> <span class="dv">1</span>); version_1_inventories</span>
-<span id="cb554-4"><a href="joining-data.html#cb554-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb554-5"><a href="joining-data.html#cb554-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use anti_join() to find which set is missing a version 1</span></span>
-<span id="cb554-6"><a href="joining-data.html#cb554-6" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
-<span id="cb554-7"><a href="joining-data.html#cb554-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(version_1_inventories, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="joining-data.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use filter() to extract version 1 </span></span>
+<span id="cb641-2"><a href="joining-data.html#cb641-2" aria-hidden="true" tabindex="-1"></a>version_1_inventories <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
+<span id="cb641-3"><a href="joining-data.html#cb641-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(version <span class="sc">==</span> <span class="dv">1</span>); version_1_inventories</span></code></pre></div>
+<pre><code>## # A tibble: 35,612 × 3
+##       id version set_num 
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
+##  1     1       1 7922-1  
+##  2     3       1 3931-1  
+##  3     4       1 6942-1  
+##  4    15       1 5158-1  
+##  5    16       1 903-1   
+##  6    17       1 850950-1
+##  7    19       1 4444-1  
+##  8    21       1 3474-1  
+##  9    22       1 30277-1 
+## 10    25       1 71012-11
+## # ℹ 35,602 more rows</code></pre>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="joining-data.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use anti_join() to find which set is missing a version 1</span></span>
+<span id="cb643-2"><a href="joining-data.html#cb643-2" aria-hidden="true" tabindex="-1"></a>sets <span class="sc">%&gt;%</span></span>
+<span id="cb643-3"><a href="joining-data.html#cb643-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(version_1_inventories, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 6
+##   set_num name                                   year theme_id num_parts img_url
+##   &lt;chr&gt;   &lt;chr&gt;                                 &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  
+## 1 10875-1 Cargo Train                            2018      634       105 https:…
+## 2 76081-1 The Milano vs. The Abilisk             2017      704       462 https:…
+## 3 S1-1    Baseplate with steering control tong…  1970      453         1 https:…</code></pre>
 <p>This is likely a data quality issue, and <code>anti_join</code> is a great tool for finding problems like that.</p>
 </div>
 <div id="visualizing-set-differences" class="section level3 hasAnchor" number="5.3.3">
@@ -1226,66 +1527,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Aggregating sets to look at their differences</strong></p>
 <p>To compare two individual sets, and the kinds of LEGO pieces that comprise them, we’ll need to aggregate the data into separate themes.</p>
 <p>In addition to being able to view the sets for Batman and Star Wars separately, adding the column also allowed us to be able to look at the fraction differences between the sets, rather than only being able to compare the numbers of pieces.</p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="joining-data.html#cb555-1" aria-hidden="true" tabindex="-1"></a>inventory_parts_themes <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
-<span id="cb555-2"><a href="joining-data.html#cb555-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb555-3"><a href="joining-data.html#cb555-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(quantity)) <span class="sc">%&gt;%</span></span>
-<span id="cb555-4"><a href="joining-data.html#cb555-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>version) <span class="sc">%&gt;%</span></span>
-<span id="cb555-5"><a href="joining-data.html#cb555-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sets, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb555-6"><a href="joining-data.html#cb555-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;theme_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_theme&quot;</span>))</span>
-<span id="cb555-7"><a href="joining-data.html#cb555-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb555-8"><a href="joining-data.html#cb555-8" aria-hidden="true" tabindex="-1"></a>batman_colors <span class="ot">&lt;-</span> inventory_parts_themes <span class="sc">%&gt;%</span></span>
-<span id="cb555-9"><a href="joining-data.html#cb555-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter the inventory_parts_themes table for the Batman theme</span></span>
-<span id="cb555-10"><a href="joining-data.html#cb555-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Batman&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb555-11"><a href="joining-data.html#cb555-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
-<span id="cb555-12"><a href="joining-data.html#cb555-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(quantity)) <span class="sc">%&gt;%</span></span>
-<span id="cb555-13"><a href="joining-data.html#cb555-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a fraction column of the total divided by the sum of the total </span></span>
-<span id="cb555-14"><a href="joining-data.html#cb555-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> total <span class="sc">/</span> <span class="fu">sum</span>(total))</span>
-<span id="cb555-15"><a href="joining-data.html#cb555-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb555-16"><a href="joining-data.html#cb555-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and aggregate the Star Wars set data; add a fraction column</span></span>
-<span id="cb555-17"><a href="joining-data.html#cb555-17" aria-hidden="true" tabindex="-1"></a>star_wars_colors <span class="ot">&lt;-</span> inventory_parts_themes <span class="sc">%&gt;%</span></span>
-<span id="cb555-18"><a href="joining-data.html#cb555-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Star Wars&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb555-19"><a href="joining-data.html#cb555-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
-<span id="cb555-20"><a href="joining-data.html#cb555-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(quantity)) <span class="sc">%&gt;%</span></span>
-<span id="cb555-21"><a href="joining-data.html#cb555-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> total <span class="sc">/</span> <span class="fu">sum</span>(total))</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="joining-data.html#cb645-1" aria-hidden="true" tabindex="-1"></a>inventory_parts_themes <span class="ot">&lt;-</span> inventories <span class="sc">%&gt;%</span></span>
+<span id="cb645-2"><a href="joining-data.html#cb645-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(inventory_parts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;inventory_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb645-3"><a href="joining-data.html#cb645-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(quantity)) <span class="sc">%&gt;%</span></span>
+<span id="cb645-4"><a href="joining-data.html#cb645-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>version) <span class="sc">%&gt;%</span></span>
+<span id="cb645-5"><a href="joining-data.html#cb645-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sets, <span class="at">by =</span> <span class="st">&quot;set_num&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb645-6"><a href="joining-data.html#cb645-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(themes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;theme_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>), <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_set&quot;</span>, <span class="st">&quot;_theme&quot;</span>))</span>
+<span id="cb645-7"><a href="joining-data.html#cb645-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb645-8"><a href="joining-data.html#cb645-8" aria-hidden="true" tabindex="-1"></a>batman_colors <span class="ot">&lt;-</span> inventory_parts_themes <span class="sc">%&gt;%</span></span>
+<span id="cb645-9"><a href="joining-data.html#cb645-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter the inventory_parts_themes table for the Batman theme</span></span>
+<span id="cb645-10"><a href="joining-data.html#cb645-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Batman&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb645-11"><a href="joining-data.html#cb645-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
+<span id="cb645-12"><a href="joining-data.html#cb645-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(quantity)) <span class="sc">%&gt;%</span></span>
+<span id="cb645-13"><a href="joining-data.html#cb645-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a fraction column of the total divided by the sum of the total </span></span>
+<span id="cb645-14"><a href="joining-data.html#cb645-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> total <span class="sc">/</span> <span class="fu">sum</span>(total))</span>
+<span id="cb645-15"><a href="joining-data.html#cb645-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb645-16"><a href="joining-data.html#cb645-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and aggregate the Star Wars set data; add a fraction column</span></span>
+<span id="cb645-17"><a href="joining-data.html#cb645-17" aria-hidden="true" tabindex="-1"></a>star_wars_colors <span class="ot">&lt;-</span> inventory_parts_themes <span class="sc">%&gt;%</span></span>
+<span id="cb645-18"><a href="joining-data.html#cb645-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_theme <span class="sc">==</span> <span class="st">&quot;Star Wars&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb645-19"><a href="joining-data.html#cb645-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color_id) <span class="sc">%&gt;%</span></span>
+<span id="cb645-20"><a href="joining-data.html#cb645-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(quantity)) <span class="sc">%&gt;%</span></span>
+<span id="cb645-21"><a href="joining-data.html#cb645-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> total <span class="sc">/</span> <span class="fu">sum</span>(total))</span></code></pre></div>
 <p><strong>Combining sets</strong></p>
 <p>Prior to visualizing the data, you’ll want to combine these tables to be able to directly compare the themes’ colors.</p>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="joining-data.html#cb556-1" aria-hidden="true" tabindex="-1"></a>batman_colors <span class="sc">%&gt;%</span></span>
-<span id="cb556-2"><a href="joining-data.html#cb556-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the Batman and Star Wars colors</span></span>
-<span id="cb556-3"><a href="joining-data.html#cb556-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(star_wars_colors, <span class="at">by =</span> <span class="st">&quot;color_id&quot;</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batman&quot;</span>, <span class="st">&quot;_star_wars&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb556-4"><a href="joining-data.html#cb556-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace NAs in the total_batman and total_star_wars columns</span></span>
-<span id="cb556-5"><a href="joining-data.html#cb556-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">total_batman =</span> <span class="dv">0</span>, <span class="at">total_star_wars =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb556-6"><a href="joining-data.html#cb556-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb556-7"><a href="joining-data.html#cb556-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create the difference and total columns</span></span>
-<span id="cb556-8"><a href="joining-data.html#cb556-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> fraction_batman <span class="sc">-</span> fraction_star_wars,</span>
-<span id="cb556-9"><a href="joining-data.html#cb556-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">total =</span> total_batman <span class="sc">+</span> total_star_wars) <span class="sc">%&gt;%</span></span>
-<span id="cb556-10"><a href="joining-data.html#cb556-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for totals greater than 200</span></span>
-<span id="cb556-11"><a href="joining-data.html#cb556-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total <span class="sc">&gt;=</span> <span class="dv">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="joining-data.html#cb646-1" aria-hidden="true" tabindex="-1"></a>batman_colors <span class="sc">%&gt;%</span></span>
+<span id="cb646-2"><a href="joining-data.html#cb646-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the Batman and Star Wars colors</span></span>
+<span id="cb646-3"><a href="joining-data.html#cb646-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(star_wars_colors, <span class="at">by =</span> <span class="st">&quot;color_id&quot;</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batman&quot;</span>, <span class="st">&quot;_star_wars&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb646-4"><a href="joining-data.html#cb646-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace NAs in the total_batman and total_star_wars columns</span></span>
+<span id="cb646-5"><a href="joining-data.html#cb646-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">total_batman =</span> <span class="dv">0</span>, <span class="at">total_star_wars =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb646-6"><a href="joining-data.html#cb646-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb646-7"><a href="joining-data.html#cb646-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create the difference and total columns</span></span>
+<span id="cb646-8"><a href="joining-data.html#cb646-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> fraction_batman <span class="sc">-</span> fraction_star_wars,</span>
+<span id="cb646-9"><a href="joining-data.html#cb646-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">total =</span> total_batman <span class="sc">+</span> total_star_wars) <span class="sc">%&gt;%</span></span>
+<span id="cb646-10"><a href="joining-data.html#cb646-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for totals greater than 200</span></span>
+<span id="cb646-11"><a href="joining-data.html#cb646-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total <span class="sc">&gt;=</span> <span class="dv">200</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 42 × 10
+##    color_id total_batman fraction_batman total_star_wars fraction_star_wars
+##       &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;              &lt;dbl&gt;
+##  1        0         9630         0.343             49016            0.184  
+##  2        1          495         0.0176             8643            0.0325 
+##  3        2          273         0.00972            1300            0.00489
+##  4        4          889         0.0317             7203            0.0271 
+##  5       14          962         0.0343             4302            0.0162 
+##  6       15          755         0.0269            23618            0.0889 
+##  7       19          863         0.0307            11915            0.0448 
+##  8       25          166         0.00591            2151            0.00809
+##  9       27          125         0.00445             615            0.00231
+## 10       28          818         0.0291             5194            0.0195 
+## # ℹ 32 more rows
+## # ℹ 5 more variables: name &lt;chr&gt;, rgb &lt;chr&gt;, is_trans &lt;lgl&gt;, difference &lt;dbl&gt;,
+## #   total &lt;dbl&gt;</code></pre>
 <p><strong>Visualizing the difference: Batman and Star Wars</strong></p>
 <p>Now you’ll create a bar plot with one bar for each color (<code>name</code>), showing the difference in fractions.</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="joining-data.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb557-2"><a href="joining-data.html#cb557-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb557-3"><a href="joining-data.html#cb557-3" aria-hidden="true" tabindex="-1"></a>colors_joined <span class="ot">&lt;-</span> batman_colors <span class="sc">%&gt;%</span></span>
-<span id="cb557-4"><a href="joining-data.html#cb557-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(star_wars_colors, <span class="at">by =</span> <span class="st">&quot;color_id&quot;</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batman&quot;</span>, <span class="st">&quot;_star_wars&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb557-5"><a href="joining-data.html#cb557-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">total_batman =</span> <span class="dv">0</span>, <span class="at">total_star_wars =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb557-6"><a href="joining-data.html#cb557-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb557-7"><a href="joining-data.html#cb557-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> fraction_batman <span class="sc">-</span> fraction_star_wars,</span>
-<span id="cb557-8"><a href="joining-data.html#cb557-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">total =</span> total_batman <span class="sc">+</span> total_star_wars) <span class="sc">%&gt;%</span></span>
-<span id="cb557-9"><a href="joining-data.html#cb557-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total <span class="sc">&gt;=</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb557-10"><a href="joining-data.html#cb557-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">difference =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb557-11"><a href="joining-data.html#cb557-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(name, difference))</span>
-<span id="cb557-12"><a href="joining-data.html#cb557-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb557-13"><a href="joining-data.html#cb557-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb557-14"><a href="joining-data.html#cb557-14" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to add # to create our palette</span></span>
-<span id="cb557-15"><a href="joining-data.html#cb557-15" aria-hidden="true" tabindex="-1"></a>colors_joined<span class="sc">$</span>rgb <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;#&quot;</span>, colors_joined<span class="sc">$</span>rgb, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb557-16"><a href="joining-data.html#cb557-16" aria-hidden="true" tabindex="-1"></a>color_palette <span class="ot">&lt;-</span> <span class="fu">setNames</span>(colors_joined<span class="sc">$</span>rgb, colors_joined<span class="sc">$</span>name)</span>
-<span id="cb557-17"><a href="joining-data.html#cb557-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb557-18"><a href="joining-data.html#cb557-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot using colors_joined and the name and difference columns</span></span>
-<span id="cb557-19"><a href="joining-data.html#cb557-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(colors_joined, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> difference, <span class="at">fill =</span> name)) <span class="sc">+</span></span>
-<span id="cb557-20"><a href="joining-data.html#cb557-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb557-21"><a href="joining-data.html#cb557-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb557-22"><a href="joining-data.html#cb557-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> color_palette, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb557-23"><a href="joining-data.html#cb557-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Difference: Batman - Star Wars&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="joining-data.html#cb648-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb648-2"><a href="joining-data.html#cb648-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb648-3"><a href="joining-data.html#cb648-3" aria-hidden="true" tabindex="-1"></a>colors_joined <span class="ot">&lt;-</span> batman_colors <span class="sc">%&gt;%</span></span>
+<span id="cb648-4"><a href="joining-data.html#cb648-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(star_wars_colors, <span class="at">by =</span> <span class="st">&quot;color_id&quot;</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_batman&quot;</span>, <span class="st">&quot;_star_wars&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb648-5"><a href="joining-data.html#cb648-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">total_batman =</span> <span class="dv">0</span>, <span class="at">total_star_wars =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb648-6"><a href="joining-data.html#cb648-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(colors, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;color_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb648-7"><a href="joining-data.html#cb648-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> fraction_batman <span class="sc">-</span> fraction_star_wars,</span>
+<span id="cb648-8"><a href="joining-data.html#cb648-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">total =</span> total_batman <span class="sc">+</span> total_star_wars) <span class="sc">%&gt;%</span></span>
+<span id="cb648-9"><a href="joining-data.html#cb648-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total <span class="sc">&gt;=</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb648-10"><a href="joining-data.html#cb648-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">difference =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb648-11"><a href="joining-data.html#cb648-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(name, difference))</span>
+<span id="cb648-12"><a href="joining-data.html#cb648-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb648-13"><a href="joining-data.html#cb648-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb648-14"><a href="joining-data.html#cb648-14" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to add # to create our palette</span></span>
+<span id="cb648-15"><a href="joining-data.html#cb648-15" aria-hidden="true" tabindex="-1"></a>colors_joined<span class="sc">$</span>rgb <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;#&quot;</span>, colors_joined<span class="sc">$</span>rgb, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb648-16"><a href="joining-data.html#cb648-16" aria-hidden="true" tabindex="-1"></a>color_palette <span class="ot">&lt;-</span> <span class="fu">setNames</span>(colors_joined<span class="sc">$</span>rgb, colors_joined<span class="sc">$</span>name)</span>
+<span id="cb648-17"><a href="joining-data.html#cb648-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb648-18"><a href="joining-data.html#cb648-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot using colors_joined and the name and difference columns</span></span>
+<span id="cb648-19"><a href="joining-data.html#cb648-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(colors_joined, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> difference, <span class="at">fill =</span> name)) <span class="sc">+</span></span>
+<span id="cb648-20"><a href="joining-data.html#cb648-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb648-21"><a href="joining-data.html#cb648-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb648-22"><a href="joining-data.html#cb648-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> color_palette, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb648-23"><a href="joining-data.html#cb648-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Difference: Batman - Star Wars&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
 </div>
 </div>
 <div id="case-study-joins-on-stack-overflow-data" class="section level2 hasAnchor" number="5.4">
@@ -1298,18 +1615,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>question_tags</code>: a tag ID for each question and the question’s id.</p></li>
 <li><p><code>tags</code>: a tag id and the tag’s name, which can be used to identify the subject of each question, such as ggplot2 or dplyr.</p></li>
 </ul>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="joining-data.html#cb558-1" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/questions.csv&quot;</span>)</span>
-<span id="cb558-2"><a href="joining-data.html#cb558-2" aria-hidden="true" tabindex="-1"></a>question_tags <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/question_tags.csv&quot;</span>)</span>
-<span id="cb558-3"><a href="joining-data.html#cb558-3" aria-hidden="true" tabindex="-1"></a>tags <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/tags.csv&quot;</span>)</span>
-<span id="cb558-4"><a href="joining-data.html#cb558-4" aria-hidden="true" tabindex="-1"></a>answers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/answers.csv&quot;</span>)</span>
-<span id="cb558-5"><a href="joining-data.html#cb558-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb558-6"><a href="joining-data.html#cb558-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(questions)</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="joining-data.html#cb649-1" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/questions.csv&quot;</span>)</span>
+<span id="cb649-2"><a href="joining-data.html#cb649-2" aria-hidden="true" tabindex="-1"></a>question_tags <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/question_tags.csv&quot;</span>)</span>
+<span id="cb649-3"><a href="joining-data.html#cb649-3" aria-hidden="true" tabindex="-1"></a>tags <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/tags.csv&quot;</span>)</span>
+<span id="cb649-4"><a href="joining-data.html#cb649-4" aria-hidden="true" tabindex="-1"></a>answers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/stackoverflow/answers.csv&quot;</span>)</span>
+<span id="cb649-5"><a href="joining-data.html#cb649-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb649-6"><a href="joining-data.html#cb649-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(questions)</span></code></pre></div>
 <pre><code>## [1] &quot;id&quot;            &quot;creation_date&quot; &quot;score&quot;</code></pre>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="joining-data.html#cb560-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(question_tags)</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="joining-data.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(question_tags)</span></code></pre></div>
 <pre><code>## [1] &quot;question_id&quot; &quot;tag_id&quot;</code></pre>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="joining-data.html#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tags)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="joining-data.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tags)</span></code></pre></div>
 <pre><code>## [1] &quot;id&quot;       &quot;tag_name&quot;</code></pre>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="joining-data.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(answers)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="joining-data.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(answers)</span></code></pre></div>
 <pre><code>## [1] &quot;id&quot;            &quot;creation_date&quot; &quot;question_id&quot;   &quot;score&quot;</code></pre>
 </div>
 <div id="stack-overflow-questions" class="section level3 hasAnchor" number="5.4.2">
@@ -1317,34 +1634,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="left-joining-questions-and-tags" class="section level4 hasAnchor" number="5.4.2.1">
 <h4><span class="header-section-number">5.4.2.1</span> Left joining questions and tags<a href="joining-data.html#left-joining-questions-and-tags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Note that we’ll be using <code>left_join</code>s in this exercise to ensure we keep all questions, even those without a corresponding tag. However, since we know the <code>questions</code> data is all R data, we’ll want to manually tag these as R questions with <code>replace_na</code>.</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="joining-data.html#cb566-1" aria-hidden="true" tabindex="-1"></a>questions_with_tags <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span></span>
-<span id="cb566-2"><a href="joining-data.html#cb566-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb566-3"><a href="joining-data.html#cb566-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb566-4"><a href="joining-data.html#cb566-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">tag_name =</span> <span class="st">&quot;only-r&quot;</span>))</span></code></pre></div>
-<pre><code>## Warning in left_join(., question_tags, by = c(id = &quot;question_id&quot;)): Detected an unexpected many-to-many relationship between `x` and `y`.
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="joining-data.html#cb657-1" aria-hidden="true" tabindex="-1"></a>questions_with_tags <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span></span>
+<span id="cb657-2"><a href="joining-data.html#cb657-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb657-3"><a href="joining-data.html#cb657-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb657-4"><a href="joining-data.html#cb657-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">tag_name =</span> <span class="st">&quot;only-r&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning in left_join(., question_tags, by = c(id = &quot;question_id&quot;)): Detected an unexpected many-to-many
+## relationship between `x` and `y`.
 ## ℹ Row 1 of `x` matches multiple rows in `y`.
-## ℹ Row 328658 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="joining-data.html#cb568-1" aria-hidden="true" tabindex="-1"></a>questions_with_tags</span></code></pre></div>
+## ℹ Row 328658 of `y` matches multiple rows in
+##   `x`.
+## ℹ If a many-to-many relationship is expected,
+##   set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="joining-data.html#cb659-1" aria-hidden="true" tabindex="-1"></a>questions_with_tags</span></code></pre></div>
+<pre><code>## # A tibble: 809,962 × 5
+##          id creation_date score tag_id tag_name       
+##       &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;          
+##  1 22557677 3/21/2014         1     18 regex          
+##  2 22557677 3/21/2014         1    139 string         
+##  3 22557677 3/21/2014         1  16088 time-complexity
+##  4 22557677 3/21/2014         1   1672 backreference  
+##  5 22557677 3/21/2014         1     18 regex          
+##  6 22557677 3/21/2014         1    139 string         
+##  7 22557677 3/21/2014         1   6088 hosts          
+##  8 22557677 3/21/2014         1   1672 backreference  
+##  9 22557707 3/21/2014         2     NA only-r         
+## 10 22558084 3/21/2014         2   6419 time-series    
+## # ℹ 809,952 more rows</code></pre>
 </div>
 <div id="comparing-scores-across-tags" class="section level4 hasAnchor" number="5.4.2.2">
 <h4><span class="header-section-number">5.4.2.2</span> Comparing scores across tags<a href="joining-data.html#comparing-scores-across-tags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="joining-data.html#cb569-1" aria-hidden="true" tabindex="-1"></a>questions_with_tags <span class="sc">%&gt;%</span> </span>
-<span id="cb569-2"><a href="joining-data.html#cb569-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by tag_name</span></span>
-<span id="cb569-3"><a href="joining-data.html#cb569-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_name) <span class="sc">%&gt;%</span></span>
-<span id="cb569-4"><a href="joining-data.html#cb569-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get mean score and num_questions (total number of questions: n())</span></span>
-<span id="cb569-5"><a href="joining-data.html#cb569-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">score =</span> <span class="fu">mean</span>(score),</span>
-<span id="cb569-6"><a href="joining-data.html#cb569-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">num_questions =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb569-7"><a href="joining-data.html#cb569-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort num_questions in descending order</span></span>
-<span id="cb569-8"><a href="joining-data.html#cb569-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_questions))</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="joining-data.html#cb661-1" aria-hidden="true" tabindex="-1"></a>questions_with_tags <span class="sc">%&gt;%</span> </span>
+<span id="cb661-2"><a href="joining-data.html#cb661-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by tag_name</span></span>
+<span id="cb661-3"><a href="joining-data.html#cb661-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_name) <span class="sc">%&gt;%</span></span>
+<span id="cb661-4"><a href="joining-data.html#cb661-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get mean score and num_questions (total number of questions: n())</span></span>
+<span id="cb661-5"><a href="joining-data.html#cb661-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">score =</span> <span class="fu">mean</span>(score),</span>
+<span id="cb661-6"><a href="joining-data.html#cb661-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">num_questions =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb661-7"><a href="joining-data.html#cb661-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort num_questions in descending order</span></span>
+<span id="cb661-8"><a href="joining-data.html#cb661-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_questions))</span></code></pre></div>
+<pre><code>## # A tibble: 7,842 × 3
+##    tag_name   score num_questions
+##    &lt;chr&gt;      &lt;dbl&gt;         &lt;int&gt;
+##  1 only-r     1.17          64166
+##  2 ggplot2    2.33          42627
+##  3 dataframe  2.22          28183
+##  4 dplyr      1.66          23227
+##  5 shiny      1.28          22685
+##  6 plot       2.15          15844
+##  7 data.table 2.55          12961
+##  8 matrix     1.59           8810
+##  9 loops      0.711          7728
+## 10 regex      1.79           7269
+## # ℹ 7,832 more rows</code></pre>
 </div>
 <div id="what-tags-never-appear-on-r-questions" class="section level4 hasAnchor" number="5.4.2.3">
 <h4><span class="header-section-number">5.4.2.3</span> What tags never appear on R questions<a href="joining-data.html#what-tags-never-appear-on-r-questions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>tags</code> table includes all Stack Overflow tags, but some have nothing to do with <code>R</code>. How could you filter for just the tags that never appear on an R question? The <code>tags</code> and <code>question_tags</code> tables have been preloaded for you.</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="joining-data.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using a join, filter for tags that are never on an R question</span></span>
-<span id="cb570-2"><a href="joining-data.html#cb570-2" aria-hidden="true" tabindex="-1"></a>tags <span class="sc">%&gt;%</span></span>
-<span id="cb570-3"><a href="joining-data.html#cb570-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;tag_id&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="joining-data.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using a join, filter for tags that are never on an R question</span></span>
+<span id="cb663-2"><a href="joining-data.html#cb663-2" aria-hidden="true" tabindex="-1"></a>tags <span class="sc">%&gt;%</span></span>
+<span id="cb663-3"><a href="joining-data.html#cb663-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;tag_id&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 40,458 × 2
+##        id tag_name                 
+##     &lt;dbl&gt; &lt;chr&gt;                    
+##  1 124399 laravel-dusk             
+##  2 124402 spring-cloud-vault-config
+##  3 124404 spring-vault             
+##  4 124405 apache-bahir             
+##  5 124407 astc                     
+##  6 124408 simulacrum               
+##  7 124410 angulartics2             
+##  8 124411 django-rest-viewsets     
+##  9 124414 react-native-lightbox    
+## 10 124417 java-module              
+## # ℹ 40,448 more rows</code></pre>
 </div>
 </div>
 <div id="joining-questions-and-answers" class="section level3 hasAnchor" number="5.4.3">
@@ -1352,66 +1714,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="finding-gaps-between-questions-and-answers" class="section level4 hasAnchor" number="5.4.3.1">
 <h4><span class="header-section-number">5.4.3.1</span> Finding gaps between questions and answers<a href="joining-data.html#finding-gaps-between-questions-and-answers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now we’ll join together <code>questions</code> with <code>answers</code> so we can measure the time between questions and answers.</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="joining-data.html#cb571-1" aria-hidden="true" tabindex="-1"></a>questions <span class="sc">%&gt;%</span></span>
-<span id="cb571-2"><a href="joining-data.html#cb571-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inner join questions and answers with proper suffixes</span></span>
-<span id="cb571-3"><a href="joining-data.html#cb571-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(answers, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>), </span>
-<span id="cb571-4"><a href="joining-data.html#cb571-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_question&quot;</span>, <span class="st">&quot;_answer&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb571-5"><a href="joining-data.html#cb571-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subtract creation_date_question from creation_date_answer to create gap</span></span>
-<span id="cb571-6"><a href="joining-data.html#cb571-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gap =</span> <span class="fu">as.integer</span>(<span class="fu">as.Date</span>(creation_date_answer, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>) <span class="sc">-</span> <span class="fu">as.Date</span>(creation_date_question, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>)))</span></code></pre></div>
-<pre><code>## Warning in inner_join(., answers, by = c(id = &quot;question_id&quot;), suffix = c(&quot;_question&quot;, : Detected an unexpected many-to-many relationship between `x` and `y`.
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="joining-data.html#cb665-1" aria-hidden="true" tabindex="-1"></a>questions <span class="sc">%&gt;%</span></span>
+<span id="cb665-2"><a href="joining-data.html#cb665-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inner join questions and answers with proper suffixes</span></span>
+<span id="cb665-3"><a href="joining-data.html#cb665-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(answers, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>), </span>
+<span id="cb665-4"><a href="joining-data.html#cb665-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">&quot;_question&quot;</span>, <span class="st">&quot;_answer&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb665-5"><a href="joining-data.html#cb665-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subtract creation_date_question from creation_date_answer to create gap</span></span>
+<span id="cb665-6"><a href="joining-data.html#cb665-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gap =</span> <span class="fu">as.integer</span>(<span class="fu">as.Date</span>(creation_date_answer, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>) <span class="sc">-</span> <span class="fu">as.Date</span>(creation_date_question, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>)))</span></code></pre></div>
+<pre><code>## Warning in inner_join(., answers, by = c(id = &quot;question_id&quot;), suffix = c(&quot;_question&quot;, : Detected an unexpected many-to-many
+## relationship between `x` and `y`.
 ## ℹ Row 2 of `x` matches multiple rows in `y`.
-## ℹ Row 118226 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ Row 118226 of `y` matches multiple rows in
+##   `x`.
+## ℹ If a many-to-many relationship is expected,
+##   set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
+<pre><code>## # A tibble: 592,547 × 7
+##          id creation_date_question score_question id_answer creation_date_answer
+##       &lt;dbl&gt; &lt;chr&gt;                           &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               
+##  1 22557677 3/21/2014                           1  22560670 3/21/2014           
+##  2 22557707 3/21/2014                           2  22558516 3/21/2014           
+##  3 22557707 3/21/2014                           2  22558726 3/21/2014           
+##  4 22558084 3/21/2014                           2  22558085 3/21/2014           
+##  5 22558084 3/21/2014                           2  22606545 3/24/2014           
+##  6 22558084 3/21/2014                           2  22610396 3/24/2014           
+##  7 22558084 3/21/2014                           2  34374729 12/19/2015          
+##  8 22558395 3/21/2014                           2  22559327 3/21/2014           
+##  9 22558395 3/21/2014                           2  22560102 3/21/2014           
+## 10 22558395 3/21/2014                           2  22560288 3/21/2014           
+## # ℹ 592,537 more rows
+## # ℹ 2 more variables: score_answer &lt;dbl&gt;, gap &lt;int&gt;</code></pre>
 </div>
 <div id="joining-question-and-answer-counts" class="section level4 hasAnchor" number="5.4.3.2">
 <h4><span class="header-section-number">5.4.3.2</span> Joining question and answer counts<a href="joining-data.html#joining-question-and-answer-counts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We can also determine how many questions actually yield answers. If we count the number of answers for each question, we can then join the answers counts with the <code>questions</code> table.</p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="joining-data.html#cb573-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count and sort the question id column in the answers table</span></span>
-<span id="cb573-2"><a href="joining-data.html#cb573-2" aria-hidden="true" tabindex="-1"></a>answer_counts <span class="ot">&lt;-</span> answers <span class="sc">%&gt;%</span></span>
-<span id="cb573-3"><a href="joining-data.html#cb573-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(question_id, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb573-4"><a href="joining-data.html#cb573-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb573-5"><a href="joining-data.html#cb573-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the answer_counts and questions tables</span></span>
-<span id="cb573-6"><a href="joining-data.html#cb573-6" aria-hidden="true" tabindex="-1"></a>question_answer_counts <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span></span>
-<span id="cb573-7"><a href="joining-data.html#cb573-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(answer_counts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb573-8"><a href="joining-data.html#cb573-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace the NAs in the n column</span></span>
-<span id="cb573-9"><a href="joining-data.html#cb573-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">n =</span> <span class="dv">0</span>)); question_answer_counts</span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="joining-data.html#cb668-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count and sort the question id column in the answers table</span></span>
+<span id="cb668-2"><a href="joining-data.html#cb668-2" aria-hidden="true" tabindex="-1"></a>answer_counts <span class="ot">&lt;-</span> answers <span class="sc">%&gt;%</span></span>
+<span id="cb668-3"><a href="joining-data.html#cb668-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(question_id, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb668-4"><a href="joining-data.html#cb668-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb668-5"><a href="joining-data.html#cb668-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the answer_counts and questions tables</span></span>
+<span id="cb668-6"><a href="joining-data.html#cb668-6" aria-hidden="true" tabindex="-1"></a>question_answer_counts <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span></span>
+<span id="cb668-7"><a href="joining-data.html#cb668-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(answer_counts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb668-8"><a href="joining-data.html#cb668-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace the NAs in the n column</span></span>
+<span id="cb668-9"><a href="joining-data.html#cb668-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">n =</span> <span class="dv">0</span>)); question_answer_counts</span></code></pre></div>
+<pre><code>## # A tibble: 394,732 × 4
+##          id creation_date score     n
+##       &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;
+##  1 22557677 3/21/2014         1     1
+##  2 22557707 3/21/2014         2     2
+##  3 22558084 3/21/2014         2     4
+##  4 22558395 3/21/2014         2     3
+##  5 22558613 3/21/2014         0     1
+##  6 22558677 3/21/2014         2     2
+##  7 22558887 3/21/2014         8     1
+##  8 22559180 3/21/2014         1     1
+##  9 22559312 3/21/2014         0     1
+## 10 22559322 3/21/2014         2     5
+## # ℹ 394,722 more rows</code></pre>
 </div>
 <div id="joining-questions-answers-and-tags" class="section level4 hasAnchor" number="5.4.3.3">
 <h4><span class="header-section-number">5.4.3.3</span> Joining questions, answers, and tags<a href="joining-data.html#joining-questions-answers-and-tags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s build on the last exercise by adding the <code>tags</code> table to our previous joins. This will allow us to do a better job of identifying which R topics get the most traction on Stack Overflow.</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="joining-data.html#cb574-1" aria-hidden="true" tabindex="-1"></a>tagged_answers <span class="ot">&lt;-</span> question_answer_counts <span class="sc">%&gt;%</span></span>
-<span id="cb574-2"><a href="joining-data.html#cb574-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the question_tags tables</span></span>
-<span id="cb574-3"><a href="joining-data.html#cb574-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb574-4"><a href="joining-data.html#cb574-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the tags table</span></span>
-<span id="cb574-5"><a href="joining-data.html#cb574-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(tags, <span class="at">by =</span><span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)); tagged_answers</span></code></pre></div>
-<pre><code>## Warning in inner_join(., question_tags, by = c(id = &quot;question_id&quot;)): Detected an unexpected many-to-many relationship between `x` and `y`.
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="joining-data.html#cb670-1" aria-hidden="true" tabindex="-1"></a>tagged_answers <span class="ot">&lt;-</span> question_answer_counts <span class="sc">%&gt;%</span></span>
+<span id="cb670-2"><a href="joining-data.html#cb670-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the question_tags tables</span></span>
+<span id="cb670-3"><a href="joining-data.html#cb670-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb670-4"><a href="joining-data.html#cb670-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the tags table</span></span>
+<span id="cb670-5"><a href="joining-data.html#cb670-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(tags, <span class="at">by =</span><span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)); tagged_answers</span></code></pre></div>
+<pre><code>## Warning in inner_join(., question_tags, by = c(id = &quot;question_id&quot;)): Detected an unexpected many-to-many
+## relationship between `x` and `y`.
 ## ℹ Row 1 of `x` matches multiple rows in `y`.
-## ℹ Row 328658 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ Row 328658 of `y` matches multiple rows in
+##   `x`.
+## ℹ If a many-to-many relationship is expected,
+##   set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
+<pre><code>## # A tibble: 745,796 × 6
+##          id creation_date score     n tag_id tag_name       
+##       &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;          
+##  1 22557677 3/21/2014         1     1     18 regex          
+##  2 22557677 3/21/2014         1     1    139 string         
+##  3 22557677 3/21/2014         1     1  16088 time-complexity
+##  4 22557677 3/21/2014         1     1   1672 backreference  
+##  5 22557677 3/21/2014         1     1     18 regex          
+##  6 22557677 3/21/2014         1     1    139 string         
+##  7 22557677 3/21/2014         1     1   6088 hosts          
+##  8 22557677 3/21/2014         1     1   1672 backreference  
+##  9 22558084 3/21/2014         2     4   6419 time-series    
+## 10 22558084 3/21/2014         2     4  92764 panel-data     
+## # ℹ 745,786 more rows</code></pre>
 </div>
 <div id="average-answers-by-question" class="section level4 hasAnchor" number="5.4.3.4">
 <h4><span class="header-section-number">5.4.3.4</span> Average answers by question<a href="joining-data.html#average-answers-by-question" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You can use <code>tagged_answers</code> to determine, on average, how many answers each questions gets.</p>
 <p>Some of the important variables from this table include: <code>n</code>, the number of answers for each question, and <code>tag_name</code>, the name of each tag associated with each question.</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="joining-data.html#cb576-1" aria-hidden="true" tabindex="-1"></a>tagged_answers <span class="sc">%&gt;%</span></span>
-<span id="cb576-2"><a href="joining-data.html#cb576-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aggregate by tag_name</span></span>
-<span id="cb576-3"><a href="joining-data.html#cb576-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_name)  <span class="sc">%&gt;%</span></span>
-<span id="cb576-4"><a href="joining-data.html#cb576-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Summarize questions and average_answers</span></span>
-<span id="cb576-5"><a href="joining-data.html#cb576-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">questions =</span> <span class="fu">n</span>(),</span>
-<span id="cb576-6"><a href="joining-data.html#cb576-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">average_answers =</span> <span class="fu">mean</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb576-7"><a href="joining-data.html#cb576-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort the questions in descending order</span></span>
-<span id="cb576-8"><a href="joining-data.html#cb576-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(questions))</span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="joining-data.html#cb673-1" aria-hidden="true" tabindex="-1"></a>tagged_answers <span class="sc">%&gt;%</span></span>
+<span id="cb673-2"><a href="joining-data.html#cb673-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aggregate by tag_name</span></span>
+<span id="cb673-3"><a href="joining-data.html#cb673-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_name)  <span class="sc">%&gt;%</span></span>
+<span id="cb673-4"><a href="joining-data.html#cb673-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Summarize questions and average_answers</span></span>
+<span id="cb673-5"><a href="joining-data.html#cb673-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">questions =</span> <span class="fu">n</span>(),</span>
+<span id="cb673-6"><a href="joining-data.html#cb673-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">average_answers =</span> <span class="fu">mean</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb673-7"><a href="joining-data.html#cb673-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort the questions in descending order</span></span>
+<span id="cb673-8"><a href="joining-data.html#cb673-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(questions))</span></code></pre></div>
+<pre><code>## # A tibble: 7,841 × 3
+##    tag_name   questions average_answers
+##    &lt;chr&gt;          &lt;int&gt;           &lt;dbl&gt;
+##  1 ggplot2        42627            1.29
+##  2 dataframe      28183            1.88
+##  3 dplyr          23227            1.87
+##  4 shiny          22685            1.07
+##  5 plot           15844            1.32
+##  6 data.table     12961            1.65
+##  7 matrix          8810            1.55
+##  8 loops           7728            1.55
+##  9 regex           7269            2.15
+## 10 function        7218            1.50
+## # ℹ 7,831 more rows</code></pre>
 </div>
 </div>
 <div id="the-bind_rows-verb" class="section level3 hasAnchor" number="5.4.4">
 <h3><span class="header-section-number">5.4.4</span> The bind_rows verb<a href="joining-data.html#the-bind_rows-verb" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="joining-data.html#cb577-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 增加row = rbind()</span></span>
-<span id="cb577-2"><a href="joining-data.html#cb577-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>()</span>
-<span id="cb577-3"><a href="joining-data.html#cb577-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb577-4"><a href="joining-data.html#cb577-4" aria-hidden="true" tabindex="-1"></a><span class="co">#增加column = cbind()</span></span>
-<span id="cb577-5"><a href="joining-data.html#cb577-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="joining-data.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 增加row = rbind()</span></span>
+<span id="cb675-2"><a href="joining-data.html#cb675-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>()</span>
+<span id="cb675-3"><a href="joining-data.html#cb675-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb675-4"><a href="joining-data.html#cb675-4" aria-hidden="true" tabindex="-1"></a><span class="co">#增加column = cbind()</span></span>
+<span id="cb675-5"><a href="joining-data.html#cb675-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>()</span></code></pre></div>
 <p><strong><code>bind_rows()</code> / <code>rbind()</code></strong></p>
 <p><img src="image/rbind.png" width="402" /></p>
 <p><strong><code>bind_cols()</code> / <code>cbind()</code></strong></p>
@@ -1419,49 +1844,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="joining-questions-and-answers-with-tags" class="section level4 hasAnchor" number="5.4.4.1">
 <h4><span class="header-section-number">5.4.4.1</span> Joining questions and answers with tags<a href="joining-data.html#joining-questions-and-answers-with-tags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To learn more about the <code>questions</code> and <code>answers</code> tables, you’ll want to use the <code>question_tags</code> table to understand the tags associated with each question that was asked, and each answer that was provided. You’ll be able to combine these tables using two inner joins on both the <code>questions</code> table and the <code>answers</code> table.</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="joining-data.html#cb578-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join the question_tags and tags tables with the questions table</span></span>
-<span id="cb578-2"><a href="joining-data.html#cb578-2" aria-hidden="true" tabindex="-1"></a>questions_with_tags <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span></span>
-<span id="cb578-3"><a href="joining-data.html#cb578-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb578-4"><a href="joining-data.html#cb578-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)); questions_with_tags</span></code></pre></div>
-<pre><code>## Warning in inner_join(., question_tags, by = c(id = &quot;question_id&quot;)): Detected an unexpected many-to-many relationship between `x` and `y`.
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="joining-data.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join the question_tags and tags tables with the questions table</span></span>
+<span id="cb676-2"><a href="joining-data.html#cb676-2" aria-hidden="true" tabindex="-1"></a>questions_with_tags <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span></span>
+<span id="cb676-3"><a href="joining-data.html#cb676-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(question_tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;question_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb676-4"><a href="joining-data.html#cb676-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)); questions_with_tags</span></code></pre></div>
+<pre><code>## Warning in inner_join(., question_tags, by = c(id = &quot;question_id&quot;)): Detected an unexpected many-to-many
+## relationship between `x` and `y`.
 ## ℹ Row 1 of `x` matches multiple rows in `y`.
-## ℹ Row 328658 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="joining-data.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join the question_tags and tags tables with the answers table</span></span>
-<span id="cb580-2"><a href="joining-data.html#cb580-2" aria-hidden="true" tabindex="-1"></a>answers_with_tags <span class="ot">&lt;-</span> answers <span class="sc">%&gt;%</span></span>
-<span id="cb580-3"><a href="joining-data.html#cb580-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(question_tags, <span class="at">by =</span> <span class="st">&quot;question_id&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb580-4"><a href="joining-data.html#cb580-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)); answers_with_tags</span></code></pre></div>
-<pre><code>## Warning in inner_join(., question_tags, by = &quot;question_id&quot;): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 328658 of `y` matches multiple rows in
+##   `x`.
+## ℹ If a many-to-many relationship is expected,
+##   set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
+<pre><code>## # A tibble: 745,796 × 5
+##          id creation_date score tag_id tag_name       
+##       &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;          
+##  1 22557677 3/21/2014         1     18 regex          
+##  2 22557677 3/21/2014         1    139 string         
+##  3 22557677 3/21/2014         1  16088 time-complexity
+##  4 22557677 3/21/2014         1   1672 backreference  
+##  5 22557677 3/21/2014         1     18 regex          
+##  6 22557677 3/21/2014         1    139 string         
+##  7 22557677 3/21/2014         1   6088 hosts          
+##  8 22557677 3/21/2014         1   1672 backreference  
+##  9 22558084 3/21/2014         2   6419 time-series    
+## 10 22558084 3/21/2014         2  92764 panel-data     
+## # ℹ 745,786 more rows</code></pre>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="joining-data.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join the question_tags and tags tables with the answers table</span></span>
+<span id="cb679-2"><a href="joining-data.html#cb679-2" aria-hidden="true" tabindex="-1"></a>answers_with_tags <span class="ot">&lt;-</span> answers <span class="sc">%&gt;%</span></span>
+<span id="cb679-3"><a href="joining-data.html#cb679-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(question_tags, <span class="at">by =</span> <span class="st">&quot;question_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb679-4"><a href="joining-data.html#cb679-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(tags, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;tag_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;id&quot;</span>)); answers_with_tags</span></code></pre></div>
+<pre><code>## Warning in inner_join(., question_tags, by = &quot;question_id&quot;): Detected an unexpected many-to-many
+## relationship between `x` and `y`.
 ## ℹ Row 3 of `x` matches multiple rows in `y`.
-## ℹ Row 231352 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ Row 231352 of `y` matches multiple rows in
+##   `x`.
+## ℹ If a many-to-many relationship is expected,
+##   set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
+<pre><code>## # A tibble: 800,378 × 6
+##          id creation_date question_id score tag_id tag_name   
+##       &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      
+##  1 39143935 8/25/2016        39142481     0   4240 average    
+##  2 39143935 8/25/2016        39142481     0   5571 summary    
+##  3 39144014 8/25/2016        39024390     0  85748 shiny      
+##  4 39144014 8/25/2016        39024390     0  83308 r-markdown 
+##  5 39144014 8/25/2016        39024390     0 116736 htmlwidgets
+##  6 39144252 8/25/2016        39096741     6  67746 rstudio    
+##  7 39144375 8/25/2016        39143885     5 105113 data.table 
+##  8 39144430 8/25/2016        39144077     0    276 variables  
+##  9 39144625 8/25/2016        39142728     1  46457 dataframe  
+## 10 39144625 8/25/2016        39142728     1   9047 subset     
+## # ℹ 800,368 more rows</code></pre>
 </div>
 <div id="binding-and-counting-posts-with-tags" class="section level4 hasAnchor" number="5.4.4.2">
 <h4><span class="header-section-number">5.4.4.2</span> Binding and counting posts with tags<a href="joining-data.html#binding-and-counting-posts-with-tags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>First, you’ll want to combine these tables into a single table called <code>posts_with_tags</code>. Once the information is consolidated into a single table, you can add more information by creating a date variable using the <code>lubridate</code> package.</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="joining-data.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the two tables into posts_with_tags</span></span>
-<span id="cb582-2"><a href="joining-data.html#cb582-2" aria-hidden="true" tabindex="-1"></a>posts_with_tags <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(questions_with_tags <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;question&quot;</span>),</span>
-<span id="cb582-3"><a href="joining-data.html#cb582-3" aria-hidden="true" tabindex="-1"></a>                             answers_with_tags <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;answer&quot;</span>))</span>
-<span id="cb582-4"><a href="joining-data.html#cb582-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb582-5"><a href="joining-data.html#cb582-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a year column, then count by type, year, and tag_name</span></span>
-<span id="cb582-6"><a href="joining-data.html#cb582-6" aria-hidden="true" tabindex="-1"></a>by_type_year_tag <span class="ot">&lt;-</span> posts_with_tags <span class="sc">%&gt;%</span></span>
-<span id="cb582-7"><a href="joining-data.html#cb582-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(<span class="fu">as.Date</span>(creation_date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb582-8"><a href="joining-data.html#cb582-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(type, year, tag_name); by_type_year_tag</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="joining-data.html#cb682-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the two tables into posts_with_tags</span></span>
+<span id="cb682-2"><a href="joining-data.html#cb682-2" aria-hidden="true" tabindex="-1"></a>posts_with_tags <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(questions_with_tags <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;question&quot;</span>),</span>
+<span id="cb682-3"><a href="joining-data.html#cb682-3" aria-hidden="true" tabindex="-1"></a>                             answers_with_tags <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;answer&quot;</span>))</span>
+<span id="cb682-4"><a href="joining-data.html#cb682-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-5"><a href="joining-data.html#cb682-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a year column, then count by type, year, and tag_name</span></span>
+<span id="cb682-6"><a href="joining-data.html#cb682-6" aria-hidden="true" tabindex="-1"></a>by_type_year_tag <span class="ot">&lt;-</span> posts_with_tags <span class="sc">%&gt;%</span></span>
+<span id="cb682-7"><a href="joining-data.html#cb682-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(<span class="fu">as.Date</span>(creation_date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb682-8"><a href="joining-data.html#cb682-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(type, year, tag_name); by_type_year_tag</span></code></pre></div>
+<pre><code>## # A tibble: 57,331 × 4
+##    type    year tag_name                      n
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;                     &lt;int&gt;
+##  1 answer  2008 bayesian                      1
+##  2 answer  2008 dataframe                     3
+##  3 answer  2008 dirichlet                     1
+##  4 answer  2008 eof                           1
+##  5 answer  2008 file                          1
+##  6 answer  2008 file-io                       1
+##  7 answer  2008 function                      6
+##  8 answer  2008 global-variables              6
+##  9 answer  2008 math                          2
+## 10 answer  2008 mathematical-optimization     1
+## # ℹ 57,321 more rows</code></pre>
 </div>
 <div id="visualizing-questions-and-answers-in-tags" class="section level4 hasAnchor" number="5.4.4.3">
 <h4><span class="header-section-number">5.4.4.3</span> Visualizing questions and answers in tags<a href="joining-data.html#visualizing-questions-and-answers-in-tags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s create a plot to examine the information that the table contains about questions and answers for the <code>dplyr</code> and <code>ggplot2</code> tags.</p>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="joining-data.html#cb583-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for the dplyr and ggplot2 tag names </span></span>
-<span id="cb583-2"><a href="joining-data.html#cb583-2" aria-hidden="true" tabindex="-1"></a>by_type_year_tag_filtered <span class="ot">&lt;-</span> by_type_year_tag <span class="sc">%&gt;%</span></span>
-<span id="cb583-3"><a href="joining-data.html#cb583-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tag_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>)); by_type_year_tag_filtered</span>
-<span id="cb583-4"><a href="joining-data.html#cb583-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb583-5"><a href="joining-data.html#cb583-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot faceted by the tag name </span></span>
-<span id="cb583-6"><a href="joining-data.html#cb583-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_type_year_tag_filtered, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">color =</span> type)) <span class="sc">+</span></span>
-<span id="cb583-7"><a href="joining-data.html#cb583-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb583-8"><a href="joining-data.html#cb583-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> tag_name)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-199-1.png" width="672" /></p>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="joining-data.html#cb684-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for the dplyr and ggplot2 tag names </span></span>
+<span id="cb684-2"><a href="joining-data.html#cb684-2" aria-hidden="true" tabindex="-1"></a>by_type_year_tag_filtered <span class="ot">&lt;-</span> by_type_year_tag <span class="sc">%&gt;%</span></span>
+<span id="cb684-3"><a href="joining-data.html#cb684-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tag_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>)); by_type_year_tag_filtered</span></code></pre></div>
+<pre><code>## # A tibble: 38 × 4
+##    type    year tag_name     n
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 answer  2009 ggplot2     57
+##  2 answer  2010 ggplot2    381
+##  3 answer  2011 ggplot2    864
+##  4 answer  2012 dplyr        8
+##  5 answer  2012 ggplot2   1734
+##  6 answer  2013 dplyr        2
+##  7 answer  2013 ggplot2   2678
+##  8 answer  2014 dplyr      826
+##  9 answer  2014 ggplot2   3006
+## 10 answer  2015 dplyr     3121
+## # ℹ 28 more rows</code></pre>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="joining-data.html#cb686-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot faceted by the tag name </span></span>
+<span id="cb686-2"><a href="joining-data.html#cb686-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_type_year_tag_filtered, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb686-3"><a href="joining-data.html#cb686-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb686-4"><a href="joining-data.html#cb686-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> tag_name)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-197-1.png" width="672" /></p>
 <p>Notice answers on <code>dplyr</code> questions are growing faster than <code>dplyr</code> questions themselves; meaning the average <code>dplyr</code> question has more answers than the average <code>ggplot2</code> question.</p>
 
 </div>

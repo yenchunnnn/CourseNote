@@ -1237,7 +1237,7 @@ To produce them, map two categorical variables onto the `x` and `y` aesthetics, 
 library(lattice)
 
 # Using barley, plot variety vs. year, filled by yield
-ggplot(barley, aes(year, variety, fill = yield)) +
+ggplot(lattice::barley, aes(year, variety, fill = yield)) +
   # Add a tile geom
   geom_tile()
 ```
@@ -1246,7 +1246,7 @@ Add a `facet_wrap()` function with facets as `vars(site)` and `ncol = 1`. Strip 
 
 ```{r}
 # Previously defined
-ggplot(barley, aes(x = year, y = variety, fill = yield)) +
+ggplot(lattice::barley, aes(x = year, y = variety, fill = yield)) +
   geom_tile() + 
   # Facet, wrapping by site, with 3 column
   facet_wrap(facets = vars(site), ncol = 3) +
@@ -1263,7 +1263,7 @@ library(RColorBrewer)
 red_brewer_palette <- brewer.pal(9, "Reds")
 
 # Update the plot
-ggplot(barley, aes(x = year, y = variety, fill = yield)) +
+ggplot(lattice::barley, aes(x = year, y = variety, fill = yield)) +
   geom_tile() + 
   facet_wrap(facets = vars(site), ncol = 3) +
   # Update scale to use n-colors from red_brewer_palette
@@ -1277,13 +1277,14 @@ There are several alternatives to heat maps. The best choice really depends on t
 ```{r}
 # The heat map we want to replace
 # Don't remove, it's here to help you!
-ggplot(barley, aes(x = year, y = variety, fill = yield)) +
+ggplot(lattice::barley, aes(x = year, y = variety, fill = yield)) +
   geom_tile() +
   facet_wrap( ~ site, ncol = 1) +
   scale_fill_gradientn(colors = brewer.pal(9, "Reds"))
 
 # Using barley, plot yield vs. year, colored and grouped by variety
-ggplot(barley, aes(x = year, y = yield, color = variety, group = variety)) +
+ggplot(lattice::barley, aes(x = year, y = yield, 
+                            color = variety, group = variety)) +
   # Add a line layer
   geom_line() +
   # Facet, wrapping by site, with 1 row
@@ -1294,8 +1295,8 @@ Display only means and ribbons for spread.
 
 ```{r}
 # Using barely, plot yield vs. year, colored, grouped, and filled by site
-ggplot(barley, aes(x = year, y = yield, 
-                   color = site, group = site, fill = site)) +
+ggplot(lattice::barley, aes(x = year, y = yield, 
+                            color = site, group = site, fill = site)) +
   # Add a line summary stat aggregated by mean
   stat_summary(fun = mean, geom = "line") +
   # Add a ribbon summary stat with 10% opacity, no color

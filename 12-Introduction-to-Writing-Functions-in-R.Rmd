@@ -535,9 +535,9 @@ When the main purpose of a function is to generate output, like drawing a plot o
 
 The base R plot function returns `NULL`, since its main purpose is to draw a plot. Recall that `plot()` has a [**formula interface**](https://www.rdocumentation.org/packages/graphics/topics/plot.formula): `plot(y ~ x, data = data)`
 
-```{r}
+```r
 # Using cars, draw a scatter plot of dist vs. speed
-plt_dist_vs_speed <- plot(dist ~ speed, data = cars)
+plt_dist_vs_speed <- base::plot(dist ~ speed, data = cars)
 
 # Oh no! The plot object is NULL
 plt_dist_vs_speed
@@ -545,11 +545,11 @@ plt_dist_vs_speed
 
 This isn't helpful if you want to use it in piped code: instead it should invisibly return the plot data to be piped on to the next step.
 
-```{r}
+```r
 # Define a pipeable plot fn with data and formula args
 pipeable_plot <- function(data, formula) {
   # Call plot() with the formula interface
-  plot(formula, data)
+  base::plot(formula, data)
   # Invisibly return the input dataset
   invisible(data)
 }
@@ -641,7 +641,7 @@ In that case, you can store the metadata in attributes.
 attr(object, "attribute_name") <- attribute_value
 ```
 
-```{r}
+```r
 pipeable_plot <- function(data, formula) {
   plot(formula, data)
   # Add a "formula" attribute to data

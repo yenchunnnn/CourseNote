@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Introduction to the Tidyverse | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -916,78 +916,215 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Data wrangling<a href="introduction-to-the-tidyverse.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="load-dataset" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Load dataset<a href="introduction-to-the-tidyverse.html#load-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="introduction-to-the-tidyverse.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the gapminder package</span></span>
-<span id="cb447-2"><a href="introduction-to-the-tidyverse.html#cb447-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb447-3"><a href="introduction-to-the-tidyverse.html#cb447-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-4"><a href="introduction-to-the-tidyverse.html#cb447-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dplyr package</span></span>
-<span id="cb447-5"><a href="introduction-to-the-tidyverse.html#cb447-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb447-6"><a href="introduction-to-the-tidyverse.html#cb447-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-7"><a href="introduction-to-the-tidyverse.html#cb447-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the gapminder dataset</span></span>
-<span id="cb447-8"><a href="introduction-to-the-tidyverse.html#cb447-8" aria-hidden="true" tabindex="-1"></a>gapminder</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="introduction-to-the-tidyverse.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the gapminder package</span></span>
+<span id="cb462-2"><a href="introduction-to-the-tidyverse.html#cb462-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div>
+<pre><code>## Warning: package &#39;gapminder&#39; was built under R version 4.3.1</code></pre>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="introduction-to-the-tidyverse.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dplyr package</span></span>
+<span id="cb464-2"><a href="introduction-to-the-tidyverse.html#cb464-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="introduction-to-the-tidyverse.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the gapminder dataset</span></span>
+<span id="cb468-2"><a href="introduction-to-the-tidyverse.html#cb468-2" aria-hidden="true" tabindex="-1"></a>gapminder</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 × 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # ℹ 1,694 more rows</code></pre>
 </div>
 <div id="filtering" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Filtering<a href="introduction-to-the-tidyverse.html#filtering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>filter</code> verb extracts particular observations based on a condition. pipe (<code>%&gt;%</code>)</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="introduction-to-the-tidyverse.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the gapminder dataset for the year 1957</span></span>
-<span id="cb448-2"><a href="introduction-to-the-tidyverse.html#cb448-2" aria-hidden="true" tabindex="-1"></a><span class="co"># version 1</span></span>
-<span id="cb448-3"><a href="introduction-to-the-tidyverse.html#cb448-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb448-4"><a href="introduction-to-the-tidyverse.html#cb448-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>)</span>
-<span id="cb448-5"><a href="introduction-to-the-tidyverse.html#cb448-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb448-6"><a href="introduction-to-the-tidyverse.html#cb448-6" aria-hidden="true" tabindex="-1"></a><span class="co"># version 2</span></span>
-<span id="cb448-7"><a href="introduction-to-the-tidyverse.html#cb448-7" aria-hidden="true" tabindex="-1"></a>gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1957</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="introduction-to-the-tidyverse.html#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the gapminder dataset for the year 1957</span></span>
+<span id="cb470-2"><a href="introduction-to-the-tidyverse.html#cb470-2" aria-hidden="true" tabindex="-1"></a><span class="co"># version 1</span></span>
+<span id="cb470-3"><a href="introduction-to-the-tidyverse.html#cb470-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb470-4"><a href="introduction-to-the-tidyverse.html#cb470-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 142 × 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1957    30.3  9240934      821.
+##  2 Albania     Europe     1957    59.3  1476505     1942.
+##  3 Algeria     Africa     1957    45.7 10270856     3014.
+##  4 Angola      Africa     1957    32.0  4561361     3828.
+##  5 Argentina   Americas   1957    64.4 19610538     6857.
+##  6 Australia   Oceania    1957    70.3  9712569    10950.
+##  7 Austria     Europe     1957    67.5  6965860     8843.
+##  8 Bahrain     Asia       1957    53.8   138655    11636.
+##  9 Bangladesh  Asia       1957    39.3 51365468      662.
+## 10 Belgium     Europe     1957    69.2  8989111     9715.
+## # ℹ 132 more rows</code></pre>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="introduction-to-the-tidyverse.html#cb472-1" aria-hidden="true" tabindex="-1"></a><span class="co"># version 2</span></span>
+<span id="cb472-2"><a href="introduction-to-the-tidyverse.html#cb472-2" aria-hidden="true" tabindex="-1"></a>gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1957</span>, ]</span></code></pre></div>
+<pre><code>## # A tibble: 142 × 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1957    30.3  9240934      821.
+##  2 Albania     Europe     1957    59.3  1476505     1942.
+##  3 Algeria     Africa     1957    45.7 10270856     3014.
+##  4 Angola      Africa     1957    32.0  4561361     3828.
+##  5 Argentina   Americas   1957    64.4 19610538     6857.
+##  6 Australia   Oceania    1957    70.3  9712569    10950.
+##  7 Austria     Europe     1957    67.5  6965860     8843.
+##  8 Bahrain     Asia       1957    53.8   138655    11636.
+##  9 Bangladesh  Asia       1957    39.3 51365468      662.
+## 10 Belgium     Europe     1957    69.2  8989111     9715.
+## # ℹ 132 more rows</code></pre>
 <p>Use the <code>filter()</code> verb to set <em>two conditions</em>.</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="introduction-to-the-tidyverse.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for China in 2002</span></span>
-<span id="cb449-2"><a href="introduction-to-the-tidyverse.html#cb449-2" aria-hidden="true" tabindex="-1"></a><span class="co"># version 1</span></span>
-<span id="cb449-3"><a href="introduction-to-the-tidyverse.html#cb449-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb449-4"><a href="introduction-to-the-tidyverse.html#cb449-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>, year <span class="sc">==</span> <span class="dv">2002</span>)</span>
-<span id="cb449-5"><a href="introduction-to-the-tidyverse.html#cb449-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb449-6"><a href="introduction-to-the-tidyverse.html#cb449-6" aria-hidden="true" tabindex="-1"></a><span class="co"># version 2</span></span>
-<span id="cb449-7"><a href="introduction-to-the-tidyverse.html#cb449-7" aria-hidden="true" tabindex="-1"></a>gapminder[gapminder<span class="sc">$</span>country <span class="sc">==</span> <span class="st">&quot;China&quot;</span> <span class="sc">&amp;</span> gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2002</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="introduction-to-the-tidyverse.html#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for China in 2002</span></span>
+<span id="cb474-2"><a href="introduction-to-the-tidyverse.html#cb474-2" aria-hidden="true" tabindex="-1"></a><span class="co"># version 1</span></span>
+<span id="cb474-3"><a href="introduction-to-the-tidyverse.html#cb474-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb474-4"><a href="introduction-to-the-tidyverse.html#cb474-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>, year <span class="sc">==</span> <span class="dv">2002</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 6
+##   country continent  year lifeExp        pop gdpPercap
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+## 1 China   Asia       2002    72.0 1280400000     3119.</code></pre>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="introduction-to-the-tidyverse.html#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="co"># version 2</span></span>
+<span id="cb476-2"><a href="introduction-to-the-tidyverse.html#cb476-2" aria-hidden="true" tabindex="-1"></a>gapminder[gapminder<span class="sc">$</span>country <span class="sc">==</span> <span class="st">&quot;China&quot;</span> <span class="sc">&amp;</span> gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2002</span>, ]</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 6
+##   country continent  year lifeExp        pop gdpPercap
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+## 1 China   Asia       2002    72.0 1280400000     3119.</code></pre>
 </div>
 <div id="arrange" class="section level3 hasAnchor" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> Arrange<a href="introduction-to-the-tidyverse.html#arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use <code>arrange()</code> to sort observations in ascending or descending order of a particular variable.</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="introduction-to-the-tidyverse.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort in ascending order of lifeExp</span></span>
-<span id="cb450-2"><a href="introduction-to-the-tidyverse.html#cb450-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb450-3"><a href="introduction-to-the-tidyverse.html#cb450-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(lifeExp)</span>
-<span id="cb450-4"><a href="introduction-to-the-tidyverse.html#cb450-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb450-5"><a href="introduction-to-the-tidyverse.html#cb450-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort in descending order of lifeExp</span></span>
-<span id="cb450-6"><a href="introduction-to-the-tidyverse.html#cb450-6" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb450-7"><a href="introduction-to-the-tidyverse.html#cb450-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="introduction-to-the-tidyverse.html#cb478-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort in ascending order of lifeExp</span></span>
+<span id="cb478-2"><a href="introduction-to-the-tidyverse.html#cb478-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb478-3"><a href="introduction-to-the-tidyverse.html#cb478-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(lifeExp)</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 × 6
+##    country      continent  year lifeExp     pop gdpPercap
+##    &lt;fct&gt;        &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+##  1 Rwanda       Africa     1992    23.6 7290203      737.
+##  2 Afghanistan  Asia       1952    28.8 8425333      779.
+##  3 Gambia       Africa     1952    30    284320      485.
+##  4 Angola       Africa     1952    30.0 4232095     3521.
+##  5 Sierra Leone Africa     1952    30.3 2143249      880.
+##  6 Afghanistan  Asia       1957    30.3 9240934      821.
+##  7 Cambodia     Asia       1977    31.2 6978607      525.
+##  8 Mozambique   Africa     1952    31.3 6446316      469.
+##  9 Sierra Leone Africa     1957    31.6 2295678     1004.
+## 10 Burkina Faso Africa     1952    32.0 4469979      543.
+## # ℹ 1,694 more rows</code></pre>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="introduction-to-the-tidyverse.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort in descending order of lifeExp</span></span>
+<span id="cb480-2"><a href="introduction-to-the-tidyverse.html#cb480-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb480-3"><a href="introduction-to-the-tidyverse.html#cb480-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 × 6
+##    country          continent  year lifeExp       pop gdpPercap
+##    &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1 Japan            Asia       2007    82.6 127467972    31656.
+##  2 Hong Kong, China Asia       2007    82.2   6980412    39725.
+##  3 Japan            Asia       2002    82   127065841    28605.
+##  4 Iceland          Europe     2007    81.8    301931    36181.
+##  5 Switzerland      Europe     2007    81.7   7554661    37506.
+##  6 Hong Kong, China Asia       2002    81.5   6762476    30209.
+##  7 Australia        Oceania    2007    81.2  20434176    34435.
+##  8 Spain            Europe     2007    80.9  40448191    28821.
+##  9 Sweden           Europe     2007    80.9   9031088    33860.
+## 10 Israel           Asia       2007    80.7   6426679    25523.
+## # ℹ 1,694 more rows</code></pre>
 <p>Filtering and arranging</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="introduction-to-the-tidyverse.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for the year 1957, then arrange in descending order of population</span></span>
-<span id="cb451-2"><a href="introduction-to-the-tidyverse.html#cb451-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb451-3"><a href="introduction-to-the-tidyverse.html#cb451-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb451-4"><a href="introduction-to-the-tidyverse.html#cb451-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(pop))</span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="introduction-to-the-tidyverse.html#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for the year 1957, then arrange in descending order of population</span></span>
+<span id="cb482-2"><a href="introduction-to-the-tidyverse.html#cb482-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb482-3"><a href="introduction-to-the-tidyverse.html#cb482-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb482-4"><a href="introduction-to-the-tidyverse.html#cb482-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(pop))</span></code></pre></div>
+<pre><code>## # A tibble: 142 × 6
+##    country        continent  year lifeExp       pop gdpPercap
+##    &lt;fct&gt;          &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1 China          Asia       1957    50.5 637408000      576.
+##  2 India          Asia       1957    40.2 409000000      590.
+##  3 United States  Americas   1957    69.5 171984000    14847.
+##  4 Japan          Asia       1957    65.5  91563009     4318.
+##  5 Indonesia      Asia       1957    39.9  90124000      859.
+##  6 Germany        Europe     1957    69.1  71019069    10188.
+##  7 Brazil         Americas   1957    53.3  65551171     2487.
+##  8 United Kingdom Europe     1957    70.4  51430000    11283.
+##  9 Bangladesh     Asia       1957    39.3  51365468      662.
+## 10 Italy          Europe     1957    67.8  49182000     6249.
+## # ℹ 132 more rows</code></pre>
 </div>
 <div id="mutate" class="section level3 hasAnchor" number="3.1.4">
 <h3><span class="header-section-number">3.1.4</span> Mutate<a href="introduction-to-the-tidyverse.html#mutate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Can change exist columns, or create new columns.</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="introduction-to-the-tidyverse.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mutate to change lifeExp to be in months</span></span>
-<span id="cb452-2"><a href="introduction-to-the-tidyverse.html#cb452-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb452-3"><a href="introduction-to-the-tidyverse.html#cb452-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lifeExp =</span> <span class="dv">12</span> <span class="sc">*</span> lifeExp)</span>
-<span id="cb452-4"><a href="introduction-to-the-tidyverse.html#cb452-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb452-5"><a href="introduction-to-the-tidyverse.html#cb452-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mutate to create a new column called lifeExpMonths</span></span>
-<span id="cb452-6"><a href="introduction-to-the-tidyverse.html#cb452-6" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb452-7"><a href="introduction-to-the-tidyverse.html#cb452-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lifeExpMonths =</span> <span class="dv">12</span> <span class="sc">*</span> lifeExp)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="introduction-to-the-tidyverse.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mutate to change lifeExp to be in months</span></span>
+<span id="cb484-2"><a href="introduction-to-the-tidyverse.html#cb484-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb484-3"><a href="introduction-to-the-tidyverse.html#cb484-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lifeExp =</span> <span class="dv">12</span> <span class="sc">*</span> lifeExp)</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 × 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    346.  8425333      779.
+##  2 Afghanistan Asia       1957    364.  9240934      821.
+##  3 Afghanistan Asia       1962    384. 10267083      853.
+##  4 Afghanistan Asia       1967    408. 11537966      836.
+##  5 Afghanistan Asia       1972    433. 13079460      740.
+##  6 Afghanistan Asia       1977    461. 14880372      786.
+##  7 Afghanistan Asia       1982    478. 12881816      978.
+##  8 Afghanistan Asia       1987    490. 13867957      852.
+##  9 Afghanistan Asia       1992    500. 16317921      649.
+## 10 Afghanistan Asia       1997    501. 22227415      635.
+## # ℹ 1,694 more rows</code></pre>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="introduction-to-the-tidyverse.html#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mutate to create a new column called lifeExpMonths</span></span>
+<span id="cb486-2"><a href="introduction-to-the-tidyverse.html#cb486-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb486-3"><a href="introduction-to-the-tidyverse.html#cb486-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lifeExpMonths =</span> <span class="dv">12</span> <span class="sc">*</span> lifeExp)</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 × 7
+##    country     continent  year lifeExp      pop gdpPercap lifeExpMonths
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.          346.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.          364.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.          384.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.          408.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.          433.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.          461.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.          478.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.          490.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.          500.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.          501.
+## # ℹ 1,694 more rows</code></pre>
 <p>Combining filter, mutate, and arrange.</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="introduction-to-the-tidyverse.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter, mutate, and arrange the gapminder dataset</span></span>
-<span id="cb453-2"><a href="introduction-to-the-tidyverse.html#cb453-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb453-3"><a href="introduction-to-the-tidyverse.html#cb453-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-4"><a href="introduction-to-the-tidyverse.html#cb453-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lifeExpMonths =</span> <span class="dv">12</span><span class="sc">*</span>lifeExp) <span class="sc">%&gt;%</span></span>
-<span id="cb453-5"><a href="introduction-to-the-tidyverse.html#cb453-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExpMonths))</span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="introduction-to-the-tidyverse.html#cb488-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter, mutate, and arrange the gapminder dataset</span></span>
+<span id="cb488-2"><a href="introduction-to-the-tidyverse.html#cb488-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb488-3"><a href="introduction-to-the-tidyverse.html#cb488-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb488-4"><a href="introduction-to-the-tidyverse.html#cb488-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lifeExpMonths =</span> <span class="dv">12</span><span class="sc">*</span>lifeExp) <span class="sc">%&gt;%</span></span>
+<span id="cb488-5"><a href="introduction-to-the-tidyverse.html#cb488-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExpMonths))</span></code></pre></div>
+<pre><code>## # A tibble: 142 × 7
+##    country          continent  year lifeExp       pop gdpPercap lifeExpMonths
+##    &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Japan            Asia       2007    82.6 127467972    31656.          991.
+##  2 Hong Kong, China Asia       2007    82.2   6980412    39725.          986.
+##  3 Iceland          Europe     2007    81.8    301931    36181.          981.
+##  4 Switzerland      Europe     2007    81.7   7554661    37506.          980.
+##  5 Australia        Oceania    2007    81.2  20434176    34435.          975.
+##  6 Spain            Europe     2007    80.9  40448191    28821.          971.
+##  7 Sweden           Europe     2007    80.9   9031088    33860.          971.
+##  8 Israel           Asia       2007    80.7   6426679    25523.          969.
+##  9 France           Europe     2007    80.7  61083916    30470.          968.
+## 10 Canada           Americas   2007    80.7  33390141    36319.          968.
+## # ℹ 132 more rows</code></pre>
 </div>
 </div>
 <div id="data-visualization" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Data visualization<a href="introduction-to-the-tidyverse.html#data-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="subset-df-variable" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Subset df variable<a href="introduction-to-the-tidyverse.html#subset-df-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="introduction-to-the-tidyverse.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the ggplot2 package as well</span></span>
-<span id="cb454-2"><a href="introduction-to-the-tidyverse.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb454-3"><a href="introduction-to-the-tidyverse.html#cb454-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb454-4"><a href="introduction-to-the-tidyverse.html#cb454-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create gapminder_1952</span></span>
-<span id="cb454-5"><a href="introduction-to-the-tidyverse.html#cb454-5" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb454-6"><a href="introduction-to-the-tidyverse.html#cb454-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="introduction-to-the-tidyverse.html#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the ggplot2 package as well</span></span>
+<span id="cb490-2"><a href="introduction-to-the-tidyverse.html#cb490-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb490-3"><a href="introduction-to-the-tidyverse.html#cb490-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb490-4"><a href="introduction-to-the-tidyverse.html#cb490-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create gapminder_1952</span></span>
+<span id="cb490-5"><a href="introduction-to-the-tidyverse.html#cb490-5" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb490-6"><a href="introduction-to-the-tidyverse.html#cb490-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>)</span></code></pre></div>
 </div>
 <div id="ggplot-aesthetics" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> ggplot aesthetics<a href="introduction-to-the-tidyverse.html#ggplot-aesthetics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -997,70 +1134,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Aesthetic mapping: The mapping of variables in your dataset to aesthetics in your graph. (In a scatterplot, your two dimensions are the x axis and the y axis)</p></li>
 <li><p>Layer: Specifying the type of graph you’re creating. You do that by adding a layer to the graph - use a <code>+</code> after the ggplot, and then <code>geom_point()</code>. The “geom” means you’re adding a type of geometric object to the graph, the “point” indicates it’s a scatter plot, where each observation corresponds to one point.</p></li>
 </ol>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="introduction-to-the-tidyverse.html#cb455-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change to put pop on the x-axis and gdpPercap on the y-axis</span></span>
-<span id="cb455-2"><a href="introduction-to-the-tidyverse.html#cb455-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
-<span id="cb455-3"><a href="introduction-to-the-tidyverse.html#cb455-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="introduction-to-the-tidyverse.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with pop on the x-axis and lifeExp on the y-axis</span></span>
-<span id="cb456-2"><a href="introduction-to-the-tidyverse.html#cb456-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb456-3"><a href="introduction-to-the-tidyverse.html#cb456-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="introduction-to-the-tidyverse.html#cb491-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change to put pop on the x-axis and gdpPercap on the y-axis</span></span>
+<span id="cb491-2"><a href="introduction-to-the-tidyverse.html#cb491-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
+<span id="cb491-3"><a href="introduction-to-the-tidyverse.html#cb491-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="introduction-to-the-tidyverse.html#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with pop on the x-axis and lifeExp on the y-axis</span></span>
+<span id="cb492-2"><a href="introduction-to-the-tidyverse.html#cb492-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb492-3"><a href="introduction-to-the-tidyverse.html#cb492-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <div id="log-scales" class="section level4 hasAnchor" number="3.2.2.1">
 <h4><span class="header-section-number">3.2.2.1</span> Log scales<a href="introduction-to-the-tidyverse.html#log-scales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Putting the x-axes on a log scale</p>
 <p>Since population is spread over several orders of magnitude, with some countries having a much higher population than others, it’s a good idea to put the x-axis on a log scale.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="introduction-to-the-tidyverse.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change this plot to put the x-axis on a log scale</span></span>
-<span id="cb457-2"><a href="introduction-to-the-tidyverse.html#cb457-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb457-3"><a href="introduction-to-the-tidyverse.html#cb457-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb457-4"><a href="introduction-to-the-tidyverse.html#cb457-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="introduction-to-the-tidyverse.html#cb493-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change this plot to put the x-axis on a log scale</span></span>
+<span id="cb493-2"><a href="introduction-to-the-tidyverse.html#cb493-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb493-3"><a href="introduction-to-the-tidyverse.html#cb493-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb493-4"><a href="introduction-to-the-tidyverse.html#cb493-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
 <p>Putting the x- and y- axes on a log scale</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="introduction-to-the-tidyverse.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing pop and gdpPercap, with both axes on a log scale</span></span>
-<span id="cb458-2"><a href="introduction-to-the-tidyverse.html#cb458-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
-<span id="cb458-3"><a href="introduction-to-the-tidyverse.html#cb458-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb458-4"><a href="introduction-to-the-tidyverse.html#cb458-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb458-5"><a href="introduction-to-the-tidyverse.html#cb458-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="introduction-to-the-tidyverse.html#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing pop and gdpPercap, with both axes on a log scale</span></span>
+<span id="cb494-2"><a href="introduction-to-the-tidyverse.html#cb494-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
+<span id="cb494-3"><a href="introduction-to-the-tidyverse.html#cb494-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb494-4"><a href="introduction-to-the-tidyverse.html#cb494-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb494-5"><a href="introduction-to-the-tidyverse.html#cb494-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 </div>
 <div id="colors" class="section level4 hasAnchor" number="3.2.2.2">
 <h4><span class="header-section-number">3.2.2.2</span> Colors<a href="introduction-to-the-tidyverse.html#colors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>By syntax <code>aes(..., color = var)</code></p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="introduction-to-the-tidyverse.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing pop and lifeExp, with color representing continent</span></span>
-<span id="cb459-2"><a href="introduction-to-the-tidyverse.html#cb459-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
-<span id="cb459-3"><a href="introduction-to-the-tidyverse.html#cb459-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb459-4"><a href="introduction-to-the-tidyverse.html#cb459-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="introduction-to-the-tidyverse.html#cb495-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing pop and lifeExp, with color representing continent</span></span>
+<span id="cb495-2"><a href="introduction-to-the-tidyverse.html#cb495-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb495-3"><a href="introduction-to-the-tidyverse.html#cb495-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb495-4"><a href="introduction-to-the-tidyverse.html#cb495-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 </div>
 <div id="size" class="section level4 hasAnchor" number="3.2.2.3">
 <h4><span class="header-section-number">3.2.2.3</span> Size<a href="introduction-to-the-tidyverse.html#size" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>By syntax <code>aes(..., size = var)</code></p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="introduction-to-the-tidyverse.html#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the size aesthetic to represent a country&#39;s gdpPercap</span></span>
-<span id="cb460-2"><a href="introduction-to-the-tidyverse.html#cb460-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent,</span>
-<span id="cb460-3"><a href="introduction-to-the-tidyverse.html#cb460-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">size =</span> gdpPercap)) <span class="sc">+</span></span>
-<span id="cb460-4"><a href="introduction-to-the-tidyverse.html#cb460-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb460-5"><a href="introduction-to-the-tidyverse.html#cb460-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="introduction-to-the-tidyverse.html#cb496-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the size aesthetic to represent a country&#39;s gdpPercap</span></span>
+<span id="cb496-2"><a href="introduction-to-the-tidyverse.html#cb496-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent,</span>
+<span id="cb496-3"><a href="introduction-to-the-tidyverse.html#cb496-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">size =</span> gdpPercap)) <span class="sc">+</span></span>
+<span id="cb496-4"><a href="introduction-to-the-tidyverse.html#cb496-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb496-5"><a href="introduction-to-the-tidyverse.html#cb496-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 </div>
 </div>
 <div id="faceting" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Faceting<a href="introduction-to-the-tidyverse.html#faceting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>ggplot2 lets you divide your plot into subplots to get one smaller graph for each factor of categorical variables. By syntax <code>facet_wrap(~ var)</code>.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="introduction-to-the-tidyverse.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing pop and lifeExp, faceted by continent</span></span>
-<span id="cb461-2"><a href="introduction-to-the-tidyverse.html#cb461-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb461-3"><a href="introduction-to-the-tidyverse.html#cb461-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb461-4"><a href="introduction-to-the-tidyverse.html#cb461-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb461-5"><a href="introduction-to-the-tidyverse.html#cb461-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="introduction-to-the-tidyverse.html#cb497-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing pop and lifeExp, faceted by continent</span></span>
+<span id="cb497-2"><a href="introduction-to-the-tidyverse.html#cb497-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb497-3"><a href="introduction-to-the-tidyverse.html#cb497-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb497-4"><a href="introduction-to-the-tidyverse.html#cb497-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb497-5"><a href="introduction-to-the-tidyverse.html#cb497-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
 <p>Faceting by year</p>
 <p>Now that you’re able to use faceting, however, you can create a graph showing all the country-level data from 1952 to 2007, to understand how global statistics have changed over time.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="introduction-to-the-tidyverse.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing gdpPercap and lifeExp, with color representing continent</span></span>
-<span id="cb462-2"><a href="introduction-to-the-tidyverse.html#cb462-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and size representing population, faceted by year</span></span>
-<span id="cb462-3"><a href="introduction-to-the-tidyverse.html#cb462-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent,</span>
-<span id="cb462-4"><a href="introduction-to-the-tidyverse.html#cb462-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> pop)) <span class="sc">+</span></span>
-<span id="cb462-5"><a href="introduction-to-the-tidyverse.html#cb462-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb462-6"><a href="introduction-to-the-tidyverse.html#cb462-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb462-7"><a href="introduction-to-the-tidyverse.html#cb462-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> year)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="introduction-to-the-tidyverse.html#cb498-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot comparing gdpPercap and lifeExp, with color representing continent</span></span>
+<span id="cb498-2"><a href="introduction-to-the-tidyverse.html#cb498-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and size representing population, faceted by year</span></span>
+<span id="cb498-3"><a href="introduction-to-the-tidyverse.html#cb498-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent,</span>
+<span id="cb498-4"><a href="introduction-to-the-tidyverse.html#cb498-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> pop)) <span class="sc">+</span></span>
+<span id="cb498-5"><a href="introduction-to-the-tidyverse.html#cb498-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb498-6"><a href="introduction-to-the-tidyverse.html#cb498-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb498-7"><a href="introduction-to-the-tidyverse.html#cb498-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> year)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
 </div>
 </div>
 <div id="grouping-summarizing" class="section level2 hasAnchor" number="3.3">
@@ -1069,73 +1206,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.3.1</span> Summarize<a href="introduction-to-the-tidyverse.html#summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Turn many rows into one.(變項的summary) Fuctions you can use in <code>summarize()</code>: mean, sum, median, min, max.</p>
 <p>Summarize multiple variables at once:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="introduction-to-the-tidyverse.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for 1957 then summarize the median life expectancy and the maximum GDP per capita</span></span>
-<span id="cb463-2"><a href="introduction-to-the-tidyverse.html#cb463-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb463-3"><a href="introduction-to-the-tidyverse.html#cb463-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb463-4"><a href="introduction-to-the-tidyverse.html#cb463-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
-<span id="cb463-5"><a href="introduction-to-the-tidyverse.html#cb463-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="introduction-to-the-tidyverse.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for 1957 then summarize the median life expectancy and the maximum GDP per capita</span></span>
+<span id="cb499-2"><a href="introduction-to-the-tidyverse.html#cb499-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb499-3"><a href="introduction-to-the-tidyverse.html#cb499-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb499-4"><a href="introduction-to-the-tidyverse.html#cb499-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb499-5"><a href="introduction-to-the-tidyverse.html#cb499-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   medianLifeExp maxGdpPercap
+##           &lt;dbl&gt;        &lt;dbl&gt;
+## 1          48.4      113523.</code></pre>
 </div>
 <div id="group-by" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Group by<a href="introduction-to-the-tidyverse.html#group-by" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Turn groups into one row each.</p>
 <p>Summarizing by one variable.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="introduction-to-the-tidyverse.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find median life expectancy and maximum GDP per capita in each year</span></span>
-<span id="cb464-2"><a href="introduction-to-the-tidyverse.html#cb464-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb464-3"><a href="introduction-to-the-tidyverse.html#cb464-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb464-4"><a href="introduction-to-the-tidyverse.html#cb464-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
-<span id="cb464-5"><a href="introduction-to-the-tidyverse.html#cb464-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="introduction-to-the-tidyverse.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find median life expectancy and maximum GDP per capita in each continent in 1957</span></span>
-<span id="cb465-2"><a href="introduction-to-the-tidyverse.html#cb465-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb465-3"><a href="introduction-to-the-tidyverse.html#cb465-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb465-4"><a href="introduction-to-the-tidyverse.html#cb465-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
-<span id="cb465-5"><a href="introduction-to-the-tidyverse.html#cb465-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
-<span id="cb465-6"><a href="introduction-to-the-tidyverse.html#cb465-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="introduction-to-the-tidyverse.html#cb501-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find median life expectancy and maximum GDP per capita in each year</span></span>
+<span id="cb501-2"><a href="introduction-to-the-tidyverse.html#cb501-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb501-3"><a href="introduction-to-the-tidyverse.html#cb501-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb501-4"><a href="introduction-to-the-tidyverse.html#cb501-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb501-5"><a href="introduction-to-the-tidyverse.html#cb501-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 3
+##     year medianLifeExp maxGdpPercap
+##    &lt;int&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+##  1  1952          45.1      108382.
+##  2  1957          48.4      113523.
+##  3  1962          50.9       95458.
+##  4  1967          53.8       80895.
+##  5  1972          56.5      109348.
+##  6  1977          59.7       59265.
+##  7  1982          62.4       33693.
+##  8  1987          65.8       31541.
+##  9  1992          67.7       34933.
+## 10  1997          69.4       41283.
+## 11  2002          70.8       44684.
+## 12  2007          71.9       49357.</code></pre>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="introduction-to-the-tidyverse.html#cb503-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find median life expectancy and maximum GDP per capita in each continent in 1957</span></span>
+<span id="cb503-2"><a href="introduction-to-the-tidyverse.html#cb503-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb503-3"><a href="introduction-to-the-tidyverse.html#cb503-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1957</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb503-4"><a href="introduction-to-the-tidyverse.html#cb503-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb503-5"><a href="introduction-to-the-tidyverse.html#cb503-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb503-6"><a href="introduction-to-the-tidyverse.html#cb503-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##   continent medianLifeExp maxGdpPercap
+##   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Africa             40.6        5487.
+## 2 Americas           56.1       14847.
+## 3 Asia               48.3      113523.
+## 4 Europe             67.6       17909.
+## 5 Oceania            70.3       12247.</code></pre>
 <p>Summarizing by more variables.</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="introduction-to-the-tidyverse.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find median life expectancy and maximum GDP per capita in each continent/year combination</span></span>
-<span id="cb466-2"><a href="introduction-to-the-tidyverse.html#cb466-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb466-3"><a href="introduction-to-the-tidyverse.html#cb466-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year, continent) <span class="sc">%&gt;%</span></span>
-<span id="cb466-4"><a href="introduction-to-the-tidyverse.html#cb466-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
-<span id="cb466-5"><a href="introduction-to-the-tidyverse.html#cb466-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="introduction-to-the-tidyverse.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find median life expectancy and maximum GDP per capita in each continent/year combination</span></span>
+<span id="cb505-2"><a href="introduction-to-the-tidyverse.html#cb505-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb505-3"><a href="introduction-to-the-tidyverse.html#cb505-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year, continent) <span class="sc">%&gt;%</span></span>
+<span id="cb505-4"><a href="introduction-to-the-tidyverse.html#cb505-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb505-5"><a href="introduction-to-the-tidyverse.html#cb505-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;.
+## You can override using the `.groups`
+## argument.</code></pre>
+<pre><code>## # A tibble: 60 × 4
+## # Groups:   year [12]
+##     year continent medianLifeExp maxGdpPercap
+##    &lt;int&gt; &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;
+##  1  1952 Africa             38.8        4725.
+##  2  1952 Americas           54.7       13990.
+##  3  1952 Asia               44.9      108382.
+##  4  1952 Europe             65.9       14734.
+##  5  1952 Oceania            69.3       10557.
+##  6  1957 Africa             40.6        5487.
+##  7  1957 Americas           56.1       14847.
+##  8  1957 Asia               48.3      113523.
+##  9  1957 Europe             67.6       17909.
+## 10  1957 Oceania            70.3       12247.
+## # ℹ 50 more rows</code></pre>
 </div>
 <div id="visualizing-summarized-data" class="section level3 hasAnchor" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Visualizing summarized data<a href="introduction-to-the-tidyverse.html#visualizing-summarized-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Add <code>expand_limits(y = 0)</code> to make sure the plot’s y-axis includes zero.</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="introduction-to-the-tidyverse.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot showing the change in medianLifeExp over time</span></span>
-<span id="cb468-2"><a href="introduction-to-the-tidyverse.html#cb468-2" aria-hidden="true" tabindex="-1"></a>by_year <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb468-3"><a href="introduction-to-the-tidyverse.html#cb468-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb468-4"><a href="introduction-to-the-tidyverse.html#cb468-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
-<span id="cb468-5"><a href="introduction-to-the-tidyverse.html#cb468-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span>
-<span id="cb468-6"><a href="introduction-to-the-tidyverse.html#cb468-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb468-7"><a href="introduction-to-the-tidyverse.html#cb468-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianLifeExp)) <span class="sc">+</span></span>
-<span id="cb468-8"><a href="introduction-to-the-tidyverse.html#cb468-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb468-9"><a href="introduction-to-the-tidyverse.html#cb468-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="introduction-to-the-tidyverse.html#cb508-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot showing the change in medianLifeExp over time</span></span>
+<span id="cb508-2"><a href="introduction-to-the-tidyverse.html#cb508-2" aria-hidden="true" tabindex="-1"></a>by_year <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb508-3"><a href="introduction-to-the-tidyverse.html#cb508-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb508-4"><a href="introduction-to-the-tidyverse.html#cb508-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb508-5"><a href="introduction-to-the-tidyverse.html#cb508-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">maxGdpPercap =</span> <span class="fu">max</span>(gdpPercap))</span>
+<span id="cb508-6"><a href="introduction-to-the-tidyverse.html#cb508-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb508-7"><a href="introduction-to-the-tidyverse.html#cb508-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianLifeExp)) <span class="sc">+</span></span>
+<span id="cb508-8"><a href="introduction-to-the-tidyverse.html#cb508-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb508-9"><a href="introduction-to-the-tidyverse.html#cb508-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="introduction-to-the-tidyverse.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize medianGdpPercap within each continent within each year: by_year_continent</span></span>
+<span id="cb509-2"><a href="introduction-to-the-tidyverse.html#cb509-2" aria-hidden="true" tabindex="-1"></a>by_year_continent <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb509-3"><a href="introduction-to-the-tidyverse.html#cb509-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span></span>
+<span id="cb509-4"><a href="introduction-to-the-tidyverse.html#cb509-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by
+## &#39;continent&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="introduction-to-the-tidyverse.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the change in medianGdpPercap in each continent over time</span></span>
+<span id="cb511-2"><a href="introduction-to-the-tidyverse.html#cb511-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year_continent, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianGdpPercap, </span>
+<span id="cb511-3"><a href="introduction-to-the-tidyverse.html#cb511-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb511-4"><a href="introduction-to-the-tidyverse.html#cb511-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb511-5"><a href="introduction-to-the-tidyverse.html#cb511-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="introduction-to-the-tidyverse.html#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median GDP and median life expectancy per continent in 2007</span></span>
+<span id="cb512-2"><a href="introduction-to-the-tidyverse.html#cb512-2" aria-hidden="true" tabindex="-1"></a>by_continent_2007 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb512-3"><a href="introduction-to-the-tidyverse.html#cb512-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb512-4"><a href="introduction-to-the-tidyverse.html#cb512-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb512-5"><a href="introduction-to-the-tidyverse.html#cb512-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb512-6"><a href="introduction-to-the-tidyverse.html#cb512-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span>
+<span id="cb512-7"><a href="introduction-to-the-tidyverse.html#cb512-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb512-8"><a href="introduction-to-the-tidyverse.html#cb512-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a scatter plot to compare the median GDP and median life expectancy</span></span>
+<span id="cb512-9"><a href="introduction-to-the-tidyverse.html#cb512-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_continent_2007, <span class="fu">aes</span>(<span class="at">x =</span> medianGdpPercap, <span class="at">y =</span> medianLifeExp,</span>
+<span id="cb512-10"><a href="introduction-to-the-tidyverse.html#cb512-10" aria-hidden="true" tabindex="-1"></a>                              <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb512-11"><a href="introduction-to-the-tidyverse.html#cb512-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="introduction-to-the-tidyverse.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize medianGdpPercap within each continent within each year: by_year_continent</span></span>
-<span id="cb469-2"><a href="introduction-to-the-tidyverse.html#cb469-2" aria-hidden="true" tabindex="-1"></a>by_year_continent <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb469-3"><a href="introduction-to-the-tidyverse.html#cb469-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span></span>
-<span id="cb469-4"><a href="introduction-to-the-tidyverse.html#cb469-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;continent&#39;. You can override using
-## the `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="introduction-to-the-tidyverse.html#cb471-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the change in medianGdpPercap in each continent over time</span></span>
-<span id="cb471-2"><a href="introduction-to-the-tidyverse.html#cb471-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year_continent, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianGdpPercap, </span>
-<span id="cb471-3"><a href="introduction-to-the-tidyverse.html#cb471-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">color =</span> continent)) <span class="sc">+</span></span>
-<span id="cb471-4"><a href="introduction-to-the-tidyverse.html#cb471-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb471-5"><a href="introduction-to-the-tidyverse.html#cb471-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="introduction-to-the-tidyverse.html#cb472-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median GDP and median life expectancy per continent in 2007</span></span>
-<span id="cb472-2"><a href="introduction-to-the-tidyverse.html#cb472-2" aria-hidden="true" tabindex="-1"></a>by_continent_2007 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb472-3"><a href="introduction-to-the-tidyverse.html#cb472-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb472-4"><a href="introduction-to-the-tidyverse.html#cb472-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
-<span id="cb472-5"><a href="introduction-to-the-tidyverse.html#cb472-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianLifeExp =</span> <span class="fu">median</span>(lifeExp),</span>
-<span id="cb472-6"><a href="introduction-to-the-tidyverse.html#cb472-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span>
-<span id="cb472-7"><a href="introduction-to-the-tidyverse.html#cb472-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb472-8"><a href="introduction-to-the-tidyverse.html#cb472-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a scatter plot to compare the median GDP and median life expectancy</span></span>
-<span id="cb472-9"><a href="introduction-to-the-tidyverse.html#cb472-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_continent_2007, <span class="fu">aes</span>(<span class="at">x =</span> medianGdpPercap, <span class="at">y =</span> medianLifeExp,</span>
-<span id="cb472-10"><a href="introduction-to-the-tidyverse.html#cb472-10" aria-hidden="true" tabindex="-1"></a>                              <span class="at">color =</span> continent)) <span class="sc">+</span></span>
-<span id="cb472-11"><a href="introduction-to-the-tidyverse.html#cb472-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
 </div>
 </div>
 <div id="types-of-visualizations" class="section level2 hasAnchor" number="3.4">
@@ -1177,83 +1358,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="line-plots" class="section level3 hasAnchor" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Line plots<a href="introduction-to-the-tidyverse.html#line-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A line plot is useful for visualizing trends over time.</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="introduction-to-the-tidyverse.html#cb473-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median gdpPercap by year, then save it as by_year</span></span>
-<span id="cb473-2"><a href="introduction-to-the-tidyverse.html#cb473-2" aria-hidden="true" tabindex="-1"></a>by_year <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb473-3"><a href="introduction-to-the-tidyverse.html#cb473-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb473-4"><a href="introduction-to-the-tidyverse.html#cb473-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span>
-<span id="cb473-5"><a href="introduction-to-the-tidyverse.html#cb473-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb473-6"><a href="introduction-to-the-tidyverse.html#cb473-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot showing the change in medianGdpPercap over time</span></span>
-<span id="cb473-7"><a href="introduction-to-the-tidyverse.html#cb473-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianGdpPercap)) <span class="sc">+</span></span>
-<span id="cb473-8"><a href="introduction-to-the-tidyverse.html#cb473-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb473-9"><a href="introduction-to-the-tidyverse.html#cb473-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="introduction-to-the-tidyverse.html#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median gdpPercap by year &amp; continent, save as by_year_continent</span></span>
-<span id="cb474-2"><a href="introduction-to-the-tidyverse.html#cb474-2" aria-hidden="true" tabindex="-1"></a>by_year_continent <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb474-3"><a href="introduction-to-the-tidyverse.html#cb474-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year, continent) <span class="sc">%&gt;%</span></span>
-<span id="cb474-4"><a href="introduction-to-the-tidyverse.html#cb474-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the
-## `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="introduction-to-the-tidyverse.html#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot showing the change in medianGdpPercap by continent over time</span></span>
-<span id="cb476-2"><a href="introduction-to-the-tidyverse.html#cb476-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year_continent, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianGdpPercap,</span>
-<span id="cb476-3"><a href="introduction-to-the-tidyverse.html#cb476-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">color =</span> continent)) <span class="sc">+</span></span>
-<span id="cb476-4"><a href="introduction-to-the-tidyverse.html#cb476-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb476-5"><a href="introduction-to-the-tidyverse.html#cb476-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="introduction-to-the-tidyverse.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median gdpPercap by year, then save it as by_year</span></span>
+<span id="cb513-2"><a href="introduction-to-the-tidyverse.html#cb513-2" aria-hidden="true" tabindex="-1"></a>by_year <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb513-3"><a href="introduction-to-the-tidyverse.html#cb513-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb513-4"><a href="introduction-to-the-tidyverse.html#cb513-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span>
+<span id="cb513-5"><a href="introduction-to-the-tidyverse.html#cb513-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb513-6"><a href="introduction-to-the-tidyverse.html#cb513-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot showing the change in medianGdpPercap over time</span></span>
+<span id="cb513-7"><a href="introduction-to-the-tidyverse.html#cb513-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianGdpPercap)) <span class="sc">+</span></span>
+<span id="cb513-8"><a href="introduction-to-the-tidyverse.html#cb513-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb513-9"><a href="introduction-to-the-tidyverse.html#cb513-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="introduction-to-the-tidyverse.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median gdpPercap by year &amp; continent, save as by_year_continent</span></span>
+<span id="cb514-2"><a href="introduction-to-the-tidyverse.html#cb514-2" aria-hidden="true" tabindex="-1"></a>by_year_continent <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb514-3"><a href="introduction-to-the-tidyverse.html#cb514-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year, continent) <span class="sc">%&gt;%</span></span>
+<span id="cb514-4"><a href="introduction-to-the-tidyverse.html#cb514-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;.
+## You can override using the `.groups`
+## argument.</code></pre>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="introduction-to-the-tidyverse.html#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot showing the change in medianGdpPercap by continent over time</span></span>
+<span id="cb516-2"><a href="introduction-to-the-tidyverse.html#cb516-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_year_continent, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> medianGdpPercap,</span>
+<span id="cb516-3"><a href="introduction-to-the-tidyverse.html#cb516-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb516-4"><a href="introduction-to-the-tidyverse.html#cb516-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb516-5"><a href="introduction-to-the-tidyverse.html#cb516-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
 </div>
 <div id="bar-plots" class="section level3 hasAnchor" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Bar plots<a href="introduction-to-the-tidyverse.html#bar-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A bar plot is useful for visualizing summary statistics.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="introduction-to-the-tidyverse.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median gdpPercap by continent in 1952</span></span>
-<span id="cb477-2"><a href="introduction-to-the-tidyverse.html#cb477-2" aria-hidden="true" tabindex="-1"></a>by_continent <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb477-3"><a href="introduction-to-the-tidyverse.html#cb477-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb477-4"><a href="introduction-to-the-tidyverse.html#cb477-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
-<span id="cb477-5"><a href="introduction-to-the-tidyverse.html#cb477-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span>
-<span id="cb477-6"><a href="introduction-to-the-tidyverse.html#cb477-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb477-7"><a href="introduction-to-the-tidyverse.html#cb477-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot showing medianGdp by continent</span></span>
-<span id="cb477-8"><a href="introduction-to-the-tidyverse.html#cb477-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_continent, <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> medianGdpPercap)) <span class="sc">+</span></span>
-<span id="cb477-9"><a href="introduction-to-the-tidyverse.html#cb477-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="introduction-to-the-tidyverse.html#cb478-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for observations in the Oceania continent in 1952</span></span>
-<span id="cb478-2"><a href="introduction-to-the-tidyverse.html#cb478-2" aria-hidden="true" tabindex="-1"></a>oceania_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb478-3"><a href="introduction-to-the-tidyverse.html#cb478-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span> <span class="sc">&amp;</span> continent <span class="sc">==</span> <span class="st">&quot;Oceania&quot;</span>)</span>
-<span id="cb478-4"><a href="introduction-to-the-tidyverse.html#cb478-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb478-5"><a href="introduction-to-the-tidyverse.html#cb478-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot of gdpPercap by country</span></span>
-<span id="cb478-6"><a href="introduction-to-the-tidyverse.html#cb478-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(oceania_1952, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
-<span id="cb478-7"><a href="introduction-to-the-tidyverse.html#cb478-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="introduction-to-the-tidyverse.html#cb517-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the median gdpPercap by continent in 1952</span></span>
+<span id="cb517-2"><a href="introduction-to-the-tidyverse.html#cb517-2" aria-hidden="true" tabindex="-1"></a>by_continent <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb517-3"><a href="introduction-to-the-tidyverse.html#cb517-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb517-4"><a href="introduction-to-the-tidyverse.html#cb517-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb517-5"><a href="introduction-to-the-tidyverse.html#cb517-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">medianGdpPercap =</span> <span class="fu">median</span>(gdpPercap))</span>
+<span id="cb517-6"><a href="introduction-to-the-tidyverse.html#cb517-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb517-7"><a href="introduction-to-the-tidyverse.html#cb517-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot showing medianGdp by continent</span></span>
+<span id="cb517-8"><a href="introduction-to-the-tidyverse.html#cb517-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_continent, <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> medianGdpPercap)) <span class="sc">+</span></span>
+<span id="cb517-9"><a href="introduction-to-the-tidyverse.html#cb517-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="introduction-to-the-tidyverse.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for observations in the Oceania continent in 1952</span></span>
+<span id="cb518-2"><a href="introduction-to-the-tidyverse.html#cb518-2" aria-hidden="true" tabindex="-1"></a>oceania_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb518-3"><a href="introduction-to-the-tidyverse.html#cb518-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span> <span class="sc">&amp;</span> continent <span class="sc">==</span> <span class="st">&quot;Oceania&quot;</span>)</span>
+<span id="cb518-4"><a href="introduction-to-the-tidyverse.html#cb518-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb518-5"><a href="introduction-to-the-tidyverse.html#cb518-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot of gdpPercap by country</span></span>
+<span id="cb518-6"><a href="introduction-to-the-tidyverse.html#cb518-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(oceania_1952, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
+<span id="cb518-7"><a href="introduction-to-the-tidyverse.html#cb518-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
 </div>
 <div id="histograms" class="section level3 hasAnchor" number="3.4.3">
 <h3><span class="header-section-number">3.4.3</span> Histograms<a href="introduction-to-the-tidyverse.html#histograms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A histogram is useful for examining the distribution of a numeric variable. So there is only x-axis.</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="introduction-to-the-tidyverse.html#cb479-1" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb479-2"><a href="introduction-to-the-tidyverse.html#cb479-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb479-3"><a href="introduction-to-the-tidyverse.html#cb479-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pop_by_mil =</span> pop <span class="sc">/</span> <span class="dv">1000000</span>)</span>
-<span id="cb479-4"><a href="introduction-to-the-tidyverse.html#cb479-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb479-5"><a href="introduction-to-the-tidyverse.html#cb479-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of population (pop_by_mil)</span></span>
-<span id="cb479-6"><a href="introduction-to-the-tidyverse.html#cb479-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop_by_mil)) <span class="sc">+</span></span>
-<span id="cb479-7"><a href="introduction-to-the-tidyverse.html#cb479-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="introduction-to-the-tidyverse.html#cb519-1" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb519-2"><a href="introduction-to-the-tidyverse.html#cb519-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb519-3"><a href="introduction-to-the-tidyverse.html#cb519-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pop_by_mil =</span> pop <span class="sc">/</span> <span class="dv">1000000</span>)</span>
+<span id="cb519-4"><a href="introduction-to-the-tidyverse.html#cb519-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-5"><a href="introduction-to-the-tidyverse.html#cb519-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of population (pop_by_mil)</span></span>
+<span id="cb519-6"><a href="introduction-to-the-tidyverse.html#cb519-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop_by_mil)) <span class="sc">+</span></span>
+<span id="cb519-7"><a href="introduction-to-the-tidyverse.html#cb519-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
 <p>To make the histogram more informative, you can try putting the x-axis on a log scale.</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="introduction-to-the-tidyverse.html#cb480-1" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb480-2"><a href="introduction-to-the-tidyverse.html#cb480-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>)</span>
-<span id="cb480-3"><a href="introduction-to-the-tidyverse.html#cb480-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb480-4"><a href="introduction-to-the-tidyverse.html#cb480-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of population (pop), with x on a log scale</span></span>
-<span id="cb480-5"><a href="introduction-to-the-tidyverse.html#cb480-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop)) <span class="sc">+</span></span>
-<span id="cb480-6"><a href="introduction-to-the-tidyverse.html#cb480-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>) <span class="sc">+</span></span>
-<span id="cb480-7"><a href="introduction-to-the-tidyverse.html#cb480-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="introduction-to-the-tidyverse.html#cb520-1" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb520-2"><a href="introduction-to-the-tidyverse.html#cb520-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>)</span>
+<span id="cb520-3"><a href="introduction-to-the-tidyverse.html#cb520-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb520-4"><a href="introduction-to-the-tidyverse.html#cb520-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of population (pop), with x on a log scale</span></span>
+<span id="cb520-5"><a href="introduction-to-the-tidyverse.html#cb520-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> pop)) <span class="sc">+</span></span>
+<span id="cb520-6"><a href="introduction-to-the-tidyverse.html#cb520-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>) <span class="sc">+</span></span>
+<span id="cb520-7"><a href="introduction-to-the-tidyverse.html#cb520-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 </div>
 <div id="box-plots" class="section level3 hasAnchor" number="3.4.4">
 <h3><span class="header-section-number">3.4.4</span> Box plots<a href="introduction-to-the-tidyverse.html#box-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A boxplot is useful for comparing a distribution of values across several groups.</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="introduction-to-the-tidyverse.html#cb481-1" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb481-2"><a href="introduction-to-the-tidyverse.html#cb481-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>)</span>
-<span id="cb481-3"><a href="introduction-to-the-tidyverse.html#cb481-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb481-4"><a href="introduction-to-the-tidyverse.html#cb481-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boxplot comparing gdpPercap among continents</span></span>
-<span id="cb481-5"><a href="introduction-to-the-tidyverse.html#cb481-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
-<span id="cb481-6"><a href="introduction-to-the-tidyverse.html#cb481-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb481-7"><a href="introduction-to-the-tidyverse.html#cb481-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="introduction-to-the-tidyverse.html#cb521-1" aria-hidden="true" tabindex="-1"></a>gapminder_1952 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb521-2"><a href="introduction-to-the-tidyverse.html#cb521-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>)</span>
+<span id="cb521-3"><a href="introduction-to-the-tidyverse.html#cb521-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-4"><a href="introduction-to-the-tidyverse.html#cb521-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boxplot comparing gdpPercap among continents</span></span>
+<span id="cb521-5"><a href="introduction-to-the-tidyverse.html#cb521-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_1952, <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> gdpPercap)) <span class="sc">+</span></span>
+<span id="cb521-6"><a href="introduction-to-the-tidyverse.html#cb521-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb521-7"><a href="introduction-to-the-tidyverse.html#cb521-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 
 </div>
 </div>

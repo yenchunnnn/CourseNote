@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 4 Data Manipulation | Data Scientist with R" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-14" />
+<meta name="date" content="2024-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -927,69 +927,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>arrange()</code>: sort by variables.</p></li>
 <li><p><code>mutate()</code>: change exist or create new variables.</p></li>
 </ul>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="data-manipulation.html#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb482-2"><a href="data-manipulation.html#cb482-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb482-3"><a href="data-manipulation.html#cb482-3" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/counties.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="data-manipulation.html#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ─────────
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ lubridate 1.9.2     ✔ tibble    3.2.1
+## ✔ purrr     1.0.1     ✔ tidyr     1.3.0
+## ✔ readr     2.1.4     
+## ── Conflicts ──────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="data-manipulation.html#cb524-1" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/counties.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 3138 Columns: 40
-## ── Column specification ───────────────────────────────────────────────────
+## ── Column specification ──────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (4): state, county, region, metro
-## dbl (36): census_id, population, men, women, hispanic, white, black, na...
+## dbl (36): census_id, population, men, women, hispanic, white, black, native,...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="data-manipulation.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(counties)</span></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="data-manipulation.html#cb526-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(counties)</span></code></pre></div>
 <pre><code>## Rows: 3,138
 ## Columns: 40
-## $ census_id          &lt;dbl&gt; 1001, 1003, 1005, 1007, 1009, 1011, 1013, 1015…
-## $ state              &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;A…
-## $ county             &lt;chr&gt; &quot;\&quot;Autauga\&quot;&quot;, &quot;\&quot;Baldwin\&quot;&quot;, &quot;\&quot;Barbour\&quot;&quot;, &quot;…
-## $ region             &lt;chr&gt; &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;…
-## $ metro              &lt;chr&gt; &quot;Metro&quot;, &quot;Metro&quot;, &quot;Nonmetro&quot;, &quot;Metro&quot;, &quot;Metro&quot;…
-## $ population         &lt;dbl&gt; 55221, 195121, 26932, 22604, 57710, 10678, 203…
-## $ men                &lt;dbl&gt; 26700, 95300, 14500, 12100, 28500, 5660, 9500,…
-## $ women              &lt;dbl&gt; 28500, 99800, 12400, 10500, 29200, 5020, 10900…
-## $ hispanic           &lt;dbl&gt; 2.6, 4.5, 4.6, 2.2, 8.6, 4.4, 1.2, 3.5, 0.4, 1…
-## $ white              &lt;dbl&gt; 75.8, 83.1, 46.2, 74.5, 87.9, 22.2, 53.3, 73.0…
-## $ black              &lt;dbl&gt; 18.5, 9.5, 46.7, 21.4, 1.5, 70.7, 43.8, 20.3, …
-## $ native             &lt;dbl&gt; 0.4, 0.6, 0.2, 0.4, 0.3, 1.2, 0.1, 0.2, 0.2, 0…
-## $ asian              &lt;dbl&gt; 1.0, 0.7, 0.4, 0.1, 0.1, 0.2, 0.4, 0.9, 0.8, 0…
-## $ pacific            &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0…
-## $ citizens           &lt;dbl&gt; 40725, 147695, 20714, 17495, 42345, 8057, 1558…
-## $ income             &lt;dbl&gt; 51281, 50254, 32964, 38678, 45813, 31938, 3222…
-## $ income_err         &lt;dbl&gt; 2391, 1263, 2973, 3995, 3141, 5884, 1793, 925,…
-## $ income_per_cap     &lt;dbl&gt; 24974, 27317, 16824, 18431, 20532, 17580, 1839…
-## $ income_per_cap_err &lt;dbl&gt; 1080, 711, 798, 1618, 708, 2055, 714, 489, 136…
-## $ poverty            &lt;dbl&gt; 12.9, 13.4, 26.7, 16.8, 16.7, 24.6, 25.4, 20.5…
-## $ child_poverty      &lt;dbl&gt; 18.6, 19.2, 45.3, 27.9, 27.2, 38.4, 39.2, 31.6…
-## $ professional       &lt;dbl&gt; 33.2, 33.1, 26.8, 21.5, 28.5, 18.8, 27.5, 27.3…
-## $ service            &lt;dbl&gt; 17.0, 17.7, 16.1, 17.9, 14.1, 15.0, 16.6, 17.7…
-## $ office             &lt;dbl&gt; 24.2, 27.1, 23.1, 17.8, 23.9, 19.7, 21.9, 24.2…
-## $ construction       &lt;dbl&gt; 8.6, 10.8, 10.8, 19.0, 13.5, 20.1, 10.3, 10.5,…
-## $ production         &lt;dbl&gt; 17.1, 11.2, 23.1, 23.7, 19.9, 26.4, 23.7, 20.4…
-## $ drive              &lt;dbl&gt; 87.5, 84.7, 83.8, 83.2, 84.9, 74.9, 84.5, 85.3…
-## $ carpool            &lt;dbl&gt; 8.8, 8.8, 10.9, 13.5, 11.2, 14.9, 12.4, 9.4, 1…
-## $ transit            &lt;dbl&gt; 0.1, 0.1, 0.4, 0.5, 0.4, 0.7, 0.0, 0.2, 0.2, 0…
-## $ walk               &lt;dbl&gt; 0.5, 1.0, 1.8, 0.6, 0.9, 5.0, 0.8, 1.2, 0.3, 0…
-## $ other_transp       &lt;dbl&gt; 1.3, 1.4, 1.5, 1.5, 0.4, 1.7, 0.6, 1.2, 0.4, 0…
-## $ work_at_home       &lt;dbl&gt; 1.8, 3.9, 1.6, 0.7, 2.3, 2.8, 1.7, 2.7, 2.1, 2…
-## $ mean_commute       &lt;dbl&gt; 26.5, 26.4, 24.1, 28.8, 34.9, 27.5, 24.6, 24.1…
-## $ employed           &lt;dbl&gt; 23986, 85953, 8597, 8294, 22189, 3865, 7813, 4…
-## $ private_work       &lt;dbl&gt; 73.6, 81.5, 71.8, 76.8, 82.0, 79.5, 77.4, 74.1…
-## $ public_work        &lt;dbl&gt; 20.9, 12.3, 20.8, 16.1, 13.5, 15.1, 16.2, 20.8…
-## $ self_employed      &lt;dbl&gt; 5.5, 5.8, 7.3, 6.7, 4.2, 5.4, 6.2, 5.0, 2.8, 7…
-## $ family_work        &lt;dbl&gt; 0.0, 0.4, 0.1, 0.4, 0.4, 0.0, 0.2, 0.1, 0.0, 0…
-## $ unemployment       &lt;dbl&gt; 7.6, 7.5, 17.6, 8.3, 7.7, 18.0, 10.9, 12.3, 8.…
-## $ land_area          &lt;dbl&gt; 594, 1590, 885, 623, 645, 623, 777, 606, 597, …</code></pre>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="data-manipulation.html#cb486-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb486-2"><a href="data-manipulation.html#cb486-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the five columns </span></span>
-<span id="cb486-3"><a href="data-manipulation.html#cb486-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, men, women) <span class="sc">%&gt;%</span></span>
-<span id="cb486-4"><a href="data-manipulation.html#cb486-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the proportion_men variable</span></span>
-<span id="cb486-5"><a href="data-manipulation.html#cb486-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion_men =</span> men <span class="sc">/</span> population) <span class="sc">%&gt;%</span></span>
-<span id="cb486-6"><a href="data-manipulation.html#cb486-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for population of at least 10,000</span></span>
-<span id="cb486-7"><a href="data-manipulation.html#cb486-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(population <span class="sc">&gt;=</span> <span class="dv">10000</span>, state <span class="sc">==</span> <span class="st">&quot;California&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb486-8"><a href="data-manipulation.html#cb486-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arrange proportion of men in descending order </span></span>
-<span id="cb486-9"><a href="data-manipulation.html#cb486-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(proportion_men))</span></code></pre></div>
+## $ census_id          &lt;dbl&gt; 1001, 1003, 1005, 1007, 1009, 1011, 1013, 1015, 101…
+## $ state              &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabam…
+## $ county             &lt;chr&gt; &quot;\&quot;Autauga\&quot;&quot;, &quot;\&quot;Baldwin\&quot;&quot;, &quot;\&quot;Barbour\&quot;&quot;, &quot;\&quot;Bib…
+## $ region             &lt;chr&gt; &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South…
+## $ metro              &lt;chr&gt; &quot;Metro&quot;, &quot;Metro&quot;, &quot;Nonmetro&quot;, &quot;Metro&quot;, &quot;Metro&quot;, &quot;No…
+## $ population         &lt;dbl&gt; 55221, 195121, 26932, 22604, 57710, 10678, 20354, 1…
+## $ men                &lt;dbl&gt; 26700, 95300, 14500, 12100, 28500, 5660, 9500, 5630…
+## $ women              &lt;dbl&gt; 28500, 99800, 12400, 10500, 29200, 5020, 10900, 604…
+## $ hispanic           &lt;dbl&gt; 2.6, 4.5, 4.6, 2.2, 8.6, 4.4, 1.2, 3.5, 0.4, 1.5, 7…
+## $ white              &lt;dbl&gt; 75.8, 83.1, 46.2, 74.5, 87.9, 22.2, 53.3, 73.0, 57.…
+## $ black              &lt;dbl&gt; 18.5, 9.5, 46.7, 21.4, 1.5, 70.7, 43.8, 20.3, 40.3,…
+## $ native             &lt;dbl&gt; 0.4, 0.6, 0.2, 0.4, 0.3, 1.2, 0.1, 0.2, 0.2, 0.6, 0…
+## $ asian              &lt;dbl&gt; 1.0, 0.7, 0.4, 0.1, 0.1, 0.2, 0.4, 0.9, 0.8, 0.3, 0…
+## $ pacific            &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0…
+## $ citizens           &lt;dbl&gt; 40725, 147695, 20714, 17495, 42345, 8057, 15581, 88…
+## $ income             &lt;dbl&gt; 51281, 50254, 32964, 38678, 45813, 31938, 32229, 41…
+## $ income_err         &lt;dbl&gt; 2391, 1263, 2973, 3995, 3141, 5884, 1793, 925, 2949…
+## $ income_per_cap     &lt;dbl&gt; 24974, 27317, 16824, 18431, 20532, 17580, 18390, 21…
+## $ income_per_cap_err &lt;dbl&gt; 1080, 711, 798, 1618, 708, 2055, 714, 489, 1366, 15…
+## $ poverty            &lt;dbl&gt; 12.9, 13.4, 26.7, 16.8, 16.7, 24.6, 25.4, 20.5, 21.…
+## $ child_poverty      &lt;dbl&gt; 18.6, 19.2, 45.3, 27.9, 27.2, 38.4, 39.2, 31.6, 37.…
+## $ professional       &lt;dbl&gt; 33.2, 33.1, 26.8, 21.5, 28.5, 18.8, 27.5, 27.3, 23.…
+## $ service            &lt;dbl&gt; 17.0, 17.7, 16.1, 17.9, 14.1, 15.0, 16.6, 17.7, 14.…
+## $ office             &lt;dbl&gt; 24.2, 27.1, 23.1, 17.8, 23.9, 19.7, 21.9, 24.2, 26.…
+## $ construction       &lt;dbl&gt; 8.6, 10.8, 10.8, 19.0, 13.5, 20.1, 10.3, 10.5, 11.5…
+## $ production         &lt;dbl&gt; 17.1, 11.2, 23.1, 23.7, 19.9, 26.4, 23.7, 20.4, 24.…
+## $ drive              &lt;dbl&gt; 87.5, 84.7, 83.8, 83.2, 84.9, 74.9, 84.5, 85.3, 85.…
+## $ carpool            &lt;dbl&gt; 8.8, 8.8, 10.9, 13.5, 11.2, 14.9, 12.4, 9.4, 11.9, …
+## $ transit            &lt;dbl&gt; 0.1, 0.1, 0.4, 0.5, 0.4, 0.7, 0.0, 0.2, 0.2, 0.2, 0…
+## $ walk               &lt;dbl&gt; 0.5, 1.0, 1.8, 0.6, 0.9, 5.0, 0.8, 1.2, 0.3, 0.6, 1…
+## $ other_transp       &lt;dbl&gt; 1.3, 1.4, 1.5, 1.5, 0.4, 1.7, 0.6, 1.2, 0.4, 0.7, 1…
+## $ work_at_home       &lt;dbl&gt; 1.8, 3.9, 1.6, 0.7, 2.3, 2.8, 1.7, 2.7, 2.1, 2.5, 1…
+## $ mean_commute       &lt;dbl&gt; 26.5, 26.4, 24.1, 28.8, 34.9, 27.5, 24.6, 24.1, 25.…
+## $ employed           &lt;dbl&gt; 23986, 85953, 8597, 8294, 22189, 3865, 7813, 47401,…
+## $ private_work       &lt;dbl&gt; 73.6, 81.5, 71.8, 76.8, 82.0, 79.5, 77.4, 74.1, 85.…
+## $ public_work        &lt;dbl&gt; 20.9, 12.3, 20.8, 16.1, 13.5, 15.1, 16.2, 20.8, 12.…
+## $ self_employed      &lt;dbl&gt; 5.5, 5.8, 7.3, 6.7, 4.2, 5.4, 6.2, 5.0, 2.8, 7.9, 4…
+## $ family_work        &lt;dbl&gt; 0.0, 0.4, 0.1, 0.4, 0.4, 0.0, 0.2, 0.1, 0.0, 0.5, 0…
+## $ unemployment       &lt;dbl&gt; 7.6, 7.5, 17.6, 8.3, 7.7, 18.0, 10.9, 12.3, 8.9, 7.…
+## $ land_area          &lt;dbl&gt; 594, 1590, 885, 623, 645, 623, 777, 606, 597, 554, …</code></pre>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="data-manipulation.html#cb528-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb528-2"><a href="data-manipulation.html#cb528-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the five columns </span></span>
+<span id="cb528-3"><a href="data-manipulation.html#cb528-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, men, women) <span class="sc">%&gt;%</span></span>
+<span id="cb528-4"><a href="data-manipulation.html#cb528-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the proportion_men variable</span></span>
+<span id="cb528-5"><a href="data-manipulation.html#cb528-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion_men =</span> men <span class="sc">/</span> population) <span class="sc">%&gt;%</span></span>
+<span id="cb528-6"><a href="data-manipulation.html#cb528-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for population of at least 10,000</span></span>
+<span id="cb528-7"><a href="data-manipulation.html#cb528-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(population <span class="sc">&gt;=</span> <span class="dv">10000</span>, state <span class="sc">==</span> <span class="st">&quot;California&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb528-8"><a href="data-manipulation.html#cb528-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arrange proportion of men in descending order </span></span>
+<span id="cb528-9"><a href="data-manipulation.html#cb528-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(proportion_men))</span></code></pre></div>
+<pre><code>## # A tibble: 55 × 6
+##    state      county          population    men  women proportion_men
+##    &lt;chr&gt;      &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+##  1 California &quot;\&quot;Lassen\&quot;&quot;         32645  21800  10800          0.668
+##  2 California &quot;\&quot;Kings\&quot;&quot;         150998  84000  67000          0.556
+##  3 California &quot;\&quot;Del Norte\&quot;&quot;      27788  15400  12400          0.554
+##  4 California &quot;\&quot;Amador\&quot;&quot;         36995  20000  17000          0.541
+##  5 California &quot;\&quot;Tuolumne\&quot;&quot;       54079  28200  25900          0.521
+##  6 California &quot;\&quot;Colusa\&quot;&quot;         21396  11100  10300          0.519
+##  7 California &quot;\&quot;Mono\&quot;&quot;           14146   7310   6840          0.517
+##  8 California &quot;\&quot;Trinity\&quot;&quot;        13373   6880   6500          0.514
+##  9 California &quot;\&quot;Kern\&quot;&quot;          865736 445000 421000          0.514
+## 10 California &quot;\&quot;Imperial\&quot;&quot;      178206  91200  87000          0.512
+## # ℹ 45 more rows</code></pre>
 </div>
 </div>
 <div id="aggregating-data" class="section level2 hasAnchor" number="4.2">
@@ -998,31 +1020,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.2.1</span> Count<a href="data-manipulation.html#count" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way we can aggregate data is to <code>count()</code>: to find out the number of observations.</p>
 <p>Count variable and sort:</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="data-manipulation.html#cb487-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(var, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="data-manipulation.html#cb488-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
-<span id="cb488-2"><a href="data-manipulation.html#cb488-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(county, region, state, population, citizens)</span>
-<span id="cb488-3"><a href="data-manipulation.html#cb488-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb488-4"><a href="data-manipulation.html#cb488-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use count to find the number of counties in each region</span></span>
-<span id="cb488-5"><a href="data-manipulation.html#cb488-5" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
-<span id="cb488-6"><a href="data-manipulation.html#cb488-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(region, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="data-manipulation.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(var, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="data-manipulation.html#cb531-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
+<span id="cb531-2"><a href="data-manipulation.html#cb531-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(county, region, state, population, citizens)</span>
+<span id="cb531-3"><a href="data-manipulation.html#cb531-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb531-4"><a href="data-manipulation.html#cb531-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use count to find the number of counties in each region</span></span>
+<span id="cb531-5"><a href="data-manipulation.html#cb531-5" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb531-6"><a href="data-manipulation.html#cb531-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(region, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   region     n
+##   &lt;chr&gt;  &lt;int&gt;
+## 1 South   1420
+## 2 North~  1271
+## 3 West     447</code></pre>
 <p>Add weight:</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="data-manipulation.html#cb489-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(var1, <span class="at">wt =</span> var2, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="data-manipulation.html#cb490-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
-<span id="cb490-2"><a href="data-manipulation.html#cb490-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(county, region, state, population, citizens)</span>
-<span id="cb490-3"><a href="data-manipulation.html#cb490-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-4"><a href="data-manipulation.html#cb490-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find number of counties per state, weighted by citizens, sorted in descending order</span></span>
-<span id="cb490-5"><a href="data-manipulation.html#cb490-5" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
-<span id="cb490-6"><a href="data-manipulation.html#cb490-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(state, <span class="at">wt =</span> citizens, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="data-manipulation.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(var1, <span class="at">wt =</span> var2, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="data-manipulation.html#cb534-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
+<span id="cb534-2"><a href="data-manipulation.html#cb534-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(county, region, state, population, citizens)</span>
+<span id="cb534-3"><a href="data-manipulation.html#cb534-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb534-4"><a href="data-manipulation.html#cb534-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find number of counties per state, weighted by citizens, sorted in descending order</span></span>
+<span id="cb534-5"><a href="data-manipulation.html#cb534-5" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb534-6"><a href="data-manipulation.html#cb534-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(state, <span class="at">wt =</span> citizens, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##    state             n
+##    &lt;chr&gt;         &lt;dbl&gt;
+##  1 California 24280349
+##  2 Texas      16864864
+##  3 Florida    13933052
+##  4 New York   13531404
+##  5 Pennsylvan  9710416
+##  6 Illinois    8979999
+##  7 Ohio        8709050
+##  8 Michigan    7380136
+##  9 North Caro  7107998
+## 10 Georgia     6978660
+## # ℹ 40 more rows</code></pre>
 <p>Mutating and counting:</p>
 <p>“What are the US states where the most people walk to work?”</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="data-manipulation.html#cb491-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
-<span id="cb491-2"><a href="data-manipulation.html#cb491-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(county, region, state, population, walk)</span>
-<span id="cb491-3"><a href="data-manipulation.html#cb491-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb491-4"><a href="data-manipulation.html#cb491-4" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
-<span id="cb491-5"><a href="data-manipulation.html#cb491-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add population_walk containing the total number of people who walk to work </span></span>
-<span id="cb491-6"><a href="data-manipulation.html#cb491-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">population_walk =</span> walk <span class="sc">*</span> population <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb491-7"><a href="data-manipulation.html#cb491-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count weighted by the new column, sort in descending order</span></span>
-<span id="cb491-8"><a href="data-manipulation.html#cb491-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, <span class="at">wt =</span> population_walk, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="data-manipulation.html#cb536-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
+<span id="cb536-2"><a href="data-manipulation.html#cb536-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(county, region, state, population, walk)</span>
+<span id="cb536-3"><a href="data-manipulation.html#cb536-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-4"><a href="data-manipulation.html#cb536-4" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb536-5"><a href="data-manipulation.html#cb536-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add population_walk containing the total number of people who walk to work </span></span>
+<span id="cb536-6"><a href="data-manipulation.html#cb536-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">population_walk =</span> walk <span class="sc">*</span> population <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb536-7"><a href="data-manipulation.html#cb536-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count weighted by the new column, sort in descending order</span></span>
+<span id="cb536-8"><a href="data-manipulation.html#cb536-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, <span class="at">wt =</span> population_walk, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##    state             n
+##    &lt;chr&gt;         &lt;dbl&gt;
+##  1 New York   1237938.
+##  2 California 1017964.
+##  3 Pennsylvan  505397.
+##  4 Texas       430783.
+##  5 Illinois    400346.
+##  6 Massachuse  316765.
+##  7 Florida     284723.
+##  8 New Jersey  273047.
+##  9 Ohio        266911.
+## 10 Washington  239764.
+## # ℹ 40 more rows</code></pre>
 </div>
 <div id="group_by-summarize-ungroup" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> group_by, summarize, ungroup<a href="data-manipulation.html#group_by-summarize-ungroup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1033,57 +1089,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>ungroup()</code>: If you don’t want to keep variable as a group, you can add another <code>ungroup()</code>.</p></li>
 </ul>
 <p>Summarize both population and land area by state, with the purpose of finding the density (in people per square miles).</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="data-manipulation.html#cb492-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb492-2"><a href="data-manipulation.html#cb492-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, population, land_area) <span class="sc">%&gt;%</span></span>
-<span id="cb492-3"><a href="data-manipulation.html#cb492-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group by state </span></span>
-<span id="cb492-4"><a href="data-manipulation.html#cb492-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb492-5"><a href="data-manipulation.html#cb492-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the total area and population</span></span>
-<span id="cb492-6"><a href="data-manipulation.html#cb492-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total_area =</span> <span class="fu">sum</span>(land_area),</span>
-<span id="cb492-7"><a href="data-manipulation.html#cb492-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_population =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
-<span id="cb492-8"><a href="data-manipulation.html#cb492-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a density column</span></span>
-<span id="cb492-9"><a href="data-manipulation.html#cb492-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">density =</span> total_population <span class="sc">/</span> total_area) <span class="sc">%&gt;%</span></span>
-<span id="cb492-10"><a href="data-manipulation.html#cb492-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort by density in descending order</span></span>
-<span id="cb492-11"><a href="data-manipulation.html#cb492-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(density))</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="data-manipulation.html#cb538-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb538-2"><a href="data-manipulation.html#cb538-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, population, land_area) <span class="sc">%&gt;%</span></span>
+<span id="cb538-3"><a href="data-manipulation.html#cb538-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group by state </span></span>
+<span id="cb538-4"><a href="data-manipulation.html#cb538-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb538-5"><a href="data-manipulation.html#cb538-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the total area and population</span></span>
+<span id="cb538-6"><a href="data-manipulation.html#cb538-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total_area =</span> <span class="fu">sum</span>(land_area),</span>
+<span id="cb538-7"><a href="data-manipulation.html#cb538-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_population =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb538-8"><a href="data-manipulation.html#cb538-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a density column</span></span>
+<span id="cb538-9"><a href="data-manipulation.html#cb538-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">density =</span> total_population <span class="sc">/</span> total_area) <span class="sc">%&gt;%</span></span>
+<span id="cb538-10"><a href="data-manipulation.html#cb538-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort by density in descending order</span></span>
+<span id="cb538-11"><a href="data-manipulation.html#cb538-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(density))</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 4
+##    state      total_area total_population density
+##    &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+##  1 New Jersey      7356.          8904413   1210.
+##  2 Rhode Isla      1034.          1053661   1019.
+##  3 Massachuse      7800.          6705586    860.
+##  4 Connecticu      4843           3593222    742.
+##  5 Maryland        9707.          5930538    611.
+##  6 Delaware        1948            926454    476.
+##  7 New York       47127.         19673174    417.
+##  8 Florida        53627          19645772    366.
+##  9 Pennsylvan     44740          12779559    286.
+## 10 Ohio           40855          11575977    283.
+## # ℹ 40 more rows</code></pre>
 <p>You can group by multiple columns instead of grouping by one.Summarizing by state and region:</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="data-manipulation.html#cb493-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb493-2"><a href="data-manipulation.html#cb493-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(region, state, county, population) <span class="sc">%&gt;%</span></span>
-<span id="cb493-3"><a href="data-manipulation.html#cb493-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group and summarize to find the total population</span></span>
-<span id="cb493-4"><a href="data-manipulation.html#cb493-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(region, state) <span class="sc">%&gt;%</span></span>
-<span id="cb493-5"><a href="data-manipulation.html#cb493-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
-<span id="cb493-6"><a href="data-manipulation.html#cb493-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the average_pop and median_pop columns </span></span>
-<span id="cb493-7"><a href="data-manipulation.html#cb493-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">average_pop =</span> <span class="fu">mean</span>(total_pop),</span>
-<span id="cb493-8"><a href="data-manipulation.html#cb493-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_pop =</span> <span class="fu">median</span>(total_pop))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;region&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="data-manipulation.html#cb540-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb540-2"><a href="data-manipulation.html#cb540-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(region, state, county, population) <span class="sc">%&gt;%</span></span>
+<span id="cb540-3"><a href="data-manipulation.html#cb540-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group and summarize to find the total population</span></span>
+<span id="cb540-4"><a href="data-manipulation.html#cb540-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(region, state) <span class="sc">%&gt;%</span></span>
+<span id="cb540-5"><a href="data-manipulation.html#cb540-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb540-6"><a href="data-manipulation.html#cb540-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the average_pop and median_pop columns </span></span>
+<span id="cb540-7"><a href="data-manipulation.html#cb540-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">average_pop =</span> <span class="fu">mean</span>(total_pop),</span>
+<span id="cb540-8"><a href="data-manipulation.html#cb540-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_pop =</span> <span class="fu">median</span>(total_pop))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;region&#39;.
+## You can override using the `.groups`
+## argument.</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   region average_pop median_pop
+##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 North~    5881989.    5419171
+## 2 South     7370486     4804098
+## 3 West      5722755.    2798636</code></pre>
 </div>
 <div id="slice_min-slice_max" class="section level3 hasAnchor" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> slice_min, slice_max<a href="data-manipulation.html#slice_min-slice_max" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>slice_max()</code> operates on a grouped table, and returns the largest observations in each group. The function takes two arguments: the column we want to base the ordering on, and the number of observations to extract from each group, specified with the <code>n</code> argument.</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="data-manipulation.html#cb495-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The largest observations</span></span>
-<span id="cb495-2"><a href="data-manipulation.html#cb495-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_max</span>(var, <span class="at">n =</span> <span class="dv">1</span>) </span>
-<span id="cb495-3"><a href="data-manipulation.html#cb495-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb495-4"><a href="data-manipulation.html#cb495-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The 3 largest observations</span></span>
-<span id="cb495-5"><a href="data-manipulation.html#cb495-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_max</span>(var, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="data-manipulation.html#cb543-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The largest observations</span></span>
+<span id="cb543-2"><a href="data-manipulation.html#cb543-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_max</span>(var, <span class="at">n =</span> <span class="dv">1</span>) </span>
+<span id="cb543-3"><a href="data-manipulation.html#cb543-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb543-4"><a href="data-manipulation.html#cb543-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The 3 largest observations</span></span>
+<span id="cb543-5"><a href="data-manipulation.html#cb543-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_max</span>(var, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p>Similarly, <code>slice_min()</code> returns the smallest observations in each group.</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="data-manipulation.html#cb496-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The smallest observations</span></span>
-<span id="cb496-2"><a href="data-manipulation.html#cb496-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_min</span>(var, <span class="at">n =</span> <span class="dv">1</span>) </span>
-<span id="cb496-3"><a href="data-manipulation.html#cb496-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb496-4"><a href="data-manipulation.html#cb496-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The 3 smallest observations</span></span>
-<span id="cb496-5"><a href="data-manipulation.html#cb496-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_min</span>(var, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="data-manipulation.html#cb544-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The smallest observations</span></span>
+<span id="cb544-2"><a href="data-manipulation.html#cb544-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_min</span>(var, <span class="at">n =</span> <span class="dv">1</span>) </span>
+<span id="cb544-3"><a href="data-manipulation.html#cb544-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb544-4"><a href="data-manipulation.html#cb544-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The 3 smallest observations</span></span>
+<span id="cb544-5"><a href="data-manipulation.html#cb544-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_min</span>(var, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p>The <code>slicing</code> are often used when creating visualizations, where we may want to highlight the extreme observations on the plot.</p>
 <p>Q: In how many states do more people live in metro areas than non-metro areas?</p>
-<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="data-manipulation.html#cb497-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb497-2"><a href="data-manipulation.html#cb497-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, metro, population) <span class="sc">%&gt;%</span></span>
-<span id="cb497-3"><a href="data-manipulation.html#cb497-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the total population for each combination of state and metro</span></span>
-<span id="cb497-4"><a href="data-manipulation.html#cb497-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(state, metro) <span class="sc">%&gt;%</span></span>
-<span id="cb497-5"><a href="data-manipulation.html#cb497-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
-<span id="cb497-6"><a href="data-manipulation.html#cb497-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the most populated row for each state</span></span>
-<span id="cb497-7"><a href="data-manipulation.html#cb497-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(total_pop, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb497-8"><a href="data-manipulation.html#cb497-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the states with more people in Metro or Nonmetro areas</span></span>
-<span id="cb497-9"><a href="data-manipulation.html#cb497-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb497-10"><a href="data-manipulation.html#cb497-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(metro, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="data-manipulation.html#cb545-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb545-2"><a href="data-manipulation.html#cb545-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, metro, population) <span class="sc">%&gt;%</span></span>
+<span id="cb545-3"><a href="data-manipulation.html#cb545-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the total population for each combination of state and metro</span></span>
+<span id="cb545-4"><a href="data-manipulation.html#cb545-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(state, metro) <span class="sc">%&gt;%</span></span>
+<span id="cb545-5"><a href="data-manipulation.html#cb545-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb545-6"><a href="data-manipulation.html#cb545-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the most populated row for each state</span></span>
+<span id="cb545-7"><a href="data-manipulation.html#cb545-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(total_pop, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb545-8"><a href="data-manipulation.html#cb545-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the states with more people in Metro or Nonmetro areas</span></span>
+<span id="cb545-9"><a href="data-manipulation.html#cb545-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb545-10"><a href="data-manipulation.html#cb545-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(metro, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;.
+## You can override using the `.groups`
+## argument.</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   metro        n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Metro       44
+## 2 Nonmetro     6</code></pre>
 </div>
 </div>
 <div id="selecting-and-transforming-data" class="section level2 hasAnchor" number="4.3">
@@ -1093,44 +1176,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="range" class="section level4 hasAnchor" number="4.3.1.1">
 <h4><span class="header-section-number">4.3.1.1</span> Range<a href="data-manipulation.html#range" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Select a range of columns.</p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="data-manipulation.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3<span class="sc">:</span>var6)</span>
-<span id="cb499-2"><a href="data-manipulation.html#cb499-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb499-3"><a href="data-manipulation.html#cb499-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb499-4"><a href="data-manipulation.html#cb499-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, drive<span class="sc">:</span>work_at_home)</span></code></pre></div>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="data-manipulation.html#cb500-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb500-2"><a href="data-manipulation.html#cb500-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select state, county, population, and industry-related columns</span></span>
-<span id="cb500-3"><a href="data-manipulation.html#cb500-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, professional<span class="sc">:</span>production) <span class="sc">%&gt;%</span></span>
-<span id="cb500-4"><a href="data-manipulation.html#cb500-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arrange service in descending order </span></span>
-<span id="cb500-5"><a href="data-manipulation.html#cb500-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(service))</span></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="data-manipulation.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3<span class="sc">:</span>var6)</span>
+<span id="cb548-2"><a href="data-manipulation.html#cb548-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb548-3"><a href="data-manipulation.html#cb548-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb548-4"><a href="data-manipulation.html#cb548-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, drive<span class="sc">:</span>work_at_home)</span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="data-manipulation.html#cb549-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb549-2"><a href="data-manipulation.html#cb549-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select state, county, population, and industry-related columns</span></span>
+<span id="cb549-3"><a href="data-manipulation.html#cb549-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, professional<span class="sc">:</span>production) <span class="sc">%&gt;%</span></span>
+<span id="cb549-4"><a href="data-manipulation.html#cb549-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arrange service in descending order </span></span>
+<span id="cb549-5"><a href="data-manipulation.html#cb549-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(service))</span></code></pre></div>
+<pre><code>## # A tibble: 3,138 × 8
+##    state   county population professional service office construction production
+##    &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Missis… &quot;i   …      10477         23.9    36.6   21.5          3.5       14.5
+##  2 Texas   &quot;\&quot;Ki…       3577         30      36.5   11.6         20.5        1.3
+##  3 Texas   &quot;\&quot;Ke…        565         24.9    34.1   20.5         20.5        0  
+##  4 New Yo… &quot;\&quot;Br…    1428357         24.3    33.3   24.2          7.1       11  
+##  5 Texas   &quot;\&quot;Br…       7221         19.6    32.4   25.3         11.1       11.5
+##  6 Colora… &quot;\&quot;Fr…      46809         26.6    32.2   22.8         10.7        7.6
+##  7 Texas   &quot;\&quot;Cu…       2296         20.1    32.2   24.2         15.7        7.8
+##  8 Califo… &quot;\&quot;De…      27788         33.9    31.5   18.8          8.9        6.8
+##  9 Minnes… &quot;\&quot;Ma…       5496         26.8    31.5   18.7         13.1        9.9
+## 10 Virgin… &quot;\&quot;La…      11129         30.3    31.2   22.8          8.1        7.6
+## # ℹ 3,128 more rows</code></pre>
 </div>
 <div id="contains" class="section level4 hasAnchor" number="4.3.1.2">
 <h4><span class="header-section-number">4.3.1.2</span> Contains<a href="data-manipulation.html#contains" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Specify criteria for choosing columns.</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="data-manipulation.html#cb501-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3, <span class="fu">contains</span>(<span class="st">&quot;char&quot;</span>))</span>
-<span id="cb501-2"><a href="data-manipulation.html#cb501-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb501-3"><a href="data-manipulation.html#cb501-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb501-4"><a href="data-manipulation.html#cb501-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">contains</span>(<span class="st">&quot;work&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="data-manipulation.html#cb551-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3, <span class="fu">contains</span>(<span class="st">&quot;char&quot;</span>))</span>
+<span id="cb551-2"><a href="data-manipulation.html#cb551-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb551-3"><a href="data-manipulation.html#cb551-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb551-4"><a href="data-manipulation.html#cb551-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">contains</span>(<span class="st">&quot;work&quot;</span>))</span></code></pre></div>
 </div>
 <div id="starts-with" class="section level4 hasAnchor" number="4.3.1.3">
 <h4><span class="header-section-number">4.3.1.3</span> Starts with<a href="data-manipulation.html#starts-with" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To select only the columns that start with a particular prefix.</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="data-manipulation.html#cb502-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3, <span class="fu">starts_with</span>(<span class="st">&quot;char&quot;</span>))</span>
-<span id="cb502-2"><a href="data-manipulation.html#cb502-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb502-3"><a href="data-manipulation.html#cb502-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb502-4"><a href="data-manipulation.html#cb502-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">starts_with</span>(<span class="st">&quot;income&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="data-manipulation.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3, <span class="fu">starts_with</span>(<span class="st">&quot;char&quot;</span>))</span>
+<span id="cb552-2"><a href="data-manipulation.html#cb552-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb552-3"><a href="data-manipulation.html#cb552-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb552-4"><a href="data-manipulation.html#cb552-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">starts_with</span>(<span class="st">&quot;income&quot;</span>))</span></code></pre></div>
 </div>
 <div id="ends-with" class="section level4 hasAnchor" number="4.3.1.4">
 <h4><span class="header-section-number">4.3.1.4</span> Ends with<a href="data-manipulation.html#ends-with" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Finds columns ending in a string.</p>
-<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="data-manipulation.html#cb503-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3, <span class="fu">ends_with</span>(<span class="st">&quot;char&quot;</span>))</span>
-<span id="cb503-2"><a href="data-manipulation.html#cb503-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb503-3"><a href="data-manipulation.html#cb503-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb503-4"><a href="data-manipulation.html#cb503-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="data-manipulation.html#cb504-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb504-2"><a href="data-manipulation.html#cb504-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the state, county, population, and those ending with &quot;work&quot;</span></span>
-<span id="cb504-3"><a href="data-manipulation.html#cb504-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, <span class="fu">ends_with</span>(<span class="st">&quot;work&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb504-4"><a href="data-manipulation.html#cb504-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for counties that have at least 50% of people engaged in public work</span></span>
-<span id="cb504-5"><a href="data-manipulation.html#cb504-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(public_work <span class="sc">&gt;</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="data-manipulation.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var3, <span class="fu">ends_with</span>(<span class="st">&quot;char&quot;</span>))</span>
+<span id="cb553-2"><a href="data-manipulation.html#cb553-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb553-3"><a href="data-manipulation.html#cb553-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb553-4"><a href="data-manipulation.html#cb553-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="data-manipulation.html#cb554-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb554-2"><a href="data-manipulation.html#cb554-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the state, county, population, and those ending with &quot;work&quot;</span></span>
+<span id="cb554-3"><a href="data-manipulation.html#cb554-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, <span class="fu">ends_with</span>(<span class="st">&quot;work&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb554-4"><a href="data-manipulation.html#cb554-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for counties that have at least 50% of people engaged in public work</span></span>
+<span id="cb554-5"><a href="data-manipulation.html#cb554-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(public_work <span class="sc">&gt;</span> <span class="dv">50</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 6
+##   state      county              population private_work public_work family_work
+##   &lt;chr&gt;      &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Alaska     &quot;\&quot;Lake and Penins…       1474         42.2        51.6         0.2
+## 2 Alaska     &quot;\&quot;Yukon-Koyukuk C…       5644         33.3        61.7         0  
+## 3 California &quot;\&quot;Lassen\&quot;&quot;             32645         42.6        50.5         0.1
+## 4 Hawaii     &quot;\&quot;Kalawao\&quot;&quot;               85         25          64.1         0  
+## 5 North Dako &quot;ta   \&quot;Sioux\&quot;&quot;          4380         32.9        56.8         0.1
+## 6 South Dako &quot;ta   \&quot;Todd\&quot;&quot;           9942         34.4        55           0.8
+## 7 Wisconsin  &quot;\&quot;Menominee\&quot;&quot;           4451         36.8        59.1         0.4</code></pre>
 </div>
 <div id="last-column" class="section level4 hasAnchor" number="4.3.1.5">
 <h4><span class="header-section-number">4.3.1.5</span> Last column<a href="data-manipulation.html#last-column" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1139,18 +1246,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="matches" class="section level4 hasAnchor" number="4.3.1.6">
 <h4><span class="header-section-number">4.3.1.6</span> Matches<a href="data-manipulation.html#matches" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Selects columns that have a specified pattern.</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="data-manipulation.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">&quot;regex&quot;</span>))</span>
-<span id="cb505-2"><a href="data-manipulation.html#cb505-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb505-3"><a href="data-manipulation.html#cb505-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb505-4"><a href="data-manipulation.html#cb505-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">&quot;.\_.&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="data-manipulation.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">&quot;regex&quot;</span>))</span>
+<span id="cb556-2"><a href="data-manipulation.html#cb556-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb556-3"><a href="data-manipulation.html#cb556-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb556-4"><a href="data-manipulation.html#cb556-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">&quot;.\_.&quot;</span>))</span></code></pre></div>
 </div>
 <div id="removing-a-variable" class="section level4 hasAnchor" number="4.3.1.7">
 <h4><span class="header-section-number">4.3.1.7</span> Removing a variable<a href="data-manipulation.html#removing-a-variable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We can use select to remove variables from a table by adding a <code>-</code> in front of the column name to remove.</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="data-manipulation.html#cb506-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="sc">-</span>(var1))</span>
-<span id="cb506-2"><a href="data-manipulation.html#cb506-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb506-3"><a href="data-manipulation.html#cb506-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb506-4"><a href="data-manipulation.html#cb506-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="sc">-</span>census_id)</span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="data-manipulation.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="sc">-</span>(var1))</span>
+<span id="cb557-2"><a href="data-manipulation.html#cb557-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb557-3"><a href="data-manipulation.html#cb557-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb557-4"><a href="data-manipulation.html#cb557-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="sc">-</span>census_id)</span></code></pre></div>
 </div>
 </div>
 <div id="rename" class="section level3 hasAnchor" number="4.3.2">
@@ -1161,176 +1268,334 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Select</li>
 </ul>
 <p>When select variables, change variables’ name at the same time.</p>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="data-manipulation.html#cb507-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var2, <span class="at">var_newname =</span> var_oldname)</span>
-<span id="cb507-2"><a href="data-manipulation.html#cb507-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb507-3"><a href="data-manipulation.html#cb507-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb507-4"><a href="data-manipulation.html#cb507-4" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb507-5"><a href="data-manipulation.html#cb507-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, population, <span class="at">unemployment_rate =</span> unemployment)</span></code></pre></div>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="data-manipulation.html#cb508-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb508-2"><a href="data-manipulation.html#cb508-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select state, county, and poverty as poverty_rate</span></span>
-<span id="cb508-3"><a href="data-manipulation.html#cb508-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, <span class="at">poverty_rate =</span> poverty)</span></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="data-manipulation.html#cb558-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(var1, var2, <span class="at">var_newname =</span> var_oldname)</span>
+<span id="cb558-2"><a href="data-manipulation.html#cb558-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb558-3"><a href="data-manipulation.html#cb558-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb558-4"><a href="data-manipulation.html#cb558-4" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb558-5"><a href="data-manipulation.html#cb558-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, population, <span class="at">unemployment_rate =</span> unemployment)</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="data-manipulation.html#cb559-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb559-2"><a href="data-manipulation.html#cb559-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select state, county, and poverty as poverty_rate</span></span>
+<span id="cb559-3"><a href="data-manipulation.html#cb559-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, <span class="at">poverty_rate =</span> poverty)</span></code></pre></div>
+<pre><code>## # A tibble: 3,138 × 3
+##    state   county         poverty_rate
+##    &lt;chr&gt;   &lt;chr&gt;                 &lt;dbl&gt;
+##  1 Alabama &quot;\&quot;Autauga\&quot;&quot;          12.9
+##  2 Alabama &quot;\&quot;Baldwin\&quot;&quot;          13.4
+##  3 Alabama &quot;\&quot;Barbour\&quot;&quot;          26.7
+##  4 Alabama &quot;\&quot;Bibb\&quot;&quot;             16.8
+##  5 Alabama &quot;\&quot;Blount\&quot;&quot;           16.7
+##  6 Alabama &quot;\&quot;Bullock\&quot;&quot;          24.6
+##  7 Alabama &quot;\&quot;Butler\&quot;&quot;           25.4
+##  8 Alabama &quot;\&quot;Calhoun\&quot;&quot;          20.5
+##  9 Alabama &quot;\&quot;Chambers\&quot;&quot;         21.6
+## 10 Alabama &quot;\&quot;Cherokee\&quot;&quot;         19.2
+## # ℹ 3,128 more rows</code></pre>
 <ul>
 <li>Rename</li>
 </ul>
 <p><code>rename()</code> is often useful for changing the name of a column that comes out of another verb.</p>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="data-manipulation.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">var_newname =</span> var_oldname)</span>
-<span id="cb509-2"><a href="data-manipulation.html#cb509-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb509-3"><a href="data-manipulation.html#cb509-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
-<span id="cb509-4"><a href="data-manipulation.html#cb509-4" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb509-5"><a href="data-manipulation.html#cb509-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, population, unemployment) <span class="sc">%&gt;%</span></span>
-<span id="cb509-6"><a href="data-manipulation.html#cb509-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">unemployment_rate =</span> unemployment)</span></code></pre></div>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="data-manipulation.html#cb510-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb510-2"><a href="data-manipulation.html#cb510-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of counties in each state</span></span>
-<span id="cb510-3"><a href="data-manipulation.html#cb510-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(state)</span></code></pre></div>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="data-manipulation.html#cb511-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb511-2"><a href="data-manipulation.html#cb511-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of counties in each state</span></span>
-<span id="cb511-3"><a href="data-manipulation.html#cb511-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb511-4"><a href="data-manipulation.html#cb511-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Rename the n column to num_counties</span></span>
-<span id="cb511-5"><a href="data-manipulation.html#cb511-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">num_counties =</span> n)</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="data-manipulation.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">var_newname =</span> var_oldname)</span>
+<span id="cb561-2"><a href="data-manipulation.html#cb561-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb561-3"><a href="data-manipulation.html#cb561-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<span id="cb561-4"><a href="data-manipulation.html#cb561-4" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb561-5"><a href="data-manipulation.html#cb561-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, county, population, unemployment) <span class="sc">%&gt;%</span></span>
+<span id="cb561-6"><a href="data-manipulation.html#cb561-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">unemployment_rate =</span> unemployment)</span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="data-manipulation.html#cb562-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb562-2"><a href="data-manipulation.html#cb562-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of counties in each state</span></span>
+<span id="cb562-3"><a href="data-manipulation.html#cb562-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(state)</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##    state          n
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 Alabama       67
+##  2 Alaska        28
+##  3 Arizona       15
+##  4 Arkansas      75
+##  5 California    58
+##  6 Colorado      64
+##  7 Connecticu     8
+##  8 Delaware       3
+##  9 Florida       67
+## 10 Georgia      159
+## # ℹ 40 more rows</code></pre>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="data-manipulation.html#cb564-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb564-2"><a href="data-manipulation.html#cb564-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of counties in each state</span></span>
+<span id="cb564-3"><a href="data-manipulation.html#cb564-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb564-4"><a href="data-manipulation.html#cb564-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Rename the n column to num_counties</span></span>
+<span id="cb564-5"><a href="data-manipulation.html#cb564-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">num_counties =</span> n)</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##    state      num_counties
+##    &lt;chr&gt;             &lt;int&gt;
+##  1 Alabama              67
+##  2 Alaska               28
+##  3 Arizona              15
+##  4 Arkansas             75
+##  5 California           58
+##  6 Colorado             64
+##  7 Connecticu            8
+##  8 Delaware              3
+##  9 Florida              67
+## 10 Georgia             159
+## # ℹ 40 more rows</code></pre>
 </div>
 <div id="transmute" class="section level3 hasAnchor" number="4.3.3">
 <h3><span class="header-section-number">4.3.3</span> Transmute<a href="data-manipulation.html#transmute" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Transmute is like a combination of select and mutate: it returns a subset of the columns like select, but it can also transform and change the columns, like mutate, at the same time.</p>
 <p>It control which variables you keep, which variables you calculate, and which variables you drop.</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="data-manipulation.html#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transmute</span>(var1, var2, <span class="at">var_new =</span> var_old<span class="sc">*</span>do caculate)</span>
-<span id="cb512-2"><a href="data-manipulation.html#cb512-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb512-3"><a href="data-manipulation.html#cb512-3" aria-hidden="true" tabindex="-1"></a><span class="co">#For example</span></span>
-<span id="cb512-4"><a href="data-manipulation.html#cb512-4" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb512-5"><a href="data-manipulation.html#cb512-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(state, county, <span class="at">fraction_men =</span> men <span class="sc">/</span> population)</span></code></pre></div>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="data-manipulation.html#cb513-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb513-2"><a href="data-manipulation.html#cb513-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Keep the state, county, and populations columns, and add a density column</span></span>
-<span id="cb513-3"><a href="data-manipulation.html#cb513-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(state, county, population, <span class="at">density =</span> population<span class="sc">/</span>land_area) <span class="sc">%&gt;%</span></span>
-<span id="cb513-4"><a href="data-manipulation.html#cb513-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for counties with a population greater than one million </span></span>
-<span id="cb513-5"><a href="data-manipulation.html#cb513-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(population <span class="sc">&gt;</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb513-6"><a href="data-manipulation.html#cb513-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort density in ascending order </span></span>
-<span id="cb513-7"><a href="data-manipulation.html#cb513-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(density)</span></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="data-manipulation.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transmute</span>(var1, var2, <span class="at">var_new =</span> var_old<span class="sc">*</span>do caculate)</span>
+<span id="cb566-2"><a href="data-manipulation.html#cb566-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb566-3"><a href="data-manipulation.html#cb566-3" aria-hidden="true" tabindex="-1"></a><span class="co">#For example</span></span>
+<span id="cb566-4"><a href="data-manipulation.html#cb566-4" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb566-5"><a href="data-manipulation.html#cb566-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(state, county, <span class="at">fraction_men =</span> men <span class="sc">/</span> population)</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="data-manipulation.html#cb567-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb567-2"><a href="data-manipulation.html#cb567-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Keep the state, county, and populations columns, and add a density column</span></span>
+<span id="cb567-3"><a href="data-manipulation.html#cb567-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(state, county, population, <span class="at">density =</span> population<span class="sc">/</span>land_area) <span class="sc">%&gt;%</span></span>
+<span id="cb567-4"><a href="data-manipulation.html#cb567-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for counties with a population greater than one million </span></span>
+<span id="cb567-5"><a href="data-manipulation.html#cb567-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(population <span class="sc">&gt;</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb567-6"><a href="data-manipulation.html#cb567-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort density in ascending order </span></span>
+<span id="cb567-7"><a href="data-manipulation.html#cb567-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(density)</span></code></pre></div>
+<pre><code>## # A tibble: 41 × 4
+##    state      county               population density
+##    &lt;chr&gt;      &lt;chr&gt;                     &lt;dbl&gt;   &lt;dbl&gt;
+##  1 California &quot;\&quot;San Bernardino\&quot;&quot;    2094769    104.
+##  2 Nevada     &quot;\&quot;Clark\&quot;&quot;             2035572    258.
+##  3 California &quot;\&quot;Riverside\&quot;&quot;         2298032    319.
+##  4 Arizona    &quot;\&quot;Maricopa\&quot;&quot;          4018143    437.
+##  5 Florida    &quot;\&quot;Palm Beach\&quot;&quot;        1378806    700.
+##  6 California &quot;\&quot;San Diego\&quot;&quot;         3223096    766.
+##  7 Washington &quot;\&quot;King\&quot;&quot;              2045756    967.
+##  8 Texas      &quot;\&quot;Travis\&quot;&quot;            1121645   1133.
+##  9 Florida    &quot;\&quot;Hillsborough\&quot;&quot;      1302884   1277.
+## 10 Florida    &quot;\&quot;Orange\&quot;&quot;            1229039   1361.
+## # ℹ 31 more rows</code></pre>
 <p><strong>Summary</strong></p>
 <p><img src="image/4-3-3.summary%20table.png" width="515" /></p>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="data-manipulation.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the name of the unemployment column</span></span>
-<span id="cb514-2"><a href="data-manipulation.html#cb514-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb514-3"><a href="data-manipulation.html#cb514-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">unemployment_rate =</span> unemployment)</span>
-<span id="cb514-4"><a href="data-manipulation.html#cb514-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb514-5"><a href="data-manipulation.html#cb514-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the state and county columns, and the columns containing poverty</span></span>
-<span id="cb514-6"><a href="data-manipulation.html#cb514-6" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb514-7"><a href="data-manipulation.html#cb514-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, <span class="fu">contains</span>(<span class="st">&quot;poverty&quot;</span>))</span>
-<span id="cb514-8"><a href="data-manipulation.html#cb514-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb514-9"><a href="data-manipulation.html#cb514-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the fraction_women column without dropping the other columns</span></span>
-<span id="cb514-10"><a href="data-manipulation.html#cb514-10" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb514-11"><a href="data-manipulation.html#cb514-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction_women =</span> women <span class="sc">/</span> population)</span>
-<span id="cb514-12"><a href="data-manipulation.html#cb514-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb514-13"><a href="data-manipulation.html#cb514-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the state, county, and employment_rate columns</span></span>
-<span id="cb514-14"><a href="data-manipulation.html#cb514-14" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
-<span id="cb514-15"><a href="data-manipulation.html#cb514-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(state, county, <span class="at">employment_rate =</span> employed <span class="sc">/</span> population)</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="data-manipulation.html#cb569-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the name of the unemployment column</span></span>
+<span id="cb569-2"><a href="data-manipulation.html#cb569-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb569-3"><a href="data-manipulation.html#cb569-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">unemployment_rate =</span> unemployment)</span>
+<span id="cb569-4"><a href="data-manipulation.html#cb569-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb569-5"><a href="data-manipulation.html#cb569-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the state and county columns, and the columns containing poverty</span></span>
+<span id="cb569-6"><a href="data-manipulation.html#cb569-6" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb569-7"><a href="data-manipulation.html#cb569-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, <span class="fu">contains</span>(<span class="st">&quot;poverty&quot;</span>))</span>
+<span id="cb569-8"><a href="data-manipulation.html#cb569-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb569-9"><a href="data-manipulation.html#cb569-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the fraction_women column without dropping the other columns</span></span>
+<span id="cb569-10"><a href="data-manipulation.html#cb569-10" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb569-11"><a href="data-manipulation.html#cb569-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction_women =</span> women <span class="sc">/</span> population)</span>
+<span id="cb569-12"><a href="data-manipulation.html#cb569-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb569-13"><a href="data-manipulation.html#cb569-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the state, county, and employment_rate columns</span></span>
+<span id="cb569-14"><a href="data-manipulation.html#cb569-14" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb569-15"><a href="data-manipulation.html#cb569-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(state, county, <span class="at">employment_rate =</span> employed <span class="sc">/</span> population)</span></code></pre></div>
 </div>
 </div>
 <div id="case-study-the-babynames-dataset" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Case Study: The babynames Dataset<a href="data-manipulation.html#case-study-the-babynames-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="load-dataset-1" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Load dataset<a href="data-manipulation.html#load-dataset-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="data-manipulation.html#cb515-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span>
-<span id="cb515-2"><a href="data-manipulation.html#cb515-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb515-3"><a href="data-manipulation.html#cb515-3" aria-hidden="true" tabindex="-1"></a>babynames</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="data-manipulation.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames)</span></code></pre></div>
+<pre><code>## Warning: package &#39;babynames&#39; was built under R version 4.3.1</code></pre>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="data-manipulation.html#cb572-1" aria-hidden="true" tabindex="-1"></a>babynames</span></code></pre></div>
+<pre><code>## # A tibble: 1,924,665 × 5
+##     year sex   name          n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
+##  1  1880 F     Mary       7065 0.0724
+##  2  1880 F     Anna       2604 0.0267
+##  3  1880 F     Emma       2003 0.0205
+##  4  1880 F     Elizabeth  1939 0.0199
+##  5  1880 F     Minnie     1746 0.0179
+##  6  1880 F     Margaret   1578 0.0162
+##  7  1880 F     Ida        1472 0.0151
+##  8  1880 F     Alice      1414 0.0145
+##  9  1880 F     Bertha     1320 0.0135
+## 10  1880 F     Sarah      1288 0.0132
+## # ℹ 1,924,655 more rows</code></pre>
 </div>
 <div id="exploring-data-1" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Exploring data<a href="data-manipulation.html#exploring-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Filtering and arranging for one year</strong></p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="data-manipulation.html#cb516-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
-<span id="cb516-2"><a href="data-manipulation.html#cb516-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for the year 1990</span></span>
-<span id="cb516-3"><a href="data-manipulation.html#cb516-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1990</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb516-4"><a href="data-manipulation.html#cb516-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort the number column in descending order </span></span>
-<span id="cb516-5"><a href="data-manipulation.html#cb516-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="data-manipulation.html#cb574-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
+<span id="cb574-2"><a href="data-manipulation.html#cb574-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for the year 1990</span></span>
+<span id="cb574-3"><a href="data-manipulation.html#cb574-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1990</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb574-4"><a href="data-manipulation.html#cb574-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort the number column in descending order </span></span>
+<span id="cb574-5"><a href="data-manipulation.html#cb574-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 24,719 × 5
+##     year sex   name            n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;       &lt;int&gt;  &lt;dbl&gt;
+##  1  1990 M     Michael     65282 0.0303
+##  2  1990 M     Christopher 52332 0.0243
+##  3  1990 F     Jessica     46475 0.0226
+##  4  1990 F     Ashley      45558 0.0222
+##  5  1990 M     Matthew     44800 0.0208
+##  6  1990 M     Joshua      43216 0.0201
+##  7  1990 F     Brittany    36538 0.0178
+##  8  1990 F     Amanda      34408 0.0168
+##  9  1990 M     Daniel      33815 0.0157
+## 10  1990 M     David       33742 0.0157
+## # ℹ 24,709 more rows</code></pre>
 <p><strong>Finding the most popular names each year</strong></p>
-<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="data-manipulation.html#cb517-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
-<span id="cb517-2"><a href="data-manipulation.html#cb517-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the most common name in each year</span></span>
-<span id="cb517-3"><a href="data-manipulation.html#cb517-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb517-4"><a href="data-manipulation.html#cb517-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="data-manipulation.html#cb576-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
+<span id="cb576-2"><a href="data-manipulation.html#cb576-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the most common name in each year</span></span>
+<span id="cb576-3"><a href="data-manipulation.html#cb576-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb576-4"><a href="data-manipulation.html#cb576-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 138 × 5
+## # Groups:   year [138]
+##     year sex   name      n   prop
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
+##  1  1880 M     John   9655 0.0815
+##  2  1881 M     John   8769 0.0810
+##  3  1882 M     John   9557 0.0783
+##  4  1883 M     John   8894 0.0791
+##  5  1884 M     John   9388 0.0765
+##  6  1885 F     Mary   9128 0.0643
+##  7  1886 F     Mary   9889 0.0643
+##  8  1887 F     Mary   9888 0.0636
+##  9  1888 F     Mary  11754 0.0620
+## 10  1889 F     Mary  11648 0.0616
+## # ℹ 128 more rows</code></pre>
 <p><strong>Visualizing names with ggplot2</strong></p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="data-manipulation.html#cb518-1" aria-hidden="true" tabindex="-1"></a>selected_names <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
-<span id="cb518-2"><a href="data-manipulation.html#cb518-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for the names Steven, Thomas, and Matthew. And female only </span></span>
-<span id="cb518-3"><a href="data-manipulation.html#cb518-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Steven&quot;</span>, <span class="st">&quot;Thomas&quot;</span>, <span class="st">&quot;Matthew&quot;</span>) <span class="sc">&amp;</span> sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span>
-<span id="cb518-4"><a href="data-manipulation.html#cb518-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb518-5"><a href="data-manipulation.html#cb518-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the names using a different color for each name</span></span>
-<span id="cb518-6"><a href="data-manipulation.html#cb518-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(selected_names, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">color =</span> name)) <span class="sc">+</span></span>
-<span id="cb518-7"><a href="data-manipulation.html#cb518-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="data-manipulation.html#cb578-1" aria-hidden="true" tabindex="-1"></a>selected_names <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
+<span id="cb578-2"><a href="data-manipulation.html#cb578-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for the names Steven, Thomas, and Matthew. And female only </span></span>
+<span id="cb578-3"><a href="data-manipulation.html#cb578-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Steven&quot;</span>, <span class="st">&quot;Thomas&quot;</span>, <span class="st">&quot;Matthew&quot;</span>) <span class="sc">&amp;</span> sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span>
+<span id="cb578-4"><a href="data-manipulation.html#cb578-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb578-5"><a href="data-manipulation.html#cb578-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the names using a different color for each name</span></span>
+<span id="cb578-6"><a href="data-manipulation.html#cb578-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(selected_names, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb578-7"><a href="data-manipulation.html#cb578-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 <p><strong>Finding the year each name is most common</strong></p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="data-manipulation.html#cb519-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the fraction of people born each year with the same name</span></span>
-<span id="cb519-2"><a href="data-manipulation.html#cb519-2" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
-<span id="cb519-3"><a href="data-manipulation.html#cb519-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb519-4"><a href="data-manipulation.html#cb519-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb519-5"><a href="data-manipulation.html#cb519-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb519-6"><a href="data-manipulation.html#cb519-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> n <span class="sc">/</span> year_total) <span class="sc">%&gt;%</span></span>
-<span id="cb519-7"><a href="data-manipulation.html#cb519-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the year each name is most common</span></span>
-<span id="cb519-8"><a href="data-manipulation.html#cb519-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb519-9"><a href="data-manipulation.html#cb519-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(fraction, <span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="data-manipulation.html#cb579-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the fraction of people born each year with the same name</span></span>
+<span id="cb579-2"><a href="data-manipulation.html#cb579-2" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
+<span id="cb579-3"><a href="data-manipulation.html#cb579-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb579-4"><a href="data-manipulation.html#cb579-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb579-5"><a href="data-manipulation.html#cb579-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb579-6"><a href="data-manipulation.html#cb579-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> n <span class="sc">/</span> year_total) <span class="sc">%&gt;%</span></span>
+<span id="cb579-7"><a href="data-manipulation.html#cb579-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the year each name is most common</span></span>
+<span id="cb579-8"><a href="data-manipulation.html#cb579-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb579-9"><a href="data-manipulation.html#cb579-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(fraction, <span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 97,351 × 7
+## # Groups:   name [97,310]
+##     year sex   name          n       prop year_total   fraction
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;      &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;
+##  1  2014 M     Aaban        16 0.00000783    3696311 0.00000433
+##  2  2014 F     Aabha         9 0.00000461    3696311 0.00000243
+##  3  2016 M     Aabid         5 0.00000248    3652968 0.00000137
+##  4  2016 M     Aabir         5 0.00000248    3652968 0.00000137
+##  5  2016 F     Aabriella    11 0.0000057     3652968 0.00000301
+##  6  2015 F     Aada          5 0.00000257    3688687 0.00000136
+##  7  2015 M     Aadam        22 0.0000108     3688687 0.00000596
+##  8  2009 M     Aadan        23 0.0000108     3815638 0.00000603
+##  9  2014 M     Aadarsh      18 0.0000088     3696311 0.00000487
+## 10  2009 M     Aaden      1267 0.000598      3815638 0.000332  
+## # ℹ 97,341 more rows</code></pre>
 <p><strong>Adding the total and maximum for each name</strong></p>
 <p>You’ll divide each name by the maximum for that name. This means that every name will peak at 1.</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="data-manipulation.html#cb520-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
-<span id="cb520-2"><a href="data-manipulation.html#cb520-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add columns name_total and name_max for each name</span></span>
-<span id="cb520-3"><a href="data-manipulation.html#cb520-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb520-4"><a href="data-manipulation.html#cb520-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name_total =</span> <span class="fu">sum</span>(n),</span>
-<span id="cb520-5"><a href="data-manipulation.html#cb520-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name_max =</span> <span class="fu">max</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb520-6"><a href="data-manipulation.html#cb520-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ungroup the table </span></span>
-<span id="cb520-7"><a href="data-manipulation.html#cb520-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb520-8"><a href="data-manipulation.html#cb520-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the fraction_max column containing the number by the name maximum </span></span>
-<span id="cb520-9"><a href="data-manipulation.html#cb520-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction_max =</span> n <span class="sc">/</span> name_max)</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="data-manipulation.html#cb581-1" aria-hidden="true" tabindex="-1"></a>babynames <span class="sc">%&gt;%</span></span>
+<span id="cb581-2"><a href="data-manipulation.html#cb581-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add columns name_total and name_max for each name</span></span>
+<span id="cb581-3"><a href="data-manipulation.html#cb581-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb581-4"><a href="data-manipulation.html#cb581-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name_total =</span> <span class="fu">sum</span>(n),</span>
+<span id="cb581-5"><a href="data-manipulation.html#cb581-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name_max =</span> <span class="fu">max</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb581-6"><a href="data-manipulation.html#cb581-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ungroup the table </span></span>
+<span id="cb581-7"><a href="data-manipulation.html#cb581-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb581-8"><a href="data-manipulation.html#cb581-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the fraction_max column containing the number by the name maximum </span></span>
+<span id="cb581-9"><a href="data-manipulation.html#cb581-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction_max =</span> n <span class="sc">/</span> name_max)</span></code></pre></div>
+<pre><code>## # A tibble: 1,924,665 × 8
+##     year sex   name          n   prop name_total name_max fraction_max
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;      &lt;int&gt;    &lt;int&gt;        &lt;dbl&gt;
+##  1  1880 F     Mary       7065 0.0724    4138360    73982       0.0955
+##  2  1880 F     Anna       2604 0.0267     891245    15666       0.166 
+##  3  1880 F     Emma       2003 0.0205     655629    22704       0.0882
+##  4  1880 F     Elizabeth  1939 0.0199    1634860    20744       0.0935
+##  5  1880 F     Minnie     1746 0.0179     159562     3274       0.533 
+##  6  1880 F     Margaret   1578 0.0162    1250392    28466       0.0554
+##  7  1880 F     Ida        1472 0.0151     186955     4450       0.331 
+##  8  1880 F     Alice      1414 0.0145     562006    11956       0.118 
+##  9  1880 F     Bertha     1320 0.0135     208550     5051       0.261 
+## 10  1880 F     Sarah      1288 0.0132    1077215    28484       0.0452
+## # ℹ 1,924,655 more rows</code></pre>
 <p><strong>Visualizing the normalized change in popularity</strong></p>
 <p>You picked a few names and calculated each of them as a fraction of their peak. This is a type of <em>“normalizing”</em> a name, where you’re focused on the relative change within each name rather than the overall popularity of the name.</p>
-<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="data-manipulation.html#cb521-1" aria-hidden="true" tabindex="-1"></a>names_normalized <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
-<span id="cb521-2"><a href="data-manipulation.html#cb521-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb521-3"><a href="data-manipulation.html#cb521-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name_total =</span> <span class="fu">sum</span>(n),</span>
-<span id="cb521-4"><a href="data-manipulation.html#cb521-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">name_max =</span> <span class="fu">max</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb521-5"><a href="data-manipulation.html#cb521-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb521-6"><a href="data-manipulation.html#cb521-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fraction_max =</span> n <span class="sc">/</span> name_max)</span>
-<span id="cb521-7"><a href="data-manipulation.html#cb521-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb521-8"><a href="data-manipulation.html#cb521-8" aria-hidden="true" tabindex="-1"></a>names_filtered <span class="ot">&lt;-</span> names_normalized <span class="sc">%&gt;%</span></span>
-<span id="cb521-9"><a href="data-manipulation.html#cb521-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for the names Steven, Thomas, and Matthew. And male only</span></span>
-<span id="cb521-10"><a href="data-manipulation.html#cb521-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Steven&quot;</span>, <span class="st">&quot;Thomas&quot;</span>, <span class="st">&quot;Matthew&quot;</span>) <span class="sc">&amp;</span> sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>)</span>
-<span id="cb521-11"><a href="data-manipulation.html#cb521-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb521-12"><a href="data-manipulation.html#cb521-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize these names over time</span></span>
-<span id="cb521-13"><a href="data-manipulation.html#cb521-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(names_filtered, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> fraction_max, <span class="at">color =</span> name)) <span class="sc">+</span></span>
-<span id="cb521-14"><a href="data-manipulation.html#cb521-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="data-manipulation.html#cb583-1" aria-hidden="true" tabindex="-1"></a>names_normalized <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
+<span id="cb583-2"><a href="data-manipulation.html#cb583-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb583-3"><a href="data-manipulation.html#cb583-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name_total =</span> <span class="fu">sum</span>(n),</span>
+<span id="cb583-4"><a href="data-manipulation.html#cb583-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">name_max =</span> <span class="fu">max</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb583-5"><a href="data-manipulation.html#cb583-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb583-6"><a href="data-manipulation.html#cb583-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fraction_max =</span> n <span class="sc">/</span> name_max)</span>
+<span id="cb583-7"><a href="data-manipulation.html#cb583-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb583-8"><a href="data-manipulation.html#cb583-8" aria-hidden="true" tabindex="-1"></a>names_filtered <span class="ot">&lt;-</span> names_normalized <span class="sc">%&gt;%</span></span>
+<span id="cb583-9"><a href="data-manipulation.html#cb583-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for the names Steven, Thomas, and Matthew. And male only</span></span>
+<span id="cb583-10"><a href="data-manipulation.html#cb583-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Steven&quot;</span>, <span class="st">&quot;Thomas&quot;</span>, <span class="st">&quot;Matthew&quot;</span>) <span class="sc">&amp;</span> sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>)</span>
+<span id="cb583-11"><a href="data-manipulation.html#cb583-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb583-12"><a href="data-manipulation.html#cb583-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize these names over time</span></span>
+<span id="cb583-13"><a href="data-manipulation.html#cb583-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(names_filtered, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> fraction_max, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb583-14"><a href="data-manipulation.html#cb583-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
 <p>As you can see, <em>the line for each name hits a peak at 1</em>, although the peak year differs for each name.</p>
 <p><strong>Using ratios to describe the frequency of a name</strong></p>
 <p>Window function: <code>lag()</code></p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="data-manipulation.html#cb522-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">14</span>); v</span>
-<span id="cb522-2"><a href="data-manipulation.html#cb522-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 3 6 14</span></span>
-<span id="cb522-3"><a href="data-manipulation.html#cb522-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb522-4"><a href="data-manipulation.html#cb522-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lag</span>(v)</span>
-<span id="cb522-5"><a href="data-manipulation.html#cb522-5" aria-hidden="true" tabindex="-1"></a><span class="do">## NA 1 3 6</span></span>
-<span id="cb522-6"><a href="data-manipulation.html#cb522-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb522-7"><a href="data-manipulation.html#cb522-7" aria-hidden="true" tabindex="-1"></a>v <span class="sc">-</span> <span class="fu">lag</span>(v)</span>
-<span id="cb522-8"><a href="data-manipulation.html#cb522-8" aria-hidden="true" tabindex="-1"></a><span class="do">## NA 2 3 8</span></span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="data-manipulation.html#cb584-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">14</span>); v</span>
+<span id="cb584-2"><a href="data-manipulation.html#cb584-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 3 6 14</span></span>
+<span id="cb584-3"><a href="data-manipulation.html#cb584-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb584-4"><a href="data-manipulation.html#cb584-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lag</span>(v)</span>
+<span id="cb584-5"><a href="data-manipulation.html#cb584-5" aria-hidden="true" tabindex="-1"></a><span class="do">## NA 1 3 6</span></span>
+<span id="cb584-6"><a href="data-manipulation.html#cb584-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb584-7"><a href="data-manipulation.html#cb584-7" aria-hidden="true" tabindex="-1"></a>v <span class="sc">-</span> <span class="fu">lag</span>(v)</span>
+<span id="cb584-8"><a href="data-manipulation.html#cb584-8" aria-hidden="true" tabindex="-1"></a><span class="do">## NA 2 3 8</span></span></code></pre></div>
 <p>Notice that the first observation for each name is missing a ratio, since there is no previous year.</p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="data-manipulation.html#cb523-1" aria-hidden="true" tabindex="-1"></a>babynames_fraction <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
-<span id="cb523-2"><a href="data-manipulation.html#cb523-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb523-3"><a href="data-manipulation.html#cb523-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year_total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb523-4"><a href="data-manipulation.html#cb523-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb523-5"><a href="data-manipulation.html#cb523-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fraction =</span> n <span class="sc">/</span> year_total)</span>
-<span id="cb523-6"><a href="data-manipulation.html#cb523-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb523-7"><a href="data-manipulation.html#cb523-7" aria-hidden="true" tabindex="-1"></a>babynames_fraction <span class="sc">%&gt;%</span></span>
-<span id="cb523-8"><a href="data-manipulation.html#cb523-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Arrange the data in order of name, then year </span></span>
-<span id="cb523-9"><a href="data-manipulation.html#cb523-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(name, year) <span class="sc">%&gt;%</span></span>
-<span id="cb523-10"><a href="data-manipulation.html#cb523-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group the data by name</span></span>
-<span id="cb523-11"><a href="data-manipulation.html#cb523-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb523-12"><a href="data-manipulation.html#cb523-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a ratio column that contains the ratio of fraction between each year </span></span>
-<span id="cb523-13"><a href="data-manipulation.html#cb523-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ratio =</span> fraction <span class="sc">/</span> <span class="fu">lag</span>(fraction))</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="data-manipulation.html#cb585-1" aria-hidden="true" tabindex="-1"></a>babynames_fraction <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
+<span id="cb585-2"><a href="data-manipulation.html#cb585-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb585-3"><a href="data-manipulation.html#cb585-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year_total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb585-4"><a href="data-manipulation.html#cb585-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb585-5"><a href="data-manipulation.html#cb585-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fraction =</span> n <span class="sc">/</span> year_total)</span>
+<span id="cb585-6"><a href="data-manipulation.html#cb585-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb585-7"><a href="data-manipulation.html#cb585-7" aria-hidden="true" tabindex="-1"></a>babynames_fraction <span class="sc">%&gt;%</span></span>
+<span id="cb585-8"><a href="data-manipulation.html#cb585-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Arrange the data in order of name, then year </span></span>
+<span id="cb585-9"><a href="data-manipulation.html#cb585-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(name, year) <span class="sc">%&gt;%</span></span>
+<span id="cb585-10"><a href="data-manipulation.html#cb585-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group the data by name</span></span>
+<span id="cb585-11"><a href="data-manipulation.html#cb585-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb585-12"><a href="data-manipulation.html#cb585-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a ratio column that contains the ratio of fraction between each year </span></span>
+<span id="cb585-13"><a href="data-manipulation.html#cb585-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ratio =</span> fraction <span class="sc">/</span> <span class="fu">lag</span>(fraction))</span></code></pre></div>
+<pre><code>## # A tibble: 1,924,665 × 8
+## # Groups:   name [97,310]
+##     year sex   name      n       prop year_total   fraction  ratio
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;      &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+##  1  2007 M     Aaban     5 0.00000226    3994007 0.00000125 NA    
+##  2  2009 M     Aaban     6 0.00000283    3815638 0.00000157  1.26 
+##  3  2010 M     Aaban     9 0.00000439    3690700 0.00000244  1.55 
+##  4  2011 M     Aaban    11 0.00000542    3651914 0.00000301  1.24 
+##  5  2012 M     Aaban    11 0.00000543    3650462 0.00000301  1.00 
+##  6  2013 M     Aaban    14 0.00000694    3637310 0.00000385  1.28 
+##  7  2014 M     Aaban    16 0.00000783    3696311 0.00000433  1.12 
+##  8  2015 M     Aaban    15 0.00000736    3688687 0.00000407  0.939
+##  9  2016 M     Aaban     9 0.00000446    3652968 0.00000246  0.606
+## 10  2017 M     Aaban    11 0.0000056     3546301 0.00000310  1.26 
+## # ℹ 1,924,655 more rows</code></pre>
 <p><strong>Biggest jumps in a name</strong></p>
 <p>To look further into the names that experienced the biggest jumps in popularity in consecutive years.</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="data-manipulation.html#cb524-1" aria-hidden="true" tabindex="-1"></a>babynames_ratios_filtered <span class="ot">&lt;-</span> babynames_fraction <span class="sc">%&gt;%</span></span>
-<span id="cb524-2"><a href="data-manipulation.html#cb524-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(name, year) <span class="sc">%&gt;%</span></span>
-<span id="cb524-3"><a href="data-manipulation.html#cb524-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb524-4"><a href="data-manipulation.html#cb524-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ratio =</span> fraction <span class="sc">/</span> <span class="fu">lag</span>(fraction)) <span class="sc">%&gt;%</span></span>
-<span id="cb524-5"><a href="data-manipulation.html#cb524-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(fraction <span class="sc">&gt;=</span> <span class="fl">0.00001</span>)</span>
-<span id="cb524-6"><a href="data-manipulation.html#cb524-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb524-7"><a href="data-manipulation.html#cb524-7" aria-hidden="true" tabindex="-1"></a>babynames_ratios_filtered <span class="sc">%&gt;%</span></span>
-<span id="cb524-8"><a href="data-manipulation.html#cb524-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the largest ratio from each name </span></span>
-<span id="cb524-9"><a href="data-manipulation.html#cb524-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(ratio, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb524-10"><a href="data-manipulation.html#cb524-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort the ratio column in descending order </span></span>
-<span id="cb524-11"><a href="data-manipulation.html#cb524-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(ratio)) <span class="sc">%&gt;%</span></span>
-<span id="cb524-12"><a href="data-manipulation.html#cb524-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for fractions greater than or equal to 0.001</span></span>
-<span id="cb524-13"><a href="data-manipulation.html#cb524-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(fraction <span class="sc">&gt;=</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="data-manipulation.html#cb587-1" aria-hidden="true" tabindex="-1"></a>babynames_ratios_filtered <span class="ot">&lt;-</span> babynames_fraction <span class="sc">%&gt;%</span></span>
+<span id="cb587-2"><a href="data-manipulation.html#cb587-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(name, year) <span class="sc">%&gt;%</span></span>
+<span id="cb587-3"><a href="data-manipulation.html#cb587-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb587-4"><a href="data-manipulation.html#cb587-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ratio =</span> fraction <span class="sc">/</span> <span class="fu">lag</span>(fraction)) <span class="sc">%&gt;%</span></span>
+<span id="cb587-5"><a href="data-manipulation.html#cb587-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(fraction <span class="sc">&gt;=</span> <span class="fl">0.00001</span>)</span>
+<span id="cb587-6"><a href="data-manipulation.html#cb587-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb587-7"><a href="data-manipulation.html#cb587-7" aria-hidden="true" tabindex="-1"></a>babynames_ratios_filtered <span class="sc">%&gt;%</span></span>
+<span id="cb587-8"><a href="data-manipulation.html#cb587-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the largest ratio from each name </span></span>
+<span id="cb587-9"><a href="data-manipulation.html#cb587-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(ratio, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb587-10"><a href="data-manipulation.html#cb587-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort the ratio column in descending order </span></span>
+<span id="cb587-11"><a href="data-manipulation.html#cb587-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(ratio)) <span class="sc">%&gt;%</span></span>
+<span id="cb587-12"><a href="data-manipulation.html#cb587-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for fractions greater than or equal to 0.001</span></span>
+<span id="cb587-13"><a href="data-manipulation.html#cb587-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(fraction <span class="sc">&gt;=</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 529 × 8
+## # Groups:   name [529]
+##     year sex   name          n    prop year_total fraction ratio
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;
+##  1  2010 F     Sophia    20639 0.0105     3690700  0.00559 2371.
+##  2  2001 F     Olivia    13978 0.00706    3741451  0.00374 2352.
+##  3  2002 F     Isabella  12166 0.00616    3736042  0.00326 2031.
+##  4  2014 M     Joseph    12106 0.00592    3696311  0.00328 2018.
+##  5  2016 F     Emma      19471 0.0101     3652968  0.00533 1966.
+##  6  2016 F     Elizabeth  9542 0.00495    3652968  0.00261 1927.
+##  7  2013 M     Luke       9568 0.00474    3637310  0.00263 1914.
+##  8  2011 M     Samuel    11340 0.00559    3651914  0.00311 1890 
+##  9  2015 F     Evelyn     9358 0.00481    3688687  0.00254 1875.
+## 10  2010 M     Isaac      9354 0.00456    3690700  0.00253 1871.
+## # ℹ 519 more rows</code></pre>
 
 </div>
 </div>
