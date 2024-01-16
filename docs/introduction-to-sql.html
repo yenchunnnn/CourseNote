@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 23 Introduction to SQL | Data Scientist with R</title>
+  <meta name="description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 23 Introduction to SQL | Data Scientist with R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta name="github-repo" content="yenchunnnn/CourseNote" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 23 Introduction to SQL | Data Scientist with R" />
+  
+  <meta name="twitter:description" content="This is a notebook about the data science courses took from the datacamp." />
+  
+
+<meta name="author" content="Yen Chun Chen" />
+
+
+<meta name="date" content="2024-01-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intermediate-importing-data-in-r.html"/>
+<link rel="next" href="intermediate-sql.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Scientist with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-data-types"><i class="fa fa-check"></i><b>1.2</b> Basic data types</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#vector"><i class="fa fa-check"></i><b>1.3</b> Vector</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#useful-function"><i class="fa fa-check"></i><b>1.3.1</b> Useful function</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection---by-brackets-or-names"><i class="fa fa-check"></i><b>1.3.2</b> Selection - by brackets or names</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection---by-comparison---operators"><i class="fa fa-check"></i><b>1.3.3</b> Selection - by comparison - operators</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection---by-comparison---values"><i class="fa fa-check"></i><b>1.3.4</b> Selection - by comparison - values</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#matrix"><i class="fa fa-check"></i><b>1.4</b> Matrix</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#construct-function"><i class="fa fa-check"></i><b>1.4.1</b> Construct function</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#construct-by-vector"><i class="fa fa-check"></i><b>1.4.2</b> Construct by vector</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#naming-a-matrix"><i class="fa fa-check"></i><b>1.4.3</b> Naming a matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#manipulating---sum-of-each-row-column"><i class="fa fa-check"></i><b>1.4.4</b> Manipulating - sum of each row &amp; column</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#manipulating---add-columns"><i class="fa fa-check"></i><b>1.4.5</b> Manipulating - add columns</a></li>
+<li class="chapter" data-level="1.4.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#manipulating---add-rows"><i class="fa fa-check"></i><b>1.4.6</b> Manipulating - add rows</a></li>
+<li class="chapter" data-level="1.4.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection-of-matrix-elements"><i class="fa fa-check"></i><b>1.4.7</b> Selection of matrix elements</a></li>
+<li class="chapter" data-level="1.4.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#arithmetic---1"><i class="fa fa-check"></i><b>1.4.8</b> Arithmetic - 1</a></li>
+<li class="chapter" data-level="1.4.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#arithmetic---2"><i class="fa fa-check"></i><b>1.4.9</b> Arithmetic - 2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#factor"><i class="fa fa-check"></i><b>1.5</b> Factor</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#useful-function-1"><i class="fa fa-check"></i><b>1.5.1</b> Useful function</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#nominal-ordinal-categorical-variable"><i class="fa fa-check"></i><b>1.5.2</b> Nominal &amp; Ordinal categorical variable</a></li>
+<li class="chapter" data-level="1.5.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#factor-levels"><i class="fa fa-check"></i><b>1.5.3</b> Factor levels</a></li>
+<li class="chapter" data-level="1.5.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#summarizing-a-factor"><i class="fa fa-check"></i><b>1.5.4</b> Summarizing a factor</a></li>
+<li class="chapter" data-level="1.5.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#ordered-factors"><i class="fa fa-check"></i><b>1.5.5</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-frame"><i class="fa fa-check"></i><b>1.6</b> Data Frame</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#quick-look-at-dataset"><i class="fa fa-check"></i><b>1.6.1</b> Quick look at dataset</a></li>
+<li class="chapter" data-level="1.6.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#creating-a-data-frame"><i class="fa fa-check"></i><b>1.6.2</b> Creating a data frame</a></li>
+<li class="chapter" data-level="1.6.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection---brackets"><i class="fa fa-check"></i><b>1.6.3</b> Selection - brackets</a></li>
+<li class="chapter" data-level="1.6.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection---names"><i class="fa fa-check"></i><b>1.6.4</b> Selection - names</a></li>
+<li class="chapter" data-level="1.6.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection--"><i class="fa fa-check"></i><b>1.6.5</b> Selection - $</a></li>
+<li class="chapter" data-level="1.6.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection---subset"><i class="fa fa-check"></i><b>1.6.6</b> Selection - subset</a></li>
+<li class="chapter" data-level="1.6.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#sorting"><i class="fa fa-check"></i><b>1.6.7</b> Sorting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#list"><i class="fa fa-check"></i><b>1.7</b> List</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#creating-a-list"><i class="fa fa-check"></i><b>1.7.1</b> Creating a list</a></li>
+<li class="chapter" data-level="1.7.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#creating-a-named-list"><i class="fa fa-check"></i><b>1.7.2</b> Creating a named list</a></li>
+<li class="chapter" data-level="1.7.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#selection"><i class="fa fa-check"></i><b>1.7.3</b> Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#bring-it-all-together"><i class="fa fa-check"></i><b>1.8</b> Bring it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intermediate-r.html"><a href="intermediate-r.html"><i class="fa fa-check"></i><b>2</b> Intermediate R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intermediate-r.html"><a href="intermediate-r.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>2.1</b> Conditionals and Control Flow</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="intermediate-r.html"><a href="intermediate-r.html#relational-operators"><i class="fa fa-check"></i><b>2.1.1</b> Relational operators</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intermediate-r.html"><a href="intermediate-r.html#conditional-statements"><i class="fa fa-check"></i><b>2.1.2</b> Conditional statements</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="intermediate-r.html"><a href="intermediate-r.html#loops"><i class="fa fa-check"></i><b>2.2</b> Loops</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="intermediate-r.html"><a href="intermediate-r.html#while-loop"><i class="fa fa-check"></i><b>2.2.1</b> While loop</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intermediate-r.html"><a href="intermediate-r.html#for-loop"><i class="fa fa-check"></i><b>2.2.2</b> For loop</a></li>
+<li class="chapter" data-level="2.2.3" data-path="intermediate-r.html"><a href="intermediate-r.html#bring-it-all-together-1"><i class="fa fa-check"></i><b>2.2.3</b> Bring it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intermediate-r.html"><a href="intermediate-r.html#function"><i class="fa fa-check"></i><b>2.3</b> Function</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="intermediate-r.html"><a href="intermediate-r.html#introduction-to-function"><i class="fa fa-check"></i><b>2.3.1</b> Introduction to function</a></li>
+<li class="chapter" data-level="2.3.2" data-path="intermediate-r.html"><a href="intermediate-r.html#writing-functions"><i class="fa fa-check"></i><b>2.3.2</b> Writing functions</a></li>
+<li class="chapter" data-level="2.3.3" data-path="intermediate-r.html"><a href="intermediate-r.html#packages"><i class="fa fa-check"></i><b>2.3.3</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intermediate-r.html"><a href="intermediate-r.html#the-apply-family"><i class="fa fa-check"></i><b>2.4</b> The apply family</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="intermediate-r.html"><a href="intermediate-r.html#lapply"><i class="fa fa-check"></i><b>2.4.1</b> lapply</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intermediate-r.html"><a href="intermediate-r.html#sapply"><i class="fa fa-check"></i><b>2.4.2</b> sapply</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intermediate-r.html"><a href="intermediate-r.html#vapply"><i class="fa fa-check"></i><b>2.4.3</b> vapply</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intermediate-r.html"><a href="intermediate-r.html#lapply-vs-sapply-vs-vapply"><i class="fa fa-check"></i><b>2.4.4</b> lapply vs sapply vs vapply</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="intermediate-r.html"><a href="intermediate-r.html#utilities"><i class="fa fa-check"></i><b>2.5</b> Utilities</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="intermediate-r.html"><a href="intermediate-r.html#mathematical-utilities"><i class="fa fa-check"></i><b>2.5.1</b> Mathematical utilities</a></li>
+<li class="chapter" data-level="2.5.2" data-path="intermediate-r.html"><a href="intermediate-r.html#data-structures-utilities"><i class="fa fa-check"></i><b>2.5.2</b> Data structures utilities</a></li>
+<li class="chapter" data-level="2.5.3" data-path="intermediate-r.html"><a href="intermediate-r.html#regular-expressions"><i class="fa fa-check"></i><b>2.5.3</b> Regular Expressions</a></li>
+<li class="chapter" data-level="2.5.4" data-path="intermediate-r.html"><a href="intermediate-r.html#dates-times"><i class="fa fa-check"></i><b>2.5.4</b> Dates &amp; Times</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#data-wrangling"><i class="fa fa-check"></i><b>3.1</b> Data wrangling</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#load-dataset"><i class="fa fa-check"></i><b>3.1.1</b> Load dataset</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#filtering"><i class="fa fa-check"></i><b>3.1.2</b> Filtering</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.1.3</b> Arrange</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.1.4</b> Mutate</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#data-visualization"><i class="fa fa-check"></i><b>3.2</b> Data visualization</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#subset-df-variable"><i class="fa fa-check"></i><b>3.2.1</b> Subset df variable</a></li>
+<li class="chapter" data-level="3.2.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#ggplot-aesthetics"><i class="fa fa-check"></i><b>3.2.2</b> ggplot aesthetics</a></li>
+<li class="chapter" data-level="3.2.3" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#faceting"><i class="fa fa-check"></i><b>3.2.3</b> Faceting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#grouping-summarizing"><i class="fa fa-check"></i><b>3.3</b> Grouping &amp; summarizing</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#summarize"><i class="fa fa-check"></i><b>3.3.1</b> Summarize</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#group-by"><i class="fa fa-check"></i><b>3.3.2</b> Group by</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#visualizing-summarized-data"><i class="fa fa-check"></i><b>3.3.3</b> Visualizing summarized data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#types-of-visualizations"><i class="fa fa-check"></i><b>3.4</b> Types of visualizations</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#line-plots"><i class="fa fa-check"></i><b>3.4.1</b> Line plots</a></li>
+<li class="chapter" data-level="3.4.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#bar-plots"><i class="fa fa-check"></i><b>3.4.2</b> Bar plots</a></li>
+<li class="chapter" data-level="3.4.3" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#histograms"><i class="fa fa-check"></i><b>3.4.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.4.4" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#box-plots"><i class="fa fa-check"></i><b>3.4.4</b> Box plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>4</b> Data Manipulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#transforming-data"><i class="fa fa-check"></i><b>4.1</b> Transforming Data</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="data-manipulation.html"><a href="data-manipulation.html#exploring-data"><i class="fa fa-check"></i><b>4.1.1</b> Exploring data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#aggregating-data"><i class="fa fa-check"></i><b>4.2</b> Aggregating Data</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="data-manipulation.html"><a href="data-manipulation.html#count"><i class="fa fa-check"></i><b>4.2.1</b> Count</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-manipulation.html"><a href="data-manipulation.html#group_by-summarize-ungroup"><i class="fa fa-check"></i><b>4.2.2</b> group_by, summarize, ungroup</a></li>
+<li class="chapter" data-level="4.2.3" data-path="data-manipulation.html"><a href="data-manipulation.html#slice_min-slice_max"><i class="fa fa-check"></i><b>4.2.3</b> slice_min, slice_max</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#selecting-and-transforming-data"><i class="fa fa-check"></i><b>4.3</b> Selecting and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#select"><i class="fa fa-check"></i><b>4.3.1</b> Select</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#rename"><i class="fa fa-check"></i><b>4.3.2</b> Rename</a></li>
+<li class="chapter" data-level="4.3.3" data-path="data-manipulation.html"><a href="data-manipulation.html#transmute"><i class="fa fa-check"></i><b>4.3.3</b> Transmute</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-manipulation.html"><a href="data-manipulation.html#case-study-the-babynames-dataset"><i class="fa fa-check"></i><b>4.4</b> Case Study: The babynames Dataset</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#load-dataset-1"><i class="fa fa-check"></i><b>4.4.1</b> Load dataset</a></li>
+<li class="chapter" data-level="4.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#exploring-data-1"><i class="fa fa-check"></i><b>4.4.2</b> Exploring data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>5</b> Joining Data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>5.1</b> Inner join</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="joining-data.html"><a href="joining-data.html#join-by-keys"><i class="fa fa-check"></i><b>5.1.1</b> Join by keys</a></li>
+<li class="chapter" data-level="5.1.2" data-path="joining-data.html"><a href="joining-data.html#join-with-a-one-to-many-relationship"><i class="fa fa-check"></i><b>5.1.2</b> Join with a one-to-many relationship</a></li>
+<li class="chapter" data-level="5.1.3" data-path="joining-data.html"><a href="joining-data.html#join-in-either-direction"><i class="fa fa-check"></i><b>5.1.3</b> Join in either direction</a></li>
+<li class="chapter" data-level="5.1.4" data-path="joining-data.html"><a href="joining-data.html#join-three-or-more-tables"><i class="fa fa-check"></i><b>5.1.4</b> Join three or more tables</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="joining-data.html"><a href="joining-data.html#left-right-joins"><i class="fa fa-check"></i><b>5.2</b> Left &amp; Right Joins</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>5.2.1</b> Left join</a></li>
+<li class="chapter" data-level="5.2.2" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>5.2.2</b> Right join</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="joining-data.html"><a href="joining-data.html#full-semi-anti-joins"><i class="fa fa-check"></i><b>5.3</b> Full, Semi &amp; Anti Joins</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="joining-data.html"><a href="joining-data.html#full-join"><i class="fa fa-check"></i><b>5.3.1</b> Full join</a></li>
+<li class="chapter" data-level="5.3.2" data-path="joining-data.html"><a href="joining-data.html#semi-anti-joins"><i class="fa fa-check"></i><b>5.3.2</b> Semi &amp; Anti joins</a></li>
+<li class="chapter" data-level="5.3.3" data-path="joining-data.html"><a href="joining-data.html#visualizing-set-differences"><i class="fa fa-check"></i><b>5.3.3</b> Visualizing set differences</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="joining-data.html"><a href="joining-data.html#case-study-joins-on-stack-overflow-data"><i class="fa fa-check"></i><b>5.4</b> Case study: Joins on Stack Overflow Data</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="joining-data.html"><a href="joining-data.html#load-dataset-2"><i class="fa fa-check"></i><b>5.4.1</b> Load dataset</a></li>
+<li class="chapter" data-level="5.4.2" data-path="joining-data.html"><a href="joining-data.html#stack-overflow-questions"><i class="fa fa-check"></i><b>5.4.2</b> Stack Overflow questions</a></li>
+<li class="chapter" data-level="5.4.3" data-path="joining-data.html"><a href="joining-data.html#joining-questions-and-answers"><i class="fa fa-check"></i><b>5.4.3</b> Joining questions and answers</a></li>
+<li class="chapter" data-level="5.4.4" data-path="joining-data.html"><a href="joining-data.html#the-bind_rows-verb"><i class="fa fa-check"></i><b>5.4.4</b> The bind_rows verb</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html"><i class="fa fa-check"></i><b>6</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#summary-statistics"><i class="fa fa-check"></i><b>6.1</b> Summary Statistics</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#measures-of-center"><i class="fa fa-check"></i><b>6.1.1</b> Measures of center</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#measures-of-spread"><i class="fa fa-check"></i><b>6.1.2</b> Measures of spread</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#random-numbers-and-probability"><i class="fa fa-check"></i><b>6.2</b> Random Numbers and Probability</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#chances"><i class="fa fa-check"></i><b>6.2.1</b> Chances</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#discrete-distributions"><i class="fa fa-check"></i><b>6.2.2</b> Discrete distributions</a></li>
+<li class="chapter" data-level="6.2.3" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#continuous-distributions"><i class="fa fa-check"></i><b>6.2.3</b> Continuous distributions</a></li>
+<li class="chapter" data-level="6.2.4" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#binomial-distribution"><i class="fa fa-check"></i><b>6.2.4</b> Binomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#more-distributions-central-limit-theorem"><i class="fa fa-check"></i><b>6.3</b> More Distributions &amp; Central Limit Theorem</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#central-limit-theorem"><i class="fa fa-check"></i><b>6.3.2</b> Central limit theorem</a></li>
+<li class="chapter" data-level="6.3.3" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#poisson-distribution"><i class="fa fa-check"></i><b>6.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="6.3.4" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#exponential-distribution"><i class="fa fa-check"></i><b>6.3.4</b> Exponential distribution</a></li>
+<li class="chapter" data-level="6.3.5" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#students-t-distribution"><i class="fa fa-check"></i><b>6.3.5</b> (Student’s) t-distribution</a></li>
+<li class="chapter" data-level="6.3.6" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#log-normal-distribution"><i class="fa fa-check"></i><b>6.3.6</b> Log-normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#correlation-and-experimental-design"><i class="fa fa-check"></i><b>6.4</b> Correlation and Experimental Design</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#correlation"><i class="fa fa-check"></i><b>6.4.1</b> Correlation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#correlation-caveats"><i class="fa fa-check"></i><b>6.4.2</b> Correlation caveats</a></li>
+<li class="chapter" data-level="6.4.3" data-path="introduction-to-statistics.html"><a href="introduction-to-statistics.html#design-of-experiments"><i class="fa fa-check"></i><b>6.4.3</b> Design of experiments</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>7</b> Introduction to Data Visualization with ggplot2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#data-columns-types-affect-plot-types"><i class="fa fa-check"></i><b>7.1.1</b> Data columns types affect plot types</a></li>
+<li class="chapter" data-level="7.1.2" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>7.1.2</b> The grammar of graphics</a></li>
+<li class="chapter" data-level="7.1.3" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#ggplot2-layers"><i class="fa fa-check"></i><b>7.1.3</b> ggplot2 layers</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#aesthetics"><i class="fa fa-check"></i><b>7.2</b> Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#visible-aesthetics"><i class="fa fa-check"></i><b>7.2.1</b> Visible aesthetics</a></li>
+<li class="chapter" data-level="7.2.2" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#using-attributes"><i class="fa fa-check"></i><b>7.2.2</b> Using attributes</a></li>
+<li class="chapter" data-level="7.2.3" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#modifying-aesthetics"><i class="fa fa-check"></i><b>7.2.3</b> Modifying aesthetics</a></li>
+<li class="chapter" data-level="7.2.4" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#aesthetics-best-practices"><i class="fa fa-check"></i><b>7.2.4</b> Aesthetics best practices</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#geometries"><i class="fa fa-check"></i><b>7.3</b> Geometries</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>7.3.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="7.3.2" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#histograms-1"><i class="fa fa-check"></i><b>7.3.2</b> Histograms</a></li>
+<li class="chapter" data-level="7.3.3" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#bar-plots-1"><i class="fa fa-check"></i><b>7.3.3</b> Bar plots</a></li>
+<li class="chapter" data-level="7.3.4" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#line-plots-1"><i class="fa fa-check"></i><b>7.3.4</b> Line plots</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#themes"><i class="fa fa-check"></i><b>7.4</b> Themes</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#themes-from-scratch"><i class="fa fa-check"></i><b>7.4.1</b> Themes from scratch</a></li>
+<li class="chapter" data-level="7.4.2" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#theme-flexibility"><i class="fa fa-check"></i><b>7.4.2</b> Theme flexibility</a></li>
+<li class="chapter" data-level="7.4.3" data-path="introduction-to-data-visualization-with-ggplot2.html"><a href="introduction-to-data-visualization-with-ggplot2.html#effective-explanatory-plots"><i class="fa fa-check"></i><b>7.4.3</b> Effective explanatory plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Intermediate Data Visualization with ggplot2</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#statistics"><i class="fa fa-check"></i><b>8.1</b> Statistics</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#stats-with-geoms"><i class="fa fa-check"></i><b>8.1.1</b> Stats with geoms</a></li>
+<li class="chapter" data-level="8.1.2" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#stats-sum-quantile"><i class="fa fa-check"></i><b>8.1.2</b> Stats: sum &amp; quantile</a></li>
+<li class="chapter" data-level="8.1.3" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#stats-outside-geoms"><i class="fa fa-check"></i><b>8.1.3</b> Stats outside geoms</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#coordinates"><i class="fa fa-check"></i><b>8.2</b> Coordinates</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#coordinates-layer"><i class="fa fa-check"></i><b>8.2.1</b> Coordinates layer</a></li>
+<li class="chapter" data-level="8.2.2" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#coordinates-vs.-scales"><i class="fa fa-check"></i><b>8.2.2</b> Coordinates vs. scales</a></li>
+<li class="chapter" data-level="8.2.3" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#double-flipped-axes"><i class="fa fa-check"></i><b>8.2.3</b> Double &amp; flipped axes</a></li>
+<li class="chapter" data-level="8.2.4" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#polar-coordinates"><i class="fa fa-check"></i><b>8.2.4</b> Polar coordinates</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#facets"><i class="fa fa-check"></i><b>8.3</b> Facets</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#the-facets-layer"><i class="fa fa-check"></i><b>8.3.1</b> The facets layer</a></li>
+<li class="chapter" data-level="8.3.2" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#facet-labels-order"><i class="fa fa-check"></i><b>8.3.2</b> Facet labels &amp; order</a></li>
+<li class="chapter" data-level="8.3.3" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#facet-plotting-spaces"><i class="fa fa-check"></i><b>8.3.3</b> Facet plotting spaces</a></li>
+<li class="chapter" data-level="8.3.4" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#facet-wrap-margins"><i class="fa fa-check"></i><b>8.3.4</b> Facet wrap &amp; margins</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#best-practices"><i class="fa fa-check"></i><b>8.4</b> Best Practices</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#bar-plots-2"><i class="fa fa-check"></i><b>8.4.1</b> Bar plots</a></li>
+<li class="chapter" data-level="8.4.2" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#heatmaps-use-case-scenario"><i class="fa fa-check"></i><b>8.4.2</b> Heatmaps use case scenario</a></li>
+<li class="chapter" data-level="8.4.3" data-path="intermediate-data-visualization-with-ggplot2.html"><a href="intermediate-data-visualization-with-ggplot2.html#when-good-data-makes-bad-plots"><i class="fa fa-check"></i><b>8.4.3</b> When good data makes bad plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html"><i class="fa fa-check"></i><b>9</b> Introduction to Importing Data in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#flat-files-with-utils"><i class="fa fa-check"></i><b>9.1</b> Flat files with utils</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#read.csv"><i class="fa fa-check"></i><b>9.1.1</b> read.csv</a></li>
+<li class="chapter" data-level="9.1.2" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#read.delim"><i class="fa fa-check"></i><b>9.1.2</b> read.delim</a></li>
+<li class="chapter" data-level="9.1.3" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#read.table"><i class="fa fa-check"></i><b>9.1.3</b> read.table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#readr-data.table"><i class="fa fa-check"></i><b>9.2</b> readr &amp; data.table</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#readr"><i class="fa fa-check"></i><b>9.2.1</b> readr</a></li>
+<li class="chapter" data-level="9.2.2" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#data.table"><i class="fa fa-check"></i><b>9.2.2</b> data.table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#excel-data"><i class="fa fa-check"></i><b>9.3</b> Excel data</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#list-the-sheets-of-xls-file"><i class="fa fa-check"></i><b>9.3.1</b> List the sheets of xls file</a></li>
+<li class="chapter" data-level="9.3.2" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#import-an-excel-sheet"><i class="fa fa-check"></i><b>9.3.2</b> Import an Excel sheet</a></li>
+<li class="chapter" data-level="9.3.3" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#col_names-skip-argument"><i class="fa fa-check"></i><b>9.3.3</b> col_names &amp; skip argument</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#reproducible-excel-work---xlconnect"><i class="fa fa-check"></i><b>9.4</b> Reproducible Excel work - XLConnect</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#adapting-sheets"><i class="fa fa-check"></i><b>9.4.1</b> Adapting sheets</a></li>
+<li class="chapter" data-level="9.4.2" data-path="introduction-to-importing-data-in-r.html"><a href="introduction-to-importing-data-in-r.html#adapting-sheets-1"><i class="fa fa-check"></i><b>9.4.2</b> Adapting sheets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html"><i class="fa fa-check"></i><b>10</b> Cleaning Data in R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#common-data-problems"><i class="fa fa-check"></i><b>10.1</b> Common Data Problems</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#data-type-constraints"><i class="fa fa-check"></i><b>10.1.1</b> Data type constraints</a></li>
+<li class="chapter" data-level="10.1.2" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#range-constraints"><i class="fa fa-check"></i><b>10.1.2</b> Range constraints</a></li>
+<li class="chapter" data-level="10.1.3" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#uniqueness-constraints"><i class="fa fa-check"></i><b>10.1.3</b> Uniqueness constraints</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#categorical-and-text-data"><i class="fa fa-check"></i><b>10.2</b> Categorical and Text Data</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#checking-membership"><i class="fa fa-check"></i><b>10.2.1</b> Checking membership</a></li>
+<li class="chapter" data-level="10.2.2" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#categorical-data-problems"><i class="fa fa-check"></i><b>10.2.2</b> Categorical data problems</a></li>
+<li class="chapter" data-level="10.2.3" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#cleaning-text-data"><i class="fa fa-check"></i><b>10.2.3</b> Cleaning text data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#advanced-data-problems"><i class="fa fa-check"></i><b>10.3</b> Advanced Data Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#uniformity"><i class="fa fa-check"></i><b>10.3.1</b> Uniformity</a></li>
+<li class="chapter" data-level="10.3.2" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#cross-field-validation"><i class="fa fa-check"></i><b>10.3.2</b> Cross field validation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#completeness"><i class="fa fa-check"></i><b>10.3.3</b> Completeness</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#record-linkage"><i class="fa fa-check"></i><b>10.4</b> Record Linkage</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#comparing-strings"><i class="fa fa-check"></i><b>10.4.1</b> Comparing strings</a></li>
+<li class="chapter" data-level="10.4.2" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#generating-and-comparing-pairs"><i class="fa fa-check"></i><b>10.4.2</b> Generating and comparing pairs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="cleaning-data-in-r.html"><a href="cleaning-data-in-r.html#scoring-and-linking"><i class="fa fa-check"></i><b>10.4.3</b> Scoring and linking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html"><i class="fa fa-check"></i><b>11</b> Working with Dates and Times in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#dates-and-times-in-r"><i class="fa fa-check"></i><b>11.1</b> Dates and Times in R</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#introduction-to-dates"><i class="fa fa-check"></i><b>11.1.1</b> Introduction to dates</a></li>
+<li class="chapter" data-level="11.1.2" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#why-use-dates"><i class="fa fa-check"></i><b>11.1.2</b> Why use dates?</a></li>
+<li class="chapter" data-level="11.1.3" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#what-about-times"><i class="fa fa-check"></i><b>11.1.3</b> What about times?</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#parsing-manipulating-with-lubridate"><i class="fa fa-check"></i><b>11.2</b> Parsing &amp; Manipulating with lubridate</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#parsing-dates"><i class="fa fa-check"></i><b>11.2.1</b> Parsing dates</a></li>
+<li class="chapter" data-level="11.2.2" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#manipulating-dates"><i class="fa fa-check"></i><b>11.2.2</b> Manipulating dates</a></li>
+<li class="chapter" data-level="11.2.3" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#extracting-parts-of-a-datetime"><i class="fa fa-check"></i><b>11.2.3</b> Extracting parts of a datetime</a></li>
+<li class="chapter" data-level="11.2.4" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#rounding-datetimes"><i class="fa fa-check"></i><b>11.2.4</b> Rounding datetimes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#arithmetic-with-dates-and-times"><i class="fa fa-check"></i><b>11.3</b> Arithmetic with Dates and Times</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#taking-differences-of-datetimes"><i class="fa fa-check"></i><b>11.3.1</b> Taking differences of datetimes</a></li>
+<li class="chapter" data-level="11.3.2" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#time-spans"><i class="fa fa-check"></i><b>11.3.2</b> Time spans</a></li>
+<li class="chapter" data-level="11.3.3" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#intervals"><i class="fa fa-check"></i><b>11.3.3</b> Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#problems-in-practice"><i class="fa fa-check"></i><b>11.4</b> Problems in practice</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#time-zones"><i class="fa fa-check"></i><b>11.4.1</b> Time zones</a></li>
+<li class="chapter" data-level="11.4.2" data-path="working-with-dates-and-times-in-r.html"><a href="working-with-dates-and-times-in-r.html#more-on-import-and-export-datetimes"><i class="fa fa-check"></i><b>11.4.2</b> More on import and export datetimes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html"><i class="fa fa-check"></i><b>12</b> Introduction to Writing Functions</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#write-a-function"><i class="fa fa-check"></i><b>12.1</b> Write a Function</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#why-write-function"><i class="fa fa-check"></i><b>12.1.1</b> Why write function?</a></li>
+<li class="chapter" data-level="12.1.2" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#convert-scripts-into-functions"><i class="fa fa-check"></i><b>12.1.2</b> Convert scripts into functions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#readable-code"><i class="fa fa-check"></i><b>12.1.3</b> Readable code</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#all-about-arguments"><i class="fa fa-check"></i><b>12.2</b> All About Arguments</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#default-arguments"><i class="fa fa-check"></i><b>12.2.1</b> Default arguments</a></li>
+<li class="chapter" data-level="12.2.2" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#pass-arguments-between-functions"><i class="fa fa-check"></i><b>12.2.2</b> Pass arguments between functions</a></li>
+<li class="chapter" data-level="12.2.3" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#checking-arguments"><i class="fa fa-check"></i><b>12.2.3</b> Checking arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#return-values-and-scope"><i class="fa fa-check"></i><b>12.3</b> Return Values and Scope</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#returning-values"><i class="fa fa-check"></i><b>12.3.1</b> Returning values</a></li>
+<li class="chapter" data-level="12.3.2" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#return-multiple-values"><i class="fa fa-check"></i><b>12.3.2</b> Return multiple values</a></li>
+<li class="chapter" data-level="12.3.3" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#environments"><i class="fa fa-check"></i><b>12.3.3</b> Environments</a></li>
+<li class="chapter" data-level="12.3.4" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#scope-and-precedence"><i class="fa fa-check"></i><b>12.3.4</b> Scope and precedence</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#case-study-on-grain-yields"><i class="fa fa-check"></i><b>12.4</b> Case Study on Grain Yields</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#grain-yields-unit-conversion"><i class="fa fa-check"></i><b>12.4.1</b> Grain yields &amp; unit conversion</a></li>
+<li class="chapter" data-level="12.4.2" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#visualizing-grain-yields"><i class="fa fa-check"></i><b>12.4.2</b> Visualizing grain yields</a></li>
+<li class="chapter" data-level="12.4.3" data-path="introduction-to-writing-functions.html"><a href="introduction-to-writing-functions.html#modeling-grain-yields"><i class="fa fa-check"></i><b>12.4.3</b> Modeling grain yields</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html"><i class="fa fa-check"></i><b>13</b> Exploratory Data Analysis in R</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#exploring-categorical-data"><i class="fa fa-check"></i><b>13.1</b> Exploring Categorical Data</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#categorical-data"><i class="fa fa-check"></i><b>13.1.1</b> Categorical data</a></li>
+<li class="chapter" data-level="13.1.2" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#counts-vs.-proportions"><i class="fa fa-check"></i><b>13.1.2</b> Counts vs. proportions</a></li>
+<li class="chapter" data-level="13.1.3" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#distribution-of-one-variable"><i class="fa fa-check"></i><b>13.1.3</b> Distribution of one variable</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#exploring-numerical-data"><i class="fa fa-check"></i><b>13.2</b> Exploring numerical data</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#numerical-data"><i class="fa fa-check"></i><b>13.2.1</b> Numerical Data</a></li>
+<li class="chapter" data-level="13.2.2" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#distribution-of-one-variable-1"><i class="fa fa-check"></i><b>13.2.2</b> Distribution of one variable</a></li>
+<li class="chapter" data-level="13.2.3" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#box-plots-1"><i class="fa fa-check"></i><b>13.2.3</b> Box plots</a></li>
+<li class="chapter" data-level="13.2.4" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#visual-in-higher-dimensions"><i class="fa fa-check"></i><b>13.2.4</b> Visual in higher dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#numerical-summaries"><i class="fa fa-check"></i><b>13.3</b> Numerical Summaries</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#measures-of-center-1"><i class="fa fa-check"></i><b>13.3.1</b> Measures of center</a></li>
+<li class="chapter" data-level="13.3.2" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#measures-of-variability"><i class="fa fa-check"></i><b>13.3.2</b> Measures of variability</a></li>
+<li class="chapter" data-level="13.3.3" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#shape-transformations"><i class="fa fa-check"></i><b>13.3.3</b> Shape &amp; transformations</a></li>
+<li class="chapter" data-level="13.3.4" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#outliers"><i class="fa fa-check"></i><b>13.3.4</b> Outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#case-study"><i class="fa fa-check"></i><b>13.4</b> Case Study</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#new-data"><i class="fa fa-check"></i><b>13.4.1</b> New data</a></li>
+<li class="chapter" data-level="13.4.2" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#check-in-1"><i class="fa fa-check"></i><b>13.4.2</b> Check-in 1</a></li>
+<li class="chapter" data-level="13.4.3" data-path="exploratory-data-analysis-in-r.html"><a href="exploratory-data-analysis-in-r.html#check-in-2"><i class="fa fa-check"></i><b>13.4.3</b> Check-in 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html"><i class="fa fa-check"></i><b>14</b> Introduction to Regression</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>14.1</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#tale-of-two-variables"><i class="fa fa-check"></i><b>14.1.1</b> Tale of two variables</a></li>
+<li class="chapter" data-level="14.1.2" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#fitting-a-linear-regression"><i class="fa fa-check"></i><b>14.1.2</b> Fitting a linear regression</a></li>
+<li class="chapter" data-level="14.1.3" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#categorical-explanatory-variables"><i class="fa fa-check"></i><b>14.1.3</b> Categorical explanatory variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#predictions-model-objects"><i class="fa fa-check"></i><b>14.2</b> Predictions &amp; model objects</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#making-predictions"><i class="fa fa-check"></i><b>14.2.1</b> Making predictions</a></li>
+<li class="chapter" data-level="14.2.2" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#working-with-model-objects"><i class="fa fa-check"></i><b>14.2.2</b> Working with model objects</a></li>
+<li class="chapter" data-level="14.2.3" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>14.2.3</b> Regression to the mean</a></li>
+<li class="chapter" data-level="14.2.4" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#transforming-variables"><i class="fa fa-check"></i><b>14.2.4</b> Transforming variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#assessing-model-fit"><i class="fa fa-check"></i><b>14.3</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#quantifying-model-fit"><i class="fa fa-check"></i><b>14.3.1</b> Quantifying model fit</a></li>
+<li class="chapter" data-level="14.3.2" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#visualizing-model-fit"><i class="fa fa-check"></i><b>14.3.2</b> Visualizing model fit</a></li>
+<li class="chapter" data-level="14.3.3" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#outliers-leverage-influence"><i class="fa fa-check"></i><b>14.3.3</b> Outliers, leverage, influence</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#simple-logistic-regression"><i class="fa fa-check"></i><b>14.4</b> Simple logistic regression</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#why-need-logistic-regression"><i class="fa fa-check"></i><b>14.4.1</b> Why need logistic regression</a></li>
+<li class="chapter" data-level="14.4.2" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#predictions-odds-ratios"><i class="fa fa-check"></i><b>14.4.2</b> Predictions &amp; odds ratios</a></li>
+<li class="chapter" data-level="14.4.3" data-path="introduction-to-regression.html"><a href="introduction-to-regression.html#quantify-logistic-regression-fit"><i class="fa fa-check"></i><b>14.4.3</b> Quantify logistic regression fit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="intermediate-regression.html"><a href="intermediate-regression.html"><i class="fa fa-check"></i><b>15</b> Intermediate Regression</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="intermediate-regression.html"><a href="intermediate-regression.html#parallel-slopes"><i class="fa fa-check"></i><b>15.1</b> Parallel Slopes</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="intermediate-regression.html"><a href="intermediate-regression.html#parallel-slopes-linear-regression"><i class="fa fa-check"></i><b>15.1.1</b> Parallel slopes linear regression</a></li>
+<li class="chapter" data-level="15.1.2" data-path="intermediate-regression.html"><a href="intermediate-regression.html#predicting-parallel-slopes"><i class="fa fa-check"></i><b>15.1.2</b> Predicting parallel slopes</a></li>
+<li class="chapter" data-level="15.1.3" data-path="intermediate-regression.html"><a href="intermediate-regression.html#assessing-model-performance"><i class="fa fa-check"></i><b>15.1.3</b> Assessing model performance</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="intermediate-regression.html"><a href="intermediate-regression.html#interactions"><i class="fa fa-check"></i><b>15.2</b> Interactions</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="intermediate-regression.html"><a href="intermediate-regression.html#models-for-each-category"><i class="fa fa-check"></i><b>15.2.1</b> Models for each category</a></li>
+<li class="chapter" data-level="15.2.2" data-path="intermediate-regression.html"><a href="intermediate-regression.html#one-model-with-an-interaction"><i class="fa fa-check"></i><b>15.2.2</b> One model with an interaction</a></li>
+<li class="chapter" data-level="15.2.3" data-path="intermediate-regression.html"><a href="intermediate-regression.html#predict-with-interactions"><i class="fa fa-check"></i><b>15.2.3</b> Predict with interactions</a></li>
+<li class="chapter" data-level="15.2.4" data-path="intermediate-regression.html"><a href="intermediate-regression.html#simpsons-paradox"><i class="fa fa-check"></i><b>15.2.4</b> Simpson’s Paradox</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="intermediate-regression.html"><a href="intermediate-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>15.3</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="intermediate-regression.html"><a href="intermediate-regression.html#two-numeric-ivs"><i class="fa fa-check"></i><b>15.3.1</b> Two numeric IVs</a></li>
+<li class="chapter" data-level="15.3.2" data-path="intermediate-regression.html"><a href="intermediate-regression.html#more-than-2-ivs"><i class="fa fa-check"></i><b>15.3.2</b> More than 2 IVs</a></li>
+<li class="chapter" data-level="15.3.3" data-path="intermediate-regression.html"><a href="intermediate-regression.html#model-performance"><i class="fa fa-check"></i><b>15.3.3</b> Model performance</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="intermediate-regression.html"><a href="intermediate-regression.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>15.4</b> Multiple Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="intermediate-regression.html"><a href="intermediate-regression.html#multiple-logistic-regression-1"><i class="fa fa-check"></i><b>15.4.1</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="15.4.2" data-path="intermediate-regression.html"><a href="intermediate-regression.html#logistic-distribution"><i class="fa fa-check"></i><b>15.4.2</b> Logistic distribution</a></li>
+<li class="chapter" data-level="15.4.3" data-path="intermediate-regression.html"><a href="intermediate-regression.html#model-performance-1"><i class="fa fa-check"></i><b>15.4.3</b> Model performance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sampling-in-r.html"><a href="sampling-in-r.html"><i class="fa fa-check"></i><b>16</b> Sampling in R</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="sampling-in-r.html"><a href="sampling-in-r.html#introduction-to-sampling"><i class="fa fa-check"></i><b>16.1</b> Introduction to Sampling</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="sampling-in-r.html"><a href="sampling-in-r.html#sampling-point-estimates"><i class="fa fa-check"></i><b>16.1.1</b> Sampling &amp; point estimates</a></li>
+<li class="chapter" data-level="16.1.2" data-path="sampling-in-r.html"><a href="sampling-in-r.html#convenience-sampling"><i class="fa fa-check"></i><b>16.1.2</b> Convenience sampling</a></li>
+<li class="chapter" data-level="16.1.3" data-path="sampling-in-r.html"><a href="sampling-in-r.html#pseudo-random-number-generation"><i class="fa fa-check"></i><b>16.1.3</b> Pseudo-random number generation</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="sampling-in-r.html"><a href="sampling-in-r.html#sampling-methods"><i class="fa fa-check"></i><b>16.2</b> Sampling Methods</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="sampling-in-r.html"><a href="sampling-in-r.html#simple-random-systematic-sampling"><i class="fa fa-check"></i><b>16.2.1</b> Simple random &amp; systematic sampling</a></li>
+<li class="chapter" data-level="16.2.2" data-path="sampling-in-r.html"><a href="sampling-in-r.html#stratified-weighted-random-sampling"><i class="fa fa-check"></i><b>16.2.2</b> Stratified &amp; weighted random sampling</a></li>
+<li class="chapter" data-level="16.2.3" data-path="sampling-in-r.html"><a href="sampling-in-r.html#cluster-sampling"><i class="fa fa-check"></i><b>16.2.3</b> Cluster sampling</a></li>
+<li class="chapter" data-level="16.2.4" data-path="sampling-in-r.html"><a href="sampling-in-r.html#comparing-sampling-methods"><i class="fa fa-check"></i><b>16.2.4</b> Comparing sampling methods</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="sampling-in-r.html"><a href="sampling-in-r.html#sampling-distributions"><i class="fa fa-check"></i><b>16.3</b> Sampling Distributions</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="sampling-in-r.html"><a href="sampling-in-r.html#relative-error-of-point-estimates"><i class="fa fa-check"></i><b>16.3.1</b> Relative error of point estimates</a></li>
+<li class="chapter" data-level="16.3.2" data-path="sampling-in-r.html"><a href="sampling-in-r.html#creating-a-sampling-distribution"><i class="fa fa-check"></i><b>16.3.2</b> Creating a sampling distribution</a></li>
+<li class="chapter" data-level="16.3.3" data-path="sampling-in-r.html"><a href="sampling-in-r.html#approximate-sampling-distributions"><i class="fa fa-check"></i><b>16.3.3</b> Approximate sampling distributions</a></li>
+<li class="chapter" data-level="16.3.4" data-path="sampling-in-r.html"><a href="sampling-in-r.html#standard-errors-clt"><i class="fa fa-check"></i><b>16.3.4</b> Standard errors &amp; CLT</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="sampling-in-r.html"><a href="sampling-in-r.html#bootstrap-distributions"><i class="fa fa-check"></i><b>16.4</b> Bootstrap Distributions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="sampling-in-r.html"><a href="sampling-in-r.html#introduction-to-bootstrapping"><i class="fa fa-check"></i><b>16.4.1</b> Introduction to bootstrapping</a></li>
+<li class="chapter" data-level="16.4.2" data-path="sampling-in-r.html"><a href="sampling-in-r.html#comparing-sampling-bootstrap-distributions"><i class="fa fa-check"></i><b>16.4.2</b> Comparing sampling &amp; bootstrap distributions</a></li>
+<li class="chapter" data-level="16.4.3" data-path="sampling-in-r.html"><a href="sampling-in-r.html#confidence-intervals"><i class="fa fa-check"></i><b>16.4.3</b> Confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>17</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#introduction-to-hypothesis-testing"><i class="fa fa-check"></i><b>17.1</b> Introduction to Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-z-scores"><i class="fa fa-check"></i><b>17.1.1</b> Hypothesis tests &amp; z-scores</a></li>
+<li class="chapter" data-level="17.1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>17.1.2</b> p-values</a></li>
+<li class="chapter" data-level="17.1.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-significance"><i class="fa fa-check"></i><b>17.1.3</b> Statistical significance</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#two-sample-anova-tests"><i class="fa fa-check"></i><b>17.2</b> Two-Sample &amp; ANOVA Tests</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#performing-t-tests"><i class="fa fa-check"></i><b>17.2.1</b> Performing t-tests</a></li>
+<li class="chapter" data-level="17.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#calculating-p-values-from-t-statistics"><i class="fa fa-check"></i><b>17.2.2</b> Calculating p-values from t-statistics</a></li>
+<li class="chapter" data-level="17.2.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#paired-t-tests"><i class="fa fa-check"></i><b>17.2.3</b> Paired t-tests</a></li>
+<li class="chapter" data-level="17.2.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#anova-tests"><i class="fa fa-check"></i><b>17.2.4</b> ANOVA tests</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#proportion-tests"><i class="fa fa-check"></i><b>17.3</b> Proportion Tests</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-sample-proportion-tests"><i class="fa fa-check"></i><b>17.3.1</b> One-sample proportion tests</a></li>
+<li class="chapter" data-level="17.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#two-sample-proportion-tests"><i class="fa fa-check"></i><b>17.3.2</b> Two-sample proportion tests</a></li>
+<li class="chapter" data-level="17.3.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#chi-square-test-of-independence"><i class="fa fa-check"></i><b>17.3.3</b> Chi-square test of independence</a></li>
+<li class="chapter" data-level="17.3.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#chi-square-goodness-of-fit-tests"><i class="fa fa-check"></i><b>17.3.4</b> Chi-square goodness of fit tests</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#non-parametric-tests"><i class="fa fa-check"></i><b>17.4</b> Non-Parametric Tests</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#assumptions-in-hypothesis-testing"><i class="fa fa-check"></i><b>17.4.1</b> Assumptions in hypothesis testing</a></li>
+<li class="chapter" data-level="17.4.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#simulation-based-infer-pipeline"><i class="fa fa-check"></i><b>17.4.2</b> Simulation-based infer pipeline</a></li>
+<li class="chapter" data-level="17.4.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#non-parametric-anova-unpaired-t-tests"><i class="fa fa-check"></i><b>17.4.3</b> Non-parametric ANOVA &amp; unpaired t-tests</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i><b>18</b> Experimental Design</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="experimental-design.html"><a href="experimental-design.html#introduction-to-experimental-design"><i class="fa fa-check"></i><b>18.1</b> Introduction to experimental design</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="experimental-design.html"><a href="experimental-design.html#introduction-1"><i class="fa fa-check"></i><b>18.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.1.2" data-path="experimental-design.html"><a href="experimental-design.html#replication-blocking"><i class="fa fa-check"></i><b>18.1.2</b> Replication &amp; blocking</a></li>
+<li class="chapter" data-level="18.1.3" data-path="experimental-design.html"><a href="experimental-design.html#hypothesis-testing-1"><i class="fa fa-check"></i><b>18.1.3</b> Hypothesis testing</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="experimental-design.html"><a href="experimental-design.html#basic-experiments"><i class="fa fa-check"></i><b>18.2</b> Basic Experiments</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="experimental-design.html"><a href="experimental-design.html#anova-factor-experiments"><i class="fa fa-check"></i><b>18.2.1</b> ANOVA &amp; factor experiments</a></li>
+<li class="chapter" data-level="18.2.2" data-path="experimental-design.html"><a href="experimental-design.html#model-validation"><i class="fa fa-check"></i><b>18.2.2</b> Model validation</a></li>
+<li class="chapter" data-level="18.2.3" data-path="experimental-design.html"><a href="experimental-design.html#ab-testing"><i class="fa fa-check"></i><b>18.2.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="experimental-design.html"><a href="experimental-design.html#block-designs"><i class="fa fa-check"></i><b>18.3</b> Block Designs</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="experimental-design.html"><a href="experimental-design.html#intro-to-sampling"><i class="fa fa-check"></i><b>18.3.1</b> Intro to sampling</a></li>
+<li class="chapter" data-level="18.3.2" data-path="experimental-design.html"><a href="experimental-design.html#randomized-complete-block-designs-rcbd"><i class="fa fa-check"></i><b>18.3.2</b> Randomized Complete Block Designs (RCBD)</a></li>
+<li class="chapter" data-level="18.3.3" data-path="experimental-design.html"><a href="experimental-design.html#balanced-incomplete-block-designs-bibd"><i class="fa fa-check"></i><b>18.3.3</b> Balanced Incomplete Block Designs (BIBD)</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="experimental-design.html"><a href="experimental-design.html#squares-factorial-experiments"><i class="fa fa-check"></i><b>18.4</b> Squares &amp; Factorial Experiments</a>
+<ul>
+<li class="chapter" data-level="18.4.1" data-path="experimental-design.html"><a href="experimental-design.html#latin-squares"><i class="fa fa-check"></i><b>18.4.1</b> Latin squares</a></li>
+<li class="chapter" data-level="18.4.2" data-path="experimental-design.html"><a href="experimental-design.html#graeco-latin-squares"><i class="fa fa-check"></i><b>18.4.2</b> Graeco-Latin squares</a></li>
+<li class="chapter" data-level="18.4.3" data-path="experimental-design.html"><a href="experimental-design.html#factorial-experiments"><i class="fa fa-check"></i><b>18.4.3</b> Factorial experiments</a></li>
+<li class="chapter" data-level="18.4.4" data-path="experimental-design.html"><a href="experimental-design.html#other-experimental-designs"><i class="fa fa-check"></i><b>18.4.4</b> Other experimental designs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html"><i class="fa fa-check"></i><b>19</b> Supervised Learning: Classification</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#k-nearest-neighbors-knn"><i class="fa fa-check"></i><b>19.1</b> k-Nearest Neighbors (kNN)</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#classification-with-nearest-neighbors"><i class="fa fa-check"></i><b>19.1.1</b> Classification with Nearest Neighbors</a></li>
+<li class="chapter" data-level="19.1.2" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#k-in-knn"><i class="fa fa-check"></i><b>19.1.2</b> ‘k’ in kNN</a></li>
+<li class="chapter" data-level="19.1.3" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#data-preparation-for-knn"><i class="fa fa-check"></i><b>19.1.3</b> 1-3.Data preparation for kNN</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#naive-bayes"><i class="fa fa-check"></i><b>19.2</b> Naive Bayes</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#understanding-bayesian-methods"><i class="fa fa-check"></i><b>19.2.1</b> Understanding Bayesian methods</a></li>
+<li class="chapter" data-level="19.2.2" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#understanding-nbs-naivety"><i class="fa fa-check"></i><b>19.2.2</b> Understanding NB’s “naivety”</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#logistic-regression"><i class="fa fa-check"></i><b>19.3</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#making-binary-predictions-with-regression"><i class="fa fa-check"></i><b>19.3.1</b> Making binary predictions with regression</a></li>
+<li class="chapter" data-level="19.3.2" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#model-performance-tradeoffs"><i class="fa fa-check"></i><b>19.3.2</b> Model performance tradeoffs</a></li>
+<li class="chapter" data-level="19.3.3" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#dummy-variables-missing-data-and-interactions"><i class="fa fa-check"></i><b>19.3.3</b> Dummy variables, missing data, and interactions</a></li>
+<li class="chapter" data-level="19.3.4" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#automatic-feature-selection"><i class="fa fa-check"></i><b>19.3.4</b> Automatic feature selection</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#classification-trees"><i class="fa fa-check"></i><b>19.4</b> Classification Trees</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#making-decisions-with-trees"><i class="fa fa-check"></i><b>19.4.1</b> Making decisions with trees</a></li>
+<li class="chapter" data-level="19.4.2" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#growing-larger-classification-trees"><i class="fa fa-check"></i><b>19.4.2</b> Growing larger classification trees</a></li>
+<li class="chapter" data-level="19.4.3" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#tending-to-classification-trees"><i class="fa fa-check"></i><b>19.4.3</b> Tending to classification trees</a></li>
+<li class="chapter" data-level="19.4.4" data-path="supervised-learning-classification.html"><a href="supervised-learning-classification.html#seeing-the-forest-from-the-trees"><i class="fa fa-check"></i><b>19.4.4</b> Seeing the forest from the trees</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html"><i class="fa fa-check"></i><b>20</b> Supervised Learning: Regression</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#what-is-regression"><i class="fa fa-check"></i><b>20.1</b> What is Regression?</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#introduction-2"><i class="fa fa-check"></i><b>20.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="20.1.2" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#linear-regression"><i class="fa fa-check"></i><b>20.1.2</b> Linear regression</a></li>
+<li class="chapter" data-level="20.1.3" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#predicting-model"><i class="fa fa-check"></i><b>20.1.3</b> Predicting model</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#training-and-evaluating-models"><i class="fa fa-check"></i><b>20.2</b> Training and Evaluating Models</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#graphically"><i class="fa fa-check"></i><b>20.2.1</b> Graphically</a></li>
+<li class="chapter" data-level="20.2.2" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#root-mean-squared-error"><i class="fa fa-check"></i><b>20.2.2</b> Root Mean Squared Error</a></li>
+<li class="chapter" data-level="20.2.3" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#r-squared"><i class="fa fa-check"></i><b>20.2.3</b> R-squared</a></li>
+<li class="chapter" data-level="20.2.4" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#training-a-model"><i class="fa fa-check"></i><b>20.2.4</b> Training a Model</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#issues-to-consider"><i class="fa fa-check"></i><b>20.3</b> Issues to Consider</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#categorical-iv"><i class="fa fa-check"></i><b>20.3.1</b> Categorical IV</a></li>
+<li class="chapter" data-level="20.3.2" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#interactions-1"><i class="fa fa-check"></i><b>20.3.2</b> Interactions</a></li>
+<li class="chapter" data-level="20.3.3" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#transforming-dv-before-modeling"><i class="fa fa-check"></i><b>20.3.3</b> Transforming DV before modeling</a></li>
+<li class="chapter" data-level="20.3.4" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#transforming-iv-before-modeling"><i class="fa fa-check"></i><b>20.3.4</b> Transforming IV before modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#dealing-with-non-linear-responses"><i class="fa fa-check"></i><b>20.4</b> Dealing with Non-Linear Responses</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#logistic-regression-to-predict-probabilities"><i class="fa fa-check"></i><b>20.4.1</b> Logistic regression to predict probabilities</a></li>
+<li class="chapter" data-level="20.4.2" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#poisson-and-quasipoisson-regression-to-predict-counts"><i class="fa fa-check"></i><b>20.4.2</b> Poisson and quasipoisson regression to predict counts</a></li>
+<li class="chapter" data-level="20.4.3" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#gam-to-learn-non-linear-transforms"><i class="fa fa-check"></i><b>20.4.3</b> GAM to learn non-linear transforms</a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#tree-based-methods"><i class="fa fa-check"></i><b>20.5</b> Tree-Based Methods</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#random-forests"><i class="fa fa-check"></i><b>20.5.1</b> Random forests</a></li>
+<li class="chapter" data-level="20.5.2" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#one-hot-encoding"><i class="fa fa-check"></i><b>20.5.2</b> One-Hot-Encoding</a></li>
+<li class="chapter" data-level="20.5.3" data-path="supervised-learning-regression.html"><a href="supervised-learning-regression.html#gradient-boosting"><i class="fa fa-check"></i><b>20.5.3</b> Gradient boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html"><i class="fa fa-check"></i><b>21</b> Unsupervised Learning</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>21.1</b> k-means clustering</a>
+<ul>
+<li class="chapter" data-level="21.1.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#types-of-machine-learning"><i class="fa fa-check"></i><b>21.1.1</b> Types of machine learning</a></li>
+<li class="chapter" data-level="21.1.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#introduction-to-k-means"><i class="fa fa-check"></i><b>21.1.2</b> Introduction to k-means</a></li>
+<li class="chapter" data-level="21.1.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#model-selection"><i class="fa fa-check"></i><b>21.1.3</b> Model selection</a></li>
+<li class="chapter" data-level="21.1.4" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#pokemon-data"><i class="fa fa-check"></i><b>21.1.4</b> Pokemon data</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#hierarchical-clustering"><i class="fa fa-check"></i><b>21.2</b> Hierarchical clustering</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#introduction-3"><i class="fa fa-check"></i><b>21.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#selecting-number-of-clusters-1"><i class="fa fa-check"></i><b>21.2.2</b> Selecting number of clusters</a></li>
+<li class="chapter" data-level="21.2.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#clustering-linkage"><i class="fa fa-check"></i><b>21.2.3</b> Clustering linkage</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#dimensionality-reduction---pca"><i class="fa fa-check"></i><b>21.3</b> Dimensionality reduction - PCA</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#introduction-4"><i class="fa fa-check"></i><b>21.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.3.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#visualizing-and-interpreting-1"><i class="fa fa-check"></i><b>21.3.2</b> Visualizing and interpreting</a></li>
+<li class="chapter" data-level="21.3.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#practical-issues"><i class="fa fa-check"></i><b>21.3.3</b> Practical issues</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#case-study-1"><i class="fa fa-check"></i><b>21.4</b> Case study</a>
+<ul>
+<li class="chapter" data-level="21.4.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#introduction-5"><i class="fa fa-check"></i><b>21.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.4.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#next-steps"><i class="fa fa-check"></i><b>21.4.2</b> Next steps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html"><i class="fa fa-check"></i><b>22</b> Intermediate Importing Data in R</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#import-from-databases-1"><i class="fa fa-check"></i><b>22.1</b> Import from databases-1</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#connect-to-a-database"><i class="fa fa-check"></i><b>22.1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="22.1.2" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#import-table-data"><i class="fa fa-check"></i><b>22.1.2</b> Import table data</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#import-from-databases-2"><i class="fa fa-check"></i><b>22.2</b> Import from databases-2</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#sql-queries-from-inside-r"><i class="fa fa-check"></i><b>22.2.1</b> SQL Queries from inside R</a></li>
+<li class="chapter" data-level="22.2.2" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#dbi-internals"><i class="fa fa-check"></i><b>22.2.2</b> DBI internals</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#import-from-the-web-1"><i class="fa fa-check"></i><b>22.3</b> Import from the web-1</a>
+<ul>
+<li class="chapter" data-level="22.3.1" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#http"><i class="fa fa-check"></i><b>22.3.1</b> HTTP</a></li>
+<li class="chapter" data-level="22.3.2" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#downloading-files"><i class="fa fa-check"></i><b>22.3.2</b> Downloading files</a></li>
+</ul></li>
+<li class="chapter" data-level="22.4" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#import-from-the-web-2"><i class="fa fa-check"></i><b>22.4</b> Import from the web-2</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#apis-json"><i class="fa fa-check"></i><b>22.4.1</b> APIs &amp; JSON</a></li>
+<li class="chapter" data-level="22.4.2" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#json-jsonlite"><i class="fa fa-check"></i><b>22.4.2</b> JSON &amp; jsonlite</a></li>
+</ul></li>
+<li class="chapter" data-level="22.5" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#import-from-statistical-software"><i class="fa fa-check"></i><b>22.5</b> Import from statistical software</a>
+<ul>
+<li class="chapter" data-level="22.5.1" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#haven-package"><i class="fa fa-check"></i><b>22.5.1</b> haven package</a></li>
+<li class="chapter" data-level="22.5.2" data-path="intermediate-importing-data-in-r.html"><a href="intermediate-importing-data-in-r.html#foreign-package"><i class="fa fa-check"></i><b>22.5.2</b> foreign package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html"><i class="fa fa-check"></i><b>23</b> Introduction to SQL</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#relational-databases"><i class="fa fa-check"></i><b>23.1</b> Relational Databases</a>
+<ul>
+<li class="chapter" data-level="23.1.1" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#databases"><i class="fa fa-check"></i><b>23.1.1</b> Databases</a></li>
+<li class="chapter" data-level="23.1.2" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#tables"><i class="fa fa-check"></i><b>23.1.2</b> Tables</a></li>
+<li class="chapter" data-level="23.1.3" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#data"><i class="fa fa-check"></i><b>23.1.3</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#querying"><i class="fa fa-check"></i><b>23.2</b> Querying</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#introducing"><i class="fa fa-check"></i><b>23.2.1</b> Introducing</a></li>
+<li class="chapter" data-level="23.2.2" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#writing-queries"><i class="fa fa-check"></i><b>23.2.2</b> Writing queries</a></li>
+<li class="chapter" data-level="23.2.3" data-path="introduction-to-sql.html"><a href="introduction-to-sql.html#sql-flavors"><i class="fa fa-check"></i><b>23.2.3</b> SQL flavors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="intermediate-sql.html"><a href="intermediate-sql.html"><i class="fa fa-check"></i><b>24</b> Intermediate SQL</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="intermediate-sql.html"><a href="intermediate-sql.html#selecting-data"><i class="fa fa-check"></i><b>24.1</b> Selecting Data</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="intermediate-sql.html"><a href="intermediate-sql.html#querying-a-database"><i class="fa fa-check"></i><b>24.1.1</b> Querying a database</a></li>
+<li class="chapter" data-level="24.1.2" data-path="intermediate-sql.html"><a href="intermediate-sql.html#query-execution"><i class="fa fa-check"></i><b>24.1.2</b> Query execution</a></li>
+<li class="chapter" data-level="24.1.3" data-path="intermediate-sql.html"><a href="intermediate-sql.html#sql-style"><i class="fa fa-check"></i><b>24.1.3</b> SQL style</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="intermediate-sql.html"><a href="intermediate-sql.html#filtering-records"><i class="fa fa-check"></i><b>24.2</b> Filtering Records</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="intermediate-sql.html"><a href="intermediate-sql.html#filtering-numbers"><i class="fa fa-check"></i><b>24.2.1</b> Filtering numbers</a></li>
+<li class="chapter" data-level="24.2.2" data-path="intermediate-sql.html"><a href="intermediate-sql.html#multiple-criteria"><i class="fa fa-check"></i><b>24.2.2</b> Multiple criteria</a></li>
+<li class="chapter" data-level="24.2.3" data-path="intermediate-sql.html"><a href="intermediate-sql.html#filtering-text"><i class="fa fa-check"></i><b>24.2.3</b> Filtering text</a></li>
+<li class="chapter" data-level="24.2.4" data-path="intermediate-sql.html"><a href="intermediate-sql.html#null-values"><i class="fa fa-check"></i><b>24.2.4</b> NULL values</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="intermediate-sql.html"><a href="intermediate-sql.html#aggregate-functions"><i class="fa fa-check"></i><b>24.3</b> Aggregate Functions</a>
+<ul>
+<li class="chapter" data-level="24.3.1" data-path="intermediate-sql.html"><a href="intermediate-sql.html#summarizing-data"><i class="fa fa-check"></i><b>24.3.1</b> Summarizing data</a></li>
+<li class="chapter" data-level="24.3.2" data-path="intermediate-sql.html"><a href="intermediate-sql.html#summarizing-subsets"><i class="fa fa-check"></i><b>24.3.2</b> Summarizing subsets</a></li>
+<li class="chapter" data-level="24.3.3" data-path="intermediate-sql.html"><a href="intermediate-sql.html#aliasing-and-arithmetic"><i class="fa fa-check"></i><b>24.3.3</b> Aliasing and arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="24.4" data-path="intermediate-sql.html"><a href="intermediate-sql.html#sorting-and-grouping"><i class="fa fa-check"></i><b>24.4</b> Sorting and Grouping</a>
+<ul>
+<li class="chapter" data-level="24.4.1" data-path="intermediate-sql.html"><a href="intermediate-sql.html#sorting-results"><i class="fa fa-check"></i><b>24.4.1</b> Sorting results</a></li>
+<li class="chapter" data-level="24.4.2" data-path="intermediate-sql.html"><a href="intermediate-sql.html#grouping-data"><i class="fa fa-check"></i><b>24.4.2</b> Grouping data</a></li>
+<li class="chapter" data-level="24.4.3" data-path="intermediate-sql.html"><a href="intermediate-sql.html#filtering-grouped-data"><i class="fa fa-check"></i><b>24.4.3</b> Filtering grouped data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html"><i class="fa fa-check"></i><b>25</b> Joining Data in SQL</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#inner-joins"><i class="fa fa-check"></i><b>25.1</b> Inner Joins</a>
+<ul>
+<li class="chapter" data-level="25.1.1" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#ins-outs-of-inner-join"><i class="fa fa-check"></i><b>25.1.1</b> ins &amp; outs of INNER JOIN</a></li>
+<li class="chapter" data-level="25.1.2" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#defining-relationships"><i class="fa fa-check"></i><b>25.1.2</b> Defining relationships</a></li>
+<li class="chapter" data-level="25.1.3" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#multiple-joins"><i class="fa fa-check"></i><b>25.1.3</b> Multiple joins</a></li>
+</ul></li>
+<li class="chapter" data-level="25.2" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#outer-cross-self-joins"><i class="fa fa-check"></i><b>25.2</b> Outer, Cross &amp; Self Joins</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#left-right-joins-1"><i class="fa fa-check"></i><b>25.2.1</b> LEFT &amp; RIGHT JOINs</a></li>
+<li class="chapter" data-level="25.2.2" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#full-join-1"><i class="fa fa-check"></i><b>25.2.2</b> FULL JOIN</a></li>
+<li class="chapter" data-level="25.2.3" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#cross-join"><i class="fa fa-check"></i><b>25.2.3</b> CROSS JOIN</a></li>
+<li class="chapter" data-level="25.2.4" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#self-joins"><i class="fa fa-check"></i><b>25.2.4</b> Self joins</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#set-theory-for-sql-joins"><i class="fa fa-check"></i><b>25.3</b> Set Theory for SQL Joins</a>
+<ul>
+<li class="chapter" data-level="25.3.1" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#union-vs.-union-all"><i class="fa fa-check"></i><b>25.3.1</b> UNION vs. UNION ALL</a></li>
+<li class="chapter" data-level="25.3.2" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#intersect"><i class="fa fa-check"></i><b>25.3.2</b> INTERSECT</a></li>
+<li class="chapter" data-level="25.3.3" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#except"><i class="fa fa-check"></i><b>25.3.3</b> EXCEPT</a></li>
+</ul></li>
+<li class="chapter" data-level="25.4" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#subqueries"><i class="fa fa-check"></i><b>25.4</b> Subqueries</a>
+<ul>
+<li class="chapter" data-level="25.4.1" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#with-semi-joins-anti-joins"><i class="fa fa-check"></i><b>25.4.1</b> With semi joins &amp; anti joins</a></li>
+<li class="chapter" data-level="25.4.2" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#inside-where-select"><i class="fa fa-check"></i><b>25.4.2</b> Inside WHERE &amp; SELECT</a></li>
+<li class="chapter" data-level="25.4.3" data-path="joining-data-in-sql.html"><a href="joining-data-in-sql.html#inside-from"><i class="fa fa-check"></i><b>25.4.3</b> Inside FROM</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="introduction-to-git.html"><a href="introduction-to-git.html"><i class="fa fa-check"></i><b>26</b> Introduction to Git</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="introduction-to-git.html"><a href="introduction-to-git.html#introduction-6"><i class="fa fa-check"></i><b>26.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="26.1.1" data-path="introduction-to-git.html"><a href="introduction-to-git.html#useful-shell-commands"><i class="fa fa-check"></i><b>26.1.1</b> Useful shell commands</a></li>
+<li class="chapter" data-level="26.1.2" data-path="introduction-to-git.html"><a href="introduction-to-git.html#saving-files"><i class="fa fa-check"></i><b>26.1.2</b> Saving files</a></li>
+<li class="chapter" data-level="26.1.3" data-path="introduction-to-git.html"><a href="introduction-to-git.html#comparing-files"><i class="fa fa-check"></i><b>26.1.3</b> Comparing files</a></li>
+</ul></li>
+<li class="chapter" data-level="26.2" data-path="introduction-to-git.html"><a href="introduction-to-git.html#making-changes"><i class="fa fa-check"></i><b>26.2</b> Making changes</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="introduction-to-git.html"><a href="introduction-to-git.html#storing-data-with-git"><i class="fa fa-check"></i><b>26.2.1</b> Storing data with Git</a></li>
+<li class="chapter" data-level="26.2.2" data-path="introduction-to-git.html"><a href="introduction-to-git.html#viewing-changes"><i class="fa fa-check"></i><b>26.2.2</b> Viewing changes</a></li>
+<li class="chapter" data-level="26.2.3" data-path="introduction-to-git.html"><a href="introduction-to-git.html#undoing-changes-before-committing"><i class="fa fa-check"></i><b>26.2.3</b> Undoing changes before committing</a></li>
+<li class="chapter" data-level="26.2.4" data-path="introduction-to-git.html"><a href="introduction-to-git.html#restoring-and-reverting"><i class="fa fa-check"></i><b>26.2.4</b> Restoring and reverting</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="introduction-to-git.html"><a href="introduction-to-git.html#git-workflows"><i class="fa fa-check"></i><b>26.3</b> Git workflows</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="introduction-to-git.html"><a href="introduction-to-git.html#configuring-git"><i class="fa fa-check"></i><b>26.3.1</b> Configuring Git</a></li>
+<li class="chapter" data-level="26.3.2" data-path="introduction-to-git.html"><a href="introduction-to-git.html#branches"><i class="fa fa-check"></i><b>26.3.2</b> Branches</a></li>
+<li class="chapter" data-level="26.3.3" data-path="introduction-to-git.html"><a href="introduction-to-git.html#working-with-branches"><i class="fa fa-check"></i><b>26.3.3</b> Working with branches</a></li>
+<li class="chapter" data-level="26.3.4" data-path="introduction-to-git.html"><a href="introduction-to-git.html#handling-conflict"><i class="fa fa-check"></i><b>26.3.4</b> Handling conflict</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="introduction-to-git.html"><a href="introduction-to-git.html#collaborating-with-git"><i class="fa fa-check"></i><b>26.4</b> Collaborating with Git</a>
+<ul>
+<li class="chapter" data-level="26.4.1" data-path="introduction-to-git.html"><a href="introduction-to-git.html#creating-repos"><i class="fa fa-check"></i><b>26.4.1</b> Creating repos</a></li>
+<li class="chapter" data-level="26.4.2" data-path="introduction-to-git.html"><a href="introduction-to-git.html#working-with-remotes"><i class="fa fa-check"></i><b>26.4.2</b> Working with remotes</a></li>
+<li class="chapter" data-level="26.4.3" data-path="introduction-to-git.html"><a href="introduction-to-git.html#pulling-from-a-remote"><i class="fa fa-check"></i><b>26.4.3</b> Pulling from a remote</a></li>
+<li class="chapter" data-level="26.4.4" data-path="introduction-to-git.html"><a href="introduction-to-git.html#pushing-to-a-remote"><i class="fa fa-check"></i><b>26.4.4</b> Pushing to a remote</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Scientist with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-sql" class="section level1 hasAnchor" number="23">
+<h1><span class="header-section-number">Chapter 23</span> Introduction to SQL<a href="introduction-to-sql.html#introduction-to-sql" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="relational-databases" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Relational Databases<a href="introduction-to-sql.html#relational-databases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="databases" class="section level3 hasAnchor" number="23.1.1">
+<h3><span class="header-section-number">23.1.1</span> Databases<a href="introduction-to-sql.html#databases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Relational databases</strong></p>
+<ul>
+<li>Define relationships between tables of data inside the database</li>
+</ul>
+<p><strong>Database advantages</strong></p>
+<ul>
+<li><p>More storage than spreadsheet applications</p></li>
+<li><p>Storage is more secure</p></li>
+</ul>
+<p><strong>SQL</strong></p>
+<ul>
+<li><p>Short for Structured Query Language</p></li>
+<li><p>The most widely used programming language for databases</p></li>
+</ul>
+</div>
+<div id="tables" class="section level3 hasAnchor" number="23.1.2">
+<h3><span class="header-section-number">23.1.2</span> Tables<a href="introduction-to-sql.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Tables</strong></p>
+<ul>
+<li><p>Table rows and columns are referred to as <em>records</em> and <em>fields</em></p></li>
+<li><p>Fields are set at database creation; there is no limit to the number of records</p></li>
+<li><p>Table names:</p>
+<ul>
+<li><p>lowercase</p></li>
+<li><p>no spaces — use underscores instead</p></li>
+<li><p>refer to a collective group or be plural</p></li>
+</ul></li>
+</ul>
+<p><strong>Table: fields</strong></p>
+<ul>
+<li><p>A field is a column that holds one piece of information about all records</p></li>
+<li><p>Field names:</p>
+<ul>
+<li><p>lowercase</p></li>
+<li><p>no spaces — use underscores instead</p></li>
+<li><p>singular</p></li>
+<li><p>different from other field names</p></li>
+<li><p>different from the table name</p></li>
+</ul></li>
+</ul>
+<p><strong>key</strong></p>
+<ul>
+<li><p><em>Unique identifiers</em> are used to identify records in a table</p></li>
+<li><p>They are unique and often numbers</p></li>
+</ul>
+</div>
+<div id="data" class="section level3 hasAnchor" number="23.1.3">
+<h3><span class="header-section-number">23.1.3</span> Data<a href="introduction-to-sql.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>SQL data types</strong></p>
+<ul>
+<li><p>Strings: <code>VARCHAR</code></p></li>
+<li><p>Integers: <code>INT</code></p></li>
+<li><p>Floats: <code>NUMERIC</code></p></li>
+</ul>
+<p><strong>Schemas</strong></p>
+<ul>
+<li><p>Shows a database’s design, such as what tables are included in the database and any relationships between its tables.</p></li>
+<li><p>Shows data types</p></li>
+</ul>
+</div>
+</div>
+<div id="querying" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Querying<a href="introduction-to-sql.html#querying" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introducing" class="section level3 hasAnchor" number="23.2.1">
+<h3><span class="header-section-number">23.2.1</span> Introducing<a href="introduction-to-sql.html#introducing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="querying-table" class="section level4 hasAnchor" number="23.2.1.1">
+<h4><span class="header-section-number">23.2.1.1</span> Querying table<a href="introduction-to-sql.html#querying-table" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Practice selecting fields from <code>books</code> table.</p>
+<p><img src="https://assets.datacamp.com/production/repositories/6051/datasets/e29a42b38f1f06c8dc59b448acee9cbd9419f337/books_schema_zoom.png" width="192" /></p>
+<div class="sourceCode" id="cb3186"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3186-1"><a href="introduction-to-sql.html#cb3186-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Return all titles from the books table</span></span>
+<span id="cb3186-2"><a href="introduction-to-sql.html#cb3186-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title</span>
+<span id="cb3186-3"><a href="introduction-to-sql.html#cb3186-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
+<span id="cb3186-4"><a href="introduction-to-sql.html#cb3186-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3186-5"><a href="introduction-to-sql.html#cb3186-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select title and author from the books table</span></span>
+<span id="cb3186-6"><a href="introduction-to-sql.html#cb3186-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, author</span>
+<span id="cb3186-7"><a href="introduction-to-sql.html#cb3186-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
+<span id="cb3186-8"><a href="introduction-to-sql.html#cb3186-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3186-9"><a href="introduction-to-sql.html#cb3186-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all fields from the books table</span></span>
+<span id="cb3186-10"><a href="introduction-to-sql.html#cb3186-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3186-11"><a href="introduction-to-sql.html#cb3186-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
+</div>
+</div>
+<div id="writing-queries" class="section level3 hasAnchor" number="23.2.2">
+<h3><span class="header-section-number">23.2.2</span> Writing queries<a href="introduction-to-sql.html#writing-queries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="distinct" class="section level4 hasAnchor" number="23.2.2.1">
+<h4><span class="header-section-number">23.2.2.1</span> DISTINCT<a href="introduction-to-sql.html#distinct" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>DISTINCT</code> keyword can be used to return unique values in a field.</p>
+<p>There are 350 books in the <code>books</code> table, representing all of the books that our local library has available for checkout. But how many different authors are represented in these 350 books? The answer is surely less than 350. For example, J.K. Rowling wrote all seven Harry Potter books, so if our library has all Harry Potter books, seven books will be written by J.K Rowling.</p>
+<div class="sourceCode" id="cb3187"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3187-1"><a href="introduction-to-sql.html#cb3187-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select unique authors from the books table</span></span>
+<span id="cb3187-2"><a href="introduction-to-sql.html#cb3187-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author</span>
+<span id="cb3187-3"><a href="introduction-to-sql.html#cb3187-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books </span>
+<span id="cb3187-4"><a href="introduction-to-sql.html#cb3187-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3187-5"><a href="introduction-to-sql.html#cb3187-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select unique authors and genre combinations from the books table</span></span>
+<span id="cb3187-6"><a href="introduction-to-sql.html#cb3187-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author, genre</span>
+<span id="cb3187-7"><a href="introduction-to-sql.html#cb3187-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
+<p>You found 247 unique authors in the books table overall but 249 unique combinations of authors and genres. This means there are one or two authors who have written books in multiple genres!</p>
+</div>
+<div id="as" class="section level4 hasAnchor" number="23.2.2.2">
+<h4><span class="header-section-number">23.2.2.2</span> AS<a href="introduction-to-sql.html#as" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Use <em>aliasing</em> to rename columns.</p>
+<div class="sourceCode" id="cb3188"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3188-1"><a href="introduction-to-sql.html#cb3188-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Alias author so that it becomes unique_author</span></span>
+<span id="cb3188-2"><a href="introduction-to-sql.html#cb3188-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author <span class="kw">AS</span> unique_author</span>
+<span id="cb3188-3"><a href="introduction-to-sql.html#cb3188-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span></code></pre></div>
+</div>
+<div id="view" class="section level4 hasAnchor" number="23.2.2.3">
+<h4><span class="header-section-number">23.2.2.3</span> VIEW<a href="introduction-to-sql.html#view" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>A view is a virtual table that is the result of a saved SQL <code>SELECT</code> statement</p></li>
+<li><p>The query code is stored for later use.</p></li>
+</ul>
+<div class="sourceCode" id="cb3189"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3189-1"><a href="introduction-to-sql.html#cb3189-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Save the results of this query as a view called library_authors</span></span>
+<span id="cb3189-2"><a href="introduction-to-sql.html#cb3189-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> library_authors <span class="kw">AS</span></span>
+<span id="cb3189-3"><a href="introduction-to-sql.html#cb3189-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> author <span class="kw">AS</span> unique_author</span>
+<span id="cb3189-4"><a href="introduction-to-sql.html#cb3189-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books;</span>
+<span id="cb3189-5"><a href="introduction-to-sql.html#cb3189-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3189-6"><a href="introduction-to-sql.html#cb3189-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select all columns from library_authors</span></span>
+<span id="cb3189-7"><a href="introduction-to-sql.html#cb3189-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3189-8"><a href="introduction-to-sql.html#cb3189-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> library_authors</span></code></pre></div>
+<p>As your SQL queries become long and complex, you’ll want to be able to save your queries for referencing later. Views can also be useful when the information contained in a database table isn’t quite what you need. You can create your own custom view with exactly the information you are looking for, without needing to edit the database itself</p>
+</div>
+</div>
+<div id="sql-flavors" class="section level3 hasAnchor" number="23.2.3">
+<h3><span class="header-section-number">23.2.3</span> SQL flavors<a href="introduction-to-sql.html#sql-flavors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Two popular SQL flavors</strong></p>
+<ul>
+<li><p>PostgreSQL</p>
+<ul>
+<li><p>Free and open-source relational database system</p></li>
+<li><p>“PostgreSQL” refers to both the PostgreSQL database system and its associated SQL flavor</p></li>
+</ul></li>
+<li><p>SQL Server</p>
+<ul>
+<li><p>Has free and paid versions</p></li>
+<li><p>Created by Microsoft</p></li>
+<li><p>T-SQL is Microsoft’s SQL flavor, used with SQL Server databases</p></li>
+</ul></li>
+<li><p>Comparing PostgreSQL and SQL Server</p>
+<ul>
+<li><p>PostgreSQL: <code>LIMIT 2</code></p></li>
+<li><p>SQL Server: <code>TOP(2)</code></p></li>
+</ul></li>
+</ul>
+<div id="limit" class="section level4 hasAnchor" number="23.2.3.1">
+<h4><span class="header-section-number">23.2.3.1</span> LIMIT<a href="introduction-to-sql.html#limit" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Queries are often written with a <code>LIMIT</code> of just a few records to test out code before selecting thousands of results from the database.</p>
+<div class="sourceCode" id="cb3190"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3190-1"><a href="introduction-to-sql.html#cb3190-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Select the first 10 genres from books using PostgreSQL</span></span>
+<span id="cb3190-2"><a href="introduction-to-sql.html#cb3190-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> genre </span>
+<span id="cb3190-3"><a href="introduction-to-sql.html#cb3190-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> books</span>
+<span id="cb3190-4"><a href="introduction-to-sql.html#cb3190-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intermediate-importing-data-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intermediate-sql.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "github"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/23-Introduction-to-SQL.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
