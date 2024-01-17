@@ -23,7 +23,7 @@
 <meta name="author" content="Yen Chun Chen" />
 
 
-<meta name="date" content="2024-01-16" />
+<meta name="date" content="2024-01-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1852,9 +1852,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You’ll need to validate the age of each account and see if rows with inconsistent <code>acct_ages</code> are the same ones that had inconsistent <code>total</code>s.</p>
 <div class="sourceCode" id="cb1289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="cleaning-data-in-r.html#cb1289-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example</span></span>
 <span id="cb1289-2"><a href="cleaning-data-in-r.html#cb1289-2" aria-hidden="true" tabindex="-1"></a>date_difference <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2015-09-04&quot;</span>) <span class="sc">%--%</span> <span class="fu">today</span>(); date_difference</span></code></pre></div>
-<pre><code>## [1] 2015-09-04 UTC--2024-01-16 UTC</code></pre>
+<pre><code>## [1] 2015-09-04 UTC--2024-01-17 UTC</code></pre>
 <div class="sourceCode" id="cb1291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1291-1"><a href="cleaning-data-in-r.html#cb1291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(date_difference, <span class="st">&quot;years&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] 8.366872</code></pre>
+<pre><code>## [1] 8.36961</code></pre>
 <div class="sourceCode" id="cb1293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1293-1"><a href="cleaning-data-in-r.html#cb1293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor</span>(<span class="fu">as.numeric</span>(date_difference, <span class="st">&quot;years&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <div class="sourceCode" id="cb1295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1295-1"><a href="cleaning-data-in-r.html#cb1295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find invalid acct_age</span></span>
