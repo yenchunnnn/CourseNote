@@ -1767,7 +1767,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Time difference of 19904 days</code></pre>
 <div class="sourceCode" id="cb1469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1469-1"><a href="working-with-dates-and-times-in-r.html#cb1469-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many seconds since the first man on the moon?</span></span>
 <span id="cb1469-2"><a href="working-with-dates-and-times-in-r.html#cb1469-2" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(<span class="fu">now</span>(), moment_step, <span class="at">units =</span> <span class="st">&quot;secs&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 1719705367 secs</code></pre>
+<pre><code>## Time difference of 1719707816 secs</code></pre>
 <p><em>How many seconds are in a day?</em></p>
 <p>There are 24 hours in a day, 60 minutes in an hour, and 60 seconds in a minute, so there should be <code>24*60*60</code> = <code>86400</code> seconds, right? — Not always!🙄</p>
 <div class="sourceCode" id="cb1471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1471-1"><a href="working-with-dates-and-times-in-r.html#cb1471-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Three dates</span></span>
@@ -2577,9 +2577,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1559-4"><a href="working-with-dates-and-times-in-r.html#cb1559-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fasttime =</span> <span class="fu">fastPOSIXct</span>(dates),</span>
 <span id="cb1559-5"><a href="working-with-dates-and-times-in-r.html#cb1559-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##      expr     min       lq     mean  median      uq     max neval
-##   ymd_hms 47.9558 49.44790 53.68817 51.8736 56.1473 68.9257    20
-##  fasttime  2.1244  2.17845  2.47275  2.2323  2.4213  4.0900    20</code></pre>
+##      expr     min       lq     mean   median       uq     max neval
+##   ymd_hms 46.3702 48.23410 48.82887 48.63785 49.18935 53.9671    20
+##  fasttime  2.0822  2.13505  2.21726  2.17460  2.23080  2.7204    20</code></pre>
 </div>
 <div id="fast-parsing-with-lubridate" class="section level4 hasAnchor" number="11.4.2.2">
 <h4><span class="header-section-number">11.4.2.2</span> Fast parsing with lubridate<a href="working-with-dates-and-times-in-r.html#fast-parsing-with-lubridate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -2603,10 +2603,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1565-5"><a href="working-with-dates-and-times-in-r.html#cb1565-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fast_strptime =</span> <span class="fu">fast_strptime</span>(dates, <span class="at">format =</span> <span class="st">&quot;%Y-%m-%dT%H:%M:%SZ&quot;</span>),</span>
 <span id="cb1565-6"><a href="working-with-dates-and-times-in-r.html#cb1565-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##           expr     min       lq      mean   median       uq     max neval
-##        ymd_hms 48.3436 49.02100 56.254890 54.23005 59.78200 82.9856    20
-##       fasttime  2.0910  2.17075  2.681055  2.30245  2.87640  5.1001    20
-##  fast_strptime  2.2192  2.55460  2.856580  2.59020  2.80825  4.5428    20</code></pre>
+##           expr     min      lq      mean   median       uq     max neval
+##        ymd_hms 45.7854 46.7106 47.475305 47.07200 47.39205 52.4122    20
+##       fasttime  2.0275  2.0568  2.117880  2.12985  2.16330  2.2124    20
+##  fast_strptime  2.1705  2.2575  2.485945  2.50935  2.62355  3.0793    20</code></pre>
 </div>
 <div id="outputting-pretty-dates-and-times" class="section level4 hasAnchor" number="11.4.2.3">
 <h4><span class="header-section-number">11.4.2.3</span> Outputting pretty dates and times<a href="working-with-dates-and-times-in-r.html#outputting-pretty-dates-and-times" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -2630,7 +2630,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     }
 ##     format(x, format = &quot;%A, %b %d, %Y&quot;)
 ## }
-## &lt;environment: 0x000001b2b27d21f0&gt;</code></pre>
+## &lt;environment: 0x00000223052fc950&gt;</code></pre>
 <p>Format today’s date by <code>date_stamp</code>.</p>
 <div class="sourceCode" id="cb1572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1572-1"><a href="working-with-dates-and-times-in-r.html#cb1572-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call date_stamp on today()</span></span>
 <span id="cb1572-2"><a href="working-with-dates-and-times-in-r.html#cb1572-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date_stamp</span>(<span class="fu">today</span>())</span></code></pre></div>
