@@ -5,25 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 22 Intermediate Importing Data in R | Data Scientist with R</title>
-  <meta name="description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta name="description" content="This is a notebook about the data science courses took at datacamp." />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 22 Intermediate Importing Data in R | Data Scientist with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta property="og:description" content="This is a notebook about the data science courses took at datacamp." />
   <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 22 Intermediate Importing Data in R | Data Scientist with R" />
   
-  <meta name="twitter:description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta name="twitter:description" content="This is a notebook about the data science courses took at datacamp." />
   
 
-<meta name="author" content="Yen Chun Chen" />
+<meta name="author" content="Yen-Chun Chen" />
 
 
-<meta name="date" content="2024-01-17" />
+<meta name="date" content="2024-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1373,7 +1373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3102-8"><a href="intermediate-importing-data-in-r.html#cb3102-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print resp</span></span>
 <span id="cb3102-9"><a href="intermediate-importing-data-in-r.html#cb3102-9" aria-hidden="true" tabindex="-1"></a>resp</span></code></pre></div>
 <pre><code>## Response [http://www.example.com/]
-##   Date: 2024-01-17 03:37
+##   Date: 2024-02-12 07:45
 ##   Status: 200
 ##   Content-Type: text/html; charset=UTF-8
 ##   Size: 1.26 kB
@@ -1409,13 +1409,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3108-5"><a href="intermediate-importing-data-in-r.html#cb3108-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print resp</span></span>
 <span id="cb3108-6"><a href="intermediate-importing-data-in-r.html#cb3108-6" aria-hidden="true" tabindex="-1"></a>resp</span></code></pre></div>
 <pre><code>## Response [http://www.omdbapi.com/?apikey=72bc447a&amp;t=Annie+Hall&amp;y=&amp;plot=short&amp;r=json]
-##   Date: 2024-01-17 03:37
+##   Date: 2024-02-12 07:45
 ##   Status: 200
 ##   Content-Type: application/json; charset=utf-8
 ##   Size: 1.02 kB</code></pre>
 <div class="sourceCode" id="cb3110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3110-1"><a href="intermediate-importing-data-in-r.html#cb3110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print content of resp as text</span></span>
 <span id="cb3110-2"><a href="intermediate-importing-data-in-r.html#cb3110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">&quot;text&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;{\&quot;Title\&quot;:\&quot;Annie Hall\&quot;,\&quot;Year\&quot;:\&quot;1977\&quot;,\&quot;Rated\&quot;:\&quot;PG\&quot;,\&quot;Released\&quot;:\&quot;20 Apr 1977\&quot;,\&quot;Runtime\&quot;:\&quot;93 min\&quot;,\&quot;Genre\&quot;:\&quot;Comedy, Romance\&quot;,\&quot;Director\&quot;:\&quot;Woody Allen\&quot;,\&quot;Writer\&quot;:\&quot;Woody Allen, Marshall Brickman\&quot;,\&quot;Actors\&quot;:\&quot;Woody Allen, Diane Keaton, Tony Roberts\&quot;,\&quot;Plot\&quot;:\&quot;Alvy Singer, a divorced Jewish comedian, reflects on his relationship with ex-lover Annie Hall, an aspiring nightclub singer, which ended abruptly just like his previous marriages.\&quot;,\&quot;Language\&quot;:\&quot;English, German\&quot;,\&quot;Country\&quot;:\&quot;United States\&quot;,\&quot;Awards\&quot;:\&quot;Won 4 Oscars. 32 wins &amp; 9 nominations total\&quot;,\&quot;Poster\&quot;:\&quot;https://m.media-amazon.com/images/M/MV5BZDg1OGQ4YzgtM2Y2NS00NjA3LWFjYTctMDRlMDI3NWE1OTUyXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_SX300.jpg\&quot;,\&quot;Ratings\&quot;:[{\&quot;Source\&quot;:\&quot;Internet Movie Database\&quot;,\&quot;Value\&quot;:\&quot;8.0/10\&quot;},{\&quot;Source\&quot;:\&quot;Rotten Tomatoes\&quot;,\&quot;Value\&quot;:\&quot;97%\&quot;},{\&quot;Source\&quot;:\&quot;Metacritic\&quot;,\&quot;Value\&quot;:\&quot;92/100\&quot;}],\&quot;Metascore\&quot;:\&quot;92\&quot;,\&quot;imdbRating\&quot;:\&quot;8.0\&quot;,\&quot;imdbVotes\&quot;:\&quot;274,689\&quot;,\&quot;imdbID\&quot;:\&quot;tt0075686\&quot;,\&quot;Type\&quot;:\&quot;movie\&quot;,\&quot;DVD\&quot;:\&quot;03 Sep 2015\&quot;,\&quot;BoxOffice\&quot;:\&quot;$38,251,425\&quot;,\&quot;Production\&quot;:\&quot;N/A\&quot;,\&quot;Website\&quot;:\&quot;N/A\&quot;,\&quot;Response\&quot;:\&quot;True\&quot;}&quot;</code></pre>
+<pre><code>## [1] &quot;{\&quot;Title\&quot;:\&quot;Annie Hall\&quot;,\&quot;Year\&quot;:\&quot;1977\&quot;,\&quot;Rated\&quot;:\&quot;PG\&quot;,\&quot;Released\&quot;:\&quot;20 Apr 1977\&quot;,\&quot;Runtime\&quot;:\&quot;93 min\&quot;,\&quot;Genre\&quot;:\&quot;Comedy, Romance\&quot;,\&quot;Director\&quot;:\&quot;Woody Allen\&quot;,\&quot;Writer\&quot;:\&quot;Woody Allen, Marshall Brickman\&quot;,\&quot;Actors\&quot;:\&quot;Woody Allen, Diane Keaton, Tony Roberts\&quot;,\&quot;Plot\&quot;:\&quot;Alvy Singer, a divorced Jewish comedian, reflects on his relationship with ex-lover Annie Hall, an aspiring nightclub singer, which ended abruptly just like his previous marriages.\&quot;,\&quot;Language\&quot;:\&quot;English, German\&quot;,\&quot;Country\&quot;:\&quot;United States\&quot;,\&quot;Awards\&quot;:\&quot;Won 4 Oscars. 32 wins &amp; 9 nominations total\&quot;,\&quot;Poster\&quot;:\&quot;https://m.media-amazon.com/images/M/MV5BZDg1OGQ4YzgtM2Y2NS00NjA3LWFjYTctMDRlMDI3NWE1OTUyXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_SX300.jpg\&quot;,\&quot;Ratings\&quot;:[{\&quot;Source\&quot;:\&quot;Internet Movie Database\&quot;,\&quot;Value\&quot;:\&quot;8.0/10\&quot;},{\&quot;Source\&quot;:\&quot;Rotten Tomatoes\&quot;,\&quot;Value\&quot;:\&quot;97%\&quot;},{\&quot;Source\&quot;:\&quot;Metacritic\&quot;,\&quot;Value\&quot;:\&quot;92/100\&quot;}],\&quot;Metascore\&quot;:\&quot;92\&quot;,\&quot;imdbRating\&quot;:\&quot;8.0\&quot;,\&quot;imdbVotes\&quot;:\&quot;275,736\&quot;,\&quot;imdbID\&quot;:\&quot;tt0075686\&quot;,\&quot;Type\&quot;:\&quot;movie\&quot;,\&quot;DVD\&quot;:\&quot;03 Sep 2015\&quot;,\&quot;BoxOffice\&quot;:\&quot;$38,251,425\&quot;,\&quot;Production\&quot;:\&quot;N/A\&quot;,\&quot;Website\&quot;:\&quot;N/A\&quot;,\&quot;Response\&quot;:\&quot;True\&quot;}&quot;</code></pre>
 <p>This time do not specify <code>as</code> argument. R figures out automatically that you’re dealing with a JSON, and converts the JSON to a named R list.</p>
 <div class="sourceCode" id="cb3112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3112-1"><a href="intermediate-importing-data-in-r.html#cb3112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print content of resp</span></span>
 <span id="cb3112-2"><a href="intermediate-importing-data-in-r.html#cb3112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp)</span></code></pre></div>
@@ -1494,7 +1494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] &quot;8.0&quot;
 ## 
 ## $imdbVotes
-## [1] &quot;274,689&quot;
+## [1] &quot;275,736&quot;
 ## 
 ## $imdbID
 ## [1] &quot;tt0075686&quot;
@@ -1625,14 +1625,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ Plot      : chr &quot;Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from&quot;| __truncated__
 ##  $ Language  : chr &quot;English&quot;
 ##  $ Country   : chr &quot;United States&quot;
-##  $ Awards    : chr &quot;Won 6 Oscars. 65 wins &amp; 31 nominations total&quot;
+##  $ Awards    : chr &quot;Won 6 Oscars. 66 wins &amp; 31 nominations total&quot;
 ##  $ Poster    : chr &quot;https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI&quot;| __truncated__
 ##  $ Ratings   :&#39;data.frame&#39;:  3 obs. of  2 variables:
 ##   ..$ Source: chr [1:3] &quot;Internet Movie Database&quot; &quot;Rotten Tomatoes&quot; &quot;Metacritic&quot;
 ##   ..$ Value : chr [1:3] &quot;8.6/10&quot; &quot;93%&quot; &quot;90/100&quot;
 ##  $ Metascore : chr &quot;90&quot;
 ##  $ imdbRating: chr &quot;8.6&quot;
-##  $ imdbVotes : chr &quot;1,429,914&quot;
+##  $ imdbVotes : chr &quot;1,435,882&quot;
 ##  $ imdbID    : chr &quot;tt0076759&quot;
 ##  $ Type      : chr &quot;movie&quot;
 ##  $ DVD       : chr &quot;10 Oct 2016&quot;

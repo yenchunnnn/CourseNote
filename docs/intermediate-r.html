@@ -5,25 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Intermediate R | Data Scientist with R</title>
-  <meta name="description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta name="description" content="This is a notebook about the data science courses took at datacamp." />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Intermediate R | Data Scientist with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta property="og:description" content="This is a notebook about the data science courses took at datacamp." />
   <meta name="github-repo" content="yenchunnnn/CourseNote" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 2 Intermediate R | Data Scientist with R" />
   
-  <meta name="twitter:description" content="This is a notebook about the data science courses took from the datacamp." />
+  <meta name="twitter:description" content="This is a notebook about the data science courses took at datacamp." />
   
 
-<meta name="author" content="Yen Chun Chen" />
+<meta name="author" content="Yen-Chun Chen" />
 
 
-<meta name="date" content="2024-01-17" />
+<meta name="date" content="2024-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2252,16 +2252,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="intermediate-r.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the current date: today</span></span>
 <span id="cb409-2"><a href="intermediate-r.html#cb409-2" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>(); today</span></code></pre></div>
-<pre><code>## [1] &quot;2024-01-17&quot;</code></pre>
+<pre><code>## [1] &quot;2024-02-12&quot;</code></pre>
 <div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="intermediate-r.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See what today looks like under the hood</span></span>
 <span id="cb411-2"><a href="intermediate-r.html#cb411-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">unclass</span>(today), <span class="st">&quot;days&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;19739 days&quot;</code></pre>
+<pre><code>## [1] &quot;19765 days&quot;</code></pre>
 <div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="intermediate-r.html#cb413-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the current time: now</span></span>
 <span id="cb413-2"><a href="intermediate-r.html#cb413-2" aria-hidden="true" tabindex="-1"></a>now <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>(); now</span></code></pre></div>
-<pre><code>## [1] &quot;2024-01-17 11:27:28 CST&quot;</code></pre>
+<pre><code>## [1] &quot;2024-02-12 15:34:01 CST&quot;</code></pre>
 <div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="intermediate-r.html#cb415-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See what now looks like under the hood</span></span>
 <span id="cb415-2"><a href="intermediate-r.html#cb415-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">unclass</span>(now), <span class="st">&quot;seconds&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;1705462048.63681 seconds&quot;</code></pre>
+<pre><code>## [1] &quot;1707723241.80102 seconds&quot;</code></pre>
 </div>
 <div id="format-of-dates" class="section level4 unnumbered hasAnchor">
 <h4>Format of dates<a href="intermediate-r.html#format-of-dates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
