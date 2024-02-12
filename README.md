@@ -1,6 +1,6 @@
 Welcome 🙂
 
-This is a notebook I took from Datacamp DS courses. You can find the preview of this notebook at https://yenchunnnn.github.io/CourseNote
+This is a notebook I took at Datacamp. You can find the preview of this notebook at https://yenchunnnn.github.io/CourseNote
 
 If you think it is helpful, please do not hesitate to give me a star!
 

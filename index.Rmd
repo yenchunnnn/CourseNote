@@ -15,7 +15,7 @@ github-repo: yenchunnnn/CourseNote
 
 # About {-}
 
-This is a notebook about the data science courses I took from the [Datacamp](https://www.datacamp.com/tracks/data-scientist-professional-with-r). If you think it's helpful, please do not hesitate to give me a star. ⭐
+This is a notebook about the data science courses I took at [Datacamp](https://www.datacamp.com/tracks/data-scientist-professional-with-r). If you think it's helpful, please do not hesitate to give me a star. ⭐
 
 Cheers! 😉
 
